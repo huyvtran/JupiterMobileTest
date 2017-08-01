@@ -1,0 +1,7 @@
+<ion-tabs>
+  <ion-tab [root]="tab1Root" tabTitle="Info" tabIcon="information-circle"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Financije" tabIcon="stats"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Osobe" tabIcon="contacts"  tabBadge="{{partner.personsCnt}}" tabBadgeStyle="medium"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="Lokacije" tabIcon="pin"  tabBadge="{{partner.locationCnt}}" tabBadgeStyle="medium"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="Bilješke" tabIcon="create"  tabBadge="{{partner.recordsCnt}}" tabBadgeStyle="medium"></ion-tab>
+</ion-tabs>

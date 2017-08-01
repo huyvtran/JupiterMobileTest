@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            {{title}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="spinner-container" *ngIf="wait==true">
+        <ion-spinner name="bubbles"></ion-spinner>
+        <div class="caption">Učitavanje. Molim pričekajte...</div>
+    </div>
+    <div>
+        <canvas #barCanvas></canvas>
+    </div>
+</ion-content>

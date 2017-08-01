@@ -1,0 +1,169 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+.back-button {
+  margin-left: 0px;
+  padding-left: 0px;
+  min-width: 32px;
+}
+
+.subtitle {
+    padding:4px;
+    text-align: center;
+    border-top: 1px dotted #cccccc;
+    font-size:1.2rem;
+    &.light {
+        background-color: map-get($colors, light)!important;
+    }
+}
+
+
+.toolbar-title {
+    font-size: 1.5rem!important
+}
+
+
+ion-title {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  right: 30px;
+  //padding: 0 60px 1px;
+  //width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+
+.sidebar-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+
+ion-menu {
+
+
+  width: 275px;
+  .menu-inner {
+    width:275px;
+  }
+
+  .logo { margin-top: 25px;}
+
+  .item {
+    padding-left: 0px;
+  }
+  .indicator {
+    position:absolute; 
+    top:0px;
+    width:5px; bottom:0px; 
+    height:100%; 
+    z-index:20;
+  }
+  .title {
+    display:table-cell; vertical-align:middle; padding-left: 11px;
+  }
+
+  .title-app {
+    margin-left: 11px; 
+  }
+
+
+
+  .list-header-md {
+      min-height: 3rem;
+      margin-bottom:0;
+      padding-left:16px;
+      background:#eeeeee;
+  }
+    .label-md {
+        margin:0px;
+    }
+
+  ion-icon {
+    position: relative;
+    z-index: 2;
+    font-size: 24px;
+    padding-left: 18px;
+    width:40px;
+  }
+  img.app {
+      position: relative;
+      z-index: 2;
+      padding-left: 16px;
+      height:24px;
+      width:40px;
+  }
+  ion-label {
+    margin: 8px 8px 8px 0;
+  }
+
+  ion-header {
+    position: relative;
+    padding: 5px;
+    background-image: url("../assets/images/menu/spin-bg.jpg");
+    background-position: 0px center;
+    background-size: 100% auto;
+    box-shadow: none;
+    min-height: 120px;
+
+    .spin-title {
+        position: absolute;
+        width: 100%;
+        color: white;
+        font-size: 18px;
+        text-align: center;
+        text-align: center;
+        bottom: 16px;        
+        padding-right: 10px;
+    }
+  } 
+}
+
+ion-icon.close {
+    font-size:2rem!important;
+}
+
+
+
+  .spinner-container {
+    width: 300px;
+    height: 90px;
+    margin:0 auto;
+    display: table;
+    border:1px solid #e1e1e1;
+    background: #f1f1f1;
+    border-radius: 15px;
+
+
+      ion-spinner {
+        top:20px;
+        position: relative;
+        margin:0 auto;
+        display: table;
+      }
+      div.caption {
+        text-align: center;
+        margin-top:25px;
+        font-size:1.6rem;
+        color:#666;
+        font-style: italic;
+      }
+  }

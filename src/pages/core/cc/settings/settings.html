@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Control Center - Postavke</ion-title>
+    </ion-navbar>
+    <div class="subtitle light">
+        {{globalProvider.getSubTitle()}}
+    </div>
+</ion-header>
+
+<ion-content doubleTap (dblTap)="doubleTap();">
+
+    <ion-list>
+        <ion-item-group>
+            <ion-item-divider ion-item color="light">
+                RESET
+                <ion-icon item-left name="refresh"></ion-icon>
+            </ion-item-divider>
+            <button ion-item (click)="reset('all')">
+                Resetiraj sve postavke
+            </button>
+            <button ion-item (click)="reset('auth')">
+                Resetiraj autorizacijske podatke
+            </button>
+        </ion-item-group>
+    </ion-list>
+    <ion-list radio-group>
+        <ion-item-divider ion-item color="light">
+            SKIN
+            <ion-icon item-left name="color-fill"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Jupiter GRAY</ion-label>
+            <ion-radio checked="true" value="gray"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Jupiter RED</ion-label>
+            <ion-radio value="red"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Jupiter GOLD</ion-label>
+            <ion-radio value="gold" disabled="true"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item-divider ion-item color="light">
+            SIGURNOST
+            <ion-icon item-left name="key"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Unos pina prilikom pokretanja</ion-label>
+            <ion-toggle></ion-toggle>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item-divider ion-item color="light">
+            OSTALO
+            <ion-icon item-left name="options"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Omogući pushup notifikacije</ion-label>
+            <ion-toggle checked="true"></ion-toggle>
+        </ion-item>
+    </ion-list>
+</ion-content>

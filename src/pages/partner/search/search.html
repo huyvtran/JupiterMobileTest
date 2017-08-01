@@ -1,0 +1,42 @@
+<!--
+  Generated template for the PartnerSearch page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon class="close" name="close-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Partner - tražilica</ion-title>
+        <ion-buttons end>
+            <button large ion-button (click)="favoritesProvider.addRemoveFavorite()">
+                <ion-icon style="font-size:24px; color:orange" name="star" *ngIf="favoritesProvider.favoriteExists==true"></ion-icon>
+                <ion-icon style="font-size:24px" name="star-outline" *ngIf="favoritesProvider.favoriteExists==false"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+    <div class="subtitle light">
+        {{globalProvider.getSubTitle()}}
+    </div>
+
+</ion-header>
+
+<ion-content>
+    <div padding>
+        <button ion-button block round icon-left (click)="partnerInfo()">
+            <ion-icon name="search"></ion-icon>
+            Tražilica
+        </button>
+    </div>
+    <ion-item-divider color="light">Posljednje pretrage</ion-item-divider>
+    <ion-list>
+        <button ion-item (click)="detailItem(item)" *ngFor="let item of partner.storageHistory">
+            {{item.naziv}}
+        </button>
+    </ion-list>
+</ion-content>

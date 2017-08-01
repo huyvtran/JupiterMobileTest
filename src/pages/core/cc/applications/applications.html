@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Control Center - Aplikacije</ion-title>
+    </ion-navbar>
+    <div class="subtitle jupiter" style="position: relative">
+        {{globalProvider.getSubTitle()}}
+        <img src="assets/images/jupiter-logo-min.svg" class="login-logo" style="position: absolute; height: 27px; right:4px; top:-7px; z-index:9999" />
+    </div>
+</ion-header>
+
+<ion-content doubleTap (dblTap)="doubleTap();">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>osvježavam podatke</ion-refresher-content>
+    </ion-refresher>
+    <!--<div style="padding:8px; font-size:10pt; background-color:#455c70; color:#718699;" text-center>INFO TOČKE:</div>-->
+    <div class="app-container app-info-container">
+        <ion-grid style="">
+            <ion-row style="">
+                <ion-col col-4 class="border" text-center>
+                    <button ion-button block clear (click)="uIzradi()">
+                        <div>
+                            <ion-icon name="cube"></ion-icon>
+                            <label>ROBA</label>
+                        </div>
+                    </button>
+                </ion-col>
+                <ion-col col-4 class="border" text-center>
+                    <button ion-button block clear (click)="openModule('PartnerTabsPage')">
+                        <div>
+                            <ion-icon name="briefcase"></ion-icon>
+                            <label>PARTNERI</label>
+                        </div>
+                    </button>
+                </ion-col>
+                <ion-col col-4 text-center>
+                    <button ion-button block clear (click)="uIzradi()">
+                        <div>
+                            <ion-icon name="person"></ion-icon>
+                            <label>OSOBE</label>
+                        </div>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+    <div class="main-content">
+        <div class="title-app">APLIKACIJE: 
+            <div style="position: absolute; top:4px; right:4px" *ngIf="globalProvider.modulesProvider.sync==true">
+                <ion-spinner name="bubbles"></ion-spinner>
+            </div>
+        </div>
+        <div class="container app-container white">
+            <div style="text-align:center; padding:10px;" *ngIf="globalProvider.modulesProvider.syncInit==true">
+                <ion-spinner name="bubbles"></ion-spinner>
+                <div text-center>inicijalno učitavanje aplikacija</div>
+                <div text-center>molim sačekajte</div>
+            </div>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4 col-md-2 *ngFor="let item of globalProvider.modulesProvider.modules">
+                        <button ion-button block color="dark" outline class="border-gray gradiant" (click)="startJupiterApp($event, item)">
+                        <div class="button-container">
+                            <img class="icon" src="data:image/png;base64,{{item.icon}}" />
+                            <div class="label-container"><label text-wrap>{{item.name}}</label></div>
+                        </div>
+                    </button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+    <ion-fab bottom right>
+        <button ion-fab mini color="danger" (click)="closePage()"><ion-icon name="power"></ion-icon></button>
+    </ion-fab>
+</ion-content>

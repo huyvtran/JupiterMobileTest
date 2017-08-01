@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Control Center - Tvrtke
+        </ion-title>
+    </ion-navbar>
+    <div class="subtitle light">
+        {{globalProvider.getSubTitle()}}
+    </div>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <button ion-item *ngFor="let item of company" (click)="openPage(item)">
+            <div class="company-icon" [ngStyle]="{'background-image': getCompanyIcon(item)}"></div>
+            <!--<div class="company-icon" style="display:inline-block" [ngStyle]="{'background-image': getBackgroundImage()}"></div>-->
+            <!--<img src="assets/images/spin.png" style="width:24px" item-left />-->
+            <div class="company-name">{{item.name}}</div>
+        </button>
+    </ion-list>
+</ion-content>

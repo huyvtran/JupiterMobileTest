@@ -1,0 +1,55 @@
+page-core-cc-profil {
+
+    .profile-image-container {
+        padding: 20px 0;
+        background: #4a5f71;
+        color: #ffffff;
+        .profile-name {
+            padding-top: 15px;
+        }
+    }
+
+    .profile-image-wrapper {
+        text-align: center;
+
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+
+
+
+
+
+            display: inline-block;
+
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .profile-image-placeholder {
+            display: inline-block;
+
+            //background-color: #eee;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+
+            //background: url('../assets/images/me.jpg') no-repeat;
+            background-size: cover;
+            -moz-box-shadow: 0px 0px 8px #000;
+            -webkit-box-shadow: 0px 0px 8px #000;
+            box-shadow: 0px 0px 8px #000;
+
+            font-size: 12px;
+
+            ion-icon {
+                font-size: 44px;
+                margin-bottom: -10px;
+                margin-top: 10px;
+            }
+        }
+  }
+}

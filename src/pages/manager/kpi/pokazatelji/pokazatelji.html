@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon class="close" name="close-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>KPI - pokazatelji</ion-title>
+        <ion-buttons end>
+            <button large ion-button (click)="favoritesProvider.addRemoveFavorite()">
+                <ion-icon style="font-size:24px; color:orange" name="star" *ngIf="favoritesProvider.favoriteExists==true"></ion-icon>
+                <ion-icon style="font-size:24px" name="star-outline" *ngIf="favoritesProvider.favoriteExists==false"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+    <div class="subtitle light">
+        {{globalProvider.getSubTitle()}}
+    </div>
+    <ion-item class="filter">
+        <ion-label>Filter (datum):</ion-label>
+        <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="managerKpiProvider.datum" (ionChange)="refreshPokazatelji()"></ion-datetime>
+    </ion-item>
+    <ion-segment [(ngModel)]="tip" style="background:#f8f8f8">
+        <ion-segment-button value="fav" (ionSelect)="pokazateljiView(0)">
+            Favoriti
+        </ion-segment-button>
+        <ion-segment-button value="pos" (ionSelect)="pokazateljiView(2)">
+            Posebni
+        </ion-segment-button>
+        <ion-segment-button value="sta" (ionSelect)="pokazateljiView(6)">
+            Standardni
+        </ion-segment-button>
+        <ion-segment-button value="fun" (ionSelect)="pokazateljiView(5)">
+            Financijski
+        </ion-segment-button>
+    </ion-segment>
+
+</ion-header>
+
+<ion-content padding>
+    <div class="spinner-container" *ngIf="wait==true">
+        <ion-spinner name="bubbles"></ion-spinner>
+        <div class="caption">Učitavanje. Molim pričekajte...</div>
+    </div>
+    <div *ngIf="wait==false">
+        <ion-card *ngFor="let p of cards" style="position:relative">
+            <ion-card-content>
+                <ion-card-title>
+                    <!--<span [style.color]="p.boja1">{{p.naziv}} {{p.invertBool}}</span>-->
+                    <span>{{p.naziv}}</span>
+                </ion-card-title>
+                <div class="container">
+                    <div text-right class="indicator">
+                        <div class="indicator-color brown" [style.background-color]="p.indikatorList[0].kvadraticBoja"></div>
+                        <div class="indicator-naziv">{{p.indikatorList[0].gadNaziv}}</div>
+                        {{p.indikatorList[0].iznosStr}}
+                    </div>
+                    <div class="iznosi"> 
+                        <div text-right class="indicator sub">
+                            <div class="indicator-color yellow" [style.background-color]="p.indikatorList[1].kvadraticBoja"></div>
+                            <div class="indicator-naziv">{{p.indikatorList[1].gadNaziv}}</div>
+                            {{p.indikatorList[1].iznosStr}}
+                        </div>
+                        <div text-right class="indicator sub">
+                            <div class="indicator-color red" [style.background-color]="p.indikatorList[2].kvadraticBoja"></div>
+                            <div class="indicator-naziv">{{p.indikatorList[2].gadNaziv}}</div>
+                            {{p.indikatorList[2].iznosStr}}
+                        </div>
+                        <div text-right class="indicator sub">
+                            <div class="indicator-color blue" [style.background-color]="p.indikatorList[3].kvadraticBoja" *ngIf="p.indikatorList.length>4"></div>
+                            <div class="indicator-naziv" *ngIf="p.indikatorList.length>4">{{p.indikatorList[3].gadNaziv}}</div>
+                            &nbsp;<span *ngIf="p.indikatorList.length>4">{{p.indikatorList[3].iznosStr}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div [style.background-image]="getBackgroundImage(p)" class="gauge">
+                    <img id="meter_needle" src="assets/images/needle.svg" alt=""  [style.transform]="'rotate(-' + p.postotak + 'deg)'" />
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

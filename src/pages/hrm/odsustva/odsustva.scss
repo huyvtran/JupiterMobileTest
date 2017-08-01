@@ -1,0 +1,13 @@
+page-hrm-odsustva {
+        .table[_ngcontent-c1]    > tbody[_ngcontent-c1]    > tr[_ngcontent-c1]    > td[_ngcontent-c1] {
+                padding: 4px 8px;                
+        }
+        .label-md {
+                margin:8px 8px 4px 0!important;
+        }
+}
+
+.table[_ngcontent-c1] > thead[_ngcontent-c1]:first-child > tr[_ngcontent-c1]:first-child > th[_ngcontent-c1] {
+        padding:1px;
+        font-size: 14px;
+}

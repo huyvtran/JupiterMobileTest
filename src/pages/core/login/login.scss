@@ -1,0 +1,114 @@
+page-login {
+    ion-content {
+        background-color:#364b5e!important;
+    }
+    
+    ion-spinner * {
+        stroke: #fff;
+        fill: #fff;
+    }
+    .spinner-md-circles circle {
+        fill: #fff;
+    }
+    .message {
+        color:#ffffff;
+        font-size: 12pt;
+        font-weight: 100;
+        color: #e6e6e6;
+        font-style: italic;
+    }
+
+
+    .item-md .item-inner {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .list-md .item-input.input-has-focus:last-child {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .list-md .item-input.input-has-focus:last-child .item-inner {
+        box-shadow: none;
+    }
+
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner {
+        box-shadow: none;
+    }
+
+    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+
+    div.login-button {
+        margin-bottom:20px;
+
+        ion-icon {
+            margin-left:10px;
+        }
+    }
+
+    div.login-caption {
+        color:#e5eaee; 
+        margin-bottom:4px; 
+        font-size:11pt;
+    }
+    .login-border-bottom {
+        margin-bottom:1px
+    }
+
+    .button.login {
+        padding: 2.4rem 2.6rem;
+        border-color:white; 
+        color:white;
+        letter-spacing: 2px;
+    }
+
+    .login-item-sifra {
+        background: #d8e0e6; 
+        margin-bottom:15px;
+
+        ion-input {
+            font-size:16pt; 
+            font-weight:600
+        }
+    }
+
+    .login-logo {
+        width:130px; 
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-bottom:28px;
+    }
+
+}
+
+.toast-error {
+    > div {
+        background: #c0392b!important;
+    }
+}

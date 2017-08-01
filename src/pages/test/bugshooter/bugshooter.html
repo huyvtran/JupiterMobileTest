@@ -1,0 +1,47 @@
+<!--
+  Generated template for the Bugshooter page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon class="close" name="close-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>HelpDesk - BugShooter</ion-title>
+        <ion-buttons end>
+            <button (click)="takePicture()" ion-button icon-only>
+              <ion-icon name="camera"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-navbar>
+    <div class="subtitle light">
+        {{globalProvider.getSubTitle()}}
+    </div>
+</ion-header>
+
+
+<ion-content padding>
+    <!--<button ion-button block (click)="takePicture()">Slikaj</button>-->
+    <div style="margin-bottom:30px">
+        <ion-card *ngFor="let str of base64Image; let i = index">
+            <ion-item>
+                <ion-fab right top>
+                    <button ion-fab mini color="danger" (click)="deletePicture(i)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+                </ion-fab>
+                <ion-card-content>
+                    <img [src]="str" *ngIf="base64Image" />
+                </ion-card-content>
+            </ion-item>
+        </ion-card>
+    </div>
+
+    <ion-fab bottom right>
+        <button ion-fab (click)="uIzradi()"><ion-icon name="send"></ion-icon></button>
+    </ion-fab>
+</ion-content>

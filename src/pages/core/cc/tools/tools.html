@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Control Center - Alati</ion-title>
+    </ion-navbar>
+    <div class="subtitle light">
+        {{globalProvider.getSubTitle()}}
+    </div>
+</ion-header>
+
+<ion-content doubleTap (dblTap)="doubleTap();">
+
+    <ion-list>
+        <ion-item-group>
+            <ion-item-divider color="light">HelpDesk</ion-item-divider>
+            <button ion-item (click)="openBugShooter()">
+                <ion-icon item-left name="camera"></ion-icon>
+                BugShooter
+            </button>
+            <ion-item-divider color="light">Admin</ion-item-divider>
+            <button ion-item (click)="uIzradi()">
+                <ion-icon item-left name="ribbon"></ion-icon>
+                Podaci o licencama
+            </button>
+            <button ion-item (click)="uIzradi()">
+                <ion-icon item-left name="time"></ion-icon>
+                Povijest spajanja
+            </button>
+            <button ion-item (click)="uIzradi()">
+                <ion-icon item-left name="settings"></ion-icon>
+                Konfiguracija
+            </button>
+        </ion-item-group>
+    </ion-list>
+</ion-content>

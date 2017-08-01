@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon class="close" name="close-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{globalProvider.getApplicationName()}}</ion-title>
+    </ion-navbar>
+    <div class="subtitle light">
+        {{globalProvider.getSubTitle()}}
+    </div>
+</ion-header>
+
+<ion-content>
+    <!--<div style="padding:8px; font-size:10pt; background-color:#455c70; color:#718699;" text-center>INFO TOČKE:</div>-->
+    <!--<ion-item-group>
+        <ion-item-divider color="light">Moj profil</ion-item-divider>
+        <button ion-item (click)="detailItem(item)">
+            <ion-icon name="ios-filing-outline" item-left></ion-icon>
+            Detalji djelatnika
+        </button>
+        <button ion-item (click)="detailItem(item)">
+            <ion-icon name="ios-filing-outline" item-left></ion-icon>
+            Evidencija godišnjeg
+        </button>
+        <button ion-item (click)="detailItem(item)">
+            <ion-icon name="ios-filing-outline" item-left></ion-icon>
+            Osnovna sredstva
+        </button>
+    </ion-item-group>
+    <ion-item-group>
+        <ion-item-divider color="light">Odustva</ion-item-divider>
+        <button ion-item (click)="detailItem(item)">
+            <ion-icon name="ios-filing-outline" item-left></ion-icon>
+            Popis odsustva
+        </button>
+        <button ion-item (click)="detailItem(item)">
+            <ion-icon name="ios-filing-outline" item-left></ion-icon>
+            Najava odsustva
+        </button>
+    </ion-item-group>
+    <ion-item-group>
+        <ion-item-divider color="light">Djelatnici</ion-item-divider>
+        <button ion-item (click)="detailItem(item)">
+            <ion-icon name="ios-filing-outline" item-left></ion-icon>
+            Popis djelatnika (imenik)
+        </button>
+    </ion-item-group>-->
+
+    <ion-item-group *ngFor="let item of globalProvider.modulesProvider.granule">
+        <ion-item-divider color="light">{{item.name}}</ion-item-divider>
+        <button ion-item (click)="startModule(menu)" *ngFor="let menu of item.menu" style="padding-left:60px;">
+            <img style="height:24px; max-width: 24px; top:10px; left:18px; position: absolute" src="data:image/png;base64,{{menu.icon}}" *ngIf="menu.icon != null" />
+            <img style="height:24px; max-width: 24px; top:10px; left:18px; position: absolute" src="assets/images/undefined.png" *ngIf="menu.icon == null" />
+            {{menu.name}}
+        </button>
+    </ion-item-group>
+</ion-content>

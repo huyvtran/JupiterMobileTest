@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button (click)="partner.close()">
+                <ion-icon class="close" name="close-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            <ion-title>Partner - {{partner.naziv}}</ion-title>
+        </ion-title>
+    </ion-navbar>
+    <div class="subtitle light">
+        {{globalProvider.getSubTitle()}}
+    </div>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <button ion-item *ngFor="let item of partner.biljeske" (click)="itemTapped($event, movie)">
+      <h2><span [innerHTML]="item.tema"></span></h2>
+    </button>
+    </ion-list>
+</ion-content>

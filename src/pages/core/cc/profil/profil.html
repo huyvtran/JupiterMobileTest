@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Control Center - Profil</ion-title>
+    </ion-navbar>
+    <div class="subtitle light">
+        {{globalProvider.getSubTitle()}}
+    </div>
+</ion-header>
+
+<ion-content doubleTap (dblTap)="doubleTap();">
+    <div class="profile-image-container">
+        <div class="profile-image-wrapper" (click)="getPicture()">
+            <div class="profile-image-placeholder" [ngStyle]="{'background-image': getBackgroundImage()}">
+                <!--<img class="icon" src="data:image/png;base64,{{user.image}}">-->
+            </div>
+        </div>
+        <div class="profile-name" text-center>
+            {{user.name}}
+        </div>
+    </div>
+    <ion-item>
+        <div class="title">Grupa</div>
+        <div class="content">
+            {{user.level}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Jupiter - windows login</div>
+        <div class="content">
+            {{user.login}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Zadnja prijava</div>
+        <div class="content">
+            22.05.2017 14:05
+        </div>
+    </ion-item>
+</ion-content>
