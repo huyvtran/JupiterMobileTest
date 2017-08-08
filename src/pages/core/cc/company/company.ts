@@ -2,8 +2,9 @@ import {Component} from '@angular/core';
 import {App, IonicPage, MenuController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 
-import {GlobalProvider} from '../../../../providers/global-provider';
-import {ModulesProvider} from '../../../../providers/modules-provider';
+import {GlobalProvider} from '../../../../providers/core/global-provider';
+import {VariablesProvider} from '../../../../providers/core/variables-provider';
+import {ModulesProvider} from '../../../../providers/core/modules-provider';
 
 @IonicPage()
 @Component({selector: 'page-core-cc-company', templateUrl: 'company.html'})
@@ -15,7 +16,7 @@ export class CoreCcCompanyPage {
            private menuCtrl: MenuController) {
         //this.menuCtrl = menuCtrl;
         this.menuCtrl.enable(false, 'mainMenu');        
-        this.company = GlobalProvider.jupiterSystemData.company;
+        this.company = GlobalProvider.getJupiterSystemData.company;
         modulesProvider.ClearData();
     }
 
@@ -26,9 +27,9 @@ export class CoreCcCompanyPage {
         .then(() => {
             this
                 .storage
-                .set(GlobalProvider.coreStorageKeys.company, JSON.stringify(item));
+                .set(GlobalProvider.getCoreStorageKeys.company, JSON.stringify(item));
         }).then(() => {
-            GlobalProvider.company = item;
+            VariablesProvider.company = item;
             GlobalProvider.pushPage('CoreCcTabsPage');
             this.app.getRootNav().setRoot('CoreCcTabsPage', {}, {animate: true, direction: 'forward'})
         });

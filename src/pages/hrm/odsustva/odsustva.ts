@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import {NavController, App, IonicPage, ToastController} from 'ionic-angular';
 import {LOCALE_ID} from '@angular/core';
 
-import {GlobalProvider} from '../../../providers/global-provider';
+import {GlobalProvider} from '../../../providers/core/global-provider';
 import {EvidencijaProvider} from '../../../providers/evidencija-provider';
-import {FavoritesProvider} from '../../../providers/favorites-provider';
+import {FavoritesProvider} from '../../../providers/core/favorites-provider';
 
 @IonicPage()
 @Component({

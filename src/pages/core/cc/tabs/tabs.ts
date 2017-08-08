@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage} from 'ionic-angular';
 
-import {FavoritesProvider} from '../../../../providers/favorites-provider';
+import {FavoritesProvider} from '../../../../providers/core/favorites-provider';
 
 // import { AboutPage } from '../about/about'; import { HomePage } from
 // '../home/home';

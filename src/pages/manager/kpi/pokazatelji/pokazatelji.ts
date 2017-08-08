@@ -4,8 +4,8 @@ import {NavController, IonicPage, ToastController} from 'ionic-angular';
 //import { DatePicker } from '@ionic-native/date-picker';
 import 'rxjs/add/operator/map';
 import {ManagerKpiProvider} from '../../../../providers/managerkpi-provider';
-import {GlobalProvider} from '../../../../providers/global-provider';
-import {FavoritesProvider} from '../../../../providers/favorites-provider';
+import {GlobalProvider} from '../../../../providers/core/global-provider';
+import {FavoritesProvider} from '../../../../providers/core/favorites-provider';
 
 @IonicPage()
 @Component({selector: 'page-manager-kpi-pokazatelji', templateUrl: 'pokazatelji.html'})
@@ -55,7 +55,7 @@ export class ManagerKpiPokazeteljiPage {
         headers.set('Content-Type', 'application/json');
 
         let body = {
-            "db": GlobalProvider.company.db,
+            "db": GlobalProvider.getCompanyData.db,
             "action": action,
             "operateriId": operateriId,
             "datum": this.managerKpiProvider.datum
@@ -66,7 +66,7 @@ export class ManagerKpiPokazeteljiPage {
         opt = new RequestOptions({headers: headers});
 
         //var url = 'http://localhost:25509/api/partner/info/' + id;
-        var url = GlobalProvider.loginData.serverPath + 'kpi/pokazatelji';
+        var url = GlobalProvider.getLoginData.serverPath + 'kpi/pokazatelji';
 
         var response = this
             .http

@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {IonicPage, App} from 'ionic-angular';
 
-import {FavoritesProvider} from '../../../../providers/favorites-provider';
-import {GlobalProvider} from '../../../../providers/global-provider';
+import {FavoritesProvider} from '../../../../providers/core/favorites-provider';
+import {GlobalProvider} from '../../../../providers/core/global-provider';
 
 @IonicPage()
 @Component({selector: 'page-core-cc-favorites', templateUrl: 'favorites.html'})

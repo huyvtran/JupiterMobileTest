@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
 import {IonicPage, App, AlertController } from 'ionic-angular';
-
-import {GlobalProvider} from '../../../../providers/global-provider';
 import {Storage} from '@ionic/storage';
+
+import {GlobalProvider} from '../../../../providers/core/global-provider';
+import {VariablesProvider} from '../../../../providers/core/variables-provider';
+
 
 @IonicPage()
 @Component({selector: 'page-core-cc-settings', templateUrl: 'settings.html'})
@@ -51,8 +53,8 @@ export class CoreCcSettingsPage {
                 }
             })
             .then(() => {
-                GlobalProvider.company = "";
-                GlobalProvider.refreshToken = "";
+                VariablesProvider.company = "";
+                //GlobalProvider.setRefreshToken("");
                 this
                     .app
                     .getRootNav()

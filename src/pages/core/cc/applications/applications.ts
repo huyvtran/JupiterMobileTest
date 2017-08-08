@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, App, NavController, ToastController, Events, MenuController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
-import {GlobalProvider} from '../../../../providers/global-provider';
+import {GlobalProvider} from '../../../../providers/core/global-provider';
 
 @IonicPage()
 @Component({selector: 'page-core-cc-applications', templateUrl: 'applications.html'})
@@ -11,7 +11,7 @@ export class CoreCcApplicationsPage {
         private events: Events, private menuCtrl: MenuController) {
         
         this.menuCtrl.enable(true, 'mainMenu');    
-        if (GlobalProvider.company == null) {
+        if (GlobalProvider.getCompanyData == null) {
             this.closePage();
         } else {
             //globalProvider.modulesProvider.getApps();

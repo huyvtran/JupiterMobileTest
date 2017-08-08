@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 
-import {GlobalProvider} from '../../../../providers/global-provider';
+import {GlobalProvider} from '../../../../providers/core/global-provider';
 
 
 @IonicPage()
@@ -13,7 +13,7 @@ export class CoreCcProfilPage {
     private user: any;
 
   constructor(private globalProvider : GlobalProvider) {
-        this.user = GlobalProvider.jupiterSystemData.user;
+        this.user = GlobalProvider.getJupiterSystemData.user;
   }
 
       doubleTap() {

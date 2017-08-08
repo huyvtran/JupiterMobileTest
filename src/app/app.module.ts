@@ -15,13 +15,18 @@ import { Device } from '@ionic-native/device';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+/***core components - begin***/
+import { GlobalProvider } from '../providers/core/global-provider';
+import { ModulesProvider } from '../providers/core/modules-provider';
+import { FavoritesProvider } from '../providers/core/favorites-provider';
+/***core components - end***/
+
 import { LoginProvider } from '../providers/login/login-provider';
 import { PartnerinfoProvider } from '../providers/partnerinfo-provider';
-import { ModulesProvider } from '../providers/modules-provider';
-import { GlobalProvider } from '../providers/global-provider';
-import { FavoritesProvider } from '../providers/favorites-provider';
 import { EvidencijaProvider } from '../providers/evidencija-provider';
 import { ManagerKpiProvider } from '../providers/managerkpi-provider';
+
+
 
 
 import { StorageRoot } from '../models/storage-root';
@@ -33,7 +38,8 @@ import { StorageRoot } from '../models/storage-root';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp, { scrollAssist: false, autoFocusAssist: false }),
+    IonicModule.forRoot(MyApp),
+    //IonicModule.forRoot(MyApp, { scrollAssist: false, autoFocusAssist: false }),
     //IonicModule.forRoot(MyApp,{preloadModules: true, scrollAssist: false, autoFocusAssist: false}),
     IonicStorageModule.forRoot()
   ],

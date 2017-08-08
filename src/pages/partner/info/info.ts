@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, ToastController } from 'ionic-angular';
 
-import { GlobalProvider } from '../../../providers/global-provider';
+import { GlobalProvider } from '../../../providers/core/global-provider';
 import { PartnerinfoProvider } from '../../../providers/partnerinfo-provider';
 
 declare var window;

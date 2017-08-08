@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { NavController, IonicPage, ToastController } from 'ionic-angular';
 import { ManagerKpiProvider } from '../../../../providers/managerkpi-provider';
-import { GlobalProvider } from '../../../../providers/global-provider';
-import { FavoritesProvider } from '../../../../providers/favorites-provider';
+import { GlobalProvider } from '../../../../providers/core/global-provider';
+import { FavoritesProvider } from '../../../../providers/core/favorites-provider';
 
 @IonicPage()
 @Component({
@@ -49,11 +49,11 @@ export class ManagerKpiGrafikoniPage {
 
         let opt : RequestOptions
         let headers : Headers = new Headers
-        let operateriId: number = this.globalProvider.modulesProvider.storageRoot.operateriId;
+        //let operateriId: number = this.globalProvider.modulesProvider.storageRoot.operateriId;
         headers.set('Content-Type', 'application/json');
 
         let body = {
-            "db": GlobalProvider.company.db,
+            "db": GlobalProvider.getCompanyData.db,
             //"operateriId": operateriId,
             "operateriId": 7,
             "datum": this.managerKpiProvider.datum
@@ -63,7 +63,7 @@ export class ManagerKpiGrafikoniPage {
 
         opt = new RequestOptions({headers: headers});
 
-        var url = GlobalProvider.loginData.serverPath + 'kpi/grafikoni';
+        var url = GlobalProvider.getLoginData.serverPath + 'kpi/grafikoni';
 
         var response = this
             .http

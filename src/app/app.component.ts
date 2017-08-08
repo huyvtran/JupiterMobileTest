@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, App, MenuController } from 'ionic-angular';
+import { Platform, NavController, App, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
@@ -8,8 +8,9 @@ import { Storage } from '@ionic/storage';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { Device } from '@ionic-native/device';
 
-import { GlobalProvider } from '../providers/global-provider';
-import { FavoritesProvider } from '../providers/favorites-provider';
+import { GlobalProvider } from '../providers/core/global-provider';
+import { VariablesProvider } from '../providers/core/variables-provider';
+import { FavoritesProvider } from '../providers/core/favorites-provider';
 
 
 
@@ -29,7 +30,33 @@ export class MyApp {
         platform
             .ready()
             .then(() => {
-                GlobalProvider.device = {
+
+                platform.registerBackButtonAction(() => {
+                    // get current active page
+                    let view = this.navCtrl.getActive();
+                    console.log(this.navCtrl);
+                    alert(this.navCtrl.canGoBack());
+                    alert(view.component.name);
+                    // if (view.component.name == "TabsPage") {
+                    //     //Double check to exit app
+                    //     if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
+                    //         this.platform.exitApp(); //Exit from app
+                    //     } else {
+                    //         let toast = this.toastCtrl.create({
+                    //             message:  'Press back again to exit App?',
+                    //             duration: 3000,
+                    //             position: 'bottom'
+                    //         });
+                    //         toast.present();
+                    //         lastTimeBackPress = new Date().getTime();
+                    //     }
+                    // } else {
+                    //     // go to previous page
+                    //     this.nav.pop({});
+                    // }
+                });
+
+                VariablesProvider.device = {
                     cordova: device.cordova, 
                     isVirtual: device.isVirtual,
                     manufacturer: device.manufacturer, 
@@ -55,21 +82,21 @@ export class MyApp {
                     .ready()
                     .then(() => {
                         storage
-                            .get(GlobalProvider.coreStorageKeys.loginData)
+                            .get(GlobalProvider.getCoreStorageKeys.loginData)
                             .then((val) => {
-                                GlobalProvider.loginData = JSON.parse(val);
+                                VariablesProvider.loginData = JSON.parse(val);
                             })
                             .then(() => {
                                 storage
-                                    .get(GlobalProvider.coreStorageKeys.jupiterSystemData)
+                                    .get(GlobalProvider.getCoreStorageKeys.jupiterSystemData)
                                     .then((val) => {
-                                        GlobalProvider.jupiterSystemData = JSON.parse(val);
+                                        VariablesProvider.jupiterSystemData = JSON.parse(val);
                                     })
                                     .then(() => {
                                         storage
-                                            .get(GlobalProvider.coreStorageKeys.company)
+                                            .get(GlobalProvider.getCoreStorageKeys.company)
                                             .then((val) => {
-                                                GlobalProvider.company = JSON.parse(val);
+                                                VariablesProvider.company = JSON.parse(val);
                                             })
                                             .then(() => {
                                                 this.setRoot();
@@ -87,19 +114,26 @@ export class MyApp {
 
     }
 
+
+    get getVersion(): string {return GlobalProvider.getVersion};
+
+    get navCtrl(): NavController {
+        return this.app.getActiveNav();
+    }
+
     setRoot() : void {
         //this.rootPage = 'ManagerKpiTabsPage';
-        if (GlobalProvider.loginData == null || GlobalProvider.jupiterSystemData == null) {
+        if (GlobalProvider.getLoginData == null || GlobalProvider.getJupiterSystemData == null) {
             this.rootPage = 'CoreLoginPage';
-        } else if (GlobalProvider.company == null) {
+        } else if (GlobalProvider.getCompanyData == null) {
             this.rootPage = 'CoreCcCompanyPage';
-            GlobalProvider.pagesHistory.push('CoreLoginPage');
+            GlobalProvider.getPagesHistory.push('CoreLoginPage');
         } else {
             this.rootPage = 'CoreCcTabsPage';
-            GlobalProvider.pagesHistory.push('CoreLoginPage');
-            GlobalProvider.pagesHistory.push('CoreCcCompanyPage');
+            GlobalProvider.getPagesHistory.push('CoreLoginPage');
+            GlobalProvider.getPagesHistory.push('CoreCcCompanyPage');
         }
-        GlobalProvider.pagesHistory.push(this.rootPage);
+        GlobalProvider.getPagesHistory.push(this.rootPage);
     }
 
 
@@ -147,7 +181,7 @@ export class MyApp {
                 .on('registration')
                 .subscribe((registration : any) => {
                     if (registration != null && registration.registrationId !=null)
-                        GlobalProvider.pushRegistrationId = registration.registrationId;
+                        VariablesProvider.pushRegistrationId = registration.registrationId;
                 });
 
             pushObject

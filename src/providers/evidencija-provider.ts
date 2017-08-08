@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import {GlobalProvider} from './global-provider';
+import {GlobalProvider} from './core/global-provider';
 
 /*
   Generated class for the EvidencijaProvider provider.
@@ -29,14 +29,14 @@ export class EvidencijaProvider {
         headers.set('Content-Type', 'application/json');
 
         let body = {
-            "Db": GlobalProvider.company.db
+            "Db": GlobalProvider.getCompanyData.db
         };
 
         let data = JSON.stringify(body);
 
         opt = new RequestOptions({headers: headers});
 
-        var url = GlobalProvider.loginData.serverPath + 'hrm/odsustva';
+        var url = GlobalProvider.getLoginData.serverPath + 'hrm/odsustva';
 
         var response = this
             .http

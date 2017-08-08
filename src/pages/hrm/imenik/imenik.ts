@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {App, IonicPage, NavController, ToastController} from 'ionic-angular';
 import {Http, RequestOptions, Headers} from '@angular/http';
 
-import {GlobalProvider} from '../../../providers/global-provider';
-import {FavoritesProvider} from '../../../providers/favorites-provider';
+import {GlobalProvider} from '../../../providers/core/global-provider';
+import {FavoritesProvider} from '../../../providers/core/favorites-provider';
 //import _ from 'lodash';
 
 declare var window;
@@ -54,14 +54,14 @@ export class HrmImenikPage {
         headers.set('Content-Type', 'application/json');
 
         let body = {
-            "Db": GlobalProvider.company.db
+            "Db": GlobalProvider.getCompanyData.db
         };
 
         let data = JSON.stringify(body);
 
         opt = new RequestOptions({headers: headers});
 
-        var url = GlobalProvider.loginData.serverPath + 'hrm/imenik';
+        var url = GlobalProvider.getLoginData.serverPath + 'hrm/imenik';
         console.log(url);
         var response = this
             .http

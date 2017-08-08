@@ -4,7 +4,7 @@ import { NavController, NavParams, IonicPage, ToastController } from 'ionic-angu
 import { Chart } from 'chart.js';
 import { ViewChild } from '@angular/core';
 
-import { GlobalProvider } from '../../../../../providers/global-provider';
+import { GlobalProvider } from '../../../../../providers/core/global-provider';
 import { ManagerKpiProvider } from '../../../../../providers/managerkpi-provider';
 
 @IonicPage()
@@ -43,7 +43,7 @@ export class ManagerKpiGrafPage {
         headers.set('Content-Type', 'application/json');
 
         let body = {
-            "db": GlobalProvider.company.db,
+            "db": GlobalProvider.getCompanyData.db,
             "manPokGrafikonId": this.item.manPokGrafikonId,
             "datumDo": this.managerKpiProvider.datum,
             "korak": this.item.korak,
@@ -55,7 +55,7 @@ export class ManagerKpiGrafPage {
 
         opt = new RequestOptions({headers: headers});
 
-        var url = GlobalProvider.loginData.serverPath + 'kpi/grafikondata';
+        var url = GlobalProvider.getLoginData.serverPath + 'kpi/grafikondata';
 
         var response = this
             .http

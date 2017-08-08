@@ -3,7 +3,7 @@ import {IonicPage, NavController, NavParams, ToastController, AlertController, A
 import {Camera} from '@ionic-native/camera';
 import {Diagnostic} from '@ionic-native/diagnostic';
 
-import { GlobalProvider } from '../../../providers/global-provider';
+import { GlobalProvider } from '../../../providers/core/global-provider';
 
 
 /*

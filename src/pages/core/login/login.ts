@@ -1,11 +1,10 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController, MenuController} from 'ionic-angular';
-import {StorageProvider} from '../../../providers/storage-provider';
 import {Storage} from '@ionic/storage';
-import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { Platform } from 'ionic-angular';
 
-import {GlobalProvider} from '../../../providers/global-provider';
+import {GlobalProvider} from '../../../providers/core/global-provider';
+import {VariablesProvider} from '../../../providers/core/variables-provider';
 import {LoginProvider} from '../../../providers/login/login-provider';
 
 
@@ -36,7 +35,7 @@ export class CoreLoginPage {
         private menuCtrl: MenuController) {
 
         this.menuCtrl.enable(false, 'mainMenu');
-        GlobalProvider.pagesHistory = []; //isprazni pagesHistory
+        GlobalProvider.setPagesHistory = []; //isprazni pagesHistory
     }
 
     ionViewDidLoad() {}
@@ -107,7 +106,6 @@ export class CoreLoginPage {
         //šalje pin, deviceId
         //dobija refresh token,
         let self = this;
-        var value = "";
         return new Promise(function(resolve, reject) {
             setTimeout(function() {
                 self.msg = "Sinkroniziranje podataka...";
@@ -117,7 +115,7 @@ export class CoreLoginPage {
                 // alert(rToken);
                 // if(rToken === null || rToken === undefined)
                 // {
-                    var res = self.loginProvider.getToken(self.pin, self.deviceId)
+                   self.loginProvider.getToken(self.pin, self.deviceId)
                         .then((val) => {
                             resolve();
                         })
@@ -145,13 +143,12 @@ export class CoreLoginPage {
     //provjera prava  JupiterSystem i dohvat firmi na koje imam
     getJupiterSystemData() {
         let self = this;
-        var value = "";
         return new Promise(function(resolve, reject) {
             setTimeout(function() {
                 self.msg = "Sinkroniziranje podataka...";
-                    var res = self.loginProvider.getJupiterSystemData(self.pin, self.email, self.password)
+                    self.loginProvider.getJupiterSystemData(self.pin, self.email, self.password)
                         .then((val) => {
-                            GlobalProvider.jupiterSystemData = val;
+                            VariablesProvider.jupiterSystemData = val;
                             resolve();
                         })
                         .catch(err => {
@@ -176,8 +173,8 @@ export class CoreLoginPage {
         return new Promise(function(resolve, reject) {
             setTimeout(function() {
                 self.msg = "Finaliziranje...";
-                self.storage.set(GlobalProvider.coreStorageKeys.loginData, JSON.stringify(GlobalProvider.loginData));
-                self.storage.set(GlobalProvider.coreStorageKeys.jupiterSystemData, JSON.stringify(GlobalProvider.jupiterSystemData));
+                self.storage.set(GlobalProvider.getCoreStorageKeys.loginData, JSON.stringify(GlobalProvider.getLoginData));
+                self.storage.set(GlobalProvider.getCoreStorageKeys.jupiterSystemData, JSON.stringify(GlobalProvider.getJupiterSystemData));
                 resolve();
             }, 1000);
         }).then(function() {

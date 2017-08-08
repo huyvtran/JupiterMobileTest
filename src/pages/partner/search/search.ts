@@ -4,9 +4,9 @@ import {NavController, ModalController, IonicPage, App, ToastController} from 'i
 // import { PartnerTabsPage } from '../tabs/tabs'; import { PartnerSearchDetPage
 // } from '../search-det/search-det';
 
-import {GlobalProvider} from '../../../providers/global-provider';
+import {GlobalProvider} from '../../../providers/core/global-provider';
 import {PartnerinfoProvider} from '../../../providers/partnerinfo-provider';
-import {FavoritesProvider} from '../../../providers/favorites-provider';
+import {FavoritesProvider} from '../../../providers/core/favorites-provider';
 
 @IonicPage()
 @Component({selector: 'page-partner-search', templateUrl: 'search.html'})

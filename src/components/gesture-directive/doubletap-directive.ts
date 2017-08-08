@@ -1,7 +1,7 @@
 import {Directive, ElementRef, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {Gesture} from 'ionic-angular';
 
-import {GlobalProvider} from '../../providers/global-provider';
+import {GlobalProvider} from '../../providers/core/global-provider';
 
 import * as Hammer from 'hammerjs';
 

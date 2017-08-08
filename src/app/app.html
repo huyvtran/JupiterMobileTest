@@ -6,7 +6,7 @@
                 <img src="assets/images/jupiter-logo.svg" class="login-logo"  />
             </div>
         </div>
-        <div style="position:absolute; top:4px; right:4px; color: white">v. 9.0.1</div>
+        <div style="position:absolute; top:4px; right:4px; color: white">v. {{getVersion}}</div>
     </ion-header>
     <ion-content>
         <ion-list>
@@ -36,11 +36,8 @@
                 Aplikacije
             </ion-list-header>
             <button ion-item *ngFor="let item of globalProvider.modulesProvider.modules" (click)="startJupiterApp(item)">
-                
                 <img item-left src="data:image/png;base64,{{item.icon}}" class="app"/>
-                
                 <h2 class="sidebar-title" style="padding-left: 4px">{{item.name}}</h2>
-              
           </button>
         </ion-list>
     </ion-content>

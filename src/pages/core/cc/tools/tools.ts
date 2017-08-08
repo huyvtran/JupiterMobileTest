@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, ToastController, App } from 'ionic-angular';
 
-import {GlobalProvider} from '../../../../providers/global-provider';
+import {GlobalProvider} from '../../../../providers/core/global-provider';
 
 @IonicPage()
 @Component({selector: 'page-core-cc-tools', templateUrl: 'tools.html'})

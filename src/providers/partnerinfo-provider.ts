@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 
-import {GlobalProvider} from './global-provider';
+import {GlobalProvider} from './core/global-provider';
 
 // import {PartnerSearchPage} from '../pages/partner/search/search' import
 // {StorageRoot} from '../models/storage-root' import {Observable} from
@@ -106,7 +106,7 @@ export class PartnerinfoProvider {
                     })
                     .then(val => {
                         if (val != null) {
-                            let data = val.filter(x => x.db == GlobalProvider.company.db)
+                            let data = val.filter(x => x.db == GlobalProvider.getCompanyData.db)
                             this.sortData(data);
                             return data;
                         }
@@ -164,9 +164,6 @@ export class PartnerinfoProvider {
         this.personsCnt = this.osobe.length;
         this.recordsCnt = this.biljeske.length;
 
-        console.log("setData");
-        console.log(GlobalProvider.company);
-        console.log(data);
 
         this.addToStorage(data, id);
 
@@ -198,7 +195,7 @@ export class PartnerinfoProvider {
     }
 
     getPartnerData(obj, id) {
-        return obj.filter(x => x.partneriId == id && x.db == GlobalProvider.company.db);
+        return obj.filter(x => x.partneriId == id && x.db == GlobalProvider.getCompanyData.db);
     }
 
     getServerData(id) {
@@ -209,7 +206,7 @@ export class PartnerinfoProvider {
 
         let body = {
             "Id": id,
-            "Db": GlobalProvider.company.db
+            "Db": GlobalProvider.getCompanyData.db
         };
 
         let data = JSON.stringify(body);
@@ -217,7 +214,7 @@ export class PartnerinfoProvider {
         opt = new RequestOptions({headers: headers});
 
         //var url = 'http://localhost:25509/api/partner/info/' + id;
-        var url = GlobalProvider.loginData.serverPath + 'partner/info';
+        var url = GlobalProvider.getLoginData.serverPath + 'partner/info';
 
         var response = this
             .http
@@ -249,7 +246,7 @@ export class PartnerinfoProvider {
     }
 
     findPartner(value) {
-        var url = GlobalProvider.loginData.serverPath + 'partner/search/';
+        var url = GlobalProvider.getLoginData.serverPath + 'partner/search/';
         return this
             .http
             .get(url + value)

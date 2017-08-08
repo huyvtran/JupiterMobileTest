@@ -2,7 +2,7 @@ import {ToastController} from 'ionic-angular';
 import {Component} from '@angular/core';
 import {IonicPage, App} from 'ionic-angular';
 
-import {GlobalProvider} from '../../../../providers/global-provider';
+import {GlobalProvider} from '../../../../providers/core/global-provider';
 
 @IonicPage()
 @Component({selector: 'page-core-app-modules', templateUrl: 'modules.html'})

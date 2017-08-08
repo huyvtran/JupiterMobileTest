@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
 import {Storage} from '@ionic/storage';
 
-import {GlobalProvider} from './../global-provider';
+import {GlobalProvider} from './../core/global-provider';
+import {VariablesProvider} from './../core/variables-provider';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
@@ -32,21 +33,21 @@ export class LoginProvider {
             headers.set('Content-Type', 'application/json');
             let body = {
                 "Pin": pin,
-                "PushRegistrationId": GlobalProvider.pushRegistrationId,
-                "Device": GlobalProvider.device,
+                "PushRegistrationId": VariablesProvider.pushRegistrationId,
+                "Device": VariablesProvider.device,
             };
             console.log(body);
             let data = JSON.stringify(body);
 
             opt = new RequestOptions({headers: headers});
-            console.log(GlobalProvider.jupiterServerPath);
-            var response = self
+            console.log(GlobalProvider.getJupiterServerPath);
+            self
                 .http
-                .post(GlobalProvider.jupiterServerPath + 'auth/oauth/', data, opt)
+                .post(GlobalProvider.getJupiterServerPath + 'auth/oauth/', data, opt)
                 .toPromise()
                 .then(result => {
                     value = result.json();
-                    GlobalProvider.loginData = value;                    
+                    VariablesProvider.loginData = value;                    
 
                     resolve();
                 })
@@ -77,9 +78,9 @@ export class LoginProvider {
 
             let data = JSON.stringify(body);
             opt = new RequestOptions({headers: headers});
-            var response = self
+            self
                 .http
-                .post(GlobalProvider.loginData.serverPath + 'jupitersystem/getdata', data, opt)
+                .post(GlobalProvider.getLoginData.serverPath + 'jupitersystem/getdata', data, opt)
                 .toPromise()
                 .then(result => {
                     value = result.json();
@@ -87,7 +88,7 @@ export class LoginProvider {
                     if (value.user == null || value.company == null)
                         throw new Error("Neispravni Jupiter Software login podaci. Molim kontaktirajte vašeg Jupiter Software administratora.")
                     else {
-                        GlobalProvider.jupiterSystemData = value;
+                        VariablesProvider.jupiterSystemData = value;
                     }
                     return(value);
                 })
@@ -108,7 +109,6 @@ export class LoginProvider {
 
     updateUser(pin: string, login: string, name: string) {
         var self = this;
-        var value : any;
         return new Promise(function (resolve, reject) {
 
             let opt : RequestOptions
@@ -124,9 +124,9 @@ export class LoginProvider {
 
             let data = JSON.stringify(body);
             opt = new RequestOptions({headers: headers});
-            var response = self
+            self
                 .http
-                .post(GlobalProvider.jupiterServerPath + 'auth/updateuser', data, opt)
+                .post(GlobalProvider.getJupiterServerPath + 'auth/updateuser', data, opt)
                 .toPromise()
                 .then(() => {
                         resolve();
@@ -141,9 +141,9 @@ export class LoginProvider {
 
     setAccessToken() {
         var data = this.refreshToken;
-        var token = this
+        this
             .http
-            .get(GlobalProvider.jupiterServerPath + 'auth/oauth/' + data)
+            .get(GlobalProvider.getJupiterServerPath + 'auth/oauth/' + data)
             .toPromise()
             .then(result => (window.localStorage.setItem('accessToken', result.json())));
     }

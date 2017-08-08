@@ -2,8 +2,8 @@ import { Component} from '@angular/core';
 import { IonicPage, Platform, App } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
-import { GlobalProvider } from '../../../providers/global-provider';
-import { FavoritesProvider } from '../../../providers/favorites-provider';
+import { GlobalProvider } from '../../../providers/core/global-provider';
+import { FavoritesProvider } from '../../../providers/core/favorites-provider';
 
 /*
   Generated class for the Barcode page.
