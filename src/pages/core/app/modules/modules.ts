@@ -9,17 +9,6 @@ import {GlobalProvider} from '../../../../providers/core/global-provider';
 export class CoreAppModulesPage {
     constructor(private app : App, private globalProvider : GlobalProvider, private toastCtrl : ToastController) {}
 
-    goBack() {
-        this.globalProvider.pullPage();
-        // this
-        //     .app
-        //     .getRootNav()
-        //     .setRoot('CoreCcTabsPage', {}, {
-        //         animate: true,
-        //         direction: 'backward'
-        //     });
-    }
-
     startModule(item) {
         let parameter = item
             .parameter
@@ -31,13 +20,7 @@ export class CoreAppModulesPage {
             .filter(x => x.parameter == parameter)
         if (module.length > 0) {
             var page = module[0].page;
-            this
-                .app
-                .getRootNav()
-                .setRoot(page, {}, {
-                    animate: true,
-                    direction: 'forward'
-                }).then(() => GlobalProvider.pushPage(page));
+            GlobalProvider.pushPage(page);
         } else {
             let toast = this
                 .toastCtrl

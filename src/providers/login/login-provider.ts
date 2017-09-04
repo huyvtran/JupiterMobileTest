@@ -5,15 +5,12 @@ import {Storage} from '@ionic/storage';
 import {GlobalProvider} from './../core/global-provider';
 import {VariablesProvider} from './../core/variables-provider';
 
+import {LoginPin, LoginSystem, LoginAzurUser} from '../../interfaces/core/login';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 
-/*
-  Generated class for the LoginService provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class LoginProvider {
 
@@ -22,7 +19,6 @@ export class LoginProvider {
     constructor(public http : Http, private storage : Storage) {}
 
     getToken (pin : string, deviceId : string) {
-        console.log("getToken");
         var self = this;
         var value : any;
         return new Promise(function (resolve, reject) {
@@ -31,10 +27,10 @@ export class LoginProvider {
             let headers : Headers = new Headers
 
             headers.set('Content-Type', 'application/json');
-            let body = {
-                "Pin": pin,
-                "PushRegistrationId": VariablesProvider.pushRegistrationId,
-                "Device": VariablesProvider.device,
+            let body: LoginPin = {
+                Pin: pin,
+                PushRegistrationId: VariablesProvider.pushRegistrationId,
+                Device: VariablesProvider.device,
             };
             console.log(body);
             let data = JSON.stringify(body);
@@ -71,9 +67,9 @@ export class LoginProvider {
 
             headers.set('Content-Type', 'application/json');
 
-            let body = {
-                "Email": eMail,
-                "Password": password
+            let body: LoginSystem = {
+                Email: eMail,
+                Password: password
             };
 
             let data = JSON.stringify(body);
@@ -116,10 +112,10 @@ export class LoginProvider {
 
             headers.set('Content-Type', 'application/json');
 
-            let body = {
-                "pin": pin,
-                "login": login,
-                "name": name
+            let body: LoginAzurUser = {
+                pin: pin,
+                login: login,
+                name: name
             };
 
             let data = JSON.stringify(body);

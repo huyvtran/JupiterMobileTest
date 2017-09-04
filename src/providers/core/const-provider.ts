@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 
+import {StorageKeys} from '../../interfaces/core/storagekeys';
+
 @Injectable()
 export class ConstProvider {
     public static get version() : string { return "9.0.1" };

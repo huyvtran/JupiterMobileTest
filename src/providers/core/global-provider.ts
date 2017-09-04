@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {App, ToastController} from 'ionic-angular';
+import {App, ToastController, NavController} from 'ionic-angular';
 
 import {ModulesProvider} from './modules-provider';
 import {VariablesProvider} from './variables-provider';
@@ -27,7 +27,10 @@ export class GlobalProvider {
 
 
 
+    private static app: App;
+
     constructor(public modulesProvider : ModulesProvider, private favoritesProvider: FavoritesProvider, public app : App, private storage : Storage, public toastCtrl : ToastController) {
+        GlobalProvider.app = app;
     }
 
     // //vraća trenutnu stranicu getActivePage(navCtrl : NavController) : string {
@@ -36,6 +39,7 @@ export class GlobalProvider {
     public getApplicationName() : string {return this.modulesProvider.applicationName;}
 
     public getSubTitle() : string {
+        
         let companyName = "" //GlobalProvider.company.name;
         let userName = "";
 
@@ -62,28 +66,53 @@ export class GlobalProvider {
 
     public getInfoModules() : any {return this.modulesProvider.infoModules;}
 
-    public pullPage() {
-        //ukloni zadnji zapis
-        GlobalProvider
-            .getPagesHistory
-            .pop();
-        //zadnji (predzadnji) zapis
-        var page = GlobalProvider.getPagesHistory[GlobalProvider.getPagesHistory.length - 1];
-        console.log(page);
 
-        this
-            .app
-            .getRootNav()
-            .setRoot(page, {}, {
-                animate: true,
-                direction: 'backward'
-            })
+    get navCtrl(): NavController {
+        return this.app.getActiveNav();
+    }
+
+    public pullPage(type: string) {
+        if (this.navCtrl.canGoBack())
+            this.navCtrl.pop({});
+        else {
+            //ukloni zadnji zapis
+            if (GlobalProvider
+                .getPagesHistory != null && GlobalProvider
+                .getPagesHistory.length > 1) 
+            {
+                GlobalProvider
+                    .getPagesHistory
+                    .pop();
+                //zadnji (predzadnji) zapis
+                var page = GlobalProvider.getPagesHistory[GlobalProvider.getPagesHistory.length - 1];
+
+                if (page != null) {
+                    this
+                        .app
+                        .getRootNav()
+                        .setRoot(page, {}, {
+                            animate: true,
+                            direction: 'backward'
+                        })
+                }
+                
+            }
+        }
+
+        
     }
 
     public static pushPage(page : string) {
         GlobalProvider
             .getPagesHistory
             .push(page);
+        this
+            .app
+            .getRootNav()
+            .setRoot(page, {}, {
+                animate: true,
+                direction: 'forward'
+            });
     }
 
     public closeCC() {
@@ -93,7 +122,17 @@ export class GlobalProvider {
         this.modulesProvider.ClearData();
         VariablesProvider.company = null;
 
-        this.pullPage();
+        
+                this
+                    .app
+                    .getRootNav()
+                    .setRoot("CoreCcCompanyPage", {}, {
+                        animate: true,
+                        direction: 'backward'
+                    })
+        
+
+        //this.pullPage('');
     }
 
     uIzradi() {

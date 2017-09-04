@@ -29,7 +29,7 @@ export class EvidencijaProvider {
         headers.set('Content-Type', 'application/json');
 
         let body = {
-            "Db": GlobalProvider.getCompanyData.db
+            "db": GlobalProvider.getCompanyData.db,
         };
 
         let data = JSON.stringify(body);

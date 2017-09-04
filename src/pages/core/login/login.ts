@@ -57,12 +57,6 @@ export class CoreLoginPage {
             self.msg = "startanje...";
             setTimeout(function() {
                 GlobalProvider.pushPage('CoreCcCompanyPage');
-                self
-                    .navCtrl
-                    .setRoot('CoreCcCompanyPage', {}, {
-                        animate: true,
-                        direction: 'forward'
-                    });
             }, 2000);
         });
 

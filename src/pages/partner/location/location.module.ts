@@ -3,6 +3,8 @@ import { IonicPageModule } from 'ionic-angular';
 import { PartnerLocationPage } from '../location/location';
 import { PipesModule } from '../../../pipes/pipes.module';
 
+import { ComponentsModule } from '../../../components/components.module';
+
 
 @NgModule({
   declarations: [
@@ -10,6 +12,7 @@ import { PipesModule } from '../../../pipes/pipes.module';
   ],
   imports: [
     IonicPageModule.forChild(PartnerLocationPage),
+    ComponentsModule,
     PipesModule
   ],
   entryComponents: [

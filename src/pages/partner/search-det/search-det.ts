@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, IonicPage } from 'ionic-angular';
+import { ViewController, IonicPage, Events } from 'ionic-angular';
 
 import { PartnerinfoProvider } from '../../../providers/partnerinfo-provider';
 
@@ -13,7 +13,7 @@ export class PartnerSearchDetPage {
   keyword : string;
   loadMessage : string;
 
-  constructor(private viewCtrl: ViewController, private partner : PartnerinfoProvider) {
+  constructor(private viewCtrl: ViewController, private partner : PartnerinfoProvider, private events: Events) {
   }
 
   ionViewDidLoad() {
@@ -38,6 +38,8 @@ export class PartnerSearchDetPage {
 
 
     itemTapped(event, partner) {
-        this.viewCtrl.dismiss(partner);
+        this.events.publish('partner:selected', partner);
+        //this.viewCtrl.dismiss(partner);
+        this.viewCtrl.dismiss();
     }
 }

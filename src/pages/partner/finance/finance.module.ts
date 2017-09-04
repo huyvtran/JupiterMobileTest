@@ -5,6 +5,8 @@ import { PartnerFinancePage } from '../finance/finance';
 import {ChartsModule} from 'ng2-charts/charts/charts';
 import '../../../../node_modules/chart.js/dist/Chart.bundle.min.js'; 
 
+import { ComponentsModule } from '../../../components/components.module';
+
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import '../../../../node_modules/chart.js/dist/Chart.bundle.min.js';
   ],
   imports: [
     IonicPageModule.forChild(PartnerFinancePage),
-    ChartsModule
+    ChartsModule,
+    ComponentsModule
   ],
   entryComponents: [
     PartnerFinancePage

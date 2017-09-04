@@ -23,13 +23,6 @@ export class CoreCcApplicationsPage {
 
     openModule(module) {
         GlobalProvider.pushPage('PartnerSearchPage');
-        this
-            .app
-            .getRootNav()
-            .setRoot('PartnerSearchPage', {}, {
-                animate: true,
-                direction: 'forward'
-            });
     }
 
     startJupiterApp(event, item) {
@@ -37,13 +30,6 @@ export class CoreCcApplicationsPage {
         this.globalProvider.modulesProvider.applicationName = item.name;
 
         GlobalProvider.pushPage('CoreAppModulesPage');
-        this
-            .app
-            .getRootNav()
-            .setRoot('CoreAppModulesPage', item, {
-                animate: true,
-                direction: 'forward'
-            });
     }
 
 

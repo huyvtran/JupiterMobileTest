@@ -15,46 +15,6 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-.back-button {
-  margin-left: 0px;
-  padding-left: 0px;
-  min-width: 32px;
-}
-
-.subtitle {
-    padding:4px;
-    text-align: center;
-    border-top: 1px dotted #cccccc;
-    font-size:1.2rem;
-    &.light {
-        background-color: map-get($colors, light)!important;
-    }
-}
-
-
-.toolbar-title {
-    font-size: 1.5rem!important
-}
-
-
-ion-title {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  right: 30px;
-  //padding: 0 60px 1px;
-  //width: 100%;
-  height: 100%;
-  text-align: center;
-}
-
-
-.sidebar-title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-
 
 
 ion-menu {
@@ -137,10 +97,6 @@ ion-menu {
   } 
 }
 
-ion-icon.close {
-    font-size:2rem!important;
-}
-
 
 
   .spinner-container {
@@ -167,3 +123,9 @@ ion-icon.close {
         font-style: italic;
       }
   }
+
+  .toast-error {
+    > div {
+        background: #c0392b!important;
+    }
+}

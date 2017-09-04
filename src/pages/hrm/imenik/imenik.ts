@@ -107,7 +107,7 @@ export class HrmImenikPage {
     }
 
     closePage() {
-        this.globalProvider.pullPage();
+        //this.globalProvider.pullPage();
         // this
         //     .app
         //     .getRootNav()

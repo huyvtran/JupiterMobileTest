@@ -1,26 +1,12 @@
 page-partner-info {
-
-}
-
-ion-navbar {
-    min-height:40px!important;
-}
-
-ion-toolbar.subheader {
-    min-height: 20px!important;
-    border-top: 1px solid #cccccc;
-    .toolbar-title {
-        font-size: 10pt!important;
+    ion-item div.title {
+        color: #999999;
+        font-size: 9pt;
+        margin-bottom:4px;
     }
-}
 
-ion-item div.title {
-    color: #999999;
-    font-size: 9pt;
-    margin-bottom:4px;
-}
-
-ion-label div.content {
-    word-wrap: break-word!important;
-    white-space: normal;
+    ion-label div.content {
+        word-wrap: break-word!important;
+        white-space: normal;
+    }
 }

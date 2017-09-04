@@ -11,13 +11,6 @@ export class CoreCcFavoritesPage {
 
     openModule(item) {
         GlobalProvider.pushPage(item.page);
-        this
-            .app
-            .getRootNav()
-            .setRoot(item.page, {}, {
-                animate: true,
-                direction: 'forward'
-            });
     }
 
     doubleTap() {

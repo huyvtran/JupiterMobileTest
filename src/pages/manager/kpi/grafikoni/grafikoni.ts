@@ -77,7 +77,7 @@ export class ManagerKpiGrafikoniPage {
     }
 
     goBack() {
-        this.globalProvider.pullPage();
+        this.globalProvider.pullPage('');
     }
 
     public presentToastError(message : string) {

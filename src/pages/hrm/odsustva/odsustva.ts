@@ -132,7 +132,7 @@ export class HrmOdsustvaPage {
     }
 
     closePage() {
-        this.globalProvider.pullPage();
+        this.globalProvider.pullPage('');
     }
 
     public presentToastError(message : string) {

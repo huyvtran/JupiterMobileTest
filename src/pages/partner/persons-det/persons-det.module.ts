@@ -2,13 +2,16 @@ import { NgModule} from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { PartnerPersonsDetPage } from '../persons-det/persons-det';
 
+import { ComponentsModule } from '../../../components/components.module';
+
 
 @NgModule({
   declarations: [
     PartnerPersonsDetPage
   ],
   imports: [
-    IonicPageModule.forChild(PartnerPersonsDetPage)
+    IonicPageModule.forChild(PartnerPersonsDetPage),
+    ComponentsModule
   ],
   entryComponents: [
     PartnerPersonsDetPage

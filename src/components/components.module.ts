@@ -1,15 +1,18 @@
+import { IonicModule } from 'ionic-angular';
 import { NgModule } from '@angular/core';
 import { DoubletapDirective } from './gesture-directive/doubletap-directive';
+import { JsHeaderComponent } from './core/js-header/js-header';
  
 @NgModule({
     declarations: [
-        //ElasticHeader,
+        JsHeaderComponent,
         DoubletapDirective
     ],
     imports: [
+         IonicModule
     ],
     exports: [
-        //ElasticHeader,
+        JsHeaderComponent,
         DoubletapDirective
     ]
 })

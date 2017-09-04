@@ -1,21 +1,13 @@
 <ion-header>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>Control Center - Aplikacije</ion-title>
-    </ion-navbar>
-    <div class="subtitle jupiter" style="position: relative">
-        {{globalProvider.getSubTitle()}}
-        <img src="assets/images/jupiter-logo-min.svg" class="login-logo" style="position: absolute; height: 27px; right:4px; top:-7px; z-index:9999" />
-    </div>
+    <js-header title="Control Center - Aplikacije" type="apps"></js-header>
 </ion-header>
-
+<!-- <favorite></favorite> -->
 <ion-content doubleTap (dblTap)="doubleTap();">
+    
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content>osvježavam podatke</ion-refresher-content>
     </ion-refresher>
-    <!--<div style="padding:8px; font-size:10pt; background-color:#455c70; color:#718699;" text-center>INFO TOČKE:</div>-->
+        
     <div class="app-container app-info-container">
         <ion-grid style="">
             <ion-row style="">

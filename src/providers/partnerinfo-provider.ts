@@ -49,7 +49,7 @@ export class PartnerinfoProvider {
 
     constructor(public http : Http, private app : App, private toastCtrl : ToastController) {
         this.storage = new Storage([]);
-        //this.getDataFromStorage();
+        this.getDataFromStorage();
     }
 
     InitStorage(id) {
@@ -91,6 +91,8 @@ export class PartnerinfoProvider {
         this.storageHistory = new Array < any > ();
     }
 
+    
+
     getDataFromStorage() {
         this
             .storage
@@ -101,12 +103,16 @@ export class PartnerinfoProvider {
                     .get(this.storageKeys.history)
                     .then(val => {
                         let data = JSON.parse(val);
+                        console.log(data);
                         this.storageHistoryRoot = data;
                         return data;
                     })
                     .then(val => {
                         if (val != null) {
-                            let data = val.filter(x => x.db == GlobalProvider.getCompanyData.db)
+                            console.log(val);
+                            let data = val.filter(x => x.db == GlobalProvider.getCompanyData.db.trim());
+                            console.log(GlobalProvider.getCompanyData.db.trim());
+                            console.log(data);
                             this.sortData(data);
                             return data;
                         }
@@ -171,8 +177,6 @@ export class PartnerinfoProvider {
     }
 
     addToStorage(data, id) {
-
-        
         //prvo provjeri da li postoji u storageu
         let checkData = this.getPartnerData(this.storageHistory, id);
         if (checkData.length == 0) {
@@ -195,7 +199,7 @@ export class PartnerinfoProvider {
     }
 
     getPartnerData(obj, id) {
-        return obj.filter(x => x.partneriId == id && x.db == GlobalProvider.getCompanyData.db);
+        return obj.filter(x => x.partneriId == id && x.db == GlobalProvider.getCompanyData.db.trim());
     }
 
     getServerData(id) {

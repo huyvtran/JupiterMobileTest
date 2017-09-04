@@ -33,10 +33,10 @@ export class MyApp {
 
                 platform.registerBackButtonAction(() => {
                     // get current active page
-                    let view = this.navCtrl.getActive();
-                    console.log(this.navCtrl);
-                    alert(this.navCtrl.canGoBack());
-                    alert(view.component.name);
+                    //let view = this.navCtrl.getActive();
+                    globalProvider.pullPage('backButton');
+                    //alert(this.navCtrl.canGoBack());
+                    //alert(view.component.name);
                     // if (view.component.name == "TabsPage") {
                     //     //Double check to exit app
                     //     if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
@@ -130,8 +130,8 @@ export class MyApp {
             GlobalProvider.getPagesHistory.push('CoreLoginPage');
         } else {
             this.rootPage = 'CoreCcTabsPage';
-            GlobalProvider.getPagesHistory.push('CoreLoginPage');
-            GlobalProvider.getPagesHistory.push('CoreCcCompanyPage');
+            //GlobalProvider.getPagesHistory.push('CoreLoginPage');
+            //GlobalProvider.getPagesHistory.push('CoreCcCompanyPage');
         }
         GlobalProvider.getPagesHistory.push(this.rootPage);
     }
@@ -146,6 +146,7 @@ export class MyApp {
 
                     if (res.isEnabled) {
                         console.log('Notifikacije - omogućene');
+                        console.log(res);
                     } else {
                         console.log('Notifikacije - onemogućene');
                     }
@@ -180,8 +181,12 @@ export class MyApp {
             pushObject
                 .on('registration')
                 .subscribe((registration : any) => {
-                    if (registration != null && registration.registrationId !=null)
+                    if (registration != null && registration.registrationId !=null) {
+                        console.log("push - registration");
+                        console.log(registration.registrationId);
                         VariablesProvider.pushRegistrationId = registration.registrationId;
+                    }
+                        
                 });
 
             pushObject
@@ -199,13 +204,13 @@ export class MyApp {
         this.globalProvider.modulesProvider.applicationName = item.name;
 
         GlobalProvider.pushPage('CoreAppModulesPage');
-        this
-            .app
-            .getRootNav()
-            .setRoot('CoreAppModulesPage', item, {
-                animate: true,
-                direction: 'forward'
-            });
+        // this
+        //     .app
+        //     .getRootNav()
+        //     .setRoot('CoreAppModulesPage', item, {
+        //         animate: true,
+        //         direction: 'forward'
+        //     });
     }
 
     openPage(item) {
@@ -214,13 +219,13 @@ export class MyApp {
         if (page != null && page != "") 
         {
             GlobalProvider.pushPage(page);
-            this
-                .app
-                .getRootNav()
-                .setRoot(page, item, {
-                    animate: true,
-                    direction: 'forward'
-                });
+            // this
+            //     .app
+            //     .getRootNav()
+            //     .setRoot(page, item, {
+            //         animate: true,
+            //         direction: 'forward'
+            //     });
         } else {
             this.globalProvider.uIzradi();
         }
@@ -228,18 +233,17 @@ export class MyApp {
 
     openFavoritePage(item) {
         this.menuCtrl.close();
-        console.log(item);
         var page = item.page;
         if (page != null && page != "") 
         {
             GlobalProvider.pushPage(page);
-            this
-                .app
-                .getRootNav()
-                .setRoot(page, item, {
-                    animate: true,
-                    direction: 'forward'
-                });
+            // this
+            //     .app
+            //     .getRootNav()
+            //     .setRoot(page, item, {
+            //         animate: true,
+            //         direction: 'forward'
+            //     });
         } else {
             this.globalProvider.uIzradi();
         }

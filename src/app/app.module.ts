@@ -29,7 +29,10 @@ import { ManagerKpiProvider } from '../providers/managerkpi-provider';
 
 
 
+
+
 import { StorageRoot } from '../models/storage-root';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +48,7 @@ import { StorageRoot } from '../models/storage-root';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    MyApp
   ],
   providers: [
     StatusBar,

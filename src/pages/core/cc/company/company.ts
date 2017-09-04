@@ -31,7 +31,7 @@ export class CoreCcCompanyPage {
         }).then(() => {
             VariablesProvider.company = item;
             GlobalProvider.pushPage('CoreCcTabsPage');
-            this.app.getRootNav().setRoot('CoreCcTabsPage', {}, {animate: true, direction: 'forward'})
+            //this.app.getRootNav().setRoot('CoreCcTabsPage', {}, {animate: true, direction: 'forward'})
         });
     }
 

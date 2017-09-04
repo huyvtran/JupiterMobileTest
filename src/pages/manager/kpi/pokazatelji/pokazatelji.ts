@@ -27,7 +27,7 @@ export class ManagerKpiPokazeteljiPage {
         Promise
         .resolve()
         .then(() => {
-            return this.favoritesProvider.init("ManagerKpiTabsPage", "KPI", "Manager");
+            return this.favoritesProvider.init("ManagerKpiPokazeteljiPage", "KPI", "Manager");
         });
     }
 
@@ -54,12 +54,15 @@ export class ManagerKpiPokazeteljiPage {
         let operateriId: number = this.globalProvider.modulesProvider.storageRoot.operateriId;
         headers.set('Content-Type', 'application/json');
 
+        console.log(this.managerKpiProvider.datum);
+
         let body = {
             "db": GlobalProvider.getCompanyData.db,
             "action": action,
             "operateriId": operateriId,
             "datum": this.managerKpiProvider.datum
         };
+        console.log(body);
 
         let data = JSON.stringify(body);
 
@@ -107,7 +110,7 @@ export class ManagerKpiPokazeteljiPage {
     }
 
     goBack() {
-        this.globalProvider.pullPage();
+        this.globalProvider.pullPage('');
     }
 
     public presentToastError(message : string) {

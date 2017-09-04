@@ -1,0 +1,23 @@
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button menuToggle *ngIf="type=='apps'">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+            <button ion-button (click)="goBack()" *ngIf="showClose==true">
+                <ion-icon class="close" name="close-circle"></ion-icon>
+            </button>
+            <ng-content select="[js-buttons]"></ng-content>
+        </ion-buttons>
+        <ion-title><span [innerHTML]="title"></span></ion-title>
+        <ion-buttons end>
+            <button large ion-button (click)="favoritesProvider.addRemoveFavorite()" *ngIf="showFavorite==true">
+                <ion-icon style="font-size:24px; color:orange" name="star" *ngIf="favoritesProvider.favoriteExists==true"></ion-icon>
+                <ion-icon style="font-size:24px" name="star-outline" *ngIf="favoritesProvider.favoriteExists==false"></ion-icon>
+            </button>
+            <ng-content select="[js-buttons-end]"></ng-content>
+        </ion-buttons>
+    </ion-navbar>
+    <div class="subtitle jupiter" style="position:relative">
+        {{globalProvider.getSubTitle()}}
+        <img src="assets/images/jupiter-logo-min.svg" *ngIf="type=='apps'" class="login-logo" style="position: absolute; height: 27px; right:4px; top:-7px; z-index:9999" />
+    </div>
