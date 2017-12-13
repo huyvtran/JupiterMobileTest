@@ -1,0 +1,14 @@
+<ion-header>
+    <js-header [title]="title"></js-header>
+</ion-header>
+
+<ion-content padding>
+    <js-content></js-content>
+    <div>
+            <canvas #barCanvas ></canvas>
+    </div>
+    <ion-item [hidden]="ncn!=1">
+        <ion-label>Kumulativ</ion-label>
+        <ion-checkbox  [(ngModel)]="kumulativ" (ionChange)="promijenitrend()"></ion-checkbox>
+    </ion-item>
+</ion-content>

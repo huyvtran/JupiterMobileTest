@@ -1,0 +1,22 @@
+page-pregledugovora-detalji-lista {
+    .grid{
+        padding: 0px;
+    }
+    ion-note {
+        color: black!important;
+    }
+    .label-md, .label-ios {
+        margin: 7px 8px 7px 0;
+    }
+    #moj-label .label-md, #moj-label .label-ios {
+        margin: 0px 8px 0px 0;
+    }
+    // .icon-md {
+    //     font-size: 1.2em;
+    //     padding-bottom: 0px!important;
+    // }
+    // .icon-ios {
+    //     font-size: 1.5em!important;
+    //     padding-bottom: 0px!important;
+    // }
+}

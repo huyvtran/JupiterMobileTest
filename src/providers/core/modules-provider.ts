@@ -1,64 +1,33 @@
 import {ToastController} from 'ionic-angular';
 import {Injectable} from '@angular/core';
-import {Http, RequestOptions, Headers} from '@angular/http';
 import {Storage} from '@ionic/storage';
 
 import {GlobalProvider} from './global-provider';
-//import _ from 'lodash';
+import {ConstProvider} from './const-provider';
+import {DataProvider} from './data-provider';
 
-//import {GlobalProvider} from './global-provider';
+import * as ICore from '../../interfaces/iCore';
 
 @Injectable()
 export class ModulesProvider {
     private storage : Storage;
 
-    public storageRoot : any = [];
-    private storageCompany : Array <any>;
+    public static storageRoot : any = [];
 
-    public sync: boolean = false;
-    public syncInit: boolean = false;
+    private storageCompany : Array < any >;
 
+    public sync : boolean = false;
+    public syncInit : boolean = false;
 
+    public initialized = false;
     public apps : any[];
 
-    public modules : Array<any> = new Array<any> ();
-    public granule : Array<any> = new Array<any> ();
+    public modules : Array < any > = new Array < any > ();
+    public granule : Array < any > = new Array < any > ();
+
+    public sveGranule : Array < any > = new Array < any > ();
+
     public applicationName : string = "";
-
-
-
-    public register : Array <{parameter: string, page: string}> = 
-        [
-            {
-                parameter: 'HrmProfilDetalji',
-                page: 'PartnerSearchPage'
-            }, {
-                parameter: 'HrmProfilGodisnji',
-                page: 'PartnerSearchPage'
-            }, {
-                parameter: 'HrmProfilOsnovnaSredstva',
-                page: 'PartnerSearchPage'
-            }, {
-                parameter: 'HrmOdsustvaPopis',
-                page: 'HrmOdsustvaPage'
-            }, {
-                parameter: 'HrmOdsustvaNajava',
-                page: 'PartnerSearchPage'
-            }, {
-                parameter: 'HrmDjelatniciImenik',
-                page: 'HrmImenikPage'
-            }, {
-                parameter: 'MercurBarcodeScanner',
-                page: 'TestBarcodePage'
-            }, {
-                parameter: 'ToolsBugshooter',
-                page: 'TestBugshooterPage'
-            }, {
-                parameter: 'ManagerKpi',
-                page: 'ManagerKpiTabsPage'
-            }
-        ]
-
 
     public infoModules : Array < {
         title: string,
@@ -69,82 +38,111 @@ export class ModulesProvider {
 
     //private jupiterApps : Array < any > = new Array < any > ();
 
-    constructor(private http : Http, private toastCtrl: ToastController) {
+    constructor(private toastCtrl : ToastController, private constProvider : ConstProvider, private data : DataProvider) {
         this.storage = new Storage([]);
         this.getDataFromStorage();
 
-        
         //this.populateModules();
         this.populateInfoModules();
 
-        // this
-        //     .getServerData()
-        //     .subscribe(data => {
-        //         this.permission = data.application;
-        //     });
+        // this     .getServerData()     .subscribe(data => {         this.permission =
+        // data.application;     });
     }
 
     ClearData() {
-            this.storageRoot = null;
-            this.storageCompany = null;
-            this.modules = null;
+        ModulesProvider.storageRoot = null;
+        this.storageCompany = null;
+        this.modules = null;
     }
 
     InitStorage() {
-        Promise
-            .resolve()
-            .then(() => {
-                if (this.storageRoot != null) {
-                    return this.storageRoot;
-                    //return null;
-                }
-            })
-            .then((val) => {
-                if (val != null) {
-                    this.setData(val);
-                }
-                return val;
-            })
-            // ako je value iz nekog razloga null (u pravilu ne bi trebalo biti) dohvati
-            // podatke iz baze
-            // .then((val) => {
-            //     if (val == null || val.length == 0) {
-            //         this.populateFromDb();
-            //     }
-            // })
-            .then((val) => {
-                if (val == null || val.length == 0) {
-                    if (this.modules == null || this.modules.length == 0) {
-                        this.syncInit = true;
+
+        var self = this;
+        return new Promise(function (resolve, reject) {
+
+            Promise
+                .resolve()
+                .then(() => {
+                    if (self.initialized == true && ModulesProvider.storageRoot != null) {
+                        return ModulesProvider.storageRoot;
+                        //return null;
+                    } else {
+                        return null
                     }
-                    else 
-                    {
-                        this.sync = true;
+                })
+                .then((val) => {
+                    if (val != null) {
+                        self.setData(val);
                     }
-                    this.populateFromDb();
-                }
-            });
+                    return val;
+                })
+                // ako je value iz nekog razloga null (u pravilu ne bi trebalo biti) dohvati
+                // podatke iz baze .then((val) => {     if (val == null || val.length == 0) {
+                //      this.populateFromDb();     } })
+                .then((val) => {
+                    if (val == null || val.length == 0) {
+                        if (self.modules == null || self.modules.length == 0) {
+                            self.syncInit = true;
+                        } else {
+                            self.sync = true;
+                        }
+                        return self
+                            .populateFromDb()
+                            .then((val) => resolve());
+                    }
+                })
+            //.then((val) => { alert("222"); resolve(); });
+        })
     }
 
     populateFromDb() {
-        this
-            .getServerData()
-            .then(data => {
-                if (data != null) {
-                    this.modules = data.application;
-                    this.addToStorage(data);
-                    this.setStorageRoot(data);
-                }
-                this.sync = false;
-                this.syncInit = false;
-            })
+
+        let self = this;
+        return new Promise(function (resolve, reject) {
+            self
+                .getServerData()
+                .then(data => {
+                    if (data != null) {
+                        self.setData(data);
+                        self.addToStorage(data);
+                        self.setStorageRoot(data);
+                    }
+                    self.sync = false;
+                    self.syncInit = false;
+                    self.initialized = true;
+                })
+                .then(() => {
+                    resolve()
+                })
+        })
+            .then(function () {
+                return;
+            });
     }
 
     setData(data) {
         this.modules = data.application; //.slice(0, 2);
+        this.getSveGranule();
     }
 
-
+    getSveGranule() {
+        this.sveGranule = [];
+        this
+            .modules
+            .forEach(element => {
+                element
+                    .group
+                    .forEach(el => {
+                        el
+                            .menu
+                            .forEach(mnu => {
+                                this
+                                    .sveGranule
+                                    .push(mnu);
+                            });
+                    });
+            });
+    }
 
     getDataFromStorage() {
         this
@@ -153,15 +151,16 @@ export class ModulesProvider {
             .then(() => {
                 return this
                     .storage
-                    .get(GlobalProvider.getCoreStorageKeys.modules)
+                    .get(this.constProvider.coreStorageKeys.modules)
                     .then(val => {
                         let data = JSON.parse(val);
+                        console.log(data);
                         this.setStorageRoot(data);
                         return data;
                     })
                     .then(val => {
                         if (val == null) {
-                            this.storageRoot = new Array <any> ();
+                            ModulesProvider.storageRoot = new Array < any > ();
                         }
                     });
             });
@@ -170,7 +169,7 @@ export class ModulesProvider {
 
     setStorageRoot(data) {
         if (data != null) {
-            this.storageRoot = data;
+            ModulesProvider.storageRoot = data;
         }
 
     }
@@ -182,9 +181,8 @@ export class ModulesProvider {
     addToStorage(data) {
         this
             .storage
-            .set(GlobalProvider.getCoreStorageKeys.modules, JSON.stringify(data));
+            .set(this.constProvider.coreStorageKeys.modules, JSON.stringify(data));
     }
-
 
     populateInfoModules() {
         this.infoModules = [
@@ -207,46 +205,63 @@ export class ModulesProvider {
         ];
     }
 
-    
     getServerData() {
-        let opt : RequestOptions
-        let headers : Headers = new Headers
 
         let login = GlobalProvider.getJupiterSystemData.user.login;
 
-        let body = {
-            "Db": GlobalProvider.getCompanyData.db,
-            "AccessToken": "",
-            "Login": login
-        };
-
-        let data = JSON.stringify(body);
-        opt = new RequestOptions({headers: headers});
-        
-        headers.set('Content-Type', 'application/json');
-
-        var url = GlobalProvider.getLoginData.serverPath + 'jupitermodules/get';
-        var response = this
-            .http
-            .post(url, data, opt)
+        let dataDef : ICore.IData = {
+            "queries": [
+                {
+                    "query": "spMobCore",
+                    "params": {
+                        "action": "getUser",
+                        "Login": login
+                    },
+                    "singlerow": true
+                }, {
+                    "query": "spMobCore",
+                    "params": {
+                        "action": "getApplications",
+                        "Login": login
+                    },
+                    "tablename": "application"
+                }, {
+                    "query": "spMobCore",
+                    "params": {
+                        "action": "getGroups",
+                        "Login": login
+                    },
+                    "tablename": "group",
+                    "reftable": "application",
+                    "refkey": "ApplicationId"
+                }, {
+                    "query": "spMobCore",
+                    "params": {
+                        "action": "getMenuItem",
+                        "Login": login
+                    },
+                    "tablename": "menu",
+                    "reftable": "group",
+                    "refkey": "GroupId"
+                }
+            ]
+        }
+        return this
+            .data
+            .getData(dataDef, false)
             .toPromise()
-            .then(result => result.json())
-            .catch(err => {
-                this.presentToastError(err._body);
-            });
-
-        return response;
-
+            .then(result => {
+                return result.json()
+            })
+            .catch((errr) => (console.log("error")));
     }
 
-        public presentToastError(message: string) {
+    public presentToastError(message : string) {
         let toast = this
             .toastCtrl
             .create({message: message, duration: 5000, position: 'bottom', cssClass: "toast-error"});
 
-        toast.onDidDismiss(() => {
-            
-        });
+        toast.onDidDismiss(() => {});
 
         toast.present();
     }

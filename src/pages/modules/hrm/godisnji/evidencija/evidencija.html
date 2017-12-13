@@ -1,0 +1,35 @@
+<ion-header>
+    <js-header title="Evidencija godišnjih odmora" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+
+
+<ion-content>
+    <js-content></js-content>
+    <ion-list>
+        <ion-item-divider ion-item color="light">
+            GODIŠNJI ODMOR
+            <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+        </ion-item-divider>
+        <ion-item class="tekuce">
+            <ion-label>Odobreno:</ion-label>
+            <span item-end class="light">{{tekucaGodina.odobreno}} </span>
+        </ion-item>
+        <ion-item class="tekuce">
+            <ion-label>Iskorišteno:</ion-label>
+            <span item-end class="light"> {{tekucaGodina.iskoristeno}} </span>
+        </ion-item>
+        <ion-item class="tekuce preostalo">
+            <ion-label>Preostalo:</ion-label>
+            <span item-end>{{tekucaGodina.preostalo}}</span>
+        </ion-item>
+        <ion-item-divider ion-item color="light">
+            KRONOLOŠKI
+            <ion-icon item-left name="ios-bookmarks-outline"></ion-icon>
+        </ion-item-divider>
+        <button ion-item *ngFor="let item of kronologija" (click)="openDetailView(item.godina)" [ngClass]="{'stari':'stari','novi':'novi'}[getGodinaInfo(item.godina)]">
+            {{item.godina}}
+            <ion-note item-end>{{item.iskoristeno}}/{{item.odobreno}}</ion-note>
+        </button>
+    </ion-list>
+</ion-content>

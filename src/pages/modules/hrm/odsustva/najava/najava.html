@@ -1,0 +1,100 @@
+<ion-header>
+    <js-header title="Najava odsustva" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <ion-list style="padding-bottom:60px">
+        <ion-item-divider ion-item color="light">
+            Razlog odsustva
+            <ion-icon item-left name="ios-map-outline"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-select [(ngModel)]="provider.parametri.hrodsustvaid" class="full-width no-padding" placeholder="(nedefinirano)">
+                <ion-option *ngFor="let item of data?.hrodsustva" [value]="item.hrodsustvaid">{{item.naziv}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ng-container *ngIf="provider.parametri.hrodsustvaid==1">
+            <div class="odsustva-inner">
+                <ion-list>
+                    <ion-item>
+                        <ion-label stacked>Mjesto putovanja:</ion-label>
+                        <ion-input [(ngModel)]="provider.parametri.sputmjesto"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked>Naziv firme:</ion-label>
+                        <ion-input [(ngModel)]="provider.parametri.sputfirma"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked>Zadatak službenog puta:</ion-label>
+                        <ion-textarea [(ngModel)]="provider.parametri.sputzadatak" autosize></ion-textarea>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked> Potrebna akontacija:</ion-label>
+                        <ion-input type="number" placeholder="kn" max="6" [(ngModel)]="provider.parametri.sputakontacija"></ion-input>
+                    </ion-item>
+                    <ion-item-sliding #slPrijevoz>
+                        <ion-item>
+                            <ion-label stacked>Prijevozno sredstvo:</ion-label>
+                            <ion-select [(ngModel)]="provider.parametri.sputprijevoz" class="full-width no-wrap" placeholder="(nedefinirano)">
+                                <ion-option *ngFor="let item of data?.prijevoz" [value]="item.naziv">{{item.naziv}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item-options side="right">
+                            <button ion-button icon-only (click)="clearValue(slPrijevoz, 'sputprijevoz')" color="danger">
+                                <ion-icon name="close"></ion-icon>
+                            </button>
+                        </ion-item-options>
+                    </ion-item-sliding>
+                </ion-list>
+            </div>
+        </ng-container>
+
+        <ion-item-divider ion-item color="light">
+            Period
+            <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+            <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+            <ion-label *ngIf="provider.periodHelper != null">({{provider.periodHelper}})</ion-label>
+            <ion-icon name="md-calendar"></ion-icon>
+        </button>
+        </ion-item-divider>
+        <ion-item class="sub">
+            <ion-label>Uključi sate i minute</ion-label>
+            <ion-toggle [(ngModel)]="provider.parametri.ukljucisate" (ionChange)="ukljuciSateChange()"></ion-toggle>
+        </ion-item>
+        <ion-item>
+            <ion-label>Vrijeme od</ion-label>
+            <ion-datetime *ngIf="provider.parametri.ukljucisate==true" displayFormat="DD.MM.YYYY HH:mm" minuteValues="0,30" [(ngModel)]="provider.parametri.vrijemeod" (ngModelChange)="validateVrijeme('od')">-</ion-datetime>
+            <ion-datetime *ngIf="provider.parametri.ukljucisate==false" displayFormat="DD.MM.YYYY" [(ngModel)]="provider.parametri.vrijemeod" (ngModelChange)="validateVrijeme('od')">-</ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Vrijeme do</ion-label>
+            <ion-datetime *ngIf="provider.parametri.ukljucisate==true" displayFormat="DD.MM.YYYY HH:mm" minuteValues="0,30" [(ngModel)]="provider.parametri.vrijemedo"  (ngModelChange)="validateVrijeme('do')"></ion-datetime>
+            <ion-datetime *ngIf="provider.parametri.ukljucisate==false" displayFormat="DD.MM.YYYY" [(ngModel)]="provider.parametri.vrijemedo" (ngModelChange)="validateVrijeme('do')"></ion-datetime>
+        </ion-item>
+        <ion-item-divider ion-item color="light">
+            <ion-label>Zamjenska osoba</ion-label>
+            <ion-icon item-left name="ios-man-outline"></ion-icon>
+            <ion-checkbox item-right [(ngModel)]="provider.parametri.ukljucizamjenika"></ion-checkbox>
+        </ion-item-divider>
+        <ion-item-sliding #slZamjenik>
+            <button ion-item *ngIf="provider.parametri.ukljucizamjenika==true" [ngClass]="{'highlight': provider.parametri.zamjenikid==null}" (click)="trazilica('hrkadrovi')">{{provider.parametri.zamjenik}}</button>
+            <ion-item-options side="right">
+                <button ion-button icon-only (click)="clearValue(slZamjenik, 'zamjenikid', 'zamjenik', '(nedefinirano)')" color="danger">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-divider ion-item color="light">
+            Napomena
+            <ion-icon item-left name="ios-paper-outline"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-textarea [(ngModel)]="provider.parametri.napomena" autosize></ion-textarea>
+        </ion-item>
+    </ion-list>
+
+    <ion-fab bottom right>
+        <button ion-fab (click)="azur()" [disabled]="buttonState()"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-fab>
+</ion-content>

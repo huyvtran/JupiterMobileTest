@@ -1,16 +1,19 @@
 import {Component} from '@angular/core';
-import {IonicPage, App} from 'ionic-angular';
+import {IonicPage} from 'ionic-angular';
 
 import {FavoritesProvider} from '../../../../providers/core/favorites-provider';
 import {GlobalProvider} from '../../../../providers/core/global-provider';
 
+import _ from 'lodash';
+
 @IonicPage()
 @Component({selector: 'page-core-cc-favorites', templateUrl: 'favorites.html'})
 export class CoreCcFavoritesPage {
-    constructor(private favoritesProvider : FavoritesProvider, private globalProvider : GlobalProvider, private app : App) {}
+    constructor(public favoritesProvider : FavoritesProvider
+        , private globalProvider : GlobalProvider) {}
 
     openModule(item) {
-        GlobalProvider.pushPage(item.page);
+        this.globalProvider.pushPage(_.replace(item.parameter, "mob:", ""));
     }
 
     doubleTap() {

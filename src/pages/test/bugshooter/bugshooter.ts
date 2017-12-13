@@ -1,11 +1,17 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController, AlertController, App} from 'ionic-angular';
+import {
+    IonicPage,
+    NavController,
+    NavParams,
+    ToastController,
+    AlertController,
+    App,
+    Platform
+} from 'ionic-angular';
 import {Camera} from '@ionic-native/camera';
 import {Diagnostic} from '@ionic-native/diagnostic';
 
-import { GlobalProvider } from '../../../providers/core/global-provider';
-
-
+import {BasePage} from '../../../providers/base/base-page';
 /*
   Generated class for the Bugshooter page.
 
@@ -15,14 +21,17 @@ import { GlobalProvider } from '../../../providers/core/global-provider';
 
 @IonicPage()
 @Component({selector: 'page-test-bugshooter', templateUrl: 'bugshooter.html'})
-export class TestBugshooterPage {
+export class TestBugshooterPage extends BasePage {
     // public base64Image: string; public base64Image: any; public base64Image: any;
     public base64Image : Array < string > = new Array < string > ();
 
-    constructor(public navCtrl : NavController, public navParams : NavParams, public toastCtrl : ToastController, private alertCtrl : AlertController, 
-        private diagnostic: Diagnostic, private camera: Camera, private app: App, private globalProvider: GlobalProvider)
+    constructor(public navCtrl : NavController, private platform : Platform, public navParams : NavParams, public toastCtrl : ToastController, private alertCtrl : AlertController, 
+        private diagnostic: Diagnostic, private camera: Camera, private app: App)
     {
-        this.checkPermissions();
+        super();
+        if (this.platform.is('cordova')) {
+            this.checkPermissions();
+        }
     }
 
     checkPermissions() {
@@ -59,7 +68,6 @@ export class TestBugshooterPage {
                     .base64Image
                     .push("data:image/jpeg;base64," + imageData);
             }, (err) => {
-                console.log(err);
             });
     }
 
@@ -78,7 +86,6 @@ export class TestBugshooterPage {
                         text: 'Odustani',
                         role: 'cancel',
                         handler: () => {
-                            console.log('Odustani...');
                         }
                     }, {
                         text: 'Potvrdi',
@@ -101,7 +108,6 @@ export class TestBugshooterPage {
             .create({message: message, duration: 3000, position: 'bottom'});
 
         toast.onDidDismiss(() => {
-            console.log('Dismissed toast');
         });
 
         toast.present();

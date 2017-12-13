@@ -1,23 +1,15 @@
 import {Storage} from '@ionic/storage';
 import {Injectable} from '@angular/core';
 import {App, ToastController} from 'ionic-angular';
-import {Http, RequestOptions, Headers} from '@angular/http';
+import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 
 import {GlobalProvider} from './core/global-provider';
 
-// import {PartnerSearchPage} from '../pages/partner/search/search' import
-// {StorageRoot} from '../models/storage-root' import {Observable} from
-// 'rxjs/Observable';
+import * as ICore from '../interfaces/ICore';
 
-/*
-  Generated class for the ParterinfoProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class PartnerinfoProvider {
     private storage : Storage;
@@ -32,8 +24,8 @@ export class PartnerinfoProvider {
     public recordsCnt : number = 0;
 
     public items : any = {};
-    public osobe : Array < any >;
-    public lokacije : Array < any >;
+    public osobe : Array <any>;
+    public lokacije : Array <any>;
     public biljeske : any = {};
 
     public loading : boolean = false;
@@ -44,11 +36,11 @@ export class PartnerinfoProvider {
     private storageKeys : {
         history: string
     } = {
-        history: "info.partners.history.001",
+        history: "info.partners.history.002",
     };
 
-    constructor(public http : Http, private app : App, private toastCtrl : ToastController) {
-        this.storage = new Storage([]);
+    constructor(public http : Http, private app : App, private toastCtrl : ToastController, private global: GlobalProvider) {
+        this.storage = new Storage({});
         this.getDataFromStorage();
     }
 
@@ -103,16 +95,12 @@ export class PartnerinfoProvider {
                     .get(this.storageKeys.history)
                     .then(val => {
                         let data = JSON.parse(val);
-                        console.log(data);
                         this.storageHistoryRoot = data;
                         return data;
                     })
                     .then(val => {
                         if (val != null) {
-                            console.log(val);
-                            let data = val.filter(x => x.db == GlobalProvider.getCompanyData.db.trim());
-                            console.log(GlobalProvider.getCompanyData.db.trim());
-                            console.log(data);
+                            let data = val.filter(x => x.db != null && x.db.trim() == this.global.getCompanyData.db.trim());
                             this.sortData(data);
                             return data;
                         }
@@ -121,7 +109,7 @@ export class PartnerinfoProvider {
                         if (val == null) {
                             this.clearData();
                         }
-                    });
+                    }).catch(ex => this.global.logError(ex, true));
             })
     }
 
@@ -199,36 +187,53 @@ export class PartnerinfoProvider {
     }
 
     getPartnerData(obj, id) {
-        return obj.filter(x => x.partneriId == id && x.db == GlobalProvider.getCompanyData.db.trim());
+        return obj.filter(x => x.partneriid == id && x.db == this.global.getCompanyData.db.trim());
     }
 
     getServerData(id) {
-        let opt : RequestOptions
-        let headers : Headers = new Headers
-
-        headers.set('Content-Type', 'application/json');
-
-        let body = {
-            "Id": id,
-            "Db": GlobalProvider.getCompanyData.db
-        };
-
-        let data = JSON.stringify(body);
-
-        opt = new RequestOptions({headers: headers});
-
-        //var url = 'http://localhost:25509/api/partner/info/' + id;
-        var url = GlobalProvider.getLoginData.serverPath + 'partner/info';
-
-        var response = this
-            .http
-            .post(url, data, opt)
-            .toPromise()
-            .then(result => result.json())
-            .catch(err => {
-                this.presentToastError(err._body);
-            });
-        return response;
+        let data : ICore.IData = {
+            "queries": 
+            [
+               {
+                    "query": "spMobInfoPartner",
+                    "params": {
+                        "action": "getInfo",
+                        "id": id
+                    },
+                    "singlerow": true
+                },
+                {
+                    "query": "spMobInfoPartner",
+                    "params": {
+                        "action": "getOsobe",
+                        "id": id
+                    },
+                    "tablename": "osobe"
+                    
+                },
+                {
+                    "query": "spMobInfoPartner",
+                    "params": {
+                        "action": "getLokacije",
+                        "id": id
+                    },
+                    "tablename": "lokacije"
+                    
+                },
+                {
+                    "query": "spMobInfoPartner",
+                    "params": {
+                        "action": "getBiljeske",
+                        "id": id
+                    },
+                    "tablename": "biljeske"
+                }
+            ]
+        }
+        return this
+            .global
+            .getData(data, true);
+     
     }
 
     public presentToastError(message : string) {
@@ -250,13 +255,27 @@ export class PartnerinfoProvider {
     }
 
     findPartner(value) {
-        var url = GlobalProvider.getLoginData.serverPath + 'partner/search/';
+        let dataDef : ICore.IData = {
+            "queries": [
+                {
+                    "query": "spMobTrazilica",
+                    "params": {
+                        "action": "partner",
+                        "keyword": value
+                    }
+                }
+            ]
+        }
+        
         return this
-            .http
-            .get(url + value)
-            //.timeout(1000, null)
-            .map(res => res.json())
-        //.catch(this.handleError)
+            .global
+            .getData(dataDef, false).catch(ex=> this.global.logError(ex, true));
+
+        // var url = GlobalProvider.getLoginData.serverPath + 'partner/search/';
+        // return this
+        //     .http
+        //     .get(url + value)
+        //     .map(res => res.json())
     }
 
     handleError(error) {

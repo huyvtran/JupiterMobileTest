@@ -1,0 +1,47 @@
+page-konsolidacija-lista {
+    .item-md, .item-ios {
+        padding: 0px;
+    }
+    .item-ios {
+        font-size: 1.4rem;
+    }
+    
+    // ion-icon {
+    //     display: inline-block;
+    //     font-size: 3em;
+    // }
+ 
+    .ikonavelika{
+        font-size: 3em !important;
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+        top:15%;
+        transform:translateY(-15%);
+
+    }
+    .nemapodataka{        
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+        top:25%;
+        transform:translateY(-25%);  
+
+    }
+    .grid, .row, .col {
+        padding: 0px 0px 0px 5px;
+    }
+    .label-md, .label-ios {
+        margin: 7px 8px 7px 0;
+    }
+    // .icon-md {
+    //     font-size: 1.2em;
+    //     padding-bottom: 0px!important;
+    // }
+    // .icon-ios {
+    //     font-size: 1.5em!important;
+    //     padding-bottom: 0px!important;
+    // }
+}

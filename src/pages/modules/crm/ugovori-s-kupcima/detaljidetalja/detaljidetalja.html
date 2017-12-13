@@ -1,0 +1,187 @@
+<ion-header>
+  <js-header title="Detalji" [showClose]="false" [showFavorite]="false"></js-header>
+  <!-- <ion-navbar>
+      <ion-title text-wrap><small>Detalji</small></ion-title>
+  </ion-navbar> -->
+</ion-header>
+
+
+<ion-content>
+
+
+  <ion-item-divider sticky color="light" >
+
+    <div style="min-height: 2.4rem;"><strong>{{item.partner}}</strong> &nbsp; <span style="color: black;"><strong>{{item.broj}}</strong></span></div>
+    <hr>
+    <div  style="min-height: 2.4rem;">Ugovor vrijedi od <span style="color: black;"><strong>{{item.datumugovora |date: 'dd/MM/yyyy'}}</strong></span> do <span style="color: black;"><strong>{{item.ugovorvrijedido |date: 'dd/MM/yyyy'}}</strong></span></div>
+    <hr>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 text-wrap>
+          Opis
+        </ion-col>
+        <ion-col col-8 text-wrap text-right style="padding-right: 5px;">
+            <span style="color: black;">{{item.opis}}</span>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item-divider>
+
+  <ion-list>
+    <ion-item color="light">
+      <ion-label>
+         Vrsta ugovora
+      </ion-label>
+      <ion-note item-right>
+          {{item.vrsta}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item color="light">
+      <ion-label>
+        Odgovorna osoba
+      </ion-label>
+      <ion-note item-right>
+        {{item.odgovornaosoba}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5 text-wrap>
+            <strong [hidden]="item.robaid!=0">Klasa</strong>
+            <strong [hidden]="item.robaid==0">Roba</strong>
+          </ion-col>
+          <ion-col col-7 text-right text-wrap>
+            <strong>{{item.roba}}</strong>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+
+
+
+    <ion-item>
+      <ion-label>
+        Ukupni rabat
+      </ion-label>
+      <ion-note item-right>
+        {{item.ukupnirabat}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Cijena
+      </ion-label>
+      <ion-note item-right>
+          {{transform(item.cijena|number:'1.2-2')}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Odgoda plaćanja
+      </ion-label>
+      <ion-note item-right>
+        {{item.odgoda}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Cjenik
+      </ion-label>
+      <ion-note item-right>
+        {{item['vrsta cjenika']}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5 text-wrap>Način isporuke</ion-col>
+          <ion-col col-7 text-right text-wrap>{{item['način isporuke']}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5 text-wrap>Način plaćanja</ion-col>
+          <ion-col col-7 text-right text-wrap>{{item['način naplate']}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Rabat 1
+      </ion-label>
+      <ion-note item-right>
+        {{item.rabat1}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Rabat 2
+      </ion-label>
+      <ion-note item-right>
+        {{item.rabat2}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Rabat 3
+      </ion-label>
+      <ion-note item-right>
+        {{item.rabat3}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Rabat 4
+      </ion-label>
+      <ion-note item-right>
+        {{item.rabat4}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Rabat 5
+      </ion-label>
+      <ion-note item-right>
+        {{item.rabat5}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Cassa
+      </ion-label>
+      <ion-note item-right>
+        {{item.cassa1}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5 text-wrap>Napomena</ion-col>
+          <ion-col col-7 text-right text-wrap>{{item.napomena}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+  </ion-list>
+
+
+</ion-content>

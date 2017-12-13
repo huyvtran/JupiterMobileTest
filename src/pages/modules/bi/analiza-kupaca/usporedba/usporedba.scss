@@ -1,0 +1,111 @@
+page-bi-analiza-kupaca-usporedba {
+
+    accordion-list .accordion-content.active {
+        padding:0;
+    }
+
+    .container {
+		display: flex;
+        border-bottom: 1px solid #ccc;
+        &.excludeB{
+            padding: 8px 6px;
+            background: #f2f4f4;
+        }
+    }
+
+
+	
+	.container .a, .container .b  {
+        flex: 50%;
+        font-weight:600;
+        text-align: right;
+        color: #222;
+        &.includeB{
+            padding: 18px 6px 4px 6px;
+        }
+    }
+
+    .group-blue {
+        background: #445a6d!important;
+        color: #e5e5e5;
+        span.sub {
+            font-size:1.2rem;
+            font-style: italic;
+        }
+        ion-note {
+            color:#e5e5e5;
+            font-style: italic;
+        }
+    }
+
+
+    ion-header .container .a, ion-header .container .b  {
+        padding: 4px;
+        font-size:1.2rem;
+        font-weight:400;
+        text-align: center;
+        color: #222;
+        span {
+            font-weight: 600;
+        }
+      }
+    
+	
+	.container .a {
+        background: #f2f4f4;
+        &.excludeB
+        {
+            background:#f2f4f4;
+        }
+        
+	}
+	.container .b {
+        //background: #E6E6FA;
+        background: #ffe9e7;
+    }
+    
+    .container.highlight .a {
+        background: #edefef;
+    }
+
+    .container.highlight {
+        &.excludeB{
+            background: #edefef;
+        }
+    }
+
+    .container.highlight .b {
+        background: #f2e1de;
+    }
+
+    span.a, .container .a {
+        color: #364b5e;
+        font-size:1.4rem;
+    }
+    span.b, .container .b {
+        color: #8B0000;
+        font-size:1.4rem;
+    }
+
+	.info 
+	{
+        &.includeB
+        {
+            color:#444;
+            padding-top:2px;
+            font-size:7pt;
+            position:absolute;
+            letter-spacing: 1px;
+            left: 0; 
+            right: 0; 
+            text-align:center;  
+        }
+        &.excludeB
+        {
+            font-size:1.2rem;
+            display: table-cell;
+            vertical-align:middle!important;
+            color:#222;
+        }
+	}
+}

@@ -1,0 +1,184 @@
+<ion-header>
+    <js-header title="Financijski pregled" [showClose]="true" [showFavorite]="true"></js-header>
+    <div style="margin:8px">
+        <button ion-button full round color="light" style="border: 1px solid #ccc" (click)="trazilicaAuto('partner')">{{provider.partner}}</button>
+    </div>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <js-nodata *ngIf="provider.partnerid == null" message="Odaberite partnera"></js-nodata>
+    <ng-container *ngIf="provider.partnerid != null">
+        <!-- <accordion-list *ngFor="let item of items; let i = index" [title]="item.caption" [textColor]="i==2 ? '#fff' : '#333'" hasMargin="false"
+            [headerColor]="i==2 ? 'rgba(54,75,94,0.8)' : '#ebebeb'" [hideNoteOnExpand]="false">        
+            <ion-list>
+                <button ion-item full *ngFor="let itemSub of dataFin?.promet" (click)="uIzradi()">
+                    {{itemSub.nazivgrupe}}
+                    <ion-note item-right>{{itemSub[item.name] | numberFormat:2}}</ion-note>
+                </button>
+                <button ion-item full style="font-weight: 600; background: #f2f2f2" (click)="uIzradi()">
+                    UKUPNO 
+                    <ion-note item-right>{{dataFin?.ukupno && (dataFin?.ukupno[item.name] | numberFormat:2)}}</ion-note>
+                </button>
+            </ion-list>
+            <ion-note accordion-header-end class="ukupno" [ngClass]="{'saldo': i==2}" item-end>{{dataFin?.ukupno && (dataFin?.ukupno[item.name] | numberFormat:2)}}</ion-note>
+            <div accordion-header-custom style="position:absolute; top:0; left:0; bottom:0; width:10px; border-right:1px solid #ffffff"
+                [style.background]="getHeaderColor(i)" *ngIf="i==2"></div>
+        </accordion-list> -->
+        <accordion-list *ngFor="let item of dataFin?.promet; let i = index" [title]="item.nazivgrupe" hasMargin="false" [hideNoteOnExpand]="false">
+            <ion-list>
+                <ion-item full *ngFor="let itemSub of items; let iSub = index" [ngClass]="{'saldo': iSub==2, 'no-border': iSub==1 || iSub==2}">
+                    {{itemSub.caption}}
+                    <ion-note item-right>{{item[itemSub.name] | numberFormat:2}}</ion-note>
+                </ion-item>
+                <div style="margin:10px">
+                    <button ion-button full color="medium" (click)="openDetail(item)">
+                        Pregled računa <span class="grupa">({{item.nazivgrupe}})</span>
+                    </button>
+                </div>
+            </ion-list>
+            <ion-note accordion-header-end class="ukupno" item-end>{{item.saldo | numberFormat:2}}</ion-note>
+        </accordion-list>
+
+        <div style="background:#fafafa; padding:10px 0; border-bottom:1px solid #e2e2e2;">
+            <ion-grid>
+                <ion-row text-center>
+                    <ion-col>
+                        <ion-card full>
+                            <ion-card-header>
+                                Kreditni limit
+                            </ion-card-header>
+                            <ion-card-content>
+                                {{dataFin?.ostalo && (dataFin?.ostalo?.kreditnilimit | numberFormat:2)}}
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card>
+                            <ion-card-header>
+                                Zabrana
+                            </ion-card-header>
+                            <ion-card-content>
+                                {{dataFin?.ostalo?.zabranatekst}}
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row text-center>
+                    <ion-col>
+                        <ion-card>
+                            <ion-card-header>
+                                Instumenti plaćanja
+                            </ion-card-header>
+                            <ion-card-content>
+                                {{dataFin?.ostalo && dataFin?.ostalo?.instrumentiplacanja}}
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+
+        <!-- <accordion-list *ngFor="let item of itemsZadnje; let i = index" [title]="item.caption<br>test" textColor="#333" hasMargin="false"
+            headerColor="#ebebeb" [hideNoteOnExpand]="false">        
+            <ion-list>
+                <ion-item full *ngFor="let itemSub of item.items">
+                    {{itemSub.caption}}
+                    <ion-note item-right>{{itemSub.value}}</ion-note>
+                </ion-item>
+            </ion-list>
+            <ion-note accordion-header-end class="ukupno" item-end>{{item.value}}</ion-note>
+        </accordion-list> -->
+
+        <ion-list style="border-top:1px solid #dddddd; margin-bottom:0">
+            <button ion-item full (click)="openZadnje('kupac')">
+                Zadnja uplata - kupac:
+                <ion-note item-right>
+                    <div innerHTML="{{itemsZadnje.kupac}}"></div>
+                </ion-note>
+            </button>
+            <button ion-item full (click)="openZadnje('dobavljac')">
+                Zadnja uplata - dobavljač:
+                <ion-note item-right>
+                    <div innerHTML="{{itemsZadnje.dobavljac}}"></div>
+                </ion-note>
+            </button>
+        </ion-list>
+
+        <ion-item-divider ion-item color="light" style="border-top:2px solid #999;">
+            <ion-label><strong>Promet</strong></ion-label>
+            <ion-icon item-left name="trending-up"></ion-icon>
+            <ion-note class="info" item-right>prikaz cijele<br>prošle godine</ion-note>
+            <ion-checkbox item-right [(ngModel)]="provider.prometProslaGodina" (ionChange)="checkPrometProslaGodina($event)"></ion-checkbox>
+        </ion-item-divider>
+        
+        <ion-slides pager="true" style="height: 250px; background: #f7f7f7">
+            <ion-slide>
+                <canvas #barCanvas></canvas>
+            </ion-slide>
+            <ion-slide>
+                <h1>Grafikon 2</h1>    
+            </ion-slide>
+            <ion-slide>
+                <h1>Grafikon 3</h1>
+            </ion-slide>
+        </ion-slides>
+
+        <!-- <div class="promet">
+            <table>
+                <tr>
+                    <th></th>
+                    <th>kupac</th>
+                    <th>dobavljač</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="tekuca"></div>{{godinaTekuca}}</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[0].promet | numberFormat:2)}}</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[1].promet | numberFormat:2)}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="prosla"></div>{{godinaProsla}}<br><span>(do danas)</span></td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[0].prometpgytod | numberFormat:2)}}</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[1].prometpgytod | numberFormat:2)}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="proslacijela"></div>{{godinaProsla}}<br><span>(cijela)</span></td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[0].prometpgy | numberFormat:2)}}</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[1].prometpgy | numberFormat:2)}}</td>
+                </tr>
+            </table>
+        </div> -->
+
+        <div class="promet">
+            <table class="promet">
+                <tr>
+                    <th></th>
+                    <th>
+                        <div class="tekuca"></div>{{godinaTekuca}}</th>
+                    <th>
+                        <div class="prosla"></div>{{godinaProsla}}<br><span>(do danas)</span></th>
+                    <th>
+                        <div class="proslacijela"></div>{{godinaProsla}}<br><span>(cijela)</span></th>
+                </tr>
+                <tr>
+                    <td>kup</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[0].promet | numberFormat:2)}}</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[0].prometpgytod | numberFormat:2)}}</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[0].prometpgy | numberFormat:2)}}</td>
+                </tr>
+                <tr>
+                    <td>dob</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[1].promet | numberFormat:2)}}</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[1].prometpgytod | numberFormat:2)}}</td>
+                    <td>{{dataFin?.promet && (dataFin?.promet[1].prometpgy | numberFormat:2)}}</td>
+                </tr>
+            </table>
+        </div>
+    </ng-container>
+    <ion-fab bottom right *ngIf="provider.partnerid != null">
+        <button style="opacity:0.8" ion-fab mini (click)="partnerInfo()"><ion-icon name="information"></ion-icon></button>
+    </ion-fab>
+</ion-content>

@@ -1,0 +1,113 @@
+<ion-header>
+    <js-header title="Analiza prodaje" [showClose]="true" [showFavorite]="true" rootPage="BiAnalizaProdajeTabs"></js-header>
+    <div class="sub-title">
+        {{subTitle}}
+    </div>
+    <ion-item-divider ion-item color="light" *ngIf="filterType=='b'">
+        <ion-label>Uključi u analizu</ion-label>
+        <ion-toggle color="dark" item-left [(ngModel)]="parametri.include" (ionChange)="includeRef()"></ion-toggle>
+        <button ion-button item-end color="dark" *ngIf="parametri.include==true" (click)="copyValues()">Kopiraj s izv.</button>
+    </ion-item-divider>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <ion-list *ngIf="parametri.include==true">
+        <ion-item-divider ion-item color="light">
+            Objekt analize
+            <ion-icon item-left name="ios-cube-outline"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-select [(ngModel)]="parametri.objekt" placeholder="Odaberi" class="full-width" (ionChange)="onSelectChange()">
+                <ion-option value="p">Ponude</ion-option>
+                <ion-option value="o">Otprema</ion-option>
+                <ion-option value="f">Faktura</ion-option>
+                <ion-option value="m">MP</ion-option>
+                <ion-option value="v">MP+VP</ion-option>
+            </ion-select>
+        </ion-item>
+        <!-- <ion-item>
+            <ion-label>Ponuda</ion-label>
+            <ion-radio value="p"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Otprema</ion-label>
+            <ion-radio value="o"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Faktura</ion-label>
+            <ion-radio value="f"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>MP</ion-label>
+            <ion-radio value="m"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>MP+VP</ion-label>
+            <ion-radio value="v"></ion-radio>
+        </ion-item> -->
+        <ion-item-divider ion-item color="light">
+            Period
+            <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+            <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+                <ion-icon name="md-calendar"></ion-icon>
+            </button>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Datum od</ion-label>
+            <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="parametri.datumod">-</ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Datum do</ion-label>
+            <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="parametri.datumdo"></ion-datetime>
+        </ion-item>
+        <ion-item-divider ion-item color="light">
+            Ostalo
+            <ion-icon item-left name="ios-more-outline"></ion-icon>
+        </ion-item-divider>
+        <ion-item-sliding #slKl>
+            <button ion-item (click)="trazilica('klmasterroba')"> 
+                <div class="trazilica-caption">Klasa robe:</div>
+                <div class="filter-text" text-wrap>{{parametri.klmasterrobanaziv}}</div>
+            </button>
+            <ion-item-options side="right">
+                <button ion-button icon-only (click)="clearValue(slKl, 'klmasterrobaid', 'klmasterrobanaziv')" color="danger">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding #slOr>
+            <button ion-item (click)="trazilica('orgshema')"> 
+                <div class="trazilica-caption">Org. jedinica:</div>
+                <div text-wrap>{{parametri.orgshemanaziv}}</div>
+            </button>
+            <ion-item-options side="right">
+                <button ion-button icon-only (click)="clearValue(slOr, 'orgshemaid', 'orgshemanaziv')" color="danger">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding #slOp>
+            <button ion-item (click)="trazilica('operater')"> 
+                <div class="trazilica-caption">Odgovorna osoba:</div>
+                <div text-wrap>{{parametri.odgovornaosobanaziv}}</div>
+            </button>
+            <ion-item-options side="right">
+                <button ion-button icon-only (click)="clearValue(slOp, 'odgovornaosobaid', 'odgovornaosobanaziv')" color="danger">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+                
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+
+    <ion-fab bottom right>
+        <button ion-button round (click)="ok()">Izračunaj</button>
+        <!-- <button ion-fab color="dark" (click)="ok()" *ngIf="filterType=='a'">
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+        </button>
+        <button ion-fab (click)="ok()" *ngIf="filterType=='b'">
+                <ion-icon name="checkmark"></ion-icon>
+        </button> -->
+    </ion-fab>
+</ion-content>

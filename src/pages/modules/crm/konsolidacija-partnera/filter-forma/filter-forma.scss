@@ -1,0 +1,40 @@
+page-konsolidacija-filter-forma {
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: lightgrey;
+        box-shadow: inset 0 -1px 0 0 lightgrey;
+    }
+    .checkbox-md .checkbox-checked, .checkbox-ios .checkbox-checked {
+        border-color: #488aff;
+        background-color: #488aff;
+    }
+    .list-ios, .list-md {
+        margin: 0px;
+    }
+    #mojlabel .label-md, #mojlabel .label-ios {
+        min-height: 38px;
+    }
+    // .icon-md {
+    //     font-size: 1.2em;
+    //     padding-bottom: 0px!important;
+    //}
+    .icon-ios {
+        font-size: 1.5em!important;
+        padding-bottom: 0px!important;
+    }
+    .icon-md {
+        font-size: 1.5em;
+        margin: 0px; 
+    }
+    #option-icon .icon-md {
+        font-size: 1.2em!important;
+    }
+ 
+    
+    .item-md ion-icon[item-left] + .item-inner, .item-md ion-icon[item-left] + .item-input, .item-md ion-icon[item-start] + .item-inner, .item-md ion-icon[item-start] + .item-input {
+        margin-left: 12px;
+    }
+    #labell .label-md, #labell .label-ios {
+        margin: 7px 8px 7px 0;
+    }
+    }

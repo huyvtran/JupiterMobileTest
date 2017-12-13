@@ -1,0 +1,28 @@
+<ion-list *ngIf="exclude.indexOf('group1')<0">
+    <button ion-item (click)="getTime('d')" detail-none *ngIf="exclude.indexOf('d')<0">Danas</button>
+    <button ion-item (click)="getTime('-d')" detail-none *ngIf="exclude.indexOf('-d')<0">Jučer</button>
+    <button ion-item (click)="getTime('+d')" detail-none *ngIf="exclude.indexOf('+d')<0">Sutra</button>
+</ion-list>
+<ion-list class="main" *ngIf="exclude.indexOf('group2')<0">   
+    <ion-item class="sub" >
+        <ion-label>Do današnjeg datuma</ion-label>
+        <ion-toggle [(ngModel)]="doDanas"></ion-toggle>
+    </ion-item>
+    <button ion-item (click)="getTime('t')" detail-none *ngIf="exclude.indexOf('t')<0">Ovaj tjedan</button>
+    <button ion-item (click)="getTime('m')" detail-none *ngIf="exclude.indexOf('m')<0">Ovaj mjesec</button>
+    <button ion-item (click)="getTime('y')" detail-none *ngIf="exclude.indexOf('y')<0">Ova godina</button>
+</ion-list>
+<ion-list class="main" *ngIf="exclude.indexOf('group3')<0">   
+    <button ion-item (click)="getTime('-t')" detail-none *ngIf="exclude.indexOf('-t')<0">Prošli tjedan</button>
+    <button ion-item (click)="getTime('-m')" detail-none *ngIf="exclude.indexOf('-m')<0">Prošli mjesec</button>
+    <button ion-item (click)="getTime('-y')" detail-none *ngIf="exclude.indexOf('-y')<0">Prošla godina</button>
+</ion-list>
+<ion-list class="main" *ngIf="exclude.indexOf('group4')<0">    
+    <button ion-item (click)="getTime('+t')" detail-none *ngIf="exclude.indexOf('+t')<0">Sljedeći tjedan</button>
+    <button ion-item (click)="getTime('+m')" detail-none *ngIf="exclude.indexOf('+m')<0">Sljedeći mjesec</button>
+</ion-list>
+<!-- <ion-list class="sub" *ngIf="type != 'dan'">
+    <button ion-item (click)="getTime('d')" detail-none *ngIf="exclude.indexOf('d')<0">Do kraja tjedna</button>
+    <button ion-item (click)="getTime('t')" detail-none *ngIf="exclude.indexOf('d')<0">Do kraja mjeseca</button>
+    <button ion-item (click)="getTime('+t')" detail-none *ngIf="exclude.indexOf('d')<0">Do kraja godine</button>
+</ion-list> -->

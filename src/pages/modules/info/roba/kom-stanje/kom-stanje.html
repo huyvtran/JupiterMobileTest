@@ -1,0 +1,59 @@
+<ion-header>
+    <js-header title="Roba - {{roba.naziv}}" [showClose]="true"></js-header>
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+         <js-nodata *ngIf="roba.komerstanje.length == 0"></js-nodata>
+         <accordion-list *ngFor="let item of roba.komerstanje | search: term:'skladiste'; let fst = first;" title="{{item.skladiste}}" textColor="#333" hasMargin="false" headerColor="#e6e6e6" [expanded]="fst">
+
+             <ion-list>
+                <ion-item full>
+                   Stanje
+                    <ion-note item-right>{{item.stanje | numberFormat:2}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    Raspoloživo
+                    <ion-note item-right>{{item.raspolozivo | numberFormat:2}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    Rezervirano
+                    <ion-note item-right>{{item.rezervirano | numberFormat:2}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    Naručeno
+                    <ion-note item-right>{{item.naruceno | numberFormat:2}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    Nabavna cijena
+                    <ion-note item-right>{{item.nabavnacijena }}</ion-note>
+                </ion-item>
+                <ion-item>
+                    Neto cijena
+                    <ion-note item-right>{{item.netocijena | numberFormat:2}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    Bruto cijena
+                    <ion-note item-right>{{item.brutocijena | numberFormat:2}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    MP cijena
+                    <ion-note item-right>{{item.mpcijena | numberFormat:2}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    Količina min
+                    <ion-note item-right>{{item.kolicinamin | numberFormat:2}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    Količina max
+                    <ion-note item-right>{{item.kolicinamax | numberFormat:2}}</ion-note>
+                </ion-item>
+            </ion-list>
+            
+        </accordion-list>
+
+    </ion-list>
+
+
+</ion-content>

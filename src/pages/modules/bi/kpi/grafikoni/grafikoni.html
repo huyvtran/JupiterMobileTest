@@ -1,0 +1,17 @@
+<ion-header>
+    <js-header title="KPI - Grafikoni" [showClose]="true" [showFavorite]="true" rootPage="ManagerKpiTabsPage"></js-header>
+    <ion-item class="filter">
+        <ion-label>Filter (datum):</ion-label>
+        <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="managerKpiProvider.datum"></ion-datetime>
+    </ion-item>
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <accordion-list *ngFor="let p of cards?.set" [title]="p.naziv" textColor="#333" hasMargin="false" headerColor="#e6e6e6">
+        <button ion-item (click)="startModule(pp, p.datumDo)" *ngFor="let pp of p.grafikon">
+                    {{pp.naziv}}
+                </button>
+    </accordion-list>
+</ion-content>

@@ -1,0 +1,111 @@
+page-hrm-odsustva-odobravanje {
+    .note {
+        color: #666;
+        min-width: 95px;
+        span {
+            font-size: 1.2rem;
+        }
+    }
+
+    ion-label {
+        padding-left: 8px;
+        font-size: 1.4rem;
+        h2 {
+            font-size: 1.3rem!important;
+            padding-bottom:0px;
+        }
+        p {
+            padding-top: 2px;
+            border-top: 1px dotted #ccc; 
+            font-size: 1.3rem!important;
+            font-style: italic;
+        }
+        margin-top:8px!important;
+        margin-bottom:0!important;
+    }
+
+    .item {
+        background: #f5f5f5;
+        padding-left: 0;
+        min-width: 200px;
+    }
+    .item [item-end] {
+        margin: 4px 4px 4px 4px;
+    }
+
+    ion-item .input-wrapper {
+        background: #fff;
+    }
+
+    // ion-item ion-label {
+        
+    // }
+
+    ion-item-group .item:last-child .item-inner {
+        border-bottom: 1px solid #dedede;
+    }
+
+    .accordion-content {
+        padding:0!important;
+    }
+
+    .item.item .checkbox {
+        margin: 9px 9px 9px 9px;
+    }
+    .list .item-block .item-inner {
+        border-bottom: 1px solid #b4b4b4;
+    }
+
+    table {
+        font-size:1.0rem;
+        font-style: italic;
+        width:100%;
+        margin-top:8px;
+        table-layout: fixed;
+        td div  {
+            display: block;
+            overflow: hidden;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .odobreno,  {
+        color: green;
+    }
+    .cekanje {
+        color: #fed753;
+    }
+    .odbijeno {
+        color: map-get($colors, danger);
+    }
+
+    .info span {
+        color: #999999;
+        font-style: italic;
+    }
+
+    .fab {
+        contain: layout;
+    }
+    button[ion-fab] {
+        overflow: visible;
+        position: relative;
+        
+        ion-label {
+            position: absolute;
+            top: -3px;
+            right: 40px;
+
+            color: white;
+            background-color: rgba(0,0,0,0.7);
+            line-height: 24px;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+    }
+}

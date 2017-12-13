@@ -1,0 +1,85 @@
+<ion-header>
+    <js-header title="Roba iz razdoblja" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+
+<ion-content>
+
+    <js-content></js-content>
+    <ion-item-divider style="padding-left: 0px;" class="wow fadeIn" color="light" text-wrap id="labelnomargin">
+        <ion-card>
+        <strong>{{parametriupita.objektanalize}}</strong> od <strong>{{parametriupita.partnerinaziv}}</strong> {{parametriupita.lokacijanaziv}} u razdoblju od <strong>{{parametriupita.datumod | date : 'dd/MM/yyyy'}}.</strong> 
+        do <strong>{{parametriupita.datumdo | date : 'dd/MM/yyyy'}}.</strong><br>
+        {{parametriupita.klmasterrobanaziv}} {{parametriupita.orgshemanaziv}}
+        </ion-card>
+    </ion-item-divider>
+    <ion-item-divider class="spin-boja" [hidden]="nemapodataka" color="light">
+
+        <ion-grid class="wow fadeIn">
+            <ion-row>
+                <ion-col>
+                    Roba
+                </ion-col>
+
+            </ion-row>
+            <ion-row>
+                <ion-col col-3 text-right>
+                    Količina
+                </ion-col>
+                <ion-col col-4 text-right>
+                    Neto vrijednost
+                </ion-col>
+                <ion-col col-5 text-right>
+                    RUC/%RUC
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+
+    </ion-item-divider>
+    <ion-list>
+        <ion-item-group [hidden]="runninggrouptotals(group.naziv)==0" *ngFor="let group of groups">
+            <ion-item-divider sticky color="light">
+
+                <ion-label text-wrap>
+                    <strong style="color: #c0392b;">
+                            {{group.naziv}} 
+                            </strong>
+                </ion-label>
+
+                <ion-badge color="light" style="color: grey;" item-right> {{ runninggrouptotals(group.naziv) | number : '1.0-0'}} </ion-badge>
+            </ion-item-divider>
+
+            <ion-item-sliding *ngFor="let item of items">
+                <button detail-none ion-item *ngIf="item['klasa robe']==group.naziv">
+         <span text-wrap>
+         
+         {{item.roba}}
+         </span>
+         <small>
+         <ion-grid>
+             <ion-row >
+                 <ion-col col-3 text-right>
+                        {{item.kolicina}}&nbsp;{{item.jm}}
+                 </ion-col>
+                 <ion-col col-4 text-right>
+                        {{item['neto vrijednost'] | number:'1.2-2'}}
+                </ion-col>
+                <ion-col col-5 text-right>
+                        {{item.ruc | number:'1.2-2'}}/{{item['%ruc'] | number:'1.2-2'}}%
+                </ion-col>
+             </ion-row>
+         </ion-grid>
+        </small>
+     </button>
+            </ion-item-sliding>
+        </ion-item-group>
+
+    </ion-list>
+
+
+    <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon><br>
+    <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema podataka za odabrane parametre upita! </ion-label>
+
+
+</ion-content>

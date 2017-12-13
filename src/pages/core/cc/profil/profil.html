@@ -1,10 +1,10 @@
 <ion-header>
-    <js-header title="Control Center - Profil"></js-header>
+    <js-header title="Control Center - Profil" [showSub]="true"></js-header>
 </ion-header>
 
 <ion-content doubleTap (dblTap)="doubleTap();">
     <div class="profile-image-container">
-        <div class="profile-image-wrapper" (click)="getPicture()">
+        <div class="profile-image-wrapper">
             <div class="profile-image-placeholder" [ngStyle]="{'background-image': getBackgroundImage()}">
                 <!--<img class="icon" src="data:image/png;base64,{{user.image}}">-->
             </div>
@@ -28,7 +28,7 @@
     <ion-item>
         <div class="title">Zadnja prijava</div>
         <div class="content">
-            22.05.2017 14:05
+            -
         </div>
     </ion-item>
 </ion-content>

@@ -1,0 +1,31 @@
+<ion-header>
+    <js-header title="Zauzeće resursa - filter" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+<ion-content>
+    <js-content></js-content>
+    <ion-list>
+        <ion-item-divider ion-item color="light">
+            Period
+            <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+            <!-- <button clear item-end ion-button icon-only>
+                <ion-icon name="more"></ion-icon>
+            </button> -->
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Vrijeme od:</ion-label>
+            <ion-datetime displayFormat="DD.MM.YYYY HH:mm" [(ngModel)]="provider.vriOd" (ngModelChange)="validateVriOd()" max="2040-12-31"
+                min={{this.minDate}} minuteValues="0,30"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Vrijeme do:</ion-label>
+            <ion-datetime displayFormat="DD.MM.YYYY HH:mm" [(ngModel)]="provider.vriDo" (ngModelChange)="validateVriDo()" max="2040-12-31"
+                min={{this.minDate}} minuteValues="0,30"></ion-datetime>
+        </ion-item>
+    </ion-list>
+
+
+    <ion-fab bottom right>
+        <button ion-fab (click)="presentMainPage()"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-fab>
+
+</ion-content>

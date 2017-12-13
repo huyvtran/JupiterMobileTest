@@ -1,0 +1,12 @@
+page-core-cc-application-unlock {
+    ion-list {margin-top:40px!important;}
+
+    .list .item-input.ng-invalid:not(.input-has-focus):last-child {
+        border: 1px solid #f53d3d;
+        box-shadow: none;
+    }
+    .list .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+        box-shadow: none;
+    }
+
+}

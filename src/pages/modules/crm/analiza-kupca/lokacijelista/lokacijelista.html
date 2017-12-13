@@ -1,0 +1,72 @@
+<ion-header>
+    <js-header title="Lokacije iz razdoblja" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+
+<ion-content>
+
+    <js-content></js-content>
+    <ion-item-divider style="padding-left: 0px;" class="wow fadeIn" color="light" text-wrap id="labelnomargin">
+        <ion-card>
+        <strong>{{parametriupita.objektanalize}}</strong> od <strong>{{parametriupita.partnerinaziv}}</strong> {{parametriupita.lokacijanaziv}} u razdoblju od <strong>{{parametriupita.datumod | date : 'dd/MM/yyyy'}}.</strong> 
+        do <strong>{{parametriupita.datumdo | date : 'dd/MM/yyyy'}}.</strong><br>
+        {{parametriupita.klmasterrobanaziv}} {{parametriupita.orgshemanaziv}}
+        </ion-card>
+    </ion-item-divider>
+    <ion-item-divider class="spin-boja" [hidden]="nemapodataka" color="light">
+
+        <ion-grid class="wow fadeIn">
+            <ion-row>
+                <ion-col>
+                    Lokacija
+                </ion-col>
+
+            </ion-row>
+            <ion-row>
+                <ion-col col-4 text-right>
+                    Neto vrijednost
+                </ion-col>
+                <ion-col col-4 text-right>
+                    RUC
+                </ion-col>
+                <ion-col col-4 text-right>
+                    %RUC
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+
+    </ion-item-divider>
+    <ion-list>
+
+        <ion-item-sliding *ngFor="let item of items">
+            <button detail-none ion-item> 
+         <span text-wrap>
+         
+         {{item.naziv}}
+         </span>
+         <small>
+         <ion-grid>
+             <ion-row >
+                 <ion-col col-4 text-right>
+                        {{item['neto vrijednost'] | number:'1.2-2'}}
+                 </ion-col>
+                 <ion-col col-4 text-right>
+                        {{item.ruc | number:'1.2-2'}}
+                </ion-col>
+                <ion-col col-4 text-right>
+                        {{item['%ruc'] | number:'1.2-2'}}%
+                </ion-col>
+             </ion-row>
+         </ion-grid>
+        </small>
+     </button>
+        </ion-item-sliding>
+
+
+    </ion-list>
+
+    <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon><br>
+    <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema podataka za odabrane parametre upita! </ion-label>
+
+</ion-content>

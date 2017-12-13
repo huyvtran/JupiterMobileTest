@@ -1,0 +1,44 @@
+page-lista {
+    .ikonavelika{
+        font-size: 3em !important;
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+        top:15%;
+        transform:translateY(-15%);
+    }
+    .nemapodataka{        
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+        top:25%;
+        transform:translateY(-25%); 
+    }
+    .grid, .row, .col {
+        padding: 0px;
+    }
+ 
+    .item-md {
+        padding-left: 15px!important;
+    }
+    .item-md, .item-ios {
+        border-bottom: 1px solid #dddddd;
+    }
+    #moj-label .label-md {
+        margin: 8px 8px 8px 0;
+    }
+   .label-ios {
+       margin: 2px 8px 2px 0;
+   }
+    ion-item-sliding .label-md {
+        margin: 0px 0px 0px 0px!important;
+    }
+    .item-md [item-left], .item-md [item-right], .item-md [item-start], .item-md [item-end] {
+        margin: 9px 0px 9px 0px;
+    }
+    .item-md.item-block .item-inner {
+        padding-right: 0px;
+    }
+}

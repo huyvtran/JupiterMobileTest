@@ -5,7 +5,12 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar>
+    <js-header title="HelpDesk - BugShooter" [showClose]="true">
+        <button js-buttons-end clear color="light" (click)="takePicture()" ion-button icon-only>
+            <ion-icon name="camera"></ion-icon>
+        </button>
+    </js-header>
+    <!-- <ion-navbar>
         <ion-buttons left>
             <button ion-button (click)="goBack()">
                 <ion-icon class="close" name="close-circle"></ion-icon>
@@ -20,11 +25,12 @@
     </ion-navbar>
     <div class="subtitle light">
         {{globalProvider.getSubTitle()}}
-    </div>
+    </div> -->
 </ion-header>
 
 
 <ion-content padding>
+    <js-content></js-content>
     <!--<button ion-button block (click)="takePicture()">Slikaj</button>-->
     <div style="margin-bottom:30px">
         <ion-card *ngFor="let str of base64Image; let i = index">

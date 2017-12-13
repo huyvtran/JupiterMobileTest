@@ -1,0 +1,17 @@
+<ion-slides #datepicker slidesPerView="7" autoplay="true" radio-group [ngModel]="selected" (ionChange)="onDateChange($event)">
+    <ng-container *ngFor="let item of data">
+        <ion-slide>
+            <ion-item>
+                <ion-label>
+                    <div class="dayOfWeek"><span>{{item.dan}} </span></div>
+                    <div class="day"  [ngClass]="{'praznik': item.praznik==true}" ><span>{{item.datum | date: 'dd'}}</span></div>
+                </ion-label>
+                <ion-radio [value]="item.datum" [disabled]="item.vikend"></ion-radio>
+            </ion-item>
+        </ion-slide>
+    </ng-container>
+</ion-slides>
+<div #dateSwiperPrev class="slides-swiper slides-swiper-prev"> 
+</div>
+<div #dateSwiperNext class="slides-swiper slides-swiper-next">
+</div>

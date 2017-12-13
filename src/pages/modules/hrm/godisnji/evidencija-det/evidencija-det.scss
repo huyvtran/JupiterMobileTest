@@ -1,0 +1,37 @@
+page-hrm-godisnji-evidencija-det {
+    .light {
+        color: #999;
+    }
+    ion-item {
+        &.tekuce {
+            background: #fafafa!important;
+        }
+        &.preostalo {
+            font-weight: 600;
+            color: #364b5e;
+            background:#d2d9df!important;
+        }
+        span.dash {
+            color: #999;
+            margin: 0 4px;
+        }
+        span.kr-dana {
+            font-weight: 600;
+        }
+        /*span.dash::before, span.dash::after {
+            content: '\00a0 \00a0 ';
+        }*/
+    }
+    ion-item-divider {
+        &.kr {
+            ion-label {
+                margin-top:4px!important;
+                margin-bottom:4px!important;
+            }
+        }
+        span {
+            color: #999;
+            font-size: 1.2rem;
+        }
+    }
+}

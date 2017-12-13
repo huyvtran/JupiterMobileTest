@@ -1,0 +1,59 @@
+<ion-header>
+    <js-header [title]="'HRM - Pregled odsustva'" [showClose]="true" [showFavorite]="true"></js-header>
+    <ion-segment [(ngModel)]="tip" color="primary">
+        <ion-segment-button value="najava">
+            Najava
+        </ion-segment-button>
+        <ion-segment-button value="evidencija">
+            Evidencija
+        </ion-segment-button>
+    </ion-segment>
+    
+    <ion-item-divider class="mjesec" ion-item color="light">
+        <ion-datetime displayFormat="MMMM YYYY" [(ngModel)]="selectedMonth" (ionChange)="onMonthChange($event)"></ion-datetime>
+        <ion-note item-end> datum: {{selectedDate | date:'dd.MM.yyyy'}}</ion-note>
+        <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+            <ion-icon name="more"></ion-icon>
+        </button>
+    </ion-item-divider>
+        
+
+    <div class="datepicker-container">
+        <datepicker [data]="data" [selected]="selectedDate" [selectedMonth]="selectedMonth" (change)="onDateChange($event)"></datepicker>
+    </div>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+        <!-- <datepicker [dates]="dates" [selected]="selectedDate" (change)="onDateChange($event)"></datepicker> -->
+        
+    <!--<template #template let-view="view" let-row="row" let-col="col">
+        <div class="calendar-day {{ (col==5 || col==6) ? 'vikend' : '' }}">
+            {{view.dates[row*7+col].label}}
+        </div>
+    </template>
+    [monthviewDisplayEventTemplate]="template"-->
+
+
+
+    <div [ngSwitch]="tip">
+        <ion-list *ngSwitchCase="'najava'">
+            <button ion-item *ngFor="let item of najavaSource">
+                <h2 style="text-transform: capitalize">{{item.employee}}</h2>
+                <p class="item-description">{{item.title}}</p>
+                <!-- <ion-note item-end>
+                    <div style="text-align:center" innerHtml="{{ formatRazdoblje(item) }}"></div>
+                </ion-note> -->
+                <div style="position: absolute; font-size:9pt; font-weight: 500; right:4px; top:2px">{{item.timestr}}</div>
+            </button>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'evidencija'">
+                <button ion-item *ngFor="let item of evidencijaSource">
+                    <h2 style="text-transform: capitalize">{{item.employee}}</h2>
+                    <p class="item-description">{{item.title}}</p>
+                    <div style="position: absolute; font-size:9pt; font-weight: 500; right:4px; top:2px">{{item.timestr}}</div>
+                </button>
+        </ion-list>
+    </div>
+</ion-content>

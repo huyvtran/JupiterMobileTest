@@ -1,0 +1,40 @@
+page-hrm-odsustva-pregled {
+        .table[_ngcontent-c1]    > tbody[_ngcontent-c1]    > tr[_ngcontent-c1]    > td[_ngcontent-c1] {
+                padding: 4px 8px;                
+        }
+        .label {
+                margin:10px 8px 4px 0!important;
+        }
+
+        .table[_ngcontent-c1] > thead[_ngcontent-c1]:first-child > tr[_ngcontent-c1]:first-child > th[_ngcontent-c1] {
+                padding:1px;
+                font-size: 14px;
+        }
+        
+        .mjesec .item-cover {
+                width:85%;
+        }
+        // datapicker {
+        // background: red!important; 
+        // }
+        //     .spinner {
+        //         position: absolute; 
+        //         top: 50%;
+        //         left: 50%;
+        //         margin-top: -20px;
+        //         margin-left: -20px;
+        //     }
+        
+
+            
+            .datepicker-container {
+                    display: flex;
+                    flex-direction: column;
+                    height: 64px;
+                }
+
+        
+               
+            
+
+}

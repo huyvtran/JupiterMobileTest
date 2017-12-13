@@ -1,0 +1,64 @@
+page-crm-analizakupca-filterforma {
+    .list-md, .list-ios {
+        margin: 0px;
+    }
+    .label-md, .label-ios {
+        margin: 12px 8px 6px 0px;
+    }
+    #mojlabel .label-md, #mojlabel .label-ios {
+        min-height: 38px;
+    }
+    ion-note {
+        color: black!important;
+    }
+    .icon-md {
+        font-size: 1.2em;
+        padding-bottom: 0px!important;
+    }
+    .icon-ios {
+        font-size: 1.6em!important;
+        padding-bottom: 0px!important;
+    }
+    #calendar-button .icon-ios {
+        font-size: 1.2em!important;
+        padding-bottom: 0px!important;
+    }
+    .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+        bottom: 0;
+        top: inherit; 
+    }
+    .moj-footer {
+        background-color: rgba(244, 244, 244, 0.5);
+    }
+    .item-md [item-left], .item-md [item-right], .item-md [item-start], .item-md [item-end], .item-ios [item-left], .item-ios [item-right], .item-ios [item-start], .item-ios [item-end] {
+        margin: 0px 8px 0px 0px;
+    }
+    #calendar-button .button-md, #calendar-button .button-ios {
+        background-color: #c0392b;
+    }
+
+    #icon-search .icon-md, {
+        padding-bottom: 12px!important;
+        font-size: 1.5em;
+        margin: 0px;
+        color: #c0392b;
+    }
+    #icon-search2 .icon-md {
+        padding-top: 3px!important;
+        font-size: 1.5em;
+        margin: 0px;
+        color: #c0392b;
+    }
+    #icon-search .icon-ios {
+        font-size: 1.5em!important;
+        color: #c0392b;
+    }
+    #icon-search2 .icon-ios {
+        font-size: 1.5em!important;
+        color: #c0392b;
+        padding-top: 3px;
+    }
+    .item-md ion-icon[item-left] + .item-inner, .item-md ion-icon[item-left] + .item-input, .item-md ion-icon[item-start] + .item-inner, .item-md ion-icon[item-start] + .item-input {
+        margin-left: 12px;
+    }
+}

@@ -1,0 +1,136 @@
+<ion-header>
+  <js-header title="Analiza kupca" [showClose]="true" [showFavorite]="true" rootPage="CRMAnalizaKupcaTabsPage"></js-header>
+</ion-header>
+
+<ion-content>
+  <js-content></js-content>
+  <!-- <ion-item-divider id="labell" color="light" style="color:#c0392b;">
+      <div class="wow fadeInDown"><strong>Pronađi</strong></div>
+    </ion-item-divider> -->
+  <!-- ............................ select ............................ -->
+  <ion-item-divider color="light">
+      <div class="wow fadeInLeft">
+    <!-- <ion-icon style="font-size: 1.6em; color:#c0392b;" name="md-calendar"></ion-icon> -->
+    <ion-note><strong>
+           Referentno razdoblje
+          </strong>
+    </ion-note>
+      </div>
+  </ion-item-divider>
+  <ion-item class="wow fadeIn" data-wow-duration="1.5s" id="icon-search2">
+      <ion-icon name="md-document" item-start></ion-icon>
+    <ion-label style="color: grey!important;">Objekt analize</ion-label>
+    <ion-select [(ngModel)]="parametriupita.objektanalize" placeholder="Odaberi">
+      <ion-option value="Ponude">Ponude</ion-option>
+      <ion-option value="Otprema">Otprema</ion-option>
+      <ion-option value="Fakture">Fakture</ion-option>
+      <ion-option value="Maloprodaja">Maloprodaja</ion-option>
+    </ion-select>
+  </ion-item>
+  <!-- ............................ datumi od do ............................ -->
+  <ion-item-divider color="light">
+    <ion-label text-left>
+      Razdoblje
+    </ion-label>
+    <ion-note item-right id="calendar-button">
+        <button ion-button icon-only (click)="popoverRazdoblje($event)" class="wow fadeInRight" style="height: 25px; font-size: 1.3em!important">
+            <ion-icon name="md-calendar"></ion-icon>
+          </button>
+    </ion-note>
+  </ion-item-divider>
+
+  <ion-item class="wow fadeIn" data-wow-duration="1.5s" id="icon-search2">
+      <ion-icon name="md-calendar" item-start></ion-icon>
+    <ion-label style="color: grey!important;">Datum od</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="parametriupita.datumod"></ion-datetime>
+  </ion-item>
+
+  <ion-item class="wow fadeIn" data-wow-duration="1.5s" id="icon-search2">
+      <ion-icon name="md-calendar" item-start></ion-icon>
+    <ion-label style="color: grey!important;">Datum do</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="parametriupita.datumdo"></ion-datetime>
+  </ion-item>
+
+  <ion-item-divider color="light">
+    <ion-label>
+      Partner
+    </ion-label>
+  </ion-item-divider>
+  <!-- .............................. tražilice kupca i lokacije .................................. -->
+  <ion-list>
+    <ion-item-sliding #slidingItem1 id="mojlabel" class="wow fadeIn" data-wow-duration="1.5s">
+      <button ion-item (click)="izaberi(7)" id="icon-search">
+          <ion-icon name="md-search" item-start></ion-icon>
+        <div style="color:grey;"> Kupac</div>
+          <div text-wrap style="color:black;">{{parametriupita.partnerinaziv}}</div>
+            </button>
+      <ion-item-options>
+        <button style="width: 50px; background-color: #c0392b;" ion-button large (click)="brisiKupca(slidingItem1)">
+                    <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>              
+                  </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #slidingItem2 id="mojlabel" class="wow fadeIn" data-wow-duration="1.5s">
+      <button ion-item (click)="izaberi(10)" id="icon-search"> 
+          <ion-icon name="md-search" item-start></ion-icon>
+        <div style="color:grey;">Lokacija</div>
+              <div text-wrap style="color:black;">{{parametriupita.lokacijanaziv}}</div>
+            </button>
+      <ion-item-options>
+        <button style="width: 50px; background-color: #c0392b;" ion-button large (click)="brisiLokaciju(slidingItem2)">
+                    <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>             
+                  </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-divider color="light">
+      <ion-label>
+        Ostali parametri
+      </ion-label>
+    </ion-item-divider>
+
+    <!-- ................... tražilice klase robe i organizacijske jedinice ...................  -->
+
+
+    <ion-item-sliding #slidingItem3 id="mojlabel" class="wow fadeIn" data-wow-duration="1.5s">
+      <button ion-item (click)="izaberi(11)" id="icon-search">
+          <ion-icon name="md-search" item-start></ion-icon>
+        <div style="color:grey;"> Klasa robe</div>
+      <div text-wrap style="color:black;">{{parametriupita.klmasterrobanaziv}}</div>
+        </button>
+      <ion-item-options>
+        <button style="width: 50px; background-color: #c0392b;" ion-button large (click)="brisiKlasurobe(slidingItem3)">
+                <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>              
+              </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #slidingItem4 id="mojlabel" class="wow fadeIn" data-wow-duration="1.5s">
+      <button ion-item (click)="izaberi(4)" id="icon-search"> 
+          <ion-icon name="md-search" item-start></ion-icon>
+        <div style="color:grey;">Organizacijska jedinica</div>
+          <div text-wrap style="color:black;">{{parametriupita.orgshemanaziv}}</div>
+        </button>
+      <ion-item-options>
+        <button style="width: 50px; background-color: #c0392b;" ion-button large (click)="brisiOrganizacijskujedinicu(slidingItem4)">
+                <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>             
+              </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <br><br><br>
+
+</ion-content>
+
+<ion-footer class="moj-footer wow fadeInUp">
+    <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button block ion-button color="light" (click)="ocistiSve()"><ion-icon ios="ios-close" md="md-close"></ion-icon> &nbsp; Očisti </button>
+          </ion-col>
+          <ion-col col-6>
+            <button block ion-button style="background-color: #c0392b;" (click)="izracunaj()"><ion-icon ios="ios-eye" md="md-eye"></ion-icon>&nbsp; Izračunaj </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+</ion-footer>

@@ -1,0 +1,25 @@
+<ion-header>
+    <js-header title="Osobe - {{osoba.naziv}}" [showClose]="true"></js-header>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <js-nodata *ngIf="osoba.firme.length == 0"></js-nodata>
+         <accordion-list *ngFor="let item of osoba.firme | search: term:'naziv'; let fst = first; let i = index;"  title="{{item.naziv}}"   [expanded]="fst">
+             <ion-list>
+                <ion-item full>
+                   Odjel
+                    <ion-note item-right>{{item.odjelnaziv}}</ion-note>
+                </ion-item>
+                <ion-item>
+                   Funkcija
+                    <ion-note item-right>{{item.funkcijanaziv}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    Telefon
+                    <ion-note item-right>{{item.telefon1}}</ion-note>
+                </ion-item>    
+            </ion-list>
+        </accordion-list>
+    </ion-list>
+</ion-content>

@@ -5,7 +5,8 @@ export interface  Modules {
 }
 
 export interface  Module {
-    applicationId: number,
+    applicationId?: number,
     name: string,
-    icon: string
+    code?: string,
+    icon?: string
 }

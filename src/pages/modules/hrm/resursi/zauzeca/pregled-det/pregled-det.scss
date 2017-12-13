@@ -1,0 +1,66 @@
+page-hrm-resursi-zauzeca-pregled-det {
+    b{
+        font-size: 15px;
+    }
+    ion-item-divider {
+        margin-bottom: 3% !important;
+        padding-left:5% !important;
+    }
+
+    .note {
+        color: #666;
+        min-width: 95px;
+        span {
+            font-size: 1.2rem;
+        }
+    }
+
+    ion-label {
+        margin-bottom: 5px !important;
+        padding-left: 8px;
+        font-size: 1.4rem;
+        h2 {
+            font-size: 1.3rem!important;
+            padding-bottom:4px;
+        }
+        p {
+            padding-left: 2%;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            border-top: 1px dotted #ccc; 
+            font-size: 1.3rem!important;
+            font-style: italic;
+            margin:0 !important;
+            background-color: rgba(100,100,100, 0.1);
+        }
+    }
+
+    .item {
+        background: #f5f5f5;
+        padding-left: 0;
+        min-width: 200px;
+    }
+    .item [item-end] {
+        margin: 4px 4px 4px 4px;
+    }
+
+    ion-item .input-wrapper {
+        background: #fff;
+    }
+
+    // ion-item ion-label {
+        
+    // }
+
+    ion-item-group .item:last-child .item-inner {
+        border-bottom: 1px solid #dedede;
+    }
+
+    .accordion-content {
+        padding:0!important;
+    }
+
+    ion-note {
+        font-size: 12px;
+    }
+}

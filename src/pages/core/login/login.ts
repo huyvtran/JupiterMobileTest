@@ -4,17 +4,11 @@ import {Storage} from '@ionic/storage';
 import { Platform } from 'ionic-angular';
 
 import {GlobalProvider} from '../../../providers/core/global-provider';
-import {VariablesProvider} from '../../../providers/core/variables-provider';
+import {VariableProvider} from '../../../providers/core/variable-provider';
 import {LoginProvider} from '../../../providers/login/login-provider';
 
 
 
-/**
- * Generated class for the Login page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({selector: 'page-login', templateUrl: 'login.html'})
 export class CoreLoginPage {
@@ -24,15 +18,16 @@ export class CoreLoginPage {
     private pin: string;
     private deviceId: string;
 
-    private email: string;
-    private password: string;
+    private login: string;
 
     constructor(public navCtrl : NavController, public navParams : NavParams, private storage : Storage,
         private toastCtrl : ToastController,
         private platform: Platform,
         //private uniqueDeviceID: UniqueDeviceID,
         private loginProvider: LoginProvider,
-        private menuCtrl: MenuController) {
+        private menuCtrl: MenuController,
+        public global: GlobalProvider,
+        private variableProvider: VariableProvider) {
 
         this.menuCtrl.enable(false, 'mainMenu');
         GlobalProvider.setPagesHistory = []; //isprazni pagesHistory
@@ -40,23 +35,30 @@ export class CoreLoginPage {
 
     ionViewDidLoad() {}
 
-    login() {
+    ok() {
         var self = this;
         self.check = true;
         self.msg = "Provjera unesenih podataka...";
 
 
         this.getDeviceId().then((val) => {
+            console.log("step 1");
             this.deviceId = val;
             return this.getToken();
         }).then((val) => {
+            console.log("step 2");
             return this.getJupiterSystemData();
         }).then((val) => {
+            console.log("step 3");
+            return this.setUnlockedApps();
+        }).then((val) => {
+            console.log("step 4");
             return this.setVariables();
         }).then((val) => {
+            console.log("step 5");
             self.msg = "startanje...";
             setTimeout(function() {
-                GlobalProvider.pushPage('CoreCcCompanyPage');
+                self.global.pushPage('CoreCcCompanyPage');
             }, 2000);
         });
 
@@ -114,7 +116,7 @@ export class CoreLoginPage {
                             resolve();
                         })
                         .catch(err => {
-                            self.presentToastError(err._body);
+                            self.check = false;
                         });
                         // .then(() => rToken = localStorage.getItem('refreshToken')) //.subscribe(res => window.localStorage.setItem('authTestToken', res));
                         // .then(() => {
@@ -139,19 +141,22 @@ export class CoreLoginPage {
         let self = this;
         return new Promise(function(resolve, reject) {
             setTimeout(function() {
-                self.msg = "Sinkroniziranje podataka...";
-                    self.loginProvider.getJupiterSystemData(self.pin, self.email, self.password)
-                        .then((val) => {
-                            VariablesProvider.jupiterSystemData = val;
+                self.msg = "Jupiter System - provjera prava...";
+                    self.loginProvider.getJupiterSystemData(self.pin, self.login)
+                        .then(() => {
                             resolve();
                         })
                         .catch(err => {
+                            self.check = false;
+                            
+                            if(err == "Error")
+                                return;
                             let errMsg;
                             if (err._body == null)
                                 errMsg = err;
                             else
                                 errMsg = err._body;
-
+                            
                             self.presentToastError(errMsg);
                         });
             }, 1000);
@@ -167,9 +172,37 @@ export class CoreLoginPage {
         return new Promise(function(resolve, reject) {
             setTimeout(function() {
                 self.msg = "Finaliziranje...";
-                self.storage.set(GlobalProvider.getCoreStorageKeys.loginData, JSON.stringify(GlobalProvider.getLoginData));
-                self.storage.set(GlobalProvider.getCoreStorageKeys.jupiterSystemData, JSON.stringify(GlobalProvider.getJupiterSystemData));
+                self.storage.set(self.global.getCoreStorageKeys.loginData, JSON.stringify(self.variableProvider.loginData));
+                self.storage.set(self.global.getCoreStorageKeys.jupiterSystemData, JSON.stringify(GlobalProvider.getJupiterSystemData));
                 resolve();
+            }, 1000);
+        }).then(function() {
+            return "OK";
+        });
+    }
+
+    //****step 4
+    //set unlocked apps (ako se korisnik već ranije logirao s istim podacima)
+    setUnlockedApps() {
+        var self = this;
+        return new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                self.msg = "Provjera core podataka...";
+                self.loginProvider.getUnlockedApps()
+                    .then(() => resolve())
+                    .catch(err => {
+                        self.check = false;
+                        
+                        if(err == "Error")
+                            return;
+                        let errMsg;
+                        if (err._body == null)
+                            errMsg = err;
+                        else
+                            errMsg = err._body;
+                        
+                        self.presentToastError(errMsg);
+                    });
             }, 1000);
         }).then(function() {
                 return "OK";

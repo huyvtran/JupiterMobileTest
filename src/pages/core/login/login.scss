@@ -19,51 +19,52 @@ page-login {
     }
 
 
-    .item-md .item-inner {
+    .item .item-inner {
         border-bottom-color: transparent !important;
         box-shadow: none !important;
     }
 
-    .item-md.item-input.input-has-focus .item-inner {
+    .item.item-input.input-has-focus .item-inner {
         border-bottom-color: transparent !important;
         box-shadow: none !important;
     }
 
-    .list-md .item-input.input-has-focus:last-child {
+    .list .item-input.input-has-focus:last-child {
         border-bottom-color: transparent !important;
         box-shadow: none !important;
     }
 
-    .list-md .item-input.input-has-focus:last-child .item-inner {
+    .list .item-input.input-has-focus:last-child .item-inner {
         box-shadow: none;
     }
 
-    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+    .item.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
         border-bottom-color: transparent !important;
         box-shadow: none !important;
     }
 
-    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+    .list .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
         border-bottom-color: transparent !important;
         box-shadow: none !important;
     }
 
-    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner {
+    .list .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner {
         box-shadow: none;
     }
 
-    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+    .item.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
         border-bottom-color: transparent !important;
         box-shadow: none !important;
     }
 
-    .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+    .list .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
         border-bottom-color: transparent !important;
         box-shadow: none !important;
     }
 
 
     div.login-button {
+        margin-top:30px;
         margin-bottom:20px;
 
         ion-icon {
@@ -75,6 +76,10 @@ page-login {
         color:#e5eaee; 
         margin-bottom:4px; 
         font-size:11pt;
+        span {
+            color: #999999;
+            font-style: italic;
+        }
     }
     .login-border-bottom {
         margin-bottom:1px

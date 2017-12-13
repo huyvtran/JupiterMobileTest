@@ -1,0 +1,53 @@
+page-pregledugovora-lista {
+    .ikonavelika{
+        font-size: 3em !important;
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+        top:15%;
+        transform:translateY(-15%);
+
+    }
+    .nemapodataka{        
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+        top:25%;
+        transform:translateY(-25%);  
+
+    }
+    ion-note {
+        color: black!important;
+    }
+    .item-md, .item-ios {
+        border-bottom: 1px solid #dddddd;
+    }
+    #moj-label .label-md, #moj-label .label-ios {
+        margin: 6px 8px 6px 0;
+    }
+    #label2 .label-md, #label2 .label-ios {
+        margin: 7px 8px 7px 0;
+    }
+    // .icon-md {
+    //     font-size: 1.2em;
+    //     padding-bottom: 0px!important;
+    // }
+    // .icon-ios {
+    //     font-size: 1.5em!important;
+    //     padding-bottom: 0px!important;
+    // }
+
+    // }
+    // .prvidivider{
+    //     position: relative;
+    //     top: -2%;
+    //     margin-top: 0px !important;
+    // }
+    // ion-icon {
+    //     display: inline-block;
+    //     font-size: 3em;
+    // }
+
+}

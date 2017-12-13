@@ -1,0 +1,18 @@
+
+
+<ion-content style="min-height: 150px;">
+
+<ion-item-divider color="light">
+  <strong>Zadnje pretraživano</strong>
+</ion-item-divider>
+
+  <ion-list style="margin-bottom: 0px;">
+    <ion-item *ngFor="let item of povijest">
+      <ion-label (click)="trazi(item)">
+        {{item}}
+     </ion-label>
+    </ion-item>
+   
+  </ion-list>
+
+</ion-content>

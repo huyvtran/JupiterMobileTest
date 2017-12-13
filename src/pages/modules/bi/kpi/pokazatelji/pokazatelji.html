@@ -1,0 +1,80 @@
+<ion-header>
+    <js-header title="KPI - Pokazatelji" [showClose]="true" [showFavorite]="true" rootPage="ManagerKpiTabsPage"></js-header>
+    <ion-item class="filter">
+        <ion-label>Filter (datum):</ion-label>
+        <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="managerKpiProvider.datum" (ionChange)="refreshPokazatelji()"></ion-datetime>
+    </ion-item>
+    <ion-segment [(ngModel)]="tip" style="background:#f8f8f8">
+        <ion-segment-button value="fav" (ionSelect)="pokazateljiView(0)">
+            Favoriti
+        </ion-segment-button>
+        <ion-segment-button value="pos" (ionSelect)="pokazateljiView(2)">
+            Posebni
+        </ion-segment-button>
+        <ion-segment-button value="sta" (ionSelect)="pokazateljiView(6)">
+            Standardni
+        </ion-segment-button>
+        <ion-segment-button value="fun" (ionSelect)="pokazateljiView(5)">
+            Financijski
+        </ion-segment-button>
+    </ion-segment>
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <accordion-list *ngFor="let p of items" [title]="p.naziv" [expanded]="false" textColor="#333" hasMargin="false" headerColor="#e6e6e6" [hideNoteOnExpand]="true">
+            
+        <p text-wrap>
+                <ion-card style="position:relative; margin-top:0!important">
+                        <ion-card-content>
+                            <div class="container">
+                                <div text-right class="indicator">
+                                    <div class="indicator-color brown" [style.background-color]="p.indikatorboja"></div>
+                                    <div class="indicator-naziv">{{p.gadtip1}}</div>
+                                    {{p.iznos1 | numberFormat:p.brojdecimala1}}
+                                </div>
+                                <div class="iznosi"> 
+                                    <div text-right class="indicator sub">
+                                        <div class="indicator-color yellow" [style.background-color]="p.indikatorboja1"></div>
+                                        <div class="indicator-naziv">{{p.gadtip2}}</div>
+                                        {{p.iznos2 | numberFormat:p.brojdecimala2}}
+                                    </div>
+                                    <div text-right class="indicator sub">
+                                        <div class="indicator-color red" [style.background-color]="p.indikatorboja2"></div>
+                                        <div class="indicator-naziv">{{p.gadtip3}}</div>
+                                        {{p.iznos3 | numberFormat:p.brojdecimala3}}
+                                    </div>
+                                    <div text-right class="indicator sub">
+                                        <div class="indicator-color blue" [style.background-color]="p.indikatorboja3" *ngIf="p.gadtip4!=null"></div>
+                                        <div class="indicator-naziv" *ngIf="p.gadtip4!=null">{{p.gadtip4}}</div>
+                                        &nbsp;<span *ngIf="p.gadtip4!=null">{{p.iznos4 | numberFormat:p.brojdecimala4}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div [style.background-image]="getBackgroundImage(p)" class="gauge">
+                                <img id="meter_needle" src="assets/images/needle.svg" alt=""  [style.transform]="'rotate(-' + p.stupnjevi + 'deg)'" />
+                            </div>
+                            <!-- <button (click)="startModule(p)" color="light">
+                                    <ion-icon name="md-analytics"></ion-icon>
+                                </button> -->
+                                <!-- <ion-item-divider ion-item color="light">
+                                        <button ion-button full clear icon-only  (click)="startModule(p)">
+                                            <ion-icon name="md-analytics"></ion-icon>
+                                        </button>
+                                    </ion-item-divider> -->
+                        </ion-card-content>
+                        <div style="height:48px; background:#e5e5e5; padding:4px; text-align:right">
+                            <ion-fab >
+                                <button ion-fab mini color="skin1" (click)="startModule(p)"><ion-icon name="ios-pulse"></ion-icon></button>
+                            </ion-fab>
+                        </div>
+                    </ion-card>
+              
+
+        </p>
+
+        <ion-note accordion-header-end item-end>{{p.iznos1 | numberFormat:p.brojdecimala1}}</ion-note>
+        <div accordion-header-custom style="position:absolute; top:0; left:0; bottom:0; width:4px;" [style.background]="getPokazateljBoja(p)"></div>
+    </accordion-list>
+</ion-content>

@@ -1,0 +1,47 @@
+<ion-header>
+    <js-header title="Partner - {{partner.naziv}}" [showClose]="true"></js-header>
+</ion-header>
+    
+    <ion-content>
+        <js-content></js-content>
+        <ion-item>
+            <h2>{{partner.items.adresa}}</h2>
+            <h2>{{partner.items.hptbroj}} {{partner.items.mjesto}}</h2>
+        </ion-item>
+        <ion-item>
+            <div class="title">Porezni broj (OIB)</div>
+            <div class="content">
+                {{partner.items.poreznibroj}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="title">Telefon</div>
+            <div class="content">
+                {{partner.items.telefon1}}
+            </div>
+            <button ion-button color="primary" clear icon-only item-right (click)="call(partner.items.telefon1)">
+                <ion-icon name="call" is-active="false"></ion-icon>
+            </button>
+        </ion-item>
+        <ion-item-divider color="medium">
+                Ostali podaci
+            </ion-item-divider>        
+        <ion-item>
+            <div class="title">Email</div>
+            <div class="content">
+                {{partner.items.email}}
+            </div>
+            <button ion-button color="primary" clear icon-only item-right (click)="sendMail(partner.items.email)">
+                <ion-icon name="mail" is-active="false"></ion-icon>
+            </button>
+        </ion-item>
+        <ion-item>
+            <div class="title">Www</div>
+            <div class="content">
+                {{partner.items.www}}
+            </div>
+            <button ion-button color="primary" clear icon-only item-right (click)="openWeb(partner.items.www)">
+                <ion-icon name="browsers" is-active="false"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-content>

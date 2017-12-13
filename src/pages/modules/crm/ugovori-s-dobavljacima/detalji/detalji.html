@@ -1,0 +1,48 @@
+<ion-header>
+        <js-header title="Detalji" [showClose]="false" [showFavorite]="false"></js-header>
+    <!-- <ion-navbar>
+        <ion-title text-wrap><small>Detalji</small></ion-title>
+    </ion-navbar> -->
+
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+
+<ion-item-divider color="light" id="labell">
+    <ion-grid>
+            <ion-row>
+                <ion-col col-5 text-wrap><strong>Roba ili klasa</strong></ion-col>
+                <ion-col col-7 text-right text-wrap><strong>Ukupni rabat / Cijena</strong></ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col text-wrap text-right style="padding-right: 45px;">
+                    <strong>Odgoda</strong>
+                </ion-col>
+            </ion-row>
+         </ion-grid>
+</ion-item-divider> 
+<ion-list id="moj-label">
+    <ion-item detail-push *ngFor="let item of items?.items" (click)="idiudetaljedetalja(item)">
+  
+        
+        <ion-grid>
+            <ion-row>
+                <ion-col col-9 text-wrap>{{item.roba}}</ion-col>
+                <!-- <ion-col col-7 text-right text-wrap>{{item.ukupnirabat}} / {{item.cijena | number:'1.2-2'}}</ion-col> -->
+                <ion-col style="background-color: #f4f4f4;" col-3 text-center text-wrap>{{item.ukupnirabat}} / {{transform(item.cijena|number:'1.2-2')}}</ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-9>&nbsp;</ion-col>
+                <ion-col col-3 style="background-color: #f4f4f4;" text-center>
+                    {{item.odgoda}}
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+</ion-list>
+
+
+
+</ion-content>

@@ -1,0 +1,226 @@
+page-crm-financije-pregled {
+    ion-note {
+        text-align: right;
+        color: #000!important;
+        font-weight: 600;
+        &.saldo {
+            color: #fff!important;
+        }
+        &.info {
+            font-weight: normal;
+            font-size:1.2rem;
+            text-align: right;
+            padding-right:10px;
+        }
+        span.datum {
+            font-size: 1.3rem;
+            color: #666;
+            font-weight: normal;
+        }
+    }
+
+    ion-item {
+        &.saldo {
+            background: #f2f2f2;
+            font-weight: 600;
+        }
+        &.no-border {
+            .item-inner {
+                border-bottom: 0!important;
+            }
+        }
+    }
+
+    .item ion-icon[item-left] + .item-inner {
+        margin-left: 8px!important;
+    }
+
+
+    .accordion-header.active {
+        ion-note {
+            opacity: 0.2;
+        }
+    }
+
+    accordion-list .accordion-content.active {
+        padding: 0;
+        span.button-inner {
+            font-size: 1.5rem;
+        }
+        span.button-inner .grupa {
+            margin-left: 4px;
+            opacity: 0.8;
+            font-size: 1.3rem;
+            font-style: italic;
+        }
+    }
+
+    
+
+
+    .card {
+        margin: 0px!important;
+        width: 100%!important;
+        .card-header {
+            padding:3px 2px!important;
+            background: #e6e6e6;
+            border-bottom: 1px solid #e2e2e2;
+            font-size:1.2rem;
+            min-height: 35px;
+            white-space: normal;
+            display:flex;
+            align-items: center; /* Vertical center alignment */
+            justify-content: center; /* Horizontal center alignment */
+        }
+        .card-content {
+            padding:6px 2px;
+            font-weight: 600;
+        }
+    }
+
+    div.promet {
+        padding: 10px 10px 70px 10px;
+        background-color: #f7f7f7;
+    }
+    // table {
+    //     width:100%;
+    //     background: white;
+    //     border-collapse: collapse;
+    //     table-layout: fixed;
+    //     th {
+    //         font-size:1.2rem;
+    //         background: #e1e1e1;
+    //         text-align: right;
+    //         font-weight: normal;
+    //         white-space: nowrap;
+
+    //     }
+    //     th {
+    //         padding: 4px 6px;
+    //     }
+    //     td {
+    //         padding: 10px 6px;
+    //     }
+    //     th:first-child {
+    //         background: #f7f7f7;
+    //     }
+    //     th:not(:first-child) {
+    //         border: 1px solid #bbb;
+    //     }
+
+    //     td {
+    //         border: 1px solid #ccc;
+    //         span {
+    //             font-size:1rem;
+    //             // color: #666;
+    //         }
+            
+    //     }
+    //     td:first-child  {
+    //         font-size: 1.2rem;
+    //         position: relative;
+    //         div {
+    //             position: absolute;
+    //             width:12px;
+    //             height:100%;
+    //             left:0;
+    //             bottom: 0;
+    //             &.tekuca {
+    //                 background: rgba(200, 0, 0, 0.6);
+    //                 border-left: 2px solid rgba(200, 0, 0, 1);
+    //             }
+    //             &.prosla {
+    //                 background: rgba(54, 162, 235, 0.8);
+    //                 border-left: 2px solid rgba(54, 162, 235, 1);
+    //             }
+    //             &.proslacijela {
+    //                 background: rgba(54, 162, 235, 0.3);
+    //                 border-left: 2px solid rgba(54, 162, 235, 0.7);
+    //             }
+    //         }
+    //     }
+    //     th:first-child, td:first-child  {
+    //         width:80px;
+    //         padding: 0 2px 0 20px;
+    //     }
+    //     td:not(:first-child)  {
+    //         text-align: right;
+    //         width: 50%;
+    //         white-space: nowrap;
+    //         font-weight: 600;
+    //     }
+    // }
+
+    table.promet {
+        width:100%;
+        background: white;
+        border-collapse: collapse;
+        table-layout: fixed;
+        th {
+            font-size:1.2rem;
+            background: #e1e1e1;
+            text-align: right;
+            font-weight: normal;
+            white-space: nowrap;
+
+            padding: 10px 6px 2px 6px;
+            position:relative;
+            div {
+                position: absolute;
+                width:100%;
+                height:8px;
+                top:0;
+                left:0;
+                right: 0;
+                &.tekuca {
+                    background: rgba(200, 0, 0, 0.6);
+                    border-top: 2px solid rgba(200, 0, 0, 1);
+                }
+                &.prosla {
+                    background: rgba(54, 162, 235, 0.8);
+                    border-top: 2px solid rgba(54, 162, 235, 1);
+                }
+                &.proslacijela {
+                    background: rgba(54, 162, 235, 0.3);
+                    border-top: 2px solid rgba(54, 162, 235, 0.7);
+                }
+            }
+            
+        }
+        td {
+            padding: 10px 6px;
+        }
+        th:first-child {
+            background: #f7f7f7;
+        }
+        th:not(:first-child) {
+            border: 1px solid #bbb;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            span {
+                font-size:1rem;
+                // color: #666;
+            }
+            
+        }
+        td:first-child  {
+            font-size: 1.2rem;
+            position: relative;
+            
+        }
+        th:first-child, td:first-child  {
+            width:34px;
+            padding: 0 2px 0 6px;
+        }
+        td:not(:first-child)  {
+            text-align: right;
+            width: 50%;
+            white-space: nowrap;
+            font-weight: 600;
+            font-size:1.3rem
+        }
+    }
+
+}

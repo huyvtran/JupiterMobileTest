@@ -1,21 +1,27 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, MenuController} from 'ionic-angular';
+import {IonicPage, MenuController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 
 import {GlobalProvider} from '../../../../providers/core/global-provider';
-import {VariablesProvider} from '../../../../providers/core/variables-provider';
+import {VariableProvider} from '../../../../providers/core/variable-provider';
 import {ModulesProvider} from '../../../../providers/core/modules-provider';
+import {HistoryProvider} from '../../../../providers/core/history-provider';
+
 
 @IonicPage()
 @Component({selector: 'page-core-cc-company', templateUrl: 'company.html'})
 export class CoreCcCompanyPage {
     private company: any = [];
 
-    constructor(private app: App, private storage: Storage, private globalProvider: GlobalProvider, 
+    constructor(private storage: Storage, private globalProvider: GlobalProvider, 
            modulesProvider: ModulesProvider, 
-           private menuCtrl: MenuController) {
+           private variableProvider: VariableProvider, 
+           private menuCtrl: MenuController, historyProivder: HistoryProvider) {
+
+        historyProivder.resetHistory("CoreCcCompanyPage");
         //this.menuCtrl = menuCtrl;
         this.menuCtrl.enable(false, 'mainMenu');        
+        console.log(GlobalProvider.getJupiterSystemData);
         this.company = GlobalProvider.getJupiterSystemData.company;
         modulesProvider.ClearData();
     }
@@ -27,10 +33,10 @@ export class CoreCcCompanyPage {
         .then(() => {
             this
                 .storage
-                .set(GlobalProvider.getCoreStorageKeys.company, JSON.stringify(item));
+                .set(this.globalProvider.getCoreStorageKeys.company, JSON.stringify(item));
         }).then(() => {
-            VariablesProvider.company = item;
-            GlobalProvider.pushPage('CoreCcTabsPage');
+            this.variableProvider.company = item;
+            this.globalProvider.pushPage('CoreCcTabsPage');
             //this.app.getRootNav().setRoot('CoreCcTabsPage', {}, {animate: true, direction: 'forward'})
         });
     }

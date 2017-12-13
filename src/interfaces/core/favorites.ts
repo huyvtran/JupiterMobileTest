@@ -1,6 +1,5 @@
-export interface Favorites {
-    title: string;
+export interface IFavorites {
     page: string;
-    application: number;
     db: string;
+    time: Date;
 }[]

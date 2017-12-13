@@ -1,0 +1,76 @@
+<ion-header>
+        <js-header title="Pregled ugovora" [showClose]="false" [showFavorite]="false"></js-header>
+        <!-- <ion-navbar >
+                <ion-title text-wrap><small>Pregled ugovora</small></ion-title>
+               
+              </ion-navbar> -->
+              <ion-toolbar [hidden]="nemapodataka">
+                    <ion-searchbar (ionInput)="trazilica($event)"></ion-searchbar>
+              </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+        
+    <js-content></js-content>
+
+       
+            <ion-item-divider [hidden]="nemapodataka" color="light">
+                <ion-label text-wrap><strong>Prikazano {{lenght}} od {{rc}}</strong></ion-label>
+                <!-- <ion-note item-right>Broj stavaka</ion-note>  -->
+               
+            </ion-item-divider>
+            <ion-item-divider [hidden]="nemapodataka" color="light" id="label2">
+                    <div><strong>Partner</strong> - Broj ugovora<br>
+                        Datum / vrijedi do<br>
+                        Opis</div>
+                        <div item-right>Broj stavaka</div>
+                    
+           
+                        
+                </ion-item-divider>
+                
+            <ion-list  id="moj-label">
+                    <ion-item-group text-wrap [hidden]="runninggrouptotals(group.naziv)==0" *ngFor="let group of groups">
+                            <ion-item-divider sticky color="medium">
+         
+                              <ion-label text-wrap>
+                                  <strong>
+                                
+                               {{group.vrsta}}
+                                  </strong>
+                              </ion-label>
+                                      
+        
+                                 <ion-badge  color="medium" style="color: grey;" item-right> {{ runninggrouptotals(group.naziv)  | number : '1.0-0'}} </ion-badge>
+                                         
+                                 
+                
+                                </ion-item-divider>
+                                <ion-item-sliding *ngFor="let item of items" (click)="openDetalji(item)">
+
+                <button ion-item *ngIf="item.nazivgrupe==group.naziv" >
+                        
+                    <div><strong>{{item.partner}}</strong> - {{item.broj}}<br>
+                    {{item.datumugovora | date:'dd.MM.yyyy'}} &nbsp;&nbsp;/&nbsp;&nbsp; {{item.ugovorvrijedido | date:'dd.MM.yyyy'}}</div>
+                    <span style="color:grey;">{{item.opis}}</span>
+                
+                    <div item-right>{{item.brojstavaka}}</div>
+                              
+                </button>
+                
+                                </ion-item-sliding>
+                    </ion-item-group>
+                    
+            </ion-list>
+            <ion-item-divider [hidden]="nemapodataka" color="light">
+                <div text-center>
+                    Prikazano {{lenght}} od {{rc}}
+                </div>
+            </ion-item-divider>
+
+            <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon><br>
+            <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center > Nema podataka za odabrane parametre upita! </ion-label>
+
+</ion-content>

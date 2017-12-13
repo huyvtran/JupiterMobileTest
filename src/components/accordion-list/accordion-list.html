@@ -1,0 +1,19 @@
+<ion-list class="accordion-list">
+    <ion-list-header no-padding text-wrap>
+      <button  ion-item detail-none [style.background]="headerColor" [style.color]="textColor" (click)="toggleAccordion()" class="accordion-header" [class.active]="expanded"
+        text-wrap >
+          
+          <ion-icon class="accordion-icon"
+            item-left
+            name="ios-arrow-forward">
+          </ion-icon>
+          {{ title }}
+          
+          <ng-content item-content select="[accordion-header-end]" *ngIf="hideNoteOnExpand==false || (hideNoteOnExpand==true && expanded==false)"></ng-content>
+          <ng-content item-content select="[accordion-header-custom]"></ng-content>
+      </button>
+      <section #accordionContent [style.background]="contentColor" [class.active]="expanded" class="accordion-content">
+        <ng-content></ng-content>
+      </section>
+    </ion-list-header>
+  </ion-list>

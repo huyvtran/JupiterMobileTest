@@ -1,0 +1,45 @@
+<!-- <ion-header>
+    <ion-navbar>
+        <ion-title text-wrap><small *ngFor="let item of items?.items">{{item.n}}</small></ion-title>
+    </ion-navbar>
+
+
+</ion-header> -->
+
+<ion-header>
+        <js-header title="{{naslov}}" [showClose]="false" [showFavorite]="false"></js-header>
+      </ion-header>
+
+<ion-content>
+    <js-content></js-content>
+
+    <ion-item-divider color="light">
+        <div text-right style="padding-right: 15px; font-size: 13px;"> Saldo kupca / dobavljača</div>
+    </ion-item-divider>
+
+    <ion-item *ngFor="let item of items">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6 text-wrap style="font-size: 14px;">
+                    <strong>{{item.brojracuna}}</strong><br> {{item.c}}
+                    <br> {{item.datumdok}}
+                    <br> {{item.oib}}
+                    <br> {{item.partneriid}}
+                    <br>
+                </ion-col>
+                <ion-col text-wrap col-6 text-right style="font-size: 13px;">
+                    <strong>
+                    {{transform(item.sk || 0|number:'1.2-2')}}
+                    /
+                    {{transform(item.sd || 0|number:'1.2-2')}}
+                    </strong>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
+
+
+
+
+</ion-content>

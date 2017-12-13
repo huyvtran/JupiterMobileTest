@@ -1,39 +1,39 @@
-import {ToastController, App} from 'ionic-angular';
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
 
-import {GlobalProvider} from './global-provider';
+import {ConstProvider} from './const-provider';
+import {VariableProvider} from './variable-provider';
+import {ModulesProvider} from './modules-provider';
+
+import * as ICore from '../../interfaces/core/favorites';
+import {HelpersProvider} from './helpers-provider';
 
 @Injectable()
 export class FavoritesProvider {
     private storage : Storage;
-    public dataFavorites : Array <any> = new Array<any>();
+    public dataFavorites : Array <ICore.IFavorites> = new Array<ICore.IFavorites>();
 
-    public dataFavoritesCompany : Array <any> = new Array<any>();
-
-    private currentPageName : string;
-    private currentPageTitle : string;
-    private currentApplication : string;
-
-    public favoriteExists : boolean = false;
-
+    public dataFavoritesCompany : Array<ICore.IFavorites> = new Array<ICore.IFavorites>();
+    
     private favoritesCnt : number = 0;
+    private initialized: boolean = false;
 
     //@ViewChild(GlobalProvider) globalProfile: GlobalProvider
-    constructor(private toastCtrl : ToastController, private app : App) {
-        console.log("app");
-        console.log(app);
+    constructor(private constProvider: ConstProvider
+        , private variableProvider: VariableProvider
+        , private modulesProvider: ModulesProvider
+        , private helpers: HelpersProvider) {
         // this.storage = new Storage([]); this.initStorage();
     }
 
-    init(currentPageName : string, currentPageTitle: string, currentApplication: string) {
-        this.currentPageName = currentPageName;
-        this.currentPageTitle = currentPageTitle;
-        this.currentApplication = currentApplication;
+    init() {
         if (this.storage == null)
             this.storage = new Storage([]);
 
-        this.getDataFromStorage(GlobalProvider.getCoreStorageKeys.favorites, this.dataFavorites);
+        if (this.initialized == false) {
+            this.initialized=true;
+            this.getDataFromStorage(this.constProvider.coreStorageKeys.favorites, this.dataFavorites);
+        }
     }
 
     getDataFromStorage(keyStorage, dataStorage) {
@@ -46,62 +46,54 @@ export class FavoritesProvider {
                         .storage
                         .get(keyStorage)
                         .then(val => {
-                            let data: any[] = JSON.parse(val);
+                            let data: Array<ICore.IFavorites> = JSON.parse(val);
                             if (data != null) {
-                                this.setStorage(data);
+                                this.dataFavorites = data;
                             } else {
-                                dataStorage = new Array < any > ();
-                            }
-                            //return data;
+                                dataStorage = new Array<ICore.IFavorites> ();
+                            }                            
                         })
                         .then(() => {
-                            this.setVars();
+                            this.setFavoritesCompany();
                         })
                 });
         } else {
-            this.setVars();
-        }
-    }
-
-    setVars() {
-        this.setFavoritesCompany();
-        this.favoriteExists = this.isFavoriteExists(this.currentPageName);
-        this.setFavoriteCnt();
-    }
-
-    setStorage(data) {
-        if (data != null) {
-            this.dataFavorites = data;
-        }
-    }
-
-    setFavoriteCnt() {
-        if (this.dataFavorites.length > 0) {
-            let data = this.dataFavorites.filter(x => x.db == GlobalProvider.getCompanyData.db);
-            if (data != null)
-                this.favoritesCnt = data.length;
-            else 
-                this.favoritesCnt = 0;
-        } else {
-            this.favoritesCnt = 0;
+            this.setFavoritesCompany();
         }
     }
 
     setFavoritesCompany() {
-            this.dataFavoritesCompany = this.dataFavorites.filter(x => x.db == GlobalProvider.getCompanyData.db);    
+        this.dataFavoritesCompany = [];
+        //this.dataFavorites;
+        let dataC = this.dataFavorites.filter(x => x.db.trim() == this.variableProvider.company.db.trim());
+        dataC.forEach(x => {
+                let item = this.modulesProvider.sveGranule.find(y => {
+                     return y.parameter == x.page
+                    }
+                );
+                if (item != null)
+                    this.dataFavoritesCompany.push(item);
+            });   
+
+        this.favoritesCnt = dataC.length;
+        
     }
 
+    
+
     //main handler
-    addRemoveFavorite() {
-        let item = this.filterData(this.dataFavorites, this.currentPageName);
-        if (item.length == 0) {
+    addRemoveFavorite(pageName) {
+        let isPushed: boolean = false;
+        let itemIndex = this.findIndex(pageName);
+        if (itemIndex < 0) {
+            isPushed = true;
             this
                 .dataFavorites
-                .push({title: this.currentPageTitle, page: this.currentPageName, application: this.currentApplication, db: GlobalProvider.getCompanyData.db});
+                .push({page: pageName, db: this.variableProvider.company.db, time: new Date()});
         } else {
             this
                 .dataFavorites
-                .splice(item, 1);
+                .splice(itemIndex, 1);
         }
         this
             .storage
@@ -109,46 +101,30 @@ export class FavoritesProvider {
             .then(() => {
                 return this
                     .storage
-                    .set(GlobalProvider.getCoreStorageKeys.favorites, JSON.stringify(this.dataFavorites));
+                    .set(this.constProvider.coreStorageKeys.favorites, JSON.stringify(this.dataFavorites));
             })
-        this.isFavoriteExists(this.currentPageName);
         this.setFavoritesCompany();
-        this.setFavoriteCnt();
-        this.presentToast();
+        this.presentToast(isPushed);
     }
 
-    filterData(data, value) : any {
-        return data.filter(x => x.page == value && x.db == GlobalProvider.getCompanyData.db);
+    findIndex(pageName): number {
+        return this.dataFavorites.findIndex(x => x.page == pageName  && x.db.trim() == this.variableProvider.company.db.trim());
     }
 
-    isFavoriteExists(page) : boolean {
-        if(this.filterData(this.dataFavorites, page).length == 0) 
-            this.favoriteExists = false;
+    isFavoriteExists(pageName) : boolean {
+        if(this.findIndex(pageName) < 0) 
+            return false;
         else 
-            this.favoriteExists = true;
-        
-        console.log(this.favoriteExists);
-        return this.favoriteExists;
-
+            return true;
     }
 
-    presentToast() {
-
+    presentToast(isPushed: boolean) {
         let message : string
-        if (this.favoriteExists == true) 
+        if (isPushed == true) 
             message = "Granula je dodana u favorite";
         else 
             message = "Granula je uklonjena iz favorita";
-        
-        let toast = this
-            .toastCtrl
-            .create({message: message, duration: 3000, position: 'bottom'});
-
-        toast.onDidDismiss(() => {
-            console.log('Dismissed toast');
-        });
-
-        toast.present();
+        this.helpers.presentToast(message, null, 3000);
     }
 
 }

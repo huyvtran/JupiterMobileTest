@@ -11,6 +11,9 @@ js-header {
         border-top: 1px dotted #cccccc;
         font-size:1.2rem;
         background-color:rgb(244, 244, 247)!important;
+        // background-color:map-get($colors, danger);
+        // opacity:0.9;
+        // color: #ffffff;
         &.light {
             background-color: map-get($colors, light)!important;
         }
@@ -21,7 +24,7 @@ js-header {
         font-size: 1.5rem!important
     }
 
-    ion-navbar {
+    ion-navbar.toolbar-md {
         min-height:40px!important;
     }
 
@@ -45,13 +48,25 @@ js-header {
         text-align: center;
     }
 
+    ion-icon {
+        font-size:24px; 
+        &.favorite-active {
+            color:orange
+        }
+    }
+    .icon-ios {
+        font-size:3rem!important; 
+    }
 
     .sidebar-title {
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    ion-icon.close {
-        font-size:2rem!important;
+    .icon-md.close {
+        font-size:2.4rem!important;
+    }
+    .icon-ios.close {
+        font-size:3rem!important;
     }
 }

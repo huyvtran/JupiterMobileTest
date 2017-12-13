@@ -1,0 +1,89 @@
+<ion-header>
+    <js-header title="Analiza prodaje - izvještaj"></js-header>
+    <div class="container">
+        <div class="a">Izvještajno razdoblje
+            <br><span>{{provider.parametriIzv.objekttekst}}<br>{{provider.parametriIzv.datumod | date:"dd.MM.yyyy"}} - {{provider.parametriIzv.datumdo | date:"dd.MM.yyyy"}}</span>
+        </div>
+        <div class="b" *ngIf="provider.parametriRef.include">Referentno razdoblje
+            <br><span>{{provider.parametriRef.objekttekst}}<br>{{provider.parametriRef.datumod | date:"dd.MM.yyyy"}} - {{provider.parametriRef.datumdo | date:"dd.MM.yyyy"}}</span>
+        </div>
+    </div>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <div style="text-align:center; padding:10px;" *ngIf="loading==true">
+        <ion-spinner name="bubbles"></ion-spinner>
+        <div text-center>učitavanje</div>
+    </div>
+    <ng-container *ngIf="loading==false">
+        <accordion-list title="Izdano" hasMargin="false" [headerColor]="accordionColor" [expanded]="true" [hideNoteOnExpand]="true">
+            <ion-note accordion-header-end item-end><span class="a">{{dataDef?.dataIzd?.ruc}}</span><span *ngIf="provider.parametriRef.include"> / <span class="b">{{dataDef?.dataIzdRef?.ruc}}</span></span></ion-note>
+            <usporedba-item caption="KOLIČINA" [valueA]="dataDef?.dataIzd?.kolicina" [valueB]="dataDef?.dataIzdRef?.kolicina" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="VRIJEDNOST" [valueA]="dataDef?.dataIzd?.vrijednost" [valueB]="dataDef?.dataIzdRef?.vrijednost" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC" [valueA]="dataDef?.dataIzd?.ruc" [valueB]="dataDef?.dataIzdRef?.ruc" [includeB]="provider.parametriRef.include" [highlight]="true"></usporedba-item>
+            <usporedba-item caption="PROSJEČNA VRIJEDNOST" [valueA]="dataDef?.dataIzd?.prosjek" [valueB]="dataDef?.dataIzdRef?.prosjek" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC %" [valueA]="dataDef?.dataIzd?.postoruc" [valueB]="dataDef?.dataIzdRef?.postoruc" [includeB]="provider.parametriRef.include"></usporedba-item>
+        </accordion-list>
+        <accordion-list title="Realizirano" hasMargin="false" [headerColor]="accordionColor" [hideNoteOnExpand]="true" *ngIf="ponudeExists==true">
+            <ion-note accordion-header-end item-end><span class="a">{{dataDef?.dataRea?.ruc}}</span><span *ngIf="provider.parametriRef.include && ponudeExistsRef"> / <span class="b">{{dataDef?.dataReaRef?.ruc}}</span></span></ion-note>
+            <usporedba-item caption="KOLIČINA" [valueA]="dataDef?.dataRea?.kolicina" [valueB]="dataDef?.dataReaRef?.kolicina" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="VRIJEDNOST" [valueA]="dataDef?.dataRea?.vrijednost" [valueB]="dataDef?.dataReaRef?.vrijednost" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC" [valueA]="dataDef?.dataRea?.ruc" [valueB]="dataDef?.dataReaRef?.ruc" [includeB]="provider.parametriRef.include" [highlight]="true"></usporedba-item>
+            <usporedba-item caption="PROSJEČNA VRIJEDNOST" [valueA]="dataDef?.dataRea?.prosjek" [valueB]="dataDef?.dataReaRef?.prosjek" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC %" [valueA]="dataDef?.dataRea?.postoruc" [valueB]="dataDef?.dataReaRef?.postoruc" [includeB]="provider.parametriRef.include"></usporedba-item>
+        </accordion-list>
+        <accordion-list title="Otpisano" hasMargin="false" [headerColor]="accordionColor" [hideNoteOnExpand]="true" *ngIf="ponudeExists==true">
+            <ion-note accordion-header-end item-end><span class="a">{{dataDef?.dataOtp?.ruc}}</span><span *ngIf="provider.parametriRef.include && ponudeExistsRef"> / <span class="b">{{dataDef?.dataOtpRef?.ruc}}</span></span></ion-note>
+            <usporedba-item caption="KOLIČINA" [valueA]="dataDef?.dataOtp?.kolicina" [valueB]="dataDef?.dataOtpRef?.kolicina" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="VRIJEDNOST" [valueA]="dataDef?.dataOtp?.vrijednost" [valueB]="dataDef?.dataOtpRef?.vrijednost" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC" [valueA]="dataDef?.dataOtp?.ruc" [valueB]="dataDef?.dataOtpRef?.ruc" [includeB]="provider.parametriRef.include" [highlight]="true"></usporedba-item>
+            <usporedba-item caption="PROSJEČNA VRIJEDNOST" [valueA]="dataDef?.dataOtp?.prosjek" [valueB]="dataDef?.dataOtpRef?.prosjek" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC %" [valueA]="dataDef?.dataOtp?.postoruc" [valueB]="dataDef?.dataOtpRef?.postoruc" [includeB]="provider.parametriRef.include"></usporedba-item>
+        </accordion-list>
+        <ion-item-group>
+            <ion-item-divider class="group-blue">Dnevni prosjek
+                <ion-note item-end>dana: {{dataDef?.dataIzd?.brojdana}}<span *ngIf="provider.parametriRef.include"> / {{dataDef?.dataIzdRef?.brojdana}}</span></ion-note>
+            </ion-item-divider>
+        </ion-item-group>
+        <accordion-list title="Izdano" hasMargin="false" [headerColor]="accordionColor" [hideNoteOnExpand]="true">
+            <ion-note accordion-header-end item-end><span class="a">{{dataDef?.dataIzd?.dnevniprosjekruc}}</span><span *ngIf="provider.parametriRef.include"> / <span class="b">{{dataDef?.dataIzdRef?.dnevniprosjekruc}}</span></span></ion-note>
+            <usporedba-item caption="KOLIČINA" [valueA]="dataDef?.dataIzd?.dnevniprosjekkolicina" [valueB]="dataDef?.dataIzdRef?.dnevniprosjekkolicina" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="VRIJEDNOST" [valueA]="dataDef?.dataIzd?.dnevniprosjekvrijednost" [valueB]="dataDef?.dataIzdRef?.dnevniprosjekvrijednost" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC" [valueA]="dataDef?.dataIzd?.dnevniprosjekruc" [valueB]="dataDef?.dataIzdRef?.dnevniprosjekruc" [includeB]="provider.parametriRef.include" [highlight]="true"></usporedba-item>
+        </accordion-list>
+        <accordion-list title="Realizirano" hasMargin="false" [headerColor]="accordionColor" [hideNoteOnExpand]="true" *ngIf="ponudeExists==true">
+            <ion-note accordion-header-end item-end><span class="a">{{dataDef?.dataRea?.dnevniprosjekruc}}</span><span *ngIf="provider.parametriRef.include && ponudeExistsRef"> / <span class="b">{{dataDef?.dataReaRef?.dnevniprosjekruc}}</span></span></ion-note>
+            <usporedba-item caption="KOLIČINA" [valueA]="dataDef?.dataRea?.dnevniprosjekkolicina" [valueB]="dataDef?.dataReaRef?.dnevniprosjekkolicina" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="VRIJEDNOST" [valueA]="dataDef?.dataRea?.dnevniprosjekvrijednost" [valueB]="dataDef?.dataReaRef?.dnevniprosjekvrijednost" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC" [valueA]="dataDef?.dataRea?.dnevniprosjekruc" [valueB]="dataDef?.dataReaRef?.dnevniprosjekruc" [includeB]="provider.parametriRef.include" [highlight]="true"></usporedba-item>
+        </accordion-list>
+        <accordion-list title="Otpisano" hasMargin="false" [headerColor]="accordionColor" [hideNoteOnExpand]="true" *ngIf="ponudeExists==true">
+            <ion-note accordion-header-end item-end><span class="a">{{dataDef?.dataOtp?.dnevniprosjekruc}}</span><span *ngIf="provider.parametriRef.include && ponudeExistsRef"> / <span class="b">{{dataDef?.dataOtpRef?.dnevniprosjekruc}}</span></span></ion-note>
+            <usporedba-item caption="KOLIČINA" [valueA]="dataDef?.dataOtp?.dnevniprosjekkolicina" [valueB]="dataDef?.dataOtpRef?.dnevniprosjekkolicina" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="VRIJEDNOST" [valueA]="dataDef?.dataOtp?.dnevniprosjekvrijednost" [valueB]="dataDef?.dataOtpRef?.dnevniprosjekvrijednost" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC" [valueA]="dataDef?.dataOtp?.dnevniprosjekruc" [valueB]="dataDef?.dataOtpRef?.dnevniprosjekruc" [includeB]="provider.parametriRef.include" [highlight]="true"></usporedba-item>
+        </accordion-list>
+        <ion-item-group>
+            <ion-item-divider class="group-blue">Indeksi <span class="sub">(izvještajno / referentno razdoblje)</span></ion-item-divider>
+        </ion-item-group>
+        <accordion-list title="Izdano" hasMargin="false" [headerColor]="accordionColor" [hideNoteOnExpand]="true">
+            <ion-note accordion-header-end item-end><span class="a">{{dataDef?.dataIzd?.dnevniprosjekrucindex}}</span><span *ngIf="provider.parametriRef.include"> / <span class="b">{{dataDef?.dataIzdRef?.dnevniprosjekrucindex}}</span></span></ion-note>
+            <usporedba-item caption="KOLIČINA" [valueA]="dataDef?.dataIzd?.dnevniprosjekkolicinaindex" [valueB]="dataDef?.dataIzdRef?.dnevniprosjekkolicinaindex" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="VRIJEDNOST" [valueA]="dataDef?.dataIzd?.dnevniprosjekvrijednostindex" [valueB]="dataDef?.dataIzdRef?.dnevniprosjekvrijednostindex" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC" [valueA]="dataDef?.dataIzd?.dnevniprosjekrucindex" [valueB]="dataDef?.dataIzdRef?.dnevniprosjekrucindex" [includeB]="provider.parametriRef.include" [highlight]="true"></usporedba-item>
+        </accordion-list>
+        <accordion-list title="Realizirano" hasMargin="false" [headerColor]="accordionColor" [hideNoteOnExpand]="true" *ngIf="ponudeExists==true">
+            <ion-note accordion-header-end item-end><span class="a">{{dataDef?.dataRea?.dnevniprosjekrucindex}}</span><span *ngIf="provider.parametriRef.include && ponudeExistsRef"> / <span class="b">{{dataDef?.dataReaRef?.dnevniprosjekrucindex}}</span></span></ion-note>
+            <usporedba-item caption="KOLIČINA" [valueA]="dataDef?.dataRea?.dnevniprosjekkolicinaindex" [valueB]="dataDef?.dataReaRef?.dnevniprosjekkolicinaindex" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="VRIJEDNOST" [valueA]="dataDef?.dataRea?.dnevniprosjekvrijednostindex" [valueB]="dataDef?.dataReaRef?.dnevniprosjekvrijednostindex" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC" [valueA]="dataDef?.dataRea?.dnevniprosjekrucindex" [valueB]="dataDef?.dataReaRef?.dnevniprosjekrucindex" [includeB]="provider.parametriRef.include" [highlight]="true"></usporedba-item>
+        </accordion-list>
+        <accordion-list title="Otpisano" hasMargin="false" [headerColor]="accordionColor" [hideNoteOnExpand]="true" *ngIf="ponudeExists==true">
+            <ion-note accordion-header-end item-end><span class="a">{{dataDef?.dataOtp?.dnevniprosjekrucindex}}</span><span *ngIf="provider.parametriRef.include && ponudeExistsRef"> / <span class="b">{{dataDef?.dataOtpRef?.dnevniprosjekrucindex}}</span></span></ion-note>
+            <usporedba-item caption="KOLIČINA" [valueA]="dataDef?.dataOtp?.dnevniprosjekkolicinaindex" [valueB]="dataDef?.dataOtpRef?.dnevniprosjekkolicinaindex" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="VRIJEDNOST" [valueA]="dataDef?.dataOtp?.dnevniprosjekvrijednostindex" [valueB]="dataDef?.dataOtpRef?.dnevniprosjekvrijednostindex" [includeB]="provider.parametriRef.include"></usporedba-item>
+            <usporedba-item caption="RUC" [valueA]="dataDef?.dataOtp?.dnevniprosjekrucindex" [valueB]="dataDef?.dataOtpRef?.dnevniprosjekrucindex" [includeB]="provider.parametriRef.include" [highlight]="true"></usporedba-item>
+        </accordion-list>       
+    </ng-container>
+</ion-content>

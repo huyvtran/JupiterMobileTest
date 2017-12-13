@@ -1,0 +1,21 @@
+page-shared-trazilica-tree {
+    .item ion-icon[item-start] + .item-inner {
+        margin-left: 10px;
+    }
+    .toast-info {
+        background: #999;
+        opacity: 0.6;
+    }
+
+    .toast-error {
+        > div {
+            background: #c0392b!important;
+        }
+    }
+
+    .breadcrumb {
+        text-align: center;
+        margin: 2px;
+        color: #999;
+    }
+}

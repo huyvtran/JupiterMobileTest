@@ -47,13 +47,13 @@ ion-menu {
 
 
 
-  .list-header-md {
+  .list-header {
       min-height: 3rem;
       margin-bottom:0;
       padding-left:16px;
       background:#eeeeee;
   }
-    .label-md {
+    .label {
         margin:0px;
     }
 
@@ -124,8 +124,63 @@ ion-menu {
       }
   }
 
-  .toast-error {
+.toast-error {
     > div {
         background: #c0392b!important;
     }
 }
+
+.toast-info {
+  > div {
+      background: #999!important;
+      opacity: 0.6!important;
+  }
+}
+
+
+.trazilica-caption {
+  color: #999;
+}
+
+.sub-title {
+  background: #445a6d;
+  text-align: center;
+  padding: 4px;
+  color: white;
+  border-top:1px solid #49637a;
+}
+
+
+ion-item div.title {
+  color: #999999;
+  font-size: 9pt;
+  margin-bottom:4px;
+}
+
+ion-label div.content {
+  word-wrap: break-word!important;
+  white-space: normal;
+}
+
+/* begin - specifično za IOS */
+.list-header-ios {
+  letter-spacing: 0!important;
+  text-transform: none!important;
+}
+.toolbar-title {
+  white-space: normal;
+  
+}
+.toolbar-title-ios span {
+  font-size:1.4rem!important;
+}
+
+.label {
+  font-size: 1.4rem!important;
+  line-height: 1.5!important;
+}
+
+.list-ios {
+  margin: -1px 0 0;
+}
+/* end - specifično za IOS */

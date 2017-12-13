@@ -1,0 +1,17 @@
+page-hrm-godisnji-evidencija {
+    .light {
+        color: #999;
+    }
+    ion-item {
+        &.tekuce {
+            background: #fafafa!important;
+        }
+        &.preostalo {
+            font-weight: 600;
+            // color: #00578A;
+            // background:#D3E1E4!important;
+            color: #364b5e;
+            background:#d2d9df!important;
+        }
+    }
+}

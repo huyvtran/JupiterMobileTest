@@ -1,0 +1,48 @@
+page-analizakupca-robalista {
+    .ikonavelika{
+            font-size: 3em !important;
+            position:absolute;
+            left: 0;
+            right: 0;
+            margin:0 auto;
+            top:25%;
+            transform:translateY(-15%);
+    
+        }
+    .nemapodataka{        
+            position:absolute;
+            left: 0;
+            right: 0;
+            margin:0 auto;
+            top:35%;
+            transform:translateY(-25%);  
+    
+        }
+        .grid {
+            padding: 0px;
+        }
+        ion-icon {
+            font-size: 1em;
+        }
+        .item-ios {
+            font-size: 1.5rem;
+        }
+        .spin-boja {
+            color: #c0392b;
+            font-weight: bold;
+        }
+        #labelnomargin .label-md, #labelnomargin .label-ios {
+            margin: 5px;
+        }
+        ion-card.card {
+            margin: 0px;
+            padding: 10px;
+            box-shadow: none;
+            border-radius: 10px;
+            background: rgba(192, 57, 43, 0.2);
+            width: 100%;
+        }
+    }
+
+
+

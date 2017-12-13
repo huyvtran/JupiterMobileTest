@@ -1,0 +1,68 @@
+<ion-header>
+    <js-header title="Osobe - {{osoba.naziv}}" [showClose]="true"></js-header>
+</ion-header>
+    
+    <ion-content>
+        <js-content></js-content>
+        
+        <ion-item>
+            <div class="title">Ime</div>
+            <div class="content">
+                {{osoba.items.ime}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="title">Prezime</div>
+            <div class="content">
+                {{osoba.items.prezime}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="title">OIB</div>
+            <div class="content">
+                {{osoba.items.oib}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="title">JMBG</div>
+            <div class="content">
+                {{osoba.items.jmbg}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="title">Adresa</div>
+            <div class="content">
+                {{osoba.items.adresa}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="title">Mjesto</div>
+            <div class="content">
+                {{osoba.items.mjestanaziv}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="title">Telefon</div>
+            <div class="content">
+                {{osoba.items.hptpoziv}} / {{osoba.items.telefon}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="title">Mobitel</div>
+            <div class="content">
+                {{osoba.items.mobile}}
+            </div>
+            <button ion-button color="primary" clear icon-only item-right (click)="call(osoba.items.mobile)">
+                <ion-icon name="call" is-active="false"></ion-icon>
+            </button>
+        </ion-item>
+        <ion-item>
+            <div class="title">Email</div>
+            <div class="content">
+                {{osoba.items.email}}
+            </div>
+            <button ion-button color="primary" clear icon-only item-right (click)="sendMail(osoba.items.email)">
+                <ion-icon name="mail" is-active="false"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-content>

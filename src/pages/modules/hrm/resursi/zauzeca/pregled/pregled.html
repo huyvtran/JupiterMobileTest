@@ -1,0 +1,39 @@
+<ion-header>
+    <js-header title="Zauzeće resursa - odabir" [showClose]="false" [showFavorite]="false"></js-header>
+    <ion-toolbar>
+        <div class="params-string" innerHtml="{{paramsStr}}"></div>
+        <ion-textarea [(ngModel)]="provider.memo" placeholder="Razlog zauzeća ..." ></ion-textarea>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <ion-list>
+        <ion-item-sliding *ngFor="let resurs of data" [ngSwitch]="resurs.zauzeto">
+            <ion-item>
+                <ion-label class="resurs-naziv">{{resurs.naziv}}
+                    <div class="zauzeo">{{resurs.zauzeo}}</div>
+                </ion-label>
+                <ion-checkbox *ngSwitchCase="0" [(ngModel)]="resurs.selected"></ion-checkbox>
+                <ion-icon *ngSwitchCase="1" name="ios-person-outline" item-start></ion-icon>
+                <ion-icon *ngSwitchCase="2" name="ios-person" item-start></ion-icon>
+            </ion-item>
+        
+            <ion-item-options side="right">
+                <button ion-button icon-only color="primary" (click)="presentPregledPage(resurs)">
+                    <ion-icon name="information-circle"></ion-icon>
+                </button>
+                <button ion-button icon-only (click)="delete(resurs)" color="danger" *ngSwitchCase="2">
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
+
+<ion-fab bottom right>
+    <button ion-fab mini (click)="presentFilter()" block style="margin-right:65px;"><ion-icon name="funnel" ></ion-icon></button>
+</ion-fab>
+<ion-fab bottom right>
+    <button ion-fab (click)="potvrda()" [disabled]="buttonState()"><ion-icon name="checkmark"></ion-icon></button>
+</ion-fab>

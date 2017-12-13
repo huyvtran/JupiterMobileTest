@@ -1,0 +1,29 @@
+page-stanjeskladista-filter-forma {
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: lightgrey;
+        box-shadow: inset 0 -1px 0 0 lightgrey;
+    }
+    .list-ios, .list-md {
+        margin: 0px;
+    }
+    #moj-label .label-md, #moj-label .label-ios {
+        min-height: 38px;
+    }
+    .icon-md {
+        font-size: 1.5em!important;
+        margin: 0px;
+    }
+    .icon-ios {
+        font-size: 1.4em!important;
+    }
+    #option-icon .icon-md {
+        font-size: 1.2em!important;
+    }
+    .item-md ion-icon[item-left] + .item-inner, .item-md ion-icon[item-left] + .item-input, .item-md ion-icon[item-start] + .item-inner, .item-md ion-icon[item-start] + .item-input {
+        margin-left: 12px;
+    }
+    #labell .label-md, #labell .label-ios {
+        margin: 7px 8px 7px 0;
+    }
+   }

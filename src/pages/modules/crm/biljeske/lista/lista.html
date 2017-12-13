@@ -1,0 +1,59 @@
+<ion-header>
+        <js-header title="Bilješke partnera" [showClose]="false" [showFavorite]="false"></js-header>
+      </ion-header>
+
+
+
+<ion-content>
+
+    <js-content></js-content>
+
+    <ion-fab bottom right style="padding-right: 10px;">
+        <button class="wow fadeInRight" data-wow-delay="0.5s" ion-fab color="primary" (click)="novabiljeska()"><span style="font-size: 18px;">+</span></button>
+    </ion-fab>
+
+
+    <ion-item-divider sticky color="light">
+            <ion-label text-left><strong>{{parametriupita.partnerinaziv}}</strong></ion-label>
+    </ion-item-divider>
+
+       <ion-list>
+        <ion-item-sliding #slidingItem *ngFor="let item of items">
+                <button ion-item  (click)="editbiljeske(item)">
+                <ion-grid>
+                        <ion-row>
+                                <ion-col col-8 text-wrap>
+                                        <span class="plava">{{item.tema}}</span>
+                                </ion-col>
+                                <ion-col col-4 text-right>
+                                        <small>{{item.vrijeme |date: 'dd/MM/yyyy H:mm' }}</small>
+                                </ion-col>
+                        </ion-row><br>
+                        <ion-row>
+                                <ion-col text-wrap>
+                                        {{item.sadrzaj}}
+                                </ion-col>
+                        </ion-row>
+                        
+                </ion-grid> 
+                
+        </button>
+        <ion-item-options id="option-icon"> 
+                        <button style="width: 50px;" color="danger" ion-button large  (click)="brisiBiljesku(item, slidingItem)">
+                          <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>              
+                        </button>
+                </ion-item-options> 
+                   
+        </ion-item-sliding>
+</ion-list>
+<br><br>
+            
+            
+   
+
+
+    <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon><br>
+    <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema podataka za odabrane parametre upita! </ion-label>
+
+
+</ion-content>

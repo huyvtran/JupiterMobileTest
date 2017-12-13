@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import {IonicPage, ToastController, App } from 'ionic-angular';
+import {IonicPage, ToastController,} from 'ionic-angular';
 
 import {GlobalProvider} from '../../../../providers/core/global-provider';
 
 @IonicPage()
 @Component({selector: 'page-core-cc-tools', templateUrl: 'tools.html'})
 export class CoreCcToolsPage {
-    constructor(private globalProvider : GlobalProvider, private toastCtrl: ToastController, private app: App) {}
+    constructor(private globalProvider : GlobalProvider, private toastCtrl: ToastController) {}
 
     uIzradi() {
         let message = "Funkcionalnost je u izradi";
@@ -16,20 +16,13 @@ export class CoreCcToolsPage {
             .create({message: message, duration: 3000, position: 'bottom'});
 
         toast.onDidDismiss(() => {
-            console.log('Dismissed toast');
         });
 
         toast.present();
     }
 
     openBugShooter() {
-                this
-            .app
-            .getRootNav()
-            .setRoot('TestBugshooterPage', {}, {
-                animate: true,
-                direction: 'forward'
-            });
+        this.globalProvider.pushPage("TestBugshooterPage");
     }
 
     doubleTap() {

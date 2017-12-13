@@ -1,0 +1,92 @@
+<ion-header>
+                <js-header title="Cjenik" [showClose]="false" [showFavorite]="false"></js-header>
+                
+              <ion-toolbar [hidden]="nemapodataka">
+                    <ion-searchbar (ionInput)="trazilica($event)"></ion-searchbar>
+              </ion-toolbar>
+
+    
+</ion-header>
+
+    <!-- <form (ngSubmit)="trazilica()"> -->
+
+<!-- <ion-searchbar name="search" [(ngModel)]="val" [formControl]="searchControl" autofocus  ></ion-searchbar> -->
+
+
+      <!-- </form> -->
+
+
+<ion-content>
+        
+     <js-content></js-content>
+
+     <ion-item-divider  [hidden]="nemapodataka" color="light" >
+            <div text-left style="padding-bottom: 10px;"><strong>Prikazano {{lenght}} od {{rc}}</strong></div>
+        
+            <!-- <ion-grid>
+                <ion-row style="font-weight: bold; padding-bottom: 10px;">
+                    <ion-col col-4 text-right>
+                        NC
+                    </ion-col>
+                    <ion-col col-4 text-right>
+                        PC
+                    </ion-col>
+                    <ion-col col-4 text-right>
+                        MPC 
+                    </ion-col>
+                </ion-row>
+            </ion-grid> -->
+
+        
+     </ion-item-divider>
+     <ion-list id="moj-label" style="position: relative; top: -2%; margin-top: 0px !important;">
+             <ion-item-group [hidden]="runninggrouptotals(group.naziv)==0" *ngFor="let group of groups">
+                     <ion-item-divider sticky color="medium">
+  
+                            <ion-label text-wrap>
+                                <strong>
+                                {{group.naziv}} 
+                                </strong>
+                            </ion-label>
+                            
+                                <ion-badge color="medium" style="color: grey;" item-right> {{ runninggrouptotals(group.naziv)  | number : '1.0-0'}} </ion-badge>        
+                         </ion-item-divider>
+
+                         <ion-item-sliding *ngFor="let item of items">
+          
+             <ion-item *ngIf="item.nazivgrupe==group.naziv">
+             <span text-wrap>
+             <small [hidden]="parametriupita.cjenikid == null" style="color:grey;">{{item.cjenik}} <br></small>
+             <small [hidden]="parametriupita.cjenikid != null" style="color:grey;">{{item.klasa}}<br></small>
+             {{item.roba}}
+             </span>
+             <ion-grid>
+                 <ion-row style="font-weight: bold;">
+                     <ion-col col-4 text-right>
+                            <small><span style="color:grey;">NC&nbsp;</span></small>{{transform(item.nc|number:'1.2-2')}}
+                     </ion-col>
+                     <ion-col col-4 text-right>
+                            <small><span style="color:grey;">PC&nbsp;</span></small>{{transform(item.pc|number:'1.2-2')}}
+                    </ion-col>
+                    <ion-col col-4 text-right>
+                            <small><span style="color:grey;">MPC&nbsp;</span></small>{{transform(item.mpc|number:'1.2-2')}}
+                    </ion-col>
+                 </ion-row>
+             </ion-grid>
+             </ion-item>
+                         </ion-item-sliding>
+             </ion-item-group>
+             
+     </ion-list>
+
+     <ion-item-divider [hidden]="nemapodataka" color="light">
+            <div text-center>
+                Prikazano {{lenght}} od {{rc}}
+            </div>
+        </ion-item-divider>
+
+     <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon><br>
+     <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center > Nema podataka za odabrane parametre upita! </ion-label>
+ 
+
+</ion-content>

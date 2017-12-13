@@ -1,0 +1,79 @@
+<ion-header>
+    <js-header title="Odobravanje odsustva" [showClose]="true" [showFavorite]="true"></js-header>
+    <ion-item-divider ion-item color="light">
+        <ion-label class="info"><span>stavaka:</span> {{data?.zahtjevi.length}}<span>; selektirano:</span> {{selectedCnt}}</ion-label>
+        <ion-checkbox item-left (ionChange)="check($event)" *ngIf="dataExists()"></ion-checkbox>
+    </ion-item-divider>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content refreshingText="osvježavam..."></ion-refresher-content>
+    </ion-refresher>
+    <js-content></js-content>
+    <js-nodata *ngIf="dataExists() == false"></js-nodata>
+    <ion-list style="padding-bottom:60px;">
+        <ion-item-sliding *ngFor="let item of data?.zahtjevi">
+            <!-- <ion-item>
+                <ion-label class="resurs-naziv">{{item.djelatnik}}
+                    <div class="zauzeo">{{item.odsustvo}}</div>
+                </ion-label>
+                <ion-checkbox></ion-checkbox>
+            </ion-item> -->
+            <ion-item>
+                <ion-label>
+                    <strong>{{item.djelatnik}}</strong>
+                    <h2>{{item.odsustvo}}</h2>
+                    <p *ngIf="item.napomena!=null">{{item.napomena}}</p>
+                    <table>
+                        <tr>
+                            <td>
+                                <div>n:
+                                    <ion-icon name="checkmark-circle" [ngClass]="{'1':'odobreno','2':'odbijeno','0':'cekanje'}[item.odobrenonad]"></ion-icon> {{item.nadredeni}}</div>
+                            </td>
+                            <td>
+                                <div *ngIf="item.zamjenik!=null">z:
+                                    <ion-icon name="checkmark-circle" [ngClass]="{'1':'odobreno','2':'odbijeno','0':'cekanje'}[item.odobrenozam]"></ion-icon> {{item.zamjenik}}</div>
+                            </td>
+                        </tr>
+                    </table>
+                </ion-label>
+
+                <ion-checkbox [(ngModel)]="item.checked" (ionChange)="checkSingle()"></ion-checkbox>
+                <ion-note item-end>
+                    <div style="text-align:center" innerHtml="{{ formatRazdoblje(item) }}"></div>
+                </ion-note>
+            </ion-item>
+
+            <ion-item-options side="right">
+                <button ion-button icon-only color="primary" (click)="presentPregledPage(resurs)">
+                    <ion-icon name="information-circle"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+
+    <!-- <ion-fab bottom right>
+        <button ion-fab (click)="azur()"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-fab> -->
+
+
+    <ion-fab bottom right #fab>
+        <button ion-fab [disabled]="buttonState()"><ion-icon name="checkmark"></ion-icon></button>
+        <ion-fab-list side="top">
+            <button ion-fab color="primary" (click)="azur(1, fab)">
+                <ion-icon name="checkmark"></ion-icon>
+                <ion-label>odobri</ion-label>
+            </button>
+            <button ion-fab color="danger" (click)="azur(2, fab)">
+                <ion-icon name="close"></ion-icon>
+                <ion-label>odbij</ion-label>
+            </button>
+        </ion-fab-list>
+    </ion-fab>
+
+    <!-- <ion-fab bottom right style="margin-right:60px;">
+        <button ion-fab mini (click)="presentSettings()" block color="dark"><ion-icon name="settings"></ion-icon></button>
+    </ion-fab> -->
+
+</ion-content>

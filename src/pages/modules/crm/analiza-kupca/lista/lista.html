@@ -1,0 +1,100 @@
+<ion-header>
+    <js-header title="Analiza kupca" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+
+
+<ion-content>
+
+    <js-content></js-content>
+    
+    <ion-item-divider style="padding-left: 0px;" class="wow fadeIn" color="light" text-wrap id="labelnomargin">
+        <ion-card>
+        <strong>{{parametriupita.objektanalize}}</strong> od <strong>{{parametriupita.partnerinaziv}}</strong> {{parametriupita.lokacijanaziv}} u razdoblju od <strong>{{parametriupita.datumod | date : 'dd/MM/yyyy'}}.</strong> 
+        do <strong>{{parametriupita.datumdo | date : 'dd/MM/yyyy'}}.</strong><br>
+        {{parametriupita.klmasterrobanaziv}} {{parametriupita.orgshemanaziv}}
+        </ion-card>
+    </ion-item-divider>
+    
+    
+    <ion-item-divider [hidden]="nemapodataka" color="light">
+        <div class="wow fadeInLeft">
+        <strong style="color: #c0392b;">Izdano</strong>
+        </div>
+    </ion-item-divider>
+
+    <ion-list class="wow fadeIn">
+        <ion-item><label style="color: grey;">Količina </label> <span item-right>{{izdano1 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">Vrijednost </label> <span item-right>{{izdano2 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">RUC </label> <span item-right>{{izdano3 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">Pros. vrijednost </label> <span item-right>{{ (izdano2/izdano1) || 0 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">%RUC </label> <span item-right>{{((izdano3/izdano2)*100) || 0 | number:'1.2-2'}}%</span></ion-item>
+
+    </ion-list>
+    <ion-item-divider [hidden]="nemapodataka || parametriupita.objektanalize!='Ponude'" color="light">
+            <div class="wow fadeInLeft">
+        <strong style="color: #c0392b;">Realizirano</strong>
+            </div>
+    </ion-item-divider>
+    <ion-list [hidden]="parametriupita.objektanalize!='Ponude'" class="wow fadeIn">
+        <ion-item><label style="color: grey;">Količina </label> <span item-right>{{realizirano1 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">Vrijednost </label> <span item-right>{{realizirano2 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">RUC </label> <span item-right>{{realizirano3 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">Pros. vrijednost </label> <span item-right>{{realizirano2/realizirano1 || 0 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">%RUC </label> <span item-right>{{100*(realizirano3/realizirano2) || 0 | number:'1.2-2'}}%</span></ion-item>
+
+    </ion-list>
+
+
+    <ion-item-divider [hidden]="nemapodataka || parametriupita.objektanalize!='Ponude'" color="light">
+            <div class="wow fadeInLeft">
+        <strong style="color: #c0392b;">Otpisano</strong>
+            </div>
+    </ion-item-divider>
+    <ion-list [hidden]="parametriupita.objektanalize!='Ponude'" class="wow fadeIn">
+        <ion-item><label style="color: grey;">Količina </label> <span item-right>{{otpisano1 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">Vrijednost </label> <span item-right>{{otpisano2 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">RUC </label> <span item-right>{{otpisano3 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">Pros. vrijednost </label> <span item-right>{{otpisano2/otpisano1 || 0 | number:'1.2-2'}}</span></ion-item>
+
+        <ion-item><label style="color: grey;">%RUC </label> <span item-right>{{(otpisano3/otpisano2)*100 || 0 | number:'1.2-2'}}%</span></ion-item>
+
+    </ion-list>
+
+
+    <!-- <ion-item-divider [hidden]="nemapodataka" color="light">
+        <div text-center>
+            Prikazano {{lenght}} od {{rc}}
+        </div>
+    </ion-item-divider> -->
+
+    <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon><br>
+    <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema podataka za odabrane parametre upita! </ion-label>
+
+
+</ion-content>
+
+<ion-footer class="moj-footer wow fadeInUp">
+        <ion-grid>
+                <ion-row>
+                    <ion-col col-6>
+                        <button block ion-button color="light" (click)="roba()"><ion-icon name="pricetags"></ion-icon>&nbsp; Roba </button>
+                    </ion-col>
+                    <ion-col col-6>
+                        <button block ion-button color="light" (click)="lokacije()"><ion-icon name="locate" ></ion-icon>&nbsp; Lokacije </button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+</ion-footer>

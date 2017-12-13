@@ -1,50 +1,93 @@
 import {Injectable} from '@angular/core';
-import {App, ToastController, NavController} from 'ionic-angular';
+import {
+    App,
+    Platform,
+    ToastController,
+    NavController,
+    Modal
+} from 'ionic-angular';
 
 import {ModulesProvider} from './modules-provider';
-import {VariablesProvider} from './variables-provider';
+import {VariableProvider} from './variable-provider';
 import {ConstProvider} from './const-provider';
-import {FavoritesProvider} from './favorites-provider';
+import {ErrorProvider} from './error-provider';
+import {DataProvider} from './data-provider';
+import {DateProvider} from './date-provider';
+import * as ICore from '../../interfaces/ICore';
+
 
 import {Storage} from '@ionic/storage';
 
+import {IAppUnlocked} from '../../interfaces/core/app';
+import {IStorageKeys} from '../../interfaces/core/storagekeys';
+import {ICompany} from '../../interfaces/core/company';
+import {HelpersProvider} from './helpers-provider';
+import {HistoryProvider} from './history-provider';
+
 @Injectable()
 export class GlobalProvider {
+    public get isDevMode() : boolean {return this.helpers.isDevMode()};
+
     //***const begin*/
     public static get getVersion() : string { return ConstProvider.version };
-    public static get getJupiterServerPath() : string {return ConstProvider.jupiterServerPath};
-    public static get getCoreStorageKeys() : any {return ConstProvider.coreStorageKeys};
+    //public static get getSpinApiPath() : string {return ConstProvider.spinApiPath};
+    public get getCoreStorageKeys() : IStorageKeys {return ConstProvider.coreStorageKeys};
     //***const end*/
 
+    public getApplicationName() : string { return this.modulesProvider.applicationName;}
+
     //***variables begin */
-    public static get getLoginData() : any { return VariablesProvider.loginData };
-    public static get getJupiterSystemData() : any { return VariablesProvider.jupiterSystemData };
-    public static get getCompanyData() : any { return VariablesProvider.company };
+    //public static get getLoginData() : ILogin { return VariableProvider.loginData };
+    public static get getJupiterSystemData() : any { return VariableProvider.jupiterSystemData };
+    public get getCompanyData() : ICompany { return this.variableProvider.company };
     //*history*//
-    public static get getPagesHistory() : Array <string> {return VariablesProvider.pagesHistory};
-    public static set setPagesHistory(value) {VariablesProvider.pagesHistory = value};
+    public static get getPagesHistory() : Array <string> {return VariableProvider.pagesHistory};
+    public static set setPagesHistory(value) {VariableProvider.pagesHistory = value};
     //***variables end */
 
 
+    public get getUnlockedApp(): Array<IAppUnlocked> {return this.variableProvider.appUnlocked};
+    public set setUnlockedApp(value) {this.variableProvider.appUnlocked = value};
+
+    public modal: Modal;
 
     private static app: App;
 
-    constructor(public modulesProvider : ModulesProvider, private favoritesProvider: FavoritesProvider, public app : App, private storage : Storage, public toastCtrl : ToastController) {
+    private backButton = 0;
+
+    constructor(public modulesProvider : ModulesProvider, 
+        private variableProvider: VariableProvider,
+        private date: DateProvider,
+        private data: DataProvider,
+        private helpers: HelpersProvider,
+        private error: ErrorProvider,
+        public app: App, private storage : Storage, 
+        public toastCtrl: ToastController,
+        private platform: Platform,
+        private historyProvider: HistoryProvider) {
         GlobalProvider.app = app;
     }
 
-    // //vraća trenutnu stranicu getActivePage(navCtrl : NavController) : string {
-    //   return navCtrl         .getActive()         .name; }
+    //getData(iData: ICore.IData, showLoader?: boolean) : Promise<any> {return this.data.getData(iData, showLoader)}
 
-    public getApplicationName() : string {return this.modulesProvider.applicationName;}
+    getData (iData: ICore.IData, showLoader?: boolean) : Promise<any> {return this.data.getData(iData, showLoader).toPromise().then(result => {return result.json()})};
+    getDataToken (iData: ICore.IData, showLoader?: boolean,apiEndPoint?: string,jupiterSystem?:boolean, tokenRequired?: boolean) : Promise<any> {return this.data.getData(iData, showLoader, apiEndPoint, jupiterSystem, tokenRequired).toPromise().then(result => {return result.json()})}
+
+    getTime(type:string, doDanas?: boolean) {
+        return(this.date.getTime(type, doDanas));
+    }
+
+    logError(err: any, show?: boolean) {
+        this.error.logError(err, show);
+    }
 
     public getSubTitle() : string {
         
         let companyName = "" //GlobalProvider.company.name;
         let userName = "";
 
-        if (GlobalProvider.getCompanyData != null && GlobalProvider.getCompanyData.name != null) 
-            companyName = GlobalProvider.getCompanyData.name;
+        if (this.getCompanyData != null && this.getCompanyData.name != null) 
+            companyName = this.getCompanyData.name;
         
         if (GlobalProvider.getJupiterSystemData != null && GlobalProvider.getJupiterSystemData.user != null && GlobalProvider.getJupiterSystemData.user.name != null) 
             userName = GlobalProvider.getJupiterSystemData.user.name;
@@ -60,7 +103,6 @@ export class GlobalProvider {
     public getAppModules() : any[] {
         return this.modulesProvider.apps;
         // let data = this.modulesProvider.modules.find(x => x.company == "Spin")[0];
-        // console.log(data);
 
     }
 
@@ -72,9 +114,20 @@ export class GlobalProvider {
     }
 
     public pullPage(type: string) {
-        if (this.navCtrl.canGoBack())
-            this.navCtrl.pop({});
-        else {
+
+        try
+        {
+            if (this.navCtrl != null && this.navCtrl.canGoBack()) {
+                this.navCtrl.pop({});
+                return;
+            }
+
+
+            if (this.modal != null) {
+                this.modal.dismiss();
+                return;
+            }
+
             //ukloni zadnji zapis
             if (GlobalProvider
                 .getPagesHistory != null && GlobalProvider
@@ -92,51 +145,93 @@ export class GlobalProvider {
                         .getRootNav()
                         .setRoot(page, {}, {
                             animate: true,
-                            direction: 'backward'
+                            direction: 'back'
+                            // animate: true,
+                            // direction: 'forward'
                         })
                 }
                 
+            } else {
+                this.doubleTapToExit();
             }
+        } catch(ex) {
+            console.log("greška!");
+            this.logError(ex, true);
         }
-
         
     }
 
-    public static pushPage(page : string) {
-        GlobalProvider
-            .getPagesHistory
-            .push(page);
-        this
-            .app
-            .getRootNav()
-            .setRoot(page, {}, {
-                animate: true,
-                direction: 'forward'
-            });
+    public pushPage(page : string, params?: any) {
+        let self = this;
+        return new Promise(function (resolve, reject) {
+            self
+                .app
+                .getRootNav()
+                .setRoot(page, params, {
+                    animate: true,
+                    direction: 'forward'
+                }).then(() => {
+                    // if (!(page=="CoreCcTabsPage" || page == "CoreCcCompanyPage"))
+                    // {
+                        GlobalProvider.getPagesHistory.push(page);
+                        self.historyProvider.pagesLog(page);
+                    //}
+                    resolve();
+                }
+                ).catch(ex => reject(ex));
+        });
     }
+
+    
+    doubleTapToExit() {
+        if(this.backButton==0){
+            this.backButton++;
+
+            let toast = this
+            .toastCtrl
+            .create({message: "Pritisnite još jednom za izlazak.", duration: 1500, position: 'bottom'});
+
+            toast.present();
+
+            setTimeout(() => {
+                this.backButton=0
+            }, 1500);
+        }else{
+            this.platform.exitApp();
+        }
+    }
+
+
 
     public closeCC() {
         this
-            .storage
-            .remove(GlobalProvider.getCoreStorageKeys.company);
-        this.modulesProvider.ClearData();
-        VariablesProvider.company = null;
-
-        
+            .app
+            .getRootNav()
+            .setRoot("CoreCcCompanyPage", {}, {
+                animate: true,
+                direction: 'backward'
+            }).then(() => {
                 this
-                    .app
-                    .getRootNav()
-                    .setRoot("CoreCcCompanyPage", {}, {
-                        animate: true,
-                        direction: 'backward'
-                    })
-        
-
-        //this.pullPage('');
+                .storage
+                .remove(this.getCoreStorageKeys.company);
+                    this.modulesProvider.ClearData();
+                    this.variableProvider.company = null;
+            });
     }
 
     uIzradi() {
         let message = "Funkcionalnost je u izradi";
+
+        let toast = this
+            .toastCtrl
+            .create({message: message, duration: 3000, position: 'bottom'});
+
+        toast.onDidDismiss(() => {});
+
+        toast.present();
+    }
+
+    presentToast(message: string) {
 
         let toast = this
             .toastCtrl
@@ -157,6 +252,19 @@ export class GlobalProvider {
         });
 
         toast.present();
+    }
+
+    appIsLocked(item): boolean {
+        if (this.variableProvider.appUnlocked == null)
+            return true;
+        
+        var exists = this.variableProvider.appUnlocked.some(x => x.code.trim().toLowerCase() == item.code.trim().toLowerCase()
+            && (x.db != null && x.db.toLowerCase() == this.variableProvider.company.db.toLowerCase()))
+
+        if (exists)
+            return false;
+        else
+            return true;
     }
 
 

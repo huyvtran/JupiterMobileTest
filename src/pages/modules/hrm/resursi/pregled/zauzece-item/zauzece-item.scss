@@ -1,0 +1,51 @@
+zauzece-item {
+    .note {
+        color: #666;
+        min-width: 95px;
+        span {
+            font-size: 1.2rem;
+        }
+    }
+
+    ion-label {
+        padding-left: 8px;
+        font-size: 1.4rem;
+        h2 {
+            font-size: 1.3rem!important;
+            padding-bottom:4px;
+        }
+        p {
+            padding-top: 4px;
+            border-top: 1px dotted #ccc; 
+            font-size: 1.3rem!important;
+            font-style: italic;
+        }
+    }
+
+    .item {
+        background: #f5f5f5;
+        padding-left: 0;
+        min-width: 200px;
+    }
+    .item [item-end] {
+        margin: 4px 4px 4px 4px;
+    }
+
+    ion-item .input-wrapper {
+        background: #fff;
+    }
+
+    // ion-item ion-label {
+        
+    // }
+
+    ion-item-group .item:last-child .item-inner {
+        border-bottom: 1px solid #dedede;
+    }
+
+    .accordion-content {
+        padding:0!important;
+    }
+
+}
+

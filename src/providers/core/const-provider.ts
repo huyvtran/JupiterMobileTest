@@ -1,24 +1,38 @@
 import {Injectable} from '@angular/core';
 
-import {StorageKeys} from '../../interfaces/core/storagekeys';
+import {ConstSharedProvider} from '../shared/shared-provider';
+
+import {IStorageKeys} from '../../interfaces/core/storagekeys';
 
 @Injectable()
-export class ConstProvider {
-    public static get version() : string { return "9.0.1" };
-    public static get jupiterServerPath() : string { return "http://213.202.75.122:30080/spinmobile/api/" };
-    //"http://localhost:25509/api/";
-    //"http://213.202.75.122:30080/spinmobiledev/api/";
+export class ConstProvider extends ConstSharedProvider {
+    public static get version() : string { return "9.0.7" };
+    //public get spinApiGen() : string { return "http://213.202.75.115:40080/gen/api/" };
+    public get spinApiCore() : string { return "http://213.202.75.115:40080/core/api/" };
 
 
-    public static coreStorageKeys : any = {
+    public isDevMode: boolean = true;
+
+    dataRetryNumber: number = 1;
+
+
+    public static coreStorageKeys : IStorageKeys = {
         jupiterSystemData: "core.jupiterSystemData.001",
         company: "core.company.001",
         loginData: "core.loginData.001",
         modules: "core.modules.001",
-        favorites: "core.favorites.001"
+        favorites: "core.favorites.001",
+        appUnlocked: "core.appUnlocked.001",
+        logPages: "core.logPages.001"
     };
 
-
-    constructor() {
-    }
+    public coreStorageKeys : IStorageKeys = {
+        jupiterSystemData: "core.jupiterSystemData.001",
+        company: "core.company.001",
+        loginData: "core.loginData.001",
+        modules: "core.modules.001",
+        favorites: "core.favorites.001",
+        appUnlocked: "core.appUnlocked.001",
+        logPages: "core.logPages.001"
+    };
 }

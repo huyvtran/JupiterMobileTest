@@ -1,13 +1,17 @@
 <ion-header>
-    <js-header title="Control Center - Favoriti"></js-header>
+    <js-header title="Control Center - Favoriti" [showSub]="true"></js-header>
 </ion-header>
 
 <ion-content doubleTap (dblTap)="doubleTap();">
+    <js-nodata *ngIf="favoritesProvider.dataFavoritesCompany == null || favoritesProvider.dataFavoritesCompany.length == 0"></js-nodata>
+
     <ion-list>
         <button ion-item *ngFor="let item of favoritesProvider.dataFavoritesCompany" (click)="openModule(item)">
-            <ion-icon item-left name="star"></ion-icon>
-            {{item.title}}
-            <p>{{item.application}}</p>
+            <ion-avatar item-start>
+                <img style="width:24px; height:24px" src="data:image/png;base64,{{item.icon}}">
+            </ion-avatar>
+            <h2>{{item.name}}</h2>
+            <p>{{item.aplikacija}}</p>
         </button>
     </ion-list>
 </ion-content>

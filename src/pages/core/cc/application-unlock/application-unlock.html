@@ -1,0 +1,23 @@
+<ion-header>
+    <js-header-modal title="Otključavanje aplikacije"></js-header-modal>
+</ion-header>
+<ion-content padding style="background:#f5f5f5">
+    <ion-card>
+        <ion-card-content>
+            Za otključavanje '<strong>{{item.name}}</strong>' aplikacije, unesite osmeroznamenkastu šifru.
+        </ion-card-content>
+    </ion-card>
+
+    <form [formGroup]="groupSifra" (ngSubmit)="formSubmit()">
+        <ion-list>
+            <ion-item>
+                <ion-label>Šifra:</ion-label>
+                <ion-input type="text" formControlName="sifra" [(ngModel)]="pin" minlength="8" maxlength="8"></ion-input>
+            </ion-item>
+        </ion-list>
+
+        <div>
+            <button ion-button type="submit" block [disabled]="!groupSifra.valid">Otključaj</button>
+        </div>
+    </form>
+</ion-content>

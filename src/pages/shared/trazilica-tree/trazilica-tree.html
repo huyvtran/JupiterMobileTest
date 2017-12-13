@@ -1,0 +1,20 @@
+<ion-header>
+    <js-header title="Tražilica" [showClose]="true" [modalPage]="true"></js-header>
+    <div innerHtml="{{breadcrumb}}" class="sub-title"></div>
+</ion-header>
+
+
+<ion-content nopadding>
+    <js-content></js-content>
+    <ion-list>
+        <button ion-item text-wrap *ngFor="let item of data" (click)="next(item)" (press)="setItem(item)">
+            <h2>{{item.naziv}}</h2>
+            <ion-icon item-start style="color:orange" [name]="item.cnt>0 ? 'ios-folder' :'ios-folder-outline'"></ion-icon>
+            <ion-note item-end *ngIf="item.cnt>0">{{item.cnt}}</ion-note>
+        </button>
+    </ion-list>
+</ion-content>
+
+<ion-footer padding>
+
+</ion-footer>

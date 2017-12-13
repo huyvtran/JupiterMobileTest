@@ -1,0 +1,77 @@
+<ion-header>
+    <js-header title="Roba - {{roba.naziv}}" [showClose]="true"></js-header>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+
+    <ion-item>
+        <div class="title">Šifra</div>
+        <div class="content">
+            {{roba.items.userid}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Kod</div>
+        <div class="content">
+            {{roba.items.robakod}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">OsnovniBarCode</div>
+        <div class="content">
+            {{roba.items.barcode}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Oznaka</div>
+        <div class="content">
+            {{roba.items.oznaka}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Klasa</div>
+        <div class="content">
+            {{roba.items.klasa}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Naziv</div>
+        <div class="content">
+            {{roba.items.naziv}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Status</div>
+        <div class="content">
+            {{roba.items.status}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Jedinica mjere</div>
+        <div class="content">
+            {{roba.items.jmnaziv}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Opis</div>
+        <div class="content">
+            {{roba.items.opis}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Memo</div>
+        <div class="content">
+            {{roba.items.memo}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Www</div>
+        <div class="content">
+            {{roba.items.weburl}}
+        </div>
+        <button ion-button color="primary" clear icon-only item-right (click)="openWeb(roba.weburl)">
+            <ion-icon name="browsers" is-active="false"></ion-icon>
+        </button>
+    </ion-item>
+</ion-content>

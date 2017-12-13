@@ -1,9 +1,9 @@
-<ion-menu [content]="content"  id="mainMenu" type="push">
+<ion-menu [content]="content" id="mainMenu" type="push">
     <ion-header class="expanded" ng-click="goHome()">
         <div style="width:100%;">
             <div style="width:120px; padding-top:20px; margin:auto;">
                 <!--<img src="assets/images/menu/spin-logo.png" class="logo">-->
-                <img src="assets/images/jupiter-logo.svg" class="login-logo"  />
+                <img src="assets/images/jupiter-logo.svg" class="login-logo" />
             </div>
         </div>
         <div style="position:absolute; top:4px; right:4px; color: white">v. {{getVersion}}</div>
@@ -13,32 +13,36 @@
             <ion-list-header>
                 Info točke
             </ion-list-header>
-            <button ion-item *ngFor="let p of globalProvider.modulesProvider.infoModules" (click)="openPage(p)">
-              <div style="display:table">
-                  <div class="indicator" [style.background-color]="p.color">&nbsp;</div>
-                  <ion-icon name={{p.icon}} [style.color]="p.color"></ion-icon>
-                  <span class="title sidebar-title">{{p.title}}</span>
-              </div>
-          </button>
-            <ion-list-header>
+            <button ion-item *ngFor="let p of modulesProvider.infoModules" (click)="openPage(p)">
+                <div style="display:table">
+                    <div class="indicator" [style.background-color]="p.color">&nbsp;</div>
+                    <ion-icon name={{p.icon}} [style.color]="p.color"></ion-icon>
+                    <span class="title sidebar-title">{{p.title}}</span>
+                </div>
+            </button>
+            <ion-list-header *ngIf="favoritesProvider.dataFavoritesCompany != null && favoritesProvider.dataFavoritesCompany.length>0">
                 Favoriti
             </ion-list-header>
+            <!-- <button ion-item *ngFor="let item of favoritesProvider.dataFavoritesCompany" (click)="openFavoritePage(item)">
+                <div style="display:table">
+                    <div class="indicator">&nbsp;</div>
+                    <ion-icon name="star"></ion-icon>
+                    <span class="title sidebar-title">{{item.name}}</span>
+                </div>
+            </button> -->
             <button ion-item *ngFor="let item of favoritesProvider.dataFavoritesCompany" (click)="openFavoritePage(item)">
-              <div style="display:table">
-                  <div class="indicator">&nbsp;</div>
-                  <ion-icon name="star"></ion-icon>
-                  <span class="title sidebar-title">{{item.title}}</span>
-              </div>
-          </button>
-
-
+                <img item-left src="data:image/png;base64,{{item.icon}}" class="app"/>
+                <h2 class="sidebar-title" style="padding-left: 4px">{{item.name}}</h2>
+            </button>
             <ion-list-header>
                 Aplikacije
             </ion-list-header>
-            <button ion-item *ngFor="let item of globalProvider.modulesProvider.modules" (click)="startJupiterApp(item)">
-                <img item-left src="data:image/png;base64,{{item.icon}}" class="app"/>
-                <h2 class="sidebar-title" style="padding-left: 4px">{{item.name}}</h2>
-          </button>
+            <!-- <ng-container *ngIf="appIsLocked(item) == false"> -->
+                <button ion-item *ngFor="let item of modulesProvider.modules" (click)="startJupiterApp(item)">
+                    <img item-left src="data:image/png;base64,{{item.icon}}" class="app"/>
+                    <h2 class="sidebar-title" style="padding-left: 4px">{{item.name}}</h2>
+                </button>
+            <!-- </ng-container> -->
         </ion-list>
     </ion-content>
 </ion-menu>

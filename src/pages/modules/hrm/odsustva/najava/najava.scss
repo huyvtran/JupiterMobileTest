@@ -1,0 +1,47 @@
+page-hrm-odsustva-najava {
+    .full-width {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    div.odsustva-inner
+    {
+        background: #f6fbf6;
+        padding: 8px;
+        border: 8px solid #dedede!important;
+        
+        ion-list {
+            //border:1px solid #4cae4c;
+            margin-bottom: 0!important;
+            ion-item {
+                background: #f6fbf6;
+            }
+        }
+    }
+
+    .list-md .item-input.input-has-focus:last-child {
+        border-bottom-color: #dedede !important;
+        box-shadow: none !important;
+    }
+    .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: #dedede !important;
+        box-shadow: none !important;
+    }
+
+    ion-item.sub {
+        background-color: rgb(248, 248, 248);
+        font-style: italic;
+        color: #999;
+    }
+
+    .select.no-padding {
+        padding: inherit!important;
+        padding-right: 8px!important;
+    }
+
+    .highlight {
+        color: #999999;
+    }
+
+
+}

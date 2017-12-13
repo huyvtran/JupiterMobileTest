@@ -1,0 +1,8 @@
+<ion-item *ngFor="let zauzece of data">
+    <strong>{{zauzece.naziv}}</strong>
+    <h2>{{zauzece.osoba}}</h2>
+    <p *ngIf="zauzece.memo!=null">{{zauzece.memo}}</p>
+    <ion-note item-end>
+        <div style="text-align:center" innerHtml="{{ formatRazdoblje(zauzece) }}"></div>
+    </ion-note>
+</ion-item>

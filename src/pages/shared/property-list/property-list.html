@@ -1,0 +1,60 @@
+<ion-header>
+    <js-header-modal title="Postavke"></js-header-modal>
+</ion-header>
+
+
+<ion-content nopadding>
+    <js-content></js-content>
+    <ion-list radio-group [(ngModel)]="rdoGroup">
+        <ion-item-divider ion-item color="light">
+            Grupiranje po polju
+            <ion-icon item-left name="ios-browsers-outline"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Bez grupe</ion-label>
+            <ion-radio color="dark" value='' checked="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Resurs</ion-label>
+            <ion-radio color="dark" value="resurs"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Osoba</ion-label>
+            <ion-radio color="dark" value="osoba"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group  [(ngModel)]="rdoSort">
+        <ion-item-divider ion-item color="light">
+            Sortiranje po polju
+            <ion-icon item-left name="ios-arrow-round-down-outline"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Asc</ion-label>
+            <ion-toggle></ion-toggle>
+        </ion-item>
+        <ion-item>
+            <ion-label>Zadano</ion-label>
+            <ion-radio color="dark" checked="true" checked="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Resurs</ion-label>
+            <ion-radio color="dark"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Osoba</ion-label>
+            <ion-radio color="dark"></ion-radio>
+        </ion-item>
+        <ion-item-divider ion-item color="light">
+            Ostele postavke
+            <ion-icon item-left name="ios-settings-outline"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Word wrap</ion-label>
+            <ion-toggle [(ngModel)]="chkWordWrap"></ion-toggle>
+        </ion-item>
+    </ion-list>
+
+    <ion-fab bottom right>
+        <button ion-fab (click)="potvrdi()"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-fab>
+</ion-content>

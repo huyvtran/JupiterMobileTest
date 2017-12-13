@@ -1,0 +1,97 @@
+
+<ion-header>
+  <js-header title="Bilješke" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+<ion-content>
+
+    <js-content></js-content>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+        pullingText="Povuci za osvježavanje"
+        refreshingText="Osvježavanje..."
+        ></ion-refresher-content>
+    </ion-refresher>
+
+  <ion-fab [hidden]="parametriupita.partneriid==null" bottom right style="padding-right: 10px;">
+    <button class="wow fadeInRight" data-wow-delay="0.5s" ion-fab color="primary" (click)="novabiljeska()"><span style="font-size: 18px;">+</span></button>
+</ion-fab>
+<ion-item-divider id="searchclock" color="light" id="label2">
+    Pronađi
+  </ion-item-divider>
+<ion-list>
+    <ion-item-sliding #slidingItem id="mojlabel">
+        <button  ion-item (click)="izaberi(7)" id="icon-search">
+            <ion-icon name="md-search" item-start style="color: grey;"></ion-icon>
+          <div style="color: grey;"> Partner</div>
+      <div text-wrap style="color:black;">{{parametriupita.partnerinaziv}}</div>
+        </button>
+      <ion-item-options id="option-icon">
+              <button style="width: 50px;" color="danger" ion-button large  (click)="brisiPartnere(slidingItem)">
+                <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>              
+              </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  
+  
+    <ion-grid class="wow fadeInUp">
+        <ion-row>
+          <ion-col col-6>
+              <button  block ion-button color="light" (click)="ocistiSve()"><ion-icon ios="ios-close" md="md-close"></ion-icon> &nbsp; Očisti </button>
+          </ion-col>
+          <ion-col col-6>
+              <button  block ion-button color="primary" (click)="prikazi()"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> &nbsp; Prikaži </button>    
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+<br>
+        <ion-item-divider sticky [hidden]="nemapodataka" color="light" id="label2">
+          <div id="searchclock">Zadnje</div>
+          <ion-note item-right id="refresh-button">
+              <button ion-button icon-only (click)="refreshaj()" color="primary" style="height: 20px;  font-size: 1.1em!important">
+                  <ion-icon name="md-refresh"></ion-icon>
+                </button>
+          </ion-note>
+        </ion-item-divider>
+        <ion-list [hidden]="nemapodataka" id="labell">
+          <ion-item-sliding #slidingItem *ngFor="let item of items">
+                  <button ion-item  (click)="editbiljeske(item)">
+                  <ion-grid>
+                          <ion-row >
+                            <ion-col col-7 text-wrap>
+                            <span class="plava">{{item.partner}}</span>
+                            </ion-col>
+                            <ion-col col-5 text-right text-wrap style="color: black!important;">
+                                <small>{{item.vrijeme |date: 'dd/MM/yyyy H:mm' }}</small>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row>
+                                  <ion-col text-wrap>
+                                          <strong>{{item.tema}}</strong>
+                                  </ion-col>
+                                  
+                          </ion-row>
+                          <ion-row>
+                                  <ion-col text-wrap>
+                                          {{item.sadrzaj}}
+                                  </ion-col>
+                          </ion-row>
+                          
+                  </ion-grid> 
+                  
+          </button>
+          <ion-item-options id="option-icon">
+                          <button style="width: 50px;" color="danger" ion-button large  (click)="brisiBiljesku(item, slidingItem)">
+                            <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>              
+                          </button>
+                  </ion-item-options> 
+                     
+          </ion-item-sliding>
+  </ion-list>
+    <br><br><br><br>
+
+
+
+</ion-content>

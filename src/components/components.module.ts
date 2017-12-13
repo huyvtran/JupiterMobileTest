@@ -2,18 +2,37 @@ import { IonicModule } from 'ionic-angular';
 import { NgModule } from '@angular/core';
 import { DoubletapDirective } from './gesture-directive/doubletap-directive';
 import { JsHeaderComponent } from './core/js-header/js-header';
+import { JsHeaderModalComponent } from './core/js-header-modal/js-header-modal';
+import { JsContentComponent } from './core/js-content/js-content';
+import { JsNoDataComponent } from './core/js-nodata/js-nodata';
+
+import { AccordionListComponent } from './accordion-list/accordion-list';
+import { DatePicker } from './datepicker/datepicker';
+import { Autosize } from './autosize/autosize';
  
 @NgModule({
     declarations: [
+        DoubletapDirective,
         JsHeaderComponent,
-        DoubletapDirective
+        JsHeaderModalComponent,
+        JsContentComponent,
+		JsNoDataComponent,
+        AccordionListComponent,
+        DatePicker,
+		Autosize
     ],
     imports: [
          IonicModule
     ],
     exports: [
+        DoubletapDirective,
         JsHeaderComponent,
-        DoubletapDirective
+        JsHeaderModalComponent,
+        JsContentComponent,
+		JsNoDataComponent,
+        AccordionListComponent,
+        DatePicker,
+		Autosize
     ]
 })
 export class ComponentsModule {}

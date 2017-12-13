@@ -1,0 +1,96 @@
+<!-- <ion-header>
+    <ion-navbar>
+        <ion-title text-wrap><small *ngFor="let item of items?.items">{{item.n}}</small></ion-title>
+    </ion-navbar>
+
+
+</ion-header> -->
+
+<ion-header>
+        <js-header title="{{naslov}}" [showClose]="false" [showFavorite]="false"></js-header>
+      </ion-header>
+
+<ion-content>
+    <js-content></js-content>
+
+    <ion-item-divider sticky color="light" id="labell">
+      <ion-label text-left><strong>{{kontrolenaformi.partner}}</strong></ion-label>
+</ion-item-divider>
+
+    <ion-item-divider color="light" id="labell">
+        <ion-label>Unesite bilješku</ion-label>
+        <ion-label data-wow-delay="0.5s" text-right id="olovka"> <ion-icon style="color: grey;" name="md-create"></ion-icon></ion-label>
+    </ion-item-divider>
+    <ion-list>
+    <ion-item-sliding #slidingItem1 id="mojlabel">
+        <button ion-item detail-none (click)="izaberi(55)">
+          <ion-label style="color: grey;">Tko</ion-label>
+      <ion-label text-wrap text-right style="color:black;">{{kontrolenaformi.osoba}}</ion-label>
+        </button>
+      <ion-item-options id="option-icon">
+              <button style="width: 50px; background-color: #c0392b;"ion-button large  (click)="brisiOsobe(slidingItem1)">
+                <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>              
+              </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    
+    <ion-item-sliding #slidingItem2 id="mojlabel">
+        <button ion-item detail-none (click)="izaberi(555)">
+          <ion-label style="color: grey;">S kime</ion-label>
+      <ion-label text-right text-wrap style="color:black;">{{kontrolenaformi.osobapar}}</ion-label>
+        </button>
+      <ion-item-options id="option-icon">
+              <button style="width: 50px; background-color: #c0392b;" ion-button large  (click)="brisiOsobePar(slidingItem2)">
+                <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>              
+              </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item id="mojlabel">
+        <ion-label style="color: grey;">Kada</ion-label>
+      <ion-datetime style="color:black;" displayFormat="DD/MM/YYYY" [(ngModel)]="kontrolenaformi.datum"></ion-datetime>
+        
+     
+    </ion-item>
+
+    <ion-item-sliding #slidingItem4 id="mojlabel">
+        <button ion-item detail-none (click)="izaberi(14)">
+          <ion-label style="color: grey;">Vrsta</ion-label>
+      <ion-label text-right text-wrap style="color:blackgrey;">{{kontrolenaformi.parkontaktvrsta}}</ion-label>
+        </button>
+      <ion-item-options id="option-icon">
+              <button style="width: 50px; background-color: #c0392b;" ion-button large  (click)="brisiVrstu(slidingItem4)">
+                <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>              
+              </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  
+        <ion-item>
+      <ion-label style="color: grey;">O čemu</ion-label>
+      <ion-textarea aria-autocomplete="on" aria-autocomplete="on" name='ocemu' [(ngModel)]="kontrolenaformi.tema" text-right rows="3"></ion-textarea>
+        </ion-item>
+
+
+
+    <ion-item>
+        <ion-label style="color: grey;">Što</ion-label>
+        <ion-textarea name='sto' aria-autocomplete="on" aria-autocomplete="on" [(ngModel)]="kontrolenaformi.sadrzaj" text-right rows="5"></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+</ion-content>
+
+<ion-footer transparent class="moj-footer wow fadeInUp" id="velicina-ios-ikone">
+    <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+              <button  block ion-button color="light" (click)="cancel()"><ion-icon ios="ios-close" md="md-close"></ion-icon> &nbsp; Odustani</button>
+          </ion-col>
+          <ion-col col-6>
+              <button  block ion-button color="primary" (click)="spremi()"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> &nbsp; Spremi </button>    
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+  </ion-footer>

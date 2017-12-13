@@ -1,4 +1,6 @@
-export interface Login {
+import {IDevice} from './device';
+
+export interface ILogin {
     refreshToken: string;
     accessToken: string;
     serverPath: number;
@@ -8,12 +10,11 @@ export interface Login {
 export interface LoginPin {
     Pin: string,
     PushRegistrationId: string,
-    Device: string,
+    Device: IDevice,
 }
 
 export interface LoginSystem {
-    Email: string,
-    Password: string
+    login: string
 }
 
 export interface LoginAzurUser {

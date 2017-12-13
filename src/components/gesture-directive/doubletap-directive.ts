@@ -1,8 +1,6 @@
 import {Directive, ElementRef, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {Gesture} from 'ionic-angular';
 
-import {GlobalProvider} from '../../providers/core/global-provider';
-
 import * as Hammer from 'hammerjs';
 
 @Directive({
@@ -18,7 +16,7 @@ OnDestroy {
     doubleTap : Gesture;
 
 
-    constructor(el : ElementRef, private globalProvider: GlobalProvider) {
+    constructor(el : ElementRef) {
         this.el = el.nativeElement;
     }
 

@@ -1,0 +1,124 @@
+// js-content {
+   
+
+
+    // Base
+    // ==========================================================================
+    $bg-loader: rgba(0, 0, 0, .85);
+    $font-loader: Helvetica, Arial, sans-serif;
+    $font-size-loader: 14px;
+
+    // Loader default
+    // ==========================================================================
+    $loader--size: 48px;
+    $loader--color: #fff;
+    $loader--text-color: #fff;
+
+
+    @keyframes rotation {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+    }
+    @keyframes blink {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
+    }
+
+
+
+    .loader {
+        color: $loader--text-color;
+        position: fixed;
+        box-sizing: border-box;
+        left: -9999px;
+        top: -9999px;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        z-index: 999999;
+
+        &:after,
+        &:before {
+            box-sizing: border-box;
+            display: none;
+        }
+        &.is-active {
+            background-color: $bg-loader;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+        &:after,
+        &:before {
+        display: block;
+        }
+    }
+
+
+    .loader
+    {
+
+    //&[data-text]
+        &:before {
+        content: 'Učitavanje...';
+        position: fixed;
+        left: 0;
+        top: 50%;
+        color: currentColor;
+        font-family: $font-loader;
+        text-align: center;
+        width: 100%;
+        font-size: $font-size-loader;
+        }
+    //&[data-text = '']
+        // &:before {
+        //   content: 'Loading';
+        // }
+    //&[data-text]:not([data-text = ''])
+        // &:before {
+        //   content: attr(data-text);
+        // }
+    //&[data-text][data-blink]
+        &:before {
+            animation: blink 1s linear infinite alternate
+        }
+
+    }
+
+
+        
+    // Loader (default)
+    // ==========================================================================
+
+    .loader-default {
+        // Before is used for data-text attribute
+        &[data-text]:before {
+            top: calc(50% - #{$loader--size + 15});
+        }
+
+        &:after {
+            content: "";
+            position: fixed;
+            width: $loader--size;
+            height: $loader--size;
+            border: solid 8px $loader--color;
+            border-left-color: transparent;
+            border-radius: 50%;
+            top: calc(50% - #{$loader--size / 2});
+            left: calc(50% - #{$loader--size / 2});
+            animation: rotation 1s linear infinite;
+        }
+    }
+
+    // animation-direction: reverse;
+
+// }

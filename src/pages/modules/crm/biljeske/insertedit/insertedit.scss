@@ -1,0 +1,39 @@
+page-biljeske-insertedit {
+    
+    .item-ios {
+        font-size: 1.4rem;
+    }
+    // .icon-md {
+    //     font-size: 1.2em;
+    //     padding-bottom: 0px!important;
+    // }
+    // .icon-ios {
+    //     font-size: 1.5em!important;
+    //     padding-bottom: 0px!important;
+    // }
+    #olovka .icon-md, #olovka .icon-ios {
+        font-size: 1.5em;
+    }
+    .list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: #dedede;
+        -webkit-box-shadow: inset 0 0px 0 0 #dedede;
+        box-shadow: inset 0 0px 0 0 #dedede;
+    }
+    .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+        bottom: inherit;
+        top: inherit;
+    }
+    #option-icon .icon-md {
+        font-size: 1em!important;
+        padding-bottom: 0px;
+    }
+    .moj-footer {
+        background-color: rgba(244, 244, 244, 0.5);
+    }
+    #velicina-ios-ikone .icon-ios {
+        font-size: 2em;
+    }
+    #labell .label-md, #labell .label-ios {
+        margin: 7px 8px 7px 0;
+    }
+}

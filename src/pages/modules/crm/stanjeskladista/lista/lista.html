@@ -1,0 +1,64 @@
+<ion-header>
+         <js-header title="Stanje skladišta" [showClose]="false" [showFavorite]="false"></js-header>
+              <ion-toolbar [hidden]="nemapodataka">
+                    <ion-searchbar (ionInput)="trazilica($event)"></ion-searchbar>
+              </ion-toolbar>
+</ion-header>
+
+    <!-- <form (ngSubmit)="trazilica()"> -->
+
+<!-- <ion-searchbar name="search" [(ngModel)]="val" [formControl]="searchControl" autofocus  ></ion-searchbar> -->
+
+
+      <!-- </form> -->
+
+
+<ion-content>
+        
+    <js-content></js-content>
+
+       
+   
+            <ion-item-divider [hidden]="nemapodataka" color="light">
+                
+                <ion-label text-wrap><strong>Prikazano {{lenght}} od {{rc}}</strong></ion-label>
+                <ion-label text-right><strong>raspoloživo / stanje</strong></ion-label>
+               
+            </ion-item-divider>
+            <ion-list id="moj-label">                 
+                    <ion-item-group text-wrap [hidden]="runninggrouptotals(group.naziv)==0" *ngFor="let group of groups">
+                            <ion-item-divider sticky color="medium">
+                                  <strong>{{group.naziv}}</strong>
+                                 <ion-badge style="color:grey;" color="medium" item-right> {{ runninggrouptotals(group.naziv)  | number : '1.0-0'}} </ion-badge>                               
+                             </ion-item-divider> 
+                                
+                             <ion-item-sliding *ngFor="let item of items">
+                                 <ion-item *ngIf="item.nazivgrupe==group.naziv">
+                                        <ion-grid> 
+                                            <ion-row> 
+                                                <ion-col col-9 text-wrap>
+                                        <small style="color:grey;" [hidden]="parametriupita.skladisteid == null" >{{item.skladiste}} <br></small>
+                                        <small style="color:grey;" [hidden]="parametriupita.skladisteid != null" >{{item.klasa}}<br></small>
+                                        {{item.roba}}
+                                                </ion-col>
+                                                <ion-col col-3 text-wrap text-center style="background-color: #f4f4f4;">
+
+                                        <div item-right>{{item.raspolozivo}}/{{item.stanje}}&nbsp;{{item.jmnaziv}}</div>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                 </ion-item>
+                             </ion-item-sliding>     
+                    </ion-item-group>
+            </ion-list>
+
+            <ion-item-divider color="light" [hidden]="nemapodataka">
+                <div text-center>
+                    Prikazano {{lenght}} od {{rc}}
+                </div>
+            </ion-item-divider>
+
+            <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon><br>
+            <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center > Nema podataka za odabrane parametre upita! </ion-label>
+
+</ion-content>

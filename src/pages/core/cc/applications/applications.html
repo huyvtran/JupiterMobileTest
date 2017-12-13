@@ -1,18 +1,18 @@
 <ion-header>
-    <js-header title="Control Center - Aplikacije" type="apps"></js-header>
+    <js-header title="Control Center - Aplikacije" type="apps" [showSub]="true"></js-header>
 </ion-header>
 <!-- <favorite></favorite> -->
 <ion-content doubleTap (dblTap)="doubleTap();">
-    
+
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content>osvježavam podatke</ion-refresher-content>
     </ion-refresher>
         
     <div class="app-container app-info-container">
-        <ion-grid style="">
-            <ion-row style="">
+        <ion-grid>
+            <ion-row>
                 <ion-col col-4 class="border" text-center>
-                    <button ion-button block clear (click)="uIzradi()">
+                    <button ion-button block clear (click)="openInfoModule('RobaSearchPage')">
                         <div>
                             <ion-icon name="cube"></ion-icon>
                             <label>ROBA</label>
@@ -20,7 +20,7 @@
                     </button>
                 </ion-col>
                 <ion-col col-4 class="border" text-center>
-                    <button ion-button block clear (click)="openModule('PartnerTabsPage')">
+                    <button ion-button block clear (click)="openInfoModule('PartnerSearchPage')">
                         <div>
                             <ion-icon name="briefcase"></ion-icon>
                             <label>PARTNERI</label>
@@ -28,7 +28,7 @@
                     </button>
                 </ion-col>
                 <ion-col col-4 text-center>
-                    <button ion-button block clear (click)="uIzradi()">
+                    <button ion-button block clear (click)="openInfoModule('OsobaSearchPage')">
                         <div>
                             <ion-icon name="person"></ion-icon>
                             <label>OSOBE</label>
@@ -51,14 +51,16 @@
                 <div text-center>inicijalno učitavanje aplikacija</div>
                 <div text-center>molim sačekajte</div>
             </div>
+            <js-nodata *ngIf="globalProvider.modulesProvider.syncInit==false && (globalProvider.modulesProvider.modules == null || globalProvider.modulesProvider.modules.length == 0)"></js-nodata>
             <ion-grid>
                 <ion-row>
                     <ion-col col-4 col-md-2 *ngFor="let item of globalProvider.modulesProvider.modules">
                         <button ion-button block color="dark" outline class="border-gray gradiant" (click)="startJupiterApp($event, item)">
                         <div class="button-container">
-                            <img class="icon" src="data:image/png;base64,{{item.icon}}" />
-                            <div class="label-container"><label text-wrap>{{item.name}}</label></div>
+                            <img class="icon"  [ngClass]="{'opacity': appIsLocked(item)}" src="data:image/png;base64,{{item.icon}}" />
+                            <div class="label-container"><label [ngClass]="{'opacity': appIsLocked(item)}" text-wrap>{{item.name}}</label></div>
                         </div>
+                        <ion-icon *ngIf="appIsLocked(item)" name="ios-lock-outline" style="position:absolute; top:-7px; right:-7px; font-size:1.9rem; color:darkred"></ion-icon>
                     </button>
                     </ion-col>
                 </ion-row>

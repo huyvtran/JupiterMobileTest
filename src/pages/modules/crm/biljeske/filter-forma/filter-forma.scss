@@ -1,0 +1,76 @@
+page-biljeske-filter-forma {
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: lightgrey;
+        box-shadow: inset 0 -1px 0 0 lightgrey;
+    }
+    .checkbox-md .checkbox-checked, .checkbox-ios .checkbox-checked {
+        border-color: grey;
+        background-color: grey;
+    }
+    .list-ios, .list-md {
+        margin: 0px;
+    }
+    #mojlabel .label-md, #mojlabel .label-ios {
+        min-height: 38px;
+    }
+    #labell .label-md, #labell .label-ios {
+        margin: 6px 8px 6px 0px;
+    }
+    #labell .col, #labell .grid, #labell .row {
+        padding-left: 0px;
+    }
+    .icon-md {
+        font-size: 1.4em;
+        padding-bottom: 0px!important;
+    }
+    .icon-ios {
+        font-size: 1.6em!important;
+        padding-bottom: 0px!important;
+    }
+    #searchclock .icon-md {
+        font-size: 1.7em!important;
+    }
+    #searchclock .icon-ios {
+        font-size: 1.4em!important;
+    }
+    #refresh-button .icon-md {
+        font-size: 1.3em!important;
+        padding-bottom: 0px!important;
+    }
+    #refresh-button .icon-ios {
+        font-size: 1.1em!important;
+        padding-bottom: 0px!important;
+    }
+    .plava {
+        color: #488aff; 
+        font-weight: bold;
+    }
+    #option-icon .icon-md {
+        font-size: 1.2em!important;
+    }
+    .item-md [item-left], .item-md [item-right], .item-md [item-start], .item-md [item-end], .item-ios [item-left], .item-ios [item-right], .item-ios [item-start], .item-ios [item-end] {
+        margin: 0px 8px 0px 0px;
+    }
+  
+    #icon-search .icon-md, {
+        padding-bottom: 12px!important;
+        font-size: 1.5em;
+        margin: 0px;
+        color: #c0392b;
+    }
+
+    #icon-search .icon-ios {
+        font-size: 1.4em!important;
+        color: #c0392b;
+    }
+    .item-md ion-icon[item-left] + .item-inner, .item-md ion-icon[item-left] + .item-input, .item-md ion-icon[item-start] + .item-inner, .item-md ion-icon[item-start] + .item-input {
+        margin-left: 12px;
+    }
+    .grid, .row, .col {
+        padding: 0px;
+    }
+    #label2 .label-md, #label2 .label-ios {
+        margin: 7px 8px 7px 0;
+    }
+    }

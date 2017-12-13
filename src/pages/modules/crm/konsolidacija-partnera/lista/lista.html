@@ -1,0 +1,39 @@
+<ion-header>
+        <js-header title="Konsolidacija partnera" [showClose]="false" [showFavorite]="false"></js-header>
+      </ion-header>
+
+
+
+<ion-content>
+
+    <js-content></js-content>
+
+    <ion-item-divider [hidden]='nemapodataka' color="light">
+        <div text-right style="padding-right: 5px; font-size: 13px;"> Saldo kupca / dobavljača</div>
+    </ion-item-divider>
+    <ion-item detail-push *ngFor="let item of items" (click)="openDetalji(item)"> 
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6 text-wrap style="font-size: 14px;">
+                    <strong>{{item.f}}</strong>
+                    <br> <span style="color: grey;">({{item.s}})</span> <span style="font-size: 13px; color:grey;">{{item.n}}</span>
+                    <br>
+                    <span style="font-size: 14px; color: grey;">{{item.oib}}</span>
+                </ion-col>
+                <ion-col col-6 text-wrap text-right style="font-size: 13px;">
+                    <strong>
+                    {{transform(item.sk || 0|number:'1.2-2')}}
+                    / 
+                    {{transform(item.sd || 0|number:'1.2-2')}}
+                  </strong>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
+
+    <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon><br>
+    <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema podataka za odabrane parametre upita! </ion-label>
+
+
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+    <js-header title="{{partner.naziv}} - <b>{{item.prezime}} {{item.ime}}</b>"></js-header>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+        <div class="title">Funkcija</div>
+        <div class="content">
+            {{item.funkcija}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Odjel</div>
+        <div class="content">
+            {{item.odjel}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <div class="title">Telefon</div>
+        <div class="content">
+            <!--{{item.telefon || "nedefinirano"}}-->
+            {{item.telefon}}
+        </div>
+        <button ion-button color="primary" clear icon-only item-right (click)="call(item.telefon)" *ngIf="item.telefon!=null">
+            <ion-icon name="call" is-active="false"></ion-icon>
+        </button>
+    </ion-item>
+    <ion-item>
+        <div class="title">Mobitel</div>
+        <div class="content">
+            {{item.mobile}}
+        </div>
+        <button ion-button color="primary" clear icon-only item-right (click)="call(item.mobile)" *ngIf="item.mobile!=null">
+            <ion-icon name="call" is-active="false"></ion-icon>
+        </button>
+    </ion-item>
+    <ion-item>
+        <div class="title">Email</div>
+        <div class="content">
+            {{item.email}}
+        </div>
+        <button ion-button color="primary" clear icon-only item-right (click)="mailto(item.email)" *ngIf="item.email!=null">
+            <ion-icon name="mail" is-active="false"></ion-icon>
+        </button>
+    </ion-item>
+    <ion-item>
+        <div class="title">Lokacija</div>
+        <div class="content">
+            {{item.lokacija}}
+        </div>
+    </ion-item>
+</ion-content>

@@ -1,0 +1,24 @@
+page-crm-financije-pregled-zadnje-det {
+    h2 {
+        font-size: 1.4rem!important;
+    }
+    ion-note {
+        color: #333333!important;
+        font-weight: 600;
+    }
+
+    ion-header {
+        .list {
+            margin-bottom: 0!important;
+        }
+    }
+
+    .datum {
+        display: inline-block;
+        width: 100px!important;
+    }
+
+    .info.header {
+        font-size:1.4rem;
+    }
+}

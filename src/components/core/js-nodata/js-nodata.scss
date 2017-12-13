@@ -1,0 +1,15 @@
+js-nodata {
+    .empty-data {
+        text-align:center;
+        padding: 0 15px;
+        ion-icon {
+            font-size: 4rem;
+            margin-top:20px;
+            color: map-get($colors, skin1);
+        }
+        div {
+            margin-top:4px;
+            color: map-get($colors, skin1);
+        }
+    }
+}

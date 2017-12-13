@@ -1,15 +1,18 @@
-import { SearchPipe } from './search';
+import { SearchPipe } from './search.pipe';
+import { NumberFormatPipe } from './number-format.pipe';
 import { NgModule } from '@angular/core';
  
 @NgModule({
     declarations: [
-        SearchPipe
+        SearchPipe,
+        NumberFormatPipe
     ],
     imports: [
  
     ],
     exports: [
-        SearchPipe
+        SearchPipe,
+        NumberFormatPipe
     ]
 })
 export class PipesModule {}

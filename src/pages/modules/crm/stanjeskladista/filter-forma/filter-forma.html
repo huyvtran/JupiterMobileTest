@@ -1,0 +1,80 @@
+
+<ion-header>
+  <js-header title="Stanje skladišta" [showClose]="true" [showFavorite]="true"></js-header>
+
+  
+</ion-header>
+
+
+<ion-content>
+    <ion-item-divider id="labell" color="light">  
+        Pronađi
+      </ion-item-divider>
+<ion-list>
+    <ion-item-sliding #slidingItem1 id="moj-label">
+        <button ion-item (click)="izaberi(6)"> 
+            <ion-icon name="md-search" style="color: grey;" item-start></ion-icon>
+          <div style="color:grey;"> Skladište</div>
+      <div text-wrap style="color:black;">{{parametriupita.skladistenaziv}}</div>
+        </button> 
+      <ion-item-options id="option-icon">
+              <button style="width: 50px;" color="danger" ion-button large  (click)="brisiSkladiste(slidingItem1)">
+                <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>              
+              </button>
+      </ion-item-options>
+    </ion-item-sliding> 
+
+    <ion-item-sliding #slidingItem2 id="moj-label">  
+        <button ion-item (click)="izaberi(11)"> 
+            <ion-icon name="md-search"  style="color: grey;" item-start></ion-icon>
+          <div style="color:grey;">Klasa robe</div>
+      
+          <div text-wrap style="color:black;">{{parametriupita.klmasterrobanaziv}}</div>
+        </button>
+      <ion-item-options id="option-icon">
+              <button style="width: 50px;" color="danger" ion-button large  (click)="brisiKlasuRobe(slidingItem2)">
+                <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>             
+              </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #slidingItem3 id="moj-label">
+        <button ion-item (click)="izaberi(8)"> 
+            <ion-icon name="md-search"  style="color: grey;" item-start></ion-icon>
+          <div style="color:grey;">Roba</div>
+      
+          <div text-wrap style="color:black;">{{parametriupita.robanaziv}}</div>
+        </button>
+      <ion-item-options id="option-icon">
+              <button style="width: 50px;" color="danger"  ion-button large  (click)="brisiRobu(slidingItem3)">
+                <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>
+              </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #slidingItem4 id="moj-label">
+      <ion-item>
+          <ion-icon name="md-create"  style="color: grey;" item-start></ion-icon>
+    <ion-label style="color:grey;">Naziv</ion-label>
+    <ion-input text-wrap text-right style="padding-right:10px; color:black;" [(ngModel)]="parametriupita.naziv" type="text" name="Naziv"></ion-input>
+      </ion-item>
+    <ion-item-options id="option-icon">
+            <button style="width: 50px;" color="danger"  ion-button large  (click)="brisiNaziv(slidingItem4)">
+              <ion-icon icon-only ios="ios-close" md="md-close" color="light"></ion-icon>
+            </button>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
+
+
+<ion-grid class="wow fadeInUp">
+<ion-row>
+  <ion-col col-6>
+      <button block ion-button color="light" (click)="ocistiSve()"><ion-icon ios="ios-close" md="md-close"></ion-icon> &nbsp; Očisti </button>
+  </ion-col>
+  <ion-col col-6>
+      <button  block ion-button color="primary" (click)="prikazi()"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> &nbsp; Prikaži </button>    
+  </ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>

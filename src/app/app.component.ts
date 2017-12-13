@@ -1,32 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, enableProdMode } from '@angular/core';
 import { Platform, NavController, App, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Keyboard } from '@ionic-native/keyboard';
 import { Push, PushOptions, PushObject } from '@ionic-native/push';
 import { Storage } from '@ionic/storage';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { Device } from '@ionic-native/device';
 
 import { GlobalProvider } from '../providers/core/global-provider';
-import { VariablesProvider } from '../providers/core/variables-provider';
+import { VariableProvider } from '../providers/core/variable-provider';
 import { FavoritesProvider } from '../providers/core/favorites-provider';
+import { ModulesProvider } from '../providers/core/modules-provider';
 
+import _ from 'lodash';
 
+// this is the magic wand
+enableProdMode();
 
-@Component({templateUrl: 'app.html', providers: [Keyboard]})
+@Component({templateUrl: 'app.html'})
 export class MyApp {
     rootPage : any;
     refreshToken : string;
     company : string;
 
-
-    //public deviceArr : {cordova: string, model: string, platform: string, uuid: string, version: string, manufacturer: string, isVirtual: boolean, serial: string};
-
-
-    constructor(private platform : Platform, public push : Push, statusBar : StatusBar, private app: App,  private menuCtrl: MenuController, splashScreen : SplashScreen, private keyboard : Keyboard, private globalProvider : GlobalProvider, private favoritesProvider: FavoritesProvider, storage : Storage
+    constructor(private platform : Platform, public push : Push, statusBar : StatusBar
+        , private app: App
+        , private menuCtrl: MenuController
+        , splashScreen : SplashScreen
+        , private global : GlobalProvider
+        , public favoritesProvider: FavoritesProvider
+        , public modulesProvider: ModulesProvider
+        , storage : Storage
         , uniqueDeviceID: UniqueDeviceID
-        , device: Device) {
+        , device: Device
+        , private variableProvider: VariableProvider) {
+            
         platform
             .ready()
             .then(() => {
@@ -34,7 +42,7 @@ export class MyApp {
                 platform.registerBackButtonAction(() => {
                     // get current active page
                     //let view = this.navCtrl.getActive();
-                    globalProvider.pullPage('backButton');
+                    global.pullPage('backButton');
                     //alert(this.navCtrl.canGoBack());
                     //alert(view.component.name);
                     // if (view.component.name == "TabsPage") {
@@ -56,7 +64,7 @@ export class MyApp {
                     // }
                 });
 
-                VariablesProvider.device = {
+                variableProvider.device = {
                     cordova: device.cordova, 
                     isVirtual: device.isVirtual,
                     manufacturer: device.manufacturer, 
@@ -82,21 +90,21 @@ export class MyApp {
                     .ready()
                     .then(() => {
                         storage
-                            .get(GlobalProvider.getCoreStorageKeys.loginData)
+                            .get(this.global.getCoreStorageKeys.loginData)
                             .then((val) => {
-                                VariablesProvider.loginData = JSON.parse(val);
+                                this.variableProvider.loginData = JSON.parse(val);
                             })
                             .then(() => {
                                 storage
-                                    .get(GlobalProvider.getCoreStorageKeys.jupiterSystemData)
+                                    .get(this.global.getCoreStorageKeys.jupiterSystemData)
                                     .then((val) => {
-                                        VariablesProvider.jupiterSystemData = JSON.parse(val);
+                                        VariableProvider.jupiterSystemData = JSON.parse(val);
                                     })
                                     .then(() => {
                                         storage
-                                            .get(GlobalProvider.getCoreStorageKeys.company)
+                                            .get(this.global.getCoreStorageKeys.company)
                                             .then((val) => {
-                                                VariablesProvider.company = JSON.parse(val);
+                                                this.variableProvider.company = JSON.parse(val);
                                             })
                                             .then(() => {
                                                 this.setRoot();
@@ -122,16 +130,18 @@ export class MyApp {
     }
 
     setRoot() : void {
-        //this.rootPage = 'ManagerKpiTabsPage';
-        if (GlobalProvider.getLoginData == null || GlobalProvider.getJupiterSystemData == null) {
+        //this.rootPage = 'HrmOdsustvaPage';
+        //this.rootPage = 'HrmResursiZauzecaFilterPage';
+        
+        if (this.variableProvider.loginData == null || GlobalProvider.getJupiterSystemData == null) {
             this.rootPage = 'CoreLoginPage';
-        } else if (GlobalProvider.getCompanyData == null) {
+        } else if (this.global.getCompanyData == null) {
             this.rootPage = 'CoreCcCompanyPage';
-            GlobalProvider.getPagesHistory.push('CoreLoginPage');
+            //GlobalProvider.getPagesHistory.push('CoreLoginPage');
         } else {
             this.rootPage = 'CoreCcTabsPage';
-            //GlobalProvider.getPagesHistory.push('CoreLoginPage');
-            //GlobalProvider.getPagesHistory.push('CoreCcCompanyPage');
+            //global.getPagesHistory.push('CoreLoginPage');
+            //global.getPagesHistory.push('CoreCcCompanyPage');
         }
         GlobalProvider.getPagesHistory.push(this.rootPage);
     }
@@ -146,7 +156,6 @@ export class MyApp {
 
                     if (res.isEnabled) {
                         console.log('Notifikacije - omogućene');
-                        console.log(res);
                     } else {
                         console.log('Notifikacije - onemogućene');
                     }
@@ -157,7 +166,6 @@ export class MyApp {
 
             const options : PushOptions = {
                 android: {
-                    senderID: '81260403274',
                     forceShow: true,
                     vibrate: true
                 },
@@ -175,16 +183,13 @@ export class MyApp {
 
 
             pushObject.on('notification').subscribe((notification: any) => {
-                //console.log('Received a notification', notification);
             });
 
             pushObject
                 .on('registration')
                 .subscribe((registration : any) => {
                     if (registration != null && registration.registrationId !=null) {
-                        console.log("push - registration");
-                        console.log(registration.registrationId);
-                        VariablesProvider.pushRegistrationId = registration.registrationId;
+                        VariableProvider.pushRegistrationId = registration.registrationId;
                     }
                         
                 });
@@ -198,12 +203,23 @@ export class MyApp {
 
 
     startJupiterApp(item) {
+        console.log("startJupiterApp");
+        console.log(item);
         this.menuCtrl.close();
-        
-        this.globalProvider.modulesProvider.granule = item.group;
-        this.globalProvider.modulesProvider.applicationName = item.name;
 
-        GlobalProvider.pushPage('CoreAppModulesPage');
+        if (this.global.appIsLocked(item) == true) {
+            this.global.presentToast("Aplikacija je zaključana!")
+        } 
+        else
+        {
+            this.global.modulesProvider.granule = null;
+            this.global.modulesProvider.applicationName = '...';
+            this.global.pushPage('CoreAppModulesPage', {item}).then(() => {
+
+            });
+        }
+
+
         // this
         //     .app
         //     .getRootNav()
@@ -213,13 +229,17 @@ export class MyApp {
         //     });
     }
 
+    // appIsLocked(item): boolean {
+    //     return this.appUnlockProvider.appIsLocked(item);
+    // }
+
     openPage(item) {
         this.menuCtrl.close();
         var page = item.component;
         if (page != null && page != "") 
         {
-            GlobalProvider.pushPage(page);
-            // this
+            this.global.pushPage(page);
+            //  this
             //     .app
             //     .getRootNav()
             //     .setRoot(page, item, {
@@ -227,16 +247,17 @@ export class MyApp {
             //         direction: 'forward'
             //     });
         } else {
-            this.globalProvider.uIzradi();
+            this.global.uIzradi();
         }
     }
 
     openFavoritePage(item) {
+        console.log(item);
         this.menuCtrl.close();
-        var page = item.page;
+        var page = item.parameter;
         if (page != null && page != "") 
         {
-            GlobalProvider.pushPage(page);
+            this.global.pushPage(_.replace(page, "mob:", ""));
             // this
             //     .app
             //     .getRootNav()
@@ -245,7 +266,7 @@ export class MyApp {
             //         direction: 'forward'
             //     });
         } else {
-            this.globalProvider.uIzradi();
+            this.global.uIzradi();
         }
     }
 

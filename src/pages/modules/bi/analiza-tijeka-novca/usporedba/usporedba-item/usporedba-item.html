@@ -1,0 +1,5 @@
+<div class="container" [ngClass]="setClasses()">
+    <div class="info" [ngClass]="{true:'includeB',false:'excludeB'}[includeB]">{{caption}}</div>
+    <div class="a" [ngClass]="{true:'includeB',false:'excludeB'}[includeB]">{{valueA}}</div>
+    <div class="b" [ngClass]="{true:'includeB',false:'excludeB'}[includeB]" *ngIf="includeB!=false">{{valueB}}</div>
+</div>

@@ -1,0 +1,54 @@
+
+<ion-header>
+  <js-header title="Konsolidacija partnera" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+<ion-content>
+
+<ion-list> 
+    <ion-item-divider  id="labell" color="light">
+        Pronađi
+      </ion-item-divider> 
+    <ion-item-sliding #slidingItem id="mojlabel"> 
+        <button ion-item (click)="izaberi(7)" > 
+            <ion-icon name="md-search" style="color: grey;" item-start></ion-icon> 
+          <div style="color: grey;"> Partner</div>
+      <div text-wrap style="color:black;">{{parametriupita.partnerinaziv}}</div>  
+        </button>
+      <ion-item-options id="option-icon">
+              <button style="width: 50px;" color="danger" ion-button large  (click)="brisiPartnere(slidingItem)">
+                <ion-icon  icon-only ios="ios-close" md="md-close" color="light"></ion-icon>               
+              </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-grid class="wow fadeInUp">  
+        <ion-row>
+          <ion-col col-6>
+              <button  block ion-button color="light" (click)="ocistiSve()"><ion-icon ios="ios-close" md="md-close"></ion-icon> &nbsp; Očisti </button>
+          </ion-col>
+          <ion-col col-6>
+              <button  block ion-button color="primary" (click)="prikazi()"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> &nbsp; Prikaži </button>    
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+
+       
+    <ion-item-divider id="labell" color="light" style="font-size: 17px;">
+        <ion-checkbox item-left (click)="groupclick()"  [(ngModel)]="checked"></ion-checkbox>
+    <ion-label><strong>Firme</strong></ion-label>
+    <ion-badge style="color: grey;" item-right color="light">{{ runninggrouptotals() | number : '1.0-0'}}</ion-badge>
+    </ion-item-divider>
+
+      <ion-item *ngFor="let item of items"> 
+        <ion-label>
+            {{item.baza}}
+        </ion-label>
+        <ion-checkbox (click)="toggleFirme(item)" [(ngModel)]="item.odabrano"></ion-checkbox>
+      </ion-item>
+ 
+</ion-list>
+
+
+
+</ion-content>

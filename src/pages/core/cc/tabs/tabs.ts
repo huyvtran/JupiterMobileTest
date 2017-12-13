@@ -15,7 +15,7 @@ export class CoreCcTabsPage {
     tab4Root = 'CoreCcToolsPage';
     tab5Root = 'CoreCcSettingsPage';
 
-    constructor(private favoritesProvider : FavoritesProvider) {
-        favoritesProvider.init("", "", "");
+    constructor(public favoritesProvider : FavoritesProvider) {
+        
     }
 }

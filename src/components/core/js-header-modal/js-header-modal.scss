@@ -1,0 +1,15 @@
+js-header-modal {
+    ion-navbar {
+        min-height:40px!important;
+    }
+
+    .toolbar-title {
+        font-size: 1.5rem!important
+    }
+
+    ion-title {
+        left: 8px;
+        right: 80px;
+        text-align: left;
+    }
+}

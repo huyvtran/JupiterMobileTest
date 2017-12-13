@@ -1,0 +1,22 @@
+page-hrm-resursi-zauzeca-pregled {
+    ion-label {
+        div.zauzeo {
+            font-size: 1.3rem;
+            color: #666;
+            font-style: italic;
+        }
+    }
+    .item-checkbox .resurs-naziv {
+        font-weight: 500!important;
+    }
+
+    ion-textarea {
+        border:1px solid #ddd; 
+        background: #fff;
+    }
+
+    .params-string {
+        text-align:center;
+        margin-bottom:4px;
+    }
+}

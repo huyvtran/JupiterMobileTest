@@ -1,0 +1,46 @@
+<ion-header>
+    <js-header title="Pregled zauzeća - filter" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+
+<ion-content>
+    <js-content></js-content>
+    <ion-list>
+        <ion-item-divider ion-item color="light">
+            Period
+            <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+            <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Vrijeme od:</ion-label>
+            <ion-datetime [(ngModel)]="provider.vrijemeOd" displayFormat="DD.MM.YYYY" min="2000-01-01"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Vrijeme do:</ion-label>
+            <ion-datetime [(ngModel)]="provider.vrijemeDo" displayFormat="DD.MM.YYYY" min="2000-01-01" max="2040"></ion-datetime>
+            <!-- <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>       -->
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item-divider ion-item color="light">
+            Resursi
+            <ion-icon item-left name="ios-bookmark-outline"></ion-icon>
+            <button clear item-end ion-button icon-only (click)="check()">
+                <ion-icon name="checkbox-outline" *ngIf="provider.filterCheckAll==true"></ion-icon>
+                <ion-icon name="square-outline" *ngIf="provider.filterCheckAll==false"></ion-icon>
+            </button>
+        </ion-item-divider>
+        <ion-item *ngFor="let resurs of provider.filterResursi">
+            <ion-label>{{resurs.naziv}}</ion-label>
+            <ion-checkbox color="dark" checked="true" [(ngModel)]="resurs.checked"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+
+    <ion-fab bottom right>
+        <button ion-fab (click)="prikazi()" [disabled]="buttonState()"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-fab>
+
+</ion-content>

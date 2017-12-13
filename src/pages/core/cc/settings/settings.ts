@@ -1,22 +1,22 @@
 import {Component} from '@angular/core';
-import {IonicPage, App, AlertController } from 'ionic-angular';
+import {IonicPage, App, AlertController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 
 import {GlobalProvider} from '../../../../providers/core/global-provider';
-import {VariablesProvider} from '../../../../providers/core/variables-provider';
-
+import {VariableProvider} from '../../../../providers/core/variable-provider';
 
 @IonicPage()
 @Component({selector: 'page-core-cc-settings', templateUrl: 'settings.html'})
 export class CoreCcSettingsPage {
-    constructor(private globalProvider : GlobalProvider, private storage : Storage, private app : App, private alertCtrl : AlertController) {}
+    constructor(private globalProvider : GlobalProvider, private storage : Storage, private app : App, private alertCtrl : AlertController, private variableProvider : VariableProvider) {}
 
     reset(tip) {
         this.resetShowConfirm(tip);
     }
 
     resetShowConfirm(tip) {
-        let message = "Potvrdom ćete morati ponovno unijeti autorizacijske podatke.\nŽelite li svejedno nastaviti?"
+        let message = "Potvrdom ćete morati ponovno unijeti autorizacijske podatke.\nŽelite li svejedno" +
+                " nastaviti?"
 
         let confirm = this
             .alertCtrl
@@ -26,8 +26,7 @@ export class CoreCcSettingsPage {
                 buttons: [
                     {
                         text: 'Odustani',
-                        handler: () => {
-                            ;
+                        handler: () => {;
                         }
                     }, {
                         text: 'Potvrdi',
@@ -44,16 +43,14 @@ export class CoreCcSettingsPage {
         this
             .storage
             .forEach((value, key, index) => {
-                console.log("key - " + key);
                 if ((tip == 'auth' && (key == "refreshToken" || key == "company")) || tip == 'all') {
-                    console.log(key);
                     this
                         .storage
                         .remove(key);
                 }
             })
             .then(() => {
-                VariablesProvider.company = "";
+                this.variableProvider.company = null;
                 //GlobalProvider.setRefreshToken("");
                 this
                     .app
@@ -70,7 +67,9 @@ export class CoreCcSettingsPage {
     }
 
     closePage() {
-        this.globalProvider.closeCC();
+        this
+            .globalProvider
+            .closeCC();
     }
 
 }
