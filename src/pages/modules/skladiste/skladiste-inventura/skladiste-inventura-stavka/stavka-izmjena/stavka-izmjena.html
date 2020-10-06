@@ -1,0 +1,94 @@
+<ion-header >
+        <js-header title="izmjena stavke" [showClose]="false" ></js-header>
+    
+    </ion-header>
+    
+    <ion-content class="inventura">
+         <js-content></js-content>
+    
+         <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="Povuci za osvježavanje"
+                refreshingSpinner="circles"
+                refreshingText="Osvježavam podatke..." >
+            </ion-refresher-content>
+        </ion-refresher>
+    
+    
+            <ion-list >   
+                <ion-item-divider class="item-divider" *ngFor="let item of stavkaQuery">
+                    <ion-grid>
+                        <ion-row text-wrap>
+                            <ion-col class="item-bold" >{{item.robanaziv}}</ion-col>
+                        </ion-row>             
+                    </ion-grid>
+                </ion-item-divider>
+            </ion-list>  
+            
+            <div class="wrapper">
+                <ion-grid *ngFor="let item of stavkaQuery">
+                    <ion-row (click)="otvoriKontingent()">
+                        <ion-col col-4>Kontingent: </ion-col>
+                        <ion-col>{{item.kontingent}} </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="item.defaultind == 1">
+                        <ion-col col-4>
+                            <p>Količina pak:</p>
+                        </ion-col>
+                        <ion-col col-2>
+                            <button ion-button icon-only (click)="kolicinaRemoveFaktor()"  class="control-button left">
+                                <ion-icon name="remove-circle"></ion-icon>
+                            </button>
+                        </ion-col>
+                        <ion-col col-4>
+                                <ion-input (input)="kolicinaPaketChange()" type="tel" min="1" max="8" [(ngModel)]="kolicinaPaket"
+                                placeholder="Unesi kolicinu"></ion-input>
+                        </ion-col>
+                        <ion-col col-2>
+                            <button (click)="kolicinaAddFaktor()" ion-button icon-only class="control-button right">
+                                <ion-icon name="add-circle"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+    
+                    <ion-row>
+                            <ion-col col-4>
+                                <p>Količina:</p>
+                            </ion-col>
+                            <ion-col col-2>
+                                <button ion-button icon-only (click)="kolicinaRemove()"  class="control-button left">
+                                    <ion-icon name="remove-circle"></ion-icon>
+                                </button>
+                            </ion-col>
+                            <ion-col col-4>
+                                <ion-input value={{item.kolicina}} (input)="kolicinaChange()" type="tel" min="1" max="8" [(ngModel)]="inventuraStavkaProvider.kolicina"
+                                 placeholder="Unesi kolicinu"></ion-input>
+                            </ion-col>
+                            <ion-col col-2>
+                                <button (click)="kolicinaAdd(inventuraStavkaProvider.kolicina)" ion-button icon-only class="control-button right">
+                                    <ion-icon name="add-circle"></ion-icon>
+                                </button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row  >
+                            <ion-col col-4>
+                                <p>Polica: </p>
+                            </ion-col>
+                            <ion-col col-7>
+                                <ion-input class="input-border" value={{item.polica}}></ion-input>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-1>
+                            </ion-col>
+                            <ion-col col-10>
+                                <button style="width: 100%;" ion-button color="light" (click)="izmijeniStavku()" >Izmjeni</button>
+                            </ion-col>
+                        </ion-row>
+                </ion-grid>
+            </div>    
+                       
+    </ion-content>
+    
+    

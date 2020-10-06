@@ -93,16 +93,16 @@ export class CRMBiljeskeListaPage extends BasePage {
       ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
 
   }
 
   novabiljeska() {
     this.parametriupita.parkontaktid = 0;
 
-    let modal = this.modalCtrl.create('CRMInsertEditPage', { 'partneriid': this.parametriupita.partneriid, 'partnerinaziv': this.parametriupita.partnerinaziv, 'parkontaktid': this.parametriupita.parkontaktid });
-    modal.present();
-    modal.onDidDismiss(data => {
+    this.global.modal = this.modalCtrl.create('CRMInsertEditPage', { 'partneriid': this.parametriupita.partneriid, 'partnerinaziv': this.parametriupita.partnerinaziv, 'parkontaktid': this.parametriupita.parkontaktid });
+    this.global.modal.present();
+    this.global.modal.onDidDismiss(data => {
       if(data==1){
       let toast = this.toastCtrl.create({
         message: 'Bilješka dodana!',
@@ -121,14 +121,15 @@ export class CRMBiljeskeListaPage extends BasePage {
           }
         });
     }
+    this.global.modal=null;
     });
 
   }
 
   editbiljeske(item) {
-    let modal = this.modalCtrl.create('CRMInsertEditPage', item);
-    modal.present();
-    modal.onDidDismiss(data => {
+    this.global.modal = this.modalCtrl.create('CRMInsertEditPage', item);
+    this.global.modal.present();
+    this.global.modal.onDidDismiss(data => {
       if(data==1){
       let toast = this.toastCtrl.create({
         message: 'Bilješka izmjenjena!',
@@ -147,6 +148,7 @@ export class CRMBiljeskeListaPage extends BasePage {
           }
         });
     } 
+    this.global.modal=null;
     });
   }
   brisiBiljesku(item,slidingItem: ItemSliding){
@@ -191,7 +193,7 @@ export class CRMBiljeskeListaPage extends BasePage {
     ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
 
   }
 

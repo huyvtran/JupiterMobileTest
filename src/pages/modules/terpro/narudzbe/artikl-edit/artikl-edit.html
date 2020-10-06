@@ -1,0 +1,151 @@
+<ion-header>
+    <js-header title="{{naslov}} stavke" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+<ion-content>
+
+
+    <ion-item no-lines>
+        <ion-label text-wrap class="nazivArtikla">{{artiklService.stavka?.naziv}}</ion-label>
+    </ion-item>
+
+
+    <div class="wrapper" padding>
+        <div class="unit-control">
+            <div class="item-left">
+                <button ion-button icon-only (click)="kolicinaRemove()" class="control-button left">
+                    <ion-icon name="remove-circle"></ion-icon>
+                </button>
+            </div>
+            <div class="item-center">
+                <div class="center-container">
+                    <div class="placeholder unit">{{artiklService.stavka?.jm}}</div>
+                    <div class="text-container">
+                        <ion-input (input)="kolicinaChange()" type="tel" min="1" max="8" [(ngModel)]="artiklService.kolicina" name="quantity" (ionFocus)="onFocus()"
+                            #kolicinaSelector text-center></ion-input>
+                    </div>
+                    <div class="placeholder"></div>
+                </div>
+            </div>
+            <div class="item-right">
+                <button (click)="kolicinaAdd(artiklService.kolicina)" ion-button icon-only class="control-button right">
+                    <ion-icon name="add-circle"></ion-icon>
+                </button>
+            </div>
+        </div>
+
+
+        <div class="unit-control" *ngIf="artiklService.stavka?.dod_jm">
+            <div class="item-left">
+                <button ion-button icon-only (click)="kolicinaRemoveFaktor()" class="control-button left">
+                    <ion-icon name="remove-circle"></ion-icon>
+                </button>
+            </div>
+            <div class="item-center">
+                <div class="center-container">
+                    <div class="placeholder unit">{{artiklService.stavka?.dod_jm}}</div>
+                    <div class="text-container">
+                        <ion-input (input)="kolicinaPaketChange()" type="tel" min="0" max="8" [(ngModel)]="kolicinaPaket" name="quantityPaket" (ionFocus)="onFocusPaket()"
+                            #kolicinaPaketSelector text-center></ion-input>
+                    </div>
+                    <div class="placeholder"></div>
+                </div>
+            </div>
+            <div class="item-right">
+                <button (click)="kolicinaAddFaktor()" ion-button icon-only class="control-button right">
+                    <ion-icon name="add-circle"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <ion-list>
+        <ion-item>
+            <ion-label text-wrap class="lbl1">Količina:</ion-label>
+            <ion-label text-wrap>{{artiklService.kolicina}} </ion-label>
+            <ion-label text-wrap *ngIf="!artiklService.stavka?.dod_jm"></ion-label>
+            <ion-label text-wrap *ngIf="!artiklService.stavka?.dod_jm"></ion-label>
+            <ion-label text-wrap *ngIf="artiklService.stavka?.dod_jm" class="lbl1">Količina {{artiklService.stavka?.dod_jm}}:</ion-label>
+            <ion-label text-wrap *ngIf="artiklService.stavka?.dod_jm">{{artiklService.kolicina / artiklService.stavka?.faktor | number : '1.2-2'}} </ion-label>
+        </ion-item>
+        <!--<ion-item *ngIf="artiklService.stavka?.dodjm">
+            <ion-label class="lbl1">Količina {{artiklService.stavka?.dodjm}}:</ion-label>
+            <ion-label>{{artiklService.kolicina / artiklService.stavka?.faktor | number : '1.2-2'}} </ion-label>
+        </ion-item>-->
+        <ion-item>
+            <ion-label text-wrap class="lbl1">Cijena:</ion-label>
+            <ion-label text-wrap>{{artiklService.cijena | number : '1.2-2'}}</ion-label>
+            <ion-label text-wrap class="lbl1">Vrijednost:</ion-label>
+            <ion-label text-wrap>{{artiklService.cijena * artiklService.kolicina | number : '1.2-2'}} </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label text-wrap class="lbl1">Rabat:</ion-label>
+            <ion-label text-wrap>{{artiklService.rabatPosto | number : '1.2-2'}}</ion-label>
+            <ion-label text-wrap class="lbl1">Rabat iznos:</ion-label>
+            <ion-label text-wrap *ngIf="narudzbeService.narudzba.vrstadokoznaka==='VP'">{{ ((artiklService.cijena * artiklService.kolicina) - (artiklService.stavka?.nak_poticaj + artiklService.stavka?.nak_trosarina
+                + artiklService.stavka?.nak_zbrinjavanje)) * (artiklService.rabatPosto /100) | number : '1.2-2'}} </ion-label>
+            <ion-label text-wrap *ngIf="narudzbeService.narudzba.vrstadokoznaka==='MP'">{{ (artiklService.cijena * artiklService.kolicina) * (artiklService.rabatPosto /100) | number : '1.2-2'}} </ion-label>
+
+        </ion-item>
+        <ion-item>
+            <ion-label text-wrap class="lbl1">Iznos bez poreza:</ion-label>
+            <ion-label text-wrap></ion-label>
+            <ion-label text-wrap></ion-label>
+            <ion-label text-wrap *ngIf="narudzbeService.narudzba.vrstadokoznaka==='VP'">{{ ((artiklService.cijena * artiklService.kolicina) - ((artiklService.cijena * artiklService.kolicina) - (artiklService.stavka?.nak_poticaj
+                + artiklService.stavka?.nak_trosarina + artiklService.stavka?.nak_zbrinjavanje)) * (artiklService.rabatPosto
+                /100)) | number : '1.2-2'}} </ion-label>
+            <ion-label text-wrap *ngIf="narudzbeService.narudzba.vrstadokoznaka==='MP'">{{ (artiklService.cijena * artiklService.kolicina) - (artiklService.cijena * artiklService.kolicina) * (artiklService.rabatPosto
+                /100) | number : '1.2-2'}} </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label text-wrap class="lbl1">Porez:</ion-label>
+            <ion-label text-wrap>{{artiklService.stavka?.stopa | number : '1.2-2'}} </ion-label>
+            <ion-label text-wrap class="lbl1">Porez iznos:</ion-label>
+            <ion-label text-wrap *ngIf="narudzbeService.narudzba.vrstadokoznaka==='VP'">{{ ((artiklService.cijena * artiklService.kolicina) - ((artiklService.cijena * artiklService.kolicina) - (artiklService.stavka?.nak_poticaj
+                + artiklService.stavka?.nak_trosarina + artiklService.stavka?.nak_zbrinjavanje)) * (artiklService.rabatPosto
+                /100)) * artiklService.stavka?.stopa / 100 | number : '1.2-2'}} </ion-label>
+            <ion-label text-wrap *ngIf="narudzbeService.narudzba.vrstadokoznaka==='MP'">{{ ((artiklService.cijena * artiklService.kolicina) - (artiklService.cijena * artiklService.kolicina) * (artiklService.rabatPosto
+                /100) ) - ((artiklService.cijena * artiklService.kolicina) - (artiklService.cijena * artiklService.kolicina)
+                * (artiklService.rabatPosto /100) ) / (1 + artiklService.stavka?.stopa / 100) | number : '1.2-2'}} </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label text-wrap class="lbl1">Ukupno: </ion-label>
+            <ion-label text-wrap></ion-label>
+            <ion-label text-wrap></ion-label>
+            <ion-label text-wrap *ngIf="narudzbeService.narudzba.vrstadokoznaka==='VP'">{{ (((artiklService.cijena * artiklService.kolicina) - ((artiklService.cijena * artiklService.kolicina) - (artiklService.stavka?.nak_poticaj
+                + artiklService.stavka?.nak_trosarina + artiklService.stavka?.nak_zbrinjavanje)) * (artiklService.rabatPosto
+                /100)) * artiklService.stavka?.stopa / 100) + ((artiklService.cijena * artiklService.kolicina) - ((artiklService.cijena
+                * artiklService.kolicina) - (artiklService.stavka?.nak_poticaj + artiklService.stavka?.nak_trosarina + artiklService.stavka?.nak_zbrinjavanje))
+                * (artiklService.rabatPosto /100)) | number : '1.2-2'}} </ion-label>
+            <ion-label text-wrap *ngIf="narudzbeService.narudzba.vrstadokoznaka==='MP'">{{(artiklService.cijena * artiklService.kolicina) - (artiklService.cijena * artiklService.kolicina) * (artiklService.rabatPosto
+                /100) | number : '1.2-2'}} </ion-label>
+        </ion-item>
+    </ion-list>
+
+    <!--<ion-fab bottom right>
+      <button ion-fab (click)="showNarudzba()">
+        <ion-icon name="cart"></ion-icon>
+        <ion-note item-right>{{artiklService.stavke? artiklService.stavke.length : 0}}</ion-note>
+      </button>
+
+    </ion-fab>-->
+</ion-content>
+
+<ion-footer>
+
+    <ion-toolbar>
+
+        <ion-buttons end *ngIf="narudzbeService.narudzba.prijenosind == 0">
+            <button ion-button [hidden]="spremiButtonClicked==false" strong>
+                <ion-spinner name="circles"></ion-spinner> Spremanje...</button>
+            <button ion-button [hidden]="spremiButtonClicked==true" [disabled]=disabled (click)="spremiStavku()" strong>Spremi</button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button (click)="dismiss()">Odustani</button>
+        </ion-buttons>
+
+
+    </ion-toolbar>
+
+
+</ion-footer>

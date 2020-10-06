@@ -1,0 +1,104 @@
+page-stavka-unos {
+    
+
+    div.unit-control {
+        display:flex; width:100%; margin-bottom:4px; margin-top: 10px;
+    }
+
+    div
+    {
+        &.item-left {
+            border-radius:20px 0 0 20px;
+        }
+
+        &.item-left {
+            border-radius:20px 0 0 20px;
+        }
+
+        &.item-center
+        {
+            position:relative; background:white; border-bottom:1px solid #ccc; border-top:1px solid #ccc; flex-grow:1;
+
+            .center-container {
+                height:100%; width:100%; position:absolute; display:flex;
+
+                .placeholder {
+                   flex-basis: 40px; flex-grow: 0; flex-shrink: 0;
+
+                    &.unit {
+                         background:#fafafa; text-align:center; vertical-align: middle; line-height:54px; border-right:1px solid #f1f1f1; font-size:18px; font-style:italic; color:#999
+                    }
+                }
+
+                .text-container {
+                    position:relative; background:white; flex-grow:1;
+
+                    ion-input {
+                        height:100%;
+                        font-size:17pt;
+                    }
+                }
+            }
+        }
+    }
+    .item-divider{
+        background:rgb(216, 211, 211);
+        font-weight: bold;
+        color: black;
+    }
+
+    .control-button {
+        flex-grow: 0; flex-shrink: 0; padding:0;  margin:0px; height: 50px;
+        &.left {
+            background:#364b5e;  
+            border-radius:20px 0 0 20px;
+        }
+        &.right {
+           background:#364b5e; 
+           border-radius:0 20px 20px 0; 
+        }
+        
+        ion-icon {
+            color:white; font-size:30px;  padding:10px; line-height:30px
+        }
+    }
+
+    .input-border{
+        border: 1px solid black;
+    }
+
+    
+
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+    }
+   
+    .button-spremi{
+        margin-left: 10%;
+        margin-top: 25px;
+        width: 80%;
+    }
+
+    .text-inline
+    {
+        display: inline;
+        margin-right: 10px;
+        padding: 0px;
+    }
+
+    .text-width{
+        width: 125px;
+        margin-right: 10px;
+    }
+
+    .input-background{
+        background: #f5f5f0;
+    }
+
+    .footer-style{
+        height: 60px ;
+    }
+
+}

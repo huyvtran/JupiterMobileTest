@@ -1,0 +1,27 @@
+<ion-header>
+    <js-header-modal title="{{naslovText}}" ></js-header-modal>
+    <!-- <js-header-modal title="Odobravanje - napomena / potvrda {{statusText}}" ></js-header-modal> -->
+</ion-header>
+
+<ion-content no-padding>
+    <js-content></js-content>
+    <ion-item-divider ion-item color="light">
+        Napomena
+    </ion-item-divider>
+    <ion-item>
+        <ion-textarea [(ngModel)]="parametri.napomena" autosize></ion-textarea>
+    </ion-item>
+</ion-content>
+
+<ion-footer>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-4>
+                <button (click)="odustani()" full ion-button round color="light">Odustani</button>
+            </ion-col>
+            <ion-col col-8>
+                <button full ion-button round [color]="status == 'odobri' ? 'zelena' : 'crvena'" (click)="setStatus()">{{statusText}}</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

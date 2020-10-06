@@ -1,0 +1,70 @@
+
+
+
+terpro-page-obilazak {
+
+	.selZona{
+		max-width: 100% !important;
+	}
+
+	.select-md{
+		padding: 13px 8px 13px 0px;
+	}
+
+	.item-block{
+		min-height: 0px;
+	}
+
+
+	.list-header .item-inner{
+		text-align: center;
+	}
+	.label-md{
+		margin-top: 10px;
+		margin-bottom: 5px;
+	}
+
+
+	h3{
+		color:#C0392B; 
+	}
+
+	.item-md [item-left]{
+		margin: 0px;
+		margin-bottom: 0px;
+	}
+
+	.segment-md .segment-button.segment-activated{
+		border-color: #C0392B;
+	}
+
+	.toolbar .segment-md .segment-button.segment-activated {
+		color: #C0392B;
+	}
+
+	.favorite{
+		color: #C0392B!important;
+	}
+	.favorite-item .item{
+		margin: 0px!important;
+		padding:0px!important;
+		
+	}
+
+
+	.item ion-icon[item-left] + .item-inner, .item-md ion-icon[item-left] + .item-input, .item-md ion-icon[item-start] + .item-inner, .item-md ion-icon[item-start] + .item-input {
+		margin-left: 5px;
+	}
+
+	.item > ion-icon, .item-inner > ion-icon {
+     min-height: 2rem; 
+     font-size: 2rem; 
+     line-height: 1; 
+	}
+		
+
+}
+
+
+
+

@@ -1,0 +1,82 @@
+page-hrm-imenik-det {
+
+  .image {
+        width: 120px;
+        height: 120px;
+        border: 2px solid #fff;
+        box-shadow: 0 0 5px gray;
+        object-fit: cover;
+        margin-left: auto;
+        margin-right: auto;
+    } 
+    ion-list h3 {
+        color: #999;
+    }
+    ion-list h2 {
+        font-weight: 500!important;
+    }
+
+    .accordion-content {
+        padding: 0!important;
+
+    }
+    .list .item-block .item-inner {
+        padding:4px 0px;
+    }
+
+
+    .profile-image-container {
+        padding: 20px 0;
+        background: #4a5f71;
+        color: #ffffff;
+        .profile-name {
+            padding-top: 15px;
+        }
+    }
+
+    .profile-image-wrapper {
+        text-align: center;
+
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+
+
+
+
+
+            display: inline-block;
+
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .profile-image-placeholder {
+            display: inline-block;
+
+            //background-color: #eee;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+
+            //background: url('../assets/images/me.jpg') no-repeat;
+            background-size: cover;
+            -moz-box-shadow: 0px 0px 8px #000;
+            -webkit-box-shadow: 0px 0px 8px #000;
+            box-shadow: 0px 0px 8px #000;
+
+            font-size: 12px;
+
+            ion-icon {
+                font-size: 44px;
+                margin-bottom: -10px;
+                margin-top: 10px;
+            }
+        }
+  }
+
+
+}

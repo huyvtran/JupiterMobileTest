@@ -79,7 +79,7 @@ export class HrmResursiZauzecaPregledPage extends BasePage {
         }
         return this
             .global
-            .getData(data, true);
+            .getData(data);
     }
 
     setAzurDataDef(action : string, hrResursiZauzeceId?: number) {
@@ -102,7 +102,7 @@ export class HrmResursiZauzecaPregledPage extends BasePage {
         }
         return this
             .global
-            .getData(data, true);
+            .getData(data);
     }
 
     potvrda() {

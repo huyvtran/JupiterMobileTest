@@ -1,0 +1,50 @@
+page-skladiste-unos-dokumenta {
+    ion-content {
+        .trazilica-caption {
+            float: left;
+            color:black;
+        }
+
+        ion-label {
+            color:black !important;
+        }
+
+        .filter-text {
+            float: right;
+        }
+        ion-datetime {
+            max-width: 100% !important;
+            width:100% !important;
+            text-align: right;
+        }
+
+        input{
+            text-align: right !important;
+        }
+
+        ion-select {
+            max-width: 100%;
+            width:100%;
+            padding-left:0;
+            text-align: right !important;
+        }
+        
+    }
+    
+    ion-textarea {
+        height:150px!important;
+        border:1px solid #ddd; 
+        background: #fff;
+        padding:8px !important;
+        font-size: 12px;
+
+        textarea {
+            height:100%;
+        }
+    }
+    
+    .ionFabMargin{
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+}

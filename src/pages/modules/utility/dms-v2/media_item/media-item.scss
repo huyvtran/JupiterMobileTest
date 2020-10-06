@@ -1,0 +1,69 @@
+page-utility-dmsv2-media-item {
+    ion-icon {
+        &[class*="custom-"] {
+            background-size: contain;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+          width: 0.8em;
+          height: 0.8em;
+        }
+
+        &[class*="custom-pdf"] {
+            background-image: url(../assets/images/dms/pdf.svg);
+        }
+        &[class*="custom-word"] {
+            background-image: url(../assets/images/dms/word.svg);
+        }
+        &[class*="custom-excel"] {
+            background-image: url(../assets/images/dms/excel.svg);
+        }
+        &[class*="custom-txt"] {
+            background-image: url(../assets/images/dms/txt.svg);
+        }
+        &[class*="custom-image"] {
+            background-image: url(../assets/images/dms/image.svg);
+        }
+        &[class*="custom-unknown"] {
+            background-image: url(../assets/images/dms/unknown.svg);
+        }
+      }
+    
+    .note{
+        color: #999;
+    }
+    .nums {
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        margin: 0!important;
+    }
+
+    .label-md {
+        margin: 6px 6px 6px 0;
+    }
+
+   
+      .item-md ion-avatar[item-left], .item-md ion-thumbnail[item-left], .item-md ion-avatar[item-start], .item-md ion-thumbnail[item-start] {
+            margin: 2px 4px 2px 0;
+        }
+
+      .item-md h2 {
+        font-size: 1.5rem;
+        white-space: normal;
+    }
+    .item-md p {
+        color: #999999;
+        font-size: 1.3rem;
+        span {
+            color:#dddddd;
+        }
+    }
+
+
+    .item-md ion-avatar {
+        min-width: 36px;
+        min-height: 36px;
+    }
+}
+

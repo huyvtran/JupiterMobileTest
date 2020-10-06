@@ -1,0 +1,35 @@
+<ion-header>
+    <js-header title="Inventura" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+<ion-content>
+    <js-content></js-content>
+    <ion-list >
+        <ion-item  style="color: #364b5e" *ngFor="let item of inventuraList" (click)="glavaItemClick(item)">
+            <ion-avatar item-start>
+                <ion-icon style="font-size: 50px;" name="clipboard"></ion-icon>
+            </ion-avatar>
+            <h2 style="font-weight: bold;">{{item.naziv}}</h2>
+            <!-- <h3 style="font-style: italic;">{{item.smjestaj}} ({{item.osoba}})</h3> -->
+            <!-- <p [hidden]="item.vrijemezavrsetka != null">Datum popisa: {{item.datumpopisa | date: 'dd.MM.yyyy.'}}</p> -->
+            <p style="color: #364b5e">Datum popisa: {{item.datumpopisa | date: 'dd.MM.yyyy.'}}</p>
+            <!-- <p style="color: green;" [hidden]="item.vrijemezavrsetka == null">Datum zaključenja:
+                {{item.vrijemezavrsetka | date: 'dd.MM.yyyy.'}}</p> -->
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col style="color: #364b5e">
+                <ion-label [hidden]="syncDateVar == null" style="font-weight:bold;">Posljednja sinkronizacija:
+                    {{syncDateVar? (syncDateVar | date: 'dd.MM.yyyy. u HH:mm') : '...' }}</ion-label>
+                <ion-label [hidden]="syncDateVar == null">Broj preuzetih inventura: {{invCount}}</ion-label>
+                <ion-label [hidden]="syncDateVar == null">Ukupna imovina: {{imoCount}}</ion-label>
+                <ion-label [hidden]="syncDateVar != null" style="font-weight: bold;">Sinkronizirajte podatke!</ion-label>
+            </ion-col>
+        </ion-row>
+        <div style="margin:8px">
+            <button ion-button full color="light" style="border: 1px solid #ccc" (click)="openModal()">Sinkroniziraj</button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

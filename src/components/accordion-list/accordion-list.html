@@ -8,9 +8,11 @@
             name="ios-arrow-forward">
           </ion-icon>
           {{ title }}
-          
+
           <ng-content item-content select="[accordion-header-end]" *ngIf="hideNoteOnExpand==false || (hideNoteOnExpand==true && expanded==false)"></ng-content>
           <ng-content item-content select="[accordion-header-custom]"></ng-content>
+
+
       </button>
       <section #accordionContent [style.background]="contentColor" [class.active]="expanded" class="accordion-content">
         <ng-content></ng-content>

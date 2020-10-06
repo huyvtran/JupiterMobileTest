@@ -1,0 +1,25 @@
+<ion-header>
+    <js-header [title]="'Izvidnik - Arkodi'" [showClose]="true" [showFavorite]="false"></js-header>
+    <ion-toolbar class="light">
+        <ion-searchbar (ionInput)="searchFn($event)" autocorrect="off"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <ion-list>
+        <ion-item *ngFor="let arkod of items">
+        <div (click)="spremiArkod(arkod.id, arkod.naziv, arkod.oznaka, arkod.povrsina)" >
+            <h2>{{arkod.naziv}}</h2>
+            <p>{{arkod.oznaka}}</p>
+        </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Učitavam još podataka...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

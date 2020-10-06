@@ -37,8 +37,8 @@
             <ion-item>
                 <ion-fab right top>
                     <button ion-fab mini color="danger" (click)="deletePicture(i)">
-            <ion-icon name="trash"></ion-icon>
-          </button>
+                        <ion-icon name="trash"></ion-icon>
+                    </button>
                 </ion-fab>
                 <ion-card-content>
                     <img [src]="str" *ngIf="base64Image" />
@@ -48,6 +48,8 @@
     </div>
 
     <ion-fab bottom right>
-        <button ion-fab (click)="uIzradi()"><ion-icon name="send"></ion-icon></button>
+        <button ion-fab (click)="uIzradi()">
+            <ion-icon name="send"></ion-icon>
+        </button>
     </ion-fab>
 </ion-content>

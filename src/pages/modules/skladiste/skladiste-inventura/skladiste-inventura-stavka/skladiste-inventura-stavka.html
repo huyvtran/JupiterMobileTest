@@ -1,0 +1,56 @@
+<ion-header >
+    <js-header [title]="title"  [showFavorite]="true"   >
+         
+  </js-header>
+    
+</ion-header>
+
+<ion-content class="inventura">
+    <js-content></js-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Povuci za osvježavanje"
+            refreshingSpinner="circles"
+            refreshingText="Osvježavam podatke..." >
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div>
+        <ion-list> 
+                <ion-item-divider ion-item class="item-divider">
+                    <ion-row>
+                        <ion-col col-10 class="col-padding" >
+                            <ion-searchbar [(ngModel)]="this.inventuraStavkaProvider.SearchString"  placeholder="Upišite barcode" (ionInput)="searchFn($event)"
+                               (ionFocus)="this.disablekeyboardListener(true)" (ionBlur)="this.disablekeyboardListener(false)" >
+                            </ion-searchbar>
+                         </ion-col>
+
+                         <ion-col class="toolbarButtonCol" >
+                             <button  ion-button class="toolbarButton" color="skin1" (click)="dohvatiBarkodStavku(this.inventuraStavkaProvider.odabraniBarkod)" >
+                                <span class="button-inner">
+                                    <ion-icon name="search"></ion-icon>
+                                </span>
+                             </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-item-divider> 
+                
+                <ion-item  class="item-style" *ngFor="let item of stavkeInventure" (click)="otvoriIzmjenu(item)" >
+                    <ion-grid [class.item-bold]="item.indbold == 1">
+                        <ion-row text-wrap>
+                            <ion-col >{{item.sifra}}  {{item.robanaziv}} </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf = "item.kontingentbarkod != '' " text-wrap>
+                            <ion-col>{{item.kontingentbarkod}}</ion-col>
+                        </ion-row>                
+                        <ion-row text-wrap>
+                            <ion-col >Količina: {{item.kolicina}} {{item.jm}} </ion-col>
+                        </ion-row>       
+                    </ion-grid>
+                </ion-item>
+        </ion-list>      
+    </div>
+        
+    
+</ion-content>

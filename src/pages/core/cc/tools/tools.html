@@ -3,10 +3,11 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
+    <js-nodata showWhen="ios"></js-nodata>
+    <ion-list showWhen="android">
         <ion-item-group>
             <ion-item-divider color="light">HelpDesk</ion-item-divider>
-            <button ion-item (click)="openBugShooter()">
+            <button ion-item (click)="uIzradi()">
                 <ion-icon item-left name="camera"></ion-icon>
                 BugShooter
             </button>

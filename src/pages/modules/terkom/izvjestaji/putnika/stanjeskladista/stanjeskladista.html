@@ -1,0 +1,58 @@
+<ion-header>
+  <js-header title="Stanje skladišta" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+
+
+<ion-list>
+  <ion-item-divider ion-item color="light">
+      Filter
+  </ion-item-divider>
+  <ion-item >
+    <ion-label class="skladiste-label" col-3 >Skladište:</ion-label>
+    <ion-select col-9 class="skladiste"   name="skladiste" [(ngModel)]="SkladisteId">
+        <ion-option   *ngFor="let item of sifarniciService.skladista" [value]="item.skladisteid">{{item.naziv}}</ion-option>
+    </ion-select>
+</ion-item>
+
+<ion-item>
+  <ion-label class="klasa-label" col-3 >Klase robe:</ion-label>
+  <ion-select class="klasa" col-9  [(ngModel)]="KlasaRobeId" >
+      <ion-option  *ngFor="let item of sifarniciService.klaserobe" [value]="item.klmasterrobaid">{{item.naziv}}</ion-option>
+  </ion-select>
+</ion-item>
+
+<div style="margin:8px">
+  <button ion-button full  color="light" style="border: 1px solid #ccc" (click)="prikazi()">Prikaži</button>
+</div>
+</ion-list>
+
+<ion-list>
+  <ion-list-header [hidden]="stanjeSkladista.length > 0">
+          Nema podataka
+  </ion-list-header>
+
+  <button  text-wrap detail-none ion-item *ngFor="let item of stanjeSkladista">
+    <div *ngIf="item.raspolozivo > 0">
+      <h3 text-wrap><b>Naziv robe: {{item.naziv}}</b></h3>
+      <h3 text-wrap><b>Šifra: {{item.sifra}}</b></h3>
+      <h3 text-wrap><b>Raspoloživo: {{item.raspolozivo}}</b></h3>
+    </div>
+    <div *ngIf="item.raspolozivo == 0">
+      <h3 text-wrap>Naziv robe: {{item.naziv}}</h3>
+      <h3 text-wrap>Šifra: {{item.sifra}}</h3>
+      <h3 text-wrap>Raspoloživo: {{item.raspolozivo}}</h3>
+    </div>
+    <div  *ngIf="item.raspolozivo < 0">
+      <h3 style="color:red ;" text-wrap>Naziv robe: {{item.naziv}}</h3>
+      <h3 style="color:red ;" text-wrap>Šifra: {{item.sifra}}</h3>
+      <h3 style="color:red ;" text-wrap>Raspoloživo: {{item.raspolozivo}}</h3>
+    </div>
+  </button>
+
+
+</ion-list>
+
+</ion-content>

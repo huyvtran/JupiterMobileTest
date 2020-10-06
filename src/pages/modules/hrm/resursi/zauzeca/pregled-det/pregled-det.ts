@@ -51,7 +51,7 @@ export class HrmResursiZauzecaPregledDetPage extends BasePage {
     }
     return this
       .global
-      .getData(data, true);
+      .getData(data);
   }
 
   datumFormat(datum) {
@@ -122,6 +122,6 @@ export class HrmResursiZauzecaPregledDetPage extends BasePage {
     }
     return this
       .global
-      .getData(data, true);
+      .getData(data);
   }
 }

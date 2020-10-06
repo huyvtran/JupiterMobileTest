@@ -85,7 +85,7 @@ export class CRMPregledUgovoraListaPage extends BasePage {
     ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
 
   }
 

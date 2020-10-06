@@ -1,0 +1,90 @@
+<ion-header>
+        <js-header title="Stanje" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+
+<ion-content>
+
+        <js-content></js-content>
+        <ion-item-divider color="light">
+                <strong>Odaberi</strong>
+        </ion-item-divider>
+
+        <ion-list>
+                <ion-item-sliding #slidingItem1>
+                        <button ion-item (click)="izaberi(15)" id="icon-search">
+                                <ion-icon name="md-search" style="color: grey;" item-start></ion-icon>
+                                <div style="color: grey;">Trgovina</div>
+                                <div text-wrap style="color:black;">{{item.trgovina}}</div>
+                        </button>
+                        <ion-item-options id="option-icon">
+                                <button style="width: 50px; padding-top: 10px;" color="danger" ion-button large (click)="brisiTrgovinu(slidingItem1)">
+                                        <ion-icon icon-only ios="ios-trash" md="md-trash" color="light"></ion-icon>
+                                </button>
+                        </ion-item-options>
+                </ion-item-sliding>
+                <ion-item-sliding #slidingItem2>
+                        <button ion-item (click)="izaberi(16)" id="icon-search">
+                                <ion-icon name="md-search" style="color: grey;" item-start></ion-icon>
+                                <div style="color: grey;">Roba</div>
+                                <div text-wrap style="color:black;">{{item.roba}}</div>
+                        </button>
+                        <ion-item-options id="option-icon">
+                                <button style="width: 50px; padding-top: 10px;" color="danger" ion-button large (click)="brisiRobu(slidingItem2)">
+                                        <ion-icon icon-only ios="ios-trash" md="md-trash" color="light"></ion-icon>
+                                </button>
+                        </ion-item-options>
+                </ion-item-sliding>
+                <div id="label2">
+                        <ion-item-divider color="light">
+                                <ion-grid>
+                                        <ion-row>
+                                                <ion-col col-6 style="padding-top:15px; padding-left: 11px;">
+                                                        <strong>Razdoblje</strong>
+                                                </ion-col>
+                                                <ion-col col-6 text-right id="button-ios">
+                                                        <button ion-button color="skin1" (click)="popoverRazdoblje($event)">
+                                                                <ion-icon name="md-calendar"></ion-icon>
+                                                        </button>
+                                                </ion-col>
+                                        </ion-row>
+                                </ion-grid>
+                        </ion-item-divider>
+                </div>
+                <ion-item>
+                        <ion-icon name="md-calendar" style="color: grey;" item-start></ion-icon>
+                        <ion-label style="color: grey!important;">Datum od</ion-label>
+                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="item.datumod"></ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                        <ion-icon name="md-calendar" style="color: grey;" item-start></ion-icon>
+                        <ion-label style="color: grey!important;">Datum do</ion-label>
+                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="item.datumdo"></ion-datetime>
+                </ion-item>
+                <ion-item>
+                        <ion-icon name="md-document" style="color: grey;" item-start></ion-icon>
+                        <ion-label style="color: grey!important;">Stanje</ion-label>
+                        <ion-select [(ngModel)]="item.status" placeholder="Odaberi">
+                                <ion-option value="5" >Ništa</ion-option>
+                                <ion-option value="1">Količina > 0</ion-option>
+                                <ion-option value="-1">Količina < 0</ion-option>
+                                <ion-option value="0">Količina = 0</ion-option>
+                                <ion-option value="2">Količina <> 0</ion-option>
+                        </ion-select>
+
+                </ion-item>
+        </ion-list>
+
+        <ion-buttons end style="padding-right: 10px;">
+                <button ion-button color="skin1" (click)="otvori()">
+                        Prikaži
+                </button>
+        </ion-buttons>
+
+        <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon>
+        <br>
+        <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema podataka za prikaz! </ion-label>
+
+
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+  <js-header title="Rezultati kontrole" [showClose]="false"></js-header>
+</ion-header>
+
+<ion-content no-padding>
+  <js-content></js-content>
+  
+  <ion-card-header>
+      <ion-item-divider ion-item color="light">
+          <ion-grid>
+              <ion-row>
+                  <ion-col col-5 class="col1, col1Header" text-wrap>
+                      <div><b>Kontrola</b></div>
+                  </ion-col>
+                  <ion-col col-1 class="col2">
+                      <div><b>Uzorak</b></div>
+                  </ion-col>
+                  <ion-col class="col3" text-wrap>
+                      <div><b>Rezultat</b></div>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+      </ion-item-divider>
+  </ion-card-header>
+
+
+  <ion-list>
+    <ion-item  *ngFor="let kontrola of kontroleOrderedList; let i=index" [style.background-color]="getBackgroundColor(i)">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-5 class="col1" text-wrap>
+                    <div><b>{{kontrola.parametarnaziv}}</b></div>
+                    <ion-note style="color:silver; font-size: 10px;">{{kontrola.opis}}</ion-note>
+                </ion-col>
+                <ion-col col-1 class="col2">
+                    <div><b>{{kontrola.uzorak}}</b></div>
+                </ion-col>
+                <ion-col class="col3" [style.color]="getColor(kontrola)" text-wrap>
+                    <div><b>{{kontrola.decimalvalue}} {{kontrola.stringval}} {{kontrola.boolval}}</b></div>
+                    <ion-note style="color:silver; font-size: 10px;">{{getGraniceNorme(kontrola)}}</ion-note>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="presentZakljuciPage()">
+        <ion-icon name="ios-arrow-round-forward-outline"></ion-icon>
+    </button>
+</ion-fab>
+</ion-content>

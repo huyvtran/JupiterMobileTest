@@ -1,0 +1,42 @@
+  <ion-header>
+    <js-header title="Pregled narudžbi" [showClose]="true" [showFavorite]="true"></js-header>
+  </ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+      <ion-list-header [hidden]="narudzbeService.narudzbe?.length > 0">
+              Nema narudzbi
+      </ion-list-header>
+
+      <ion-item-sliding  *ngFor="let nar of narudzbeService.narudzbe" #slidingItem [attr.track]=nar.prijenosind>
+        <button  ion-item (click)="presentActionSheet(nar.id,nar.parstruid,nar.id,nar.maxiznos,nar.prijenosind, nar.vrstadok)">
+          <h3 text-wrap>{{nar.vrstadok}} : {{nar.id}}</h3>
+            <p text-wrap>{{nar.datum | date: 'dd.MM.yyyy'}}  Kupac: {{nar.partner}} </p>
+            <p text-wrap> Iznos: {{nar.iznos | number : '1.2-2'}}   Stavki: {{nar.brojstavki}}</p> <!--Skladište: {{nar.skladiste}}-->
+            <p text-wrap [hidden]="nar.opis==null || nar.opis== ''"> Napomena: {{nar.opis}} </p>
+        </button>
+
+        <ion-item-options>
+          <button ion-button color="favorite" (click)="goToDetails(slidingItem,nar.id, nar.vrstadok)">
+          <ion-icon name="clipboard"></ion-icon>
+            Pregled
+          </button>
+
+        </ion-item-options>
+      </ion-item-sliding>
+
+	  		
+		</ion-list>
+
+
+    <ion-fab bottom right *ngIf="narudzbeService.narudzbe?.length > 0 && sifarniciService.provjeriStanjePrilikomSlanja!=1">
+        <button ion-button round (click)="sendAll()">Pošalji neposlane</button>
+    </ion-fab>
+  
+
+</ion-content>
+

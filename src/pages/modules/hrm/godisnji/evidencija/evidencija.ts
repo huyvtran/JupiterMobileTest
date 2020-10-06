@@ -51,7 +51,7 @@ export class HrmGodisnjiEvidencijaPage extends BasePage {
         }
         return this
             .global
-            .getData(data, true);
+            .getData(data);
     }
 
     getGodinaInfo(godina: number): string {
@@ -88,6 +88,6 @@ export class HrmGodisnjiEvidencijaPage extends BasePage {
         }
         return this
             .global
-            .getData(data, true);
+            .getData(data);
     }
 }

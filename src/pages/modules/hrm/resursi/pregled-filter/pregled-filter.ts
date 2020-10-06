@@ -51,7 +51,7 @@ export class HrmResursiPregledFilterPage extends BasePage {
 
         return this
             .global
-            .getData(data, true);
+            .getData(data);
 
     }
 

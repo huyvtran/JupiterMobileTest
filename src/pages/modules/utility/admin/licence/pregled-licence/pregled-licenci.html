@@ -1,0 +1,52 @@
+<ion-header>
+    <js-header title="Pregled licenci - {{tvrtka.name}}" [showClose]="false" [showFavorite]="false">
+        <button js-buttons-end clear color="light" (click)="searchOptions()" ion-button icon-only>
+            <ion-icon name="search"></ion-icon>
+        </button>
+    </js-header>
+    <div class="sub">
+        <span>stavaka:</span> {{tvrtka.licence.length}}
+        <span>; selektirano:</span> {{licence.length}}
+    </div>
+    <ion-toolbar class="light">
+        <ion-searchbar (ionInput)="searchFn($event)" (ionCancel)="onCancel($event)" autocorrect="off"></ion-searchbar>
+    </ion-toolbar>
+    <ion-item-divider ion-item color="light">
+        <ion-label>Aktivan</ion-label>
+        <ion-icon item-left name="ios-man-outline"></ion-icon>
+        <ion-checkbox item-left (ionChange)="filter($event)" [(ngModel)]="selected"></ion-checkbox>
+    </ion-item-divider>
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <ion-list>
+        <ion-item-sliding #slidingItem *ngFor="let item of licence | search: term:'name#login'">
+              
+            <button ion-item detail-none [disabled]="buttonState(item)" (press)="pressed(slidingItem, item)">
+                <h2 style="text-transform: capitalize">{{item.name}}</h2>
+                <h3>{{item.login}}</h3>
+                <h4>{{item.devicemanufacturer}} {{item.devicemodel}} {{item.deviceversion ? 'v.' : ''}}{{item.deviceversion}}</h4>
+                <h5>Licence serial No. {{item.pincoreid}}</h5>
+                <ion-note item-right>
+                    <p>Aktivan
+                        <ion-icon name="checkmark-circle" [ngClass]="{'1':'aktivan','0':'neaktivan'}[item.active]"></ion-icon>
+                    </p>
+                    <p>Testing
+                        <ion-icon name="checkmark-circle" [ngClass]="{'1':'testing','0':'neaktivan'}[item.testing]"></ion-icon>
+                    </p>
+                </ion-note>
+            </button>
+            <ion-item-options>
+                <button ion-button color="danger" (click)="presentAlertPrompt(slidingItem,item)" *ngIf="item.active">
+                    <ion-icon name="ios-refresh"></ion-icon>
+                    Reset
+                </button>
+
+            </ion-item-options>
+
+        </ion-item-sliding>
+    </ion-list>
+
+</ion-content>

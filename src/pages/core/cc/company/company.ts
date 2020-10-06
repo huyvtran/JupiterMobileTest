@@ -1,30 +1,41 @@
 import {Component} from '@angular/core';
-import {IonicPage, MenuController} from 'ionic-angular';
+import {IonicPage, MenuController, App, AlertController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 
 import {GlobalProvider} from '../../../../providers/core/global-provider';
 import {VariableProvider} from '../../../../providers/core/variable-provider';
 import {ModulesProvider} from '../../../../providers/core/modules-provider';
 import {HistoryProvider} from '../../../../providers/core/history-provider';
-
+import {JupiterSystemProvider} from '../../../../providers/core/system-provider';
 
 @IonicPage()
 @Component({selector: 'page-core-cc-company', templateUrl: 'company.html'})
 export class CoreCcCompanyPage {
-    private company: any = [];
-
     constructor(private storage: Storage, private globalProvider: GlobalProvider, 
            modulesProvider: ModulesProvider, 
+           private jupitersystemProvider: JupiterSystemProvider,
            private variableProvider: VariableProvider, 
-           private menuCtrl: MenuController, historyProivder: HistoryProvider) {
+           private menuCtrl: MenuController, historyProivder: HistoryProvider,
+           private app: App,
+           private alertCtrl : AlertController) {
 
         historyProivder.resetHistory("CoreCcCompanyPage");
         //this.menuCtrl = menuCtrl;
         this.menuCtrl.enable(false, 'mainMenu');        
-        console.log(GlobalProvider.getJupiterSystemData);
-        this.company = GlobalProvider.getJupiterSystemData.company;
+        //console.log(GlobalProvider.getJupiterSystemData);
+
+        //this.company = GlobalProvider.getJupiterSystemData.company;
         modulesProvider.ClearData();
+    
     }
+
+
+    ionViewDidEnter(){
+        if(this.variableProvider.hasInternet)
+                this.jupitersystemProvider.populateFromDb();
+
+    }
+
 
     openPage(item) {
         this
@@ -50,4 +61,69 @@ export class CoreCcCompanyPage {
             //return "url('spin.png')";
             //return "url('../assets/images/spin.png')";
     }
+
+
+    resetShowConfirm(tip) {
+        let message = "Potvrdom ćete morati ponovno unijeti autorizacijske podatke.\nŽelite li svejedno" +
+                " nastaviti?"
+
+        let confirm = this
+            .alertCtrl
+            .create({
+                title: 'Logout',
+                message: message,
+                buttons: [
+                    {
+                        text: 'Odustani',
+                        handler: () => {;
+                        }
+                    }, {
+                        text: 'Potvrdi',
+                        handler: () => {
+                            this.resetConfirmed(tip);
+                        }
+                    }
+                ]
+            });
+        confirm.present();
+    }
+
+    resetConfirmed(tip) {
+        this
+            .storage
+            .forEach((value, key, index) => {
+                if ((tip == 'auth' && (key == "refreshToken" || key == "company")) || tip == 'all') {
+                    this
+                        .storage
+                        .remove(key);
+                }
+            })
+            .then(() => {
+                this.variableProvider.company = null;
+                //GlobalProvider.setRefreshToken("");
+                this
+                    .app
+                    .getRootNav()
+                    .setRoot('CoreLoginPage', {}, {
+                        animate: true,
+                        direction: 'backward'
+                    });
+            });
+    }
+
+
+    doRefresh(refresher) {
+
+        setTimeout(() => {
+            if(this.variableProvider.hasInternet)
+                this.jupitersystemProvider
+                    .populateFromDb()
+                    .then(() => refresher.complete());
+            else
+                this.jupitersystemProvider
+                    .getDataFromStorage()
+                    .then(() => refresher.complete())
+         }, 1500);
+    }
+    
 }

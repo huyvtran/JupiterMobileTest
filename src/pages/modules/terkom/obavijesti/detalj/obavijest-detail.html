@@ -1,0 +1,26 @@
+<ion-header>
+  <js-header title="Detalji obavijesti" [showClose]="false"></js-header>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid>
+        <ion-row>
+            <ion-item no-lines text-wrap style="font-weight:bold;">{{obavijest.naslov}}</ion-item>
+        </ion-row>
+        <ion-row>
+            <ion-item class="row" no-lines text-wrap style="font-weight: 300;">{{obavijest.datumod | date:"dd.MM.yyyy"}} - {{obavijest.datumdo | date:"dd.MM.yyyy"}}</ion-item>
+          </ion-row>
+    </ion-grid>
+  
+  
+    <div class="hr"> </div>
+    <ion-item no-lines text-wrap>{{obavijest.partner === obavijest.lokacija ?  obavijest.lokacija : (obavijest.partner + ' / ' + obavijest.lokacija)}}</ion-item>
+
+    <div class="hr"> </div>
+
+    
+    <ion-item no-lines text-wrap><div [innerHTML] ="obavijest.obavijest"></div></ion-item>
+
+
+</ion-content>

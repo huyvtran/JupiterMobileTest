@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, ToastController} from 'ionic-angular';
+import { IonicPage, ToastController, NavController } from 'ionic-angular';
 //import _ from 'lodash';
 
 import {BasePage} from '../../../../providers/base/base-page';
@@ -14,7 +14,7 @@ export class HrmImenikPage extends BasePage {
 
     private imenik : Array < any > = new Array < any > ();
     
-    constructor(private toastCtrl: ToastController) {
+    constructor(private toastCtrl: ToastController, private navCtrl: NavController) {
         super();
 
         this
@@ -38,7 +38,7 @@ export class HrmImenikPage extends BasePage {
         }
         return this
             .global
-            .getData(dataDef, true);
+            .getData(dataDef);
 
     }
 
@@ -68,5 +68,11 @@ export class HrmImenikPage extends BasePage {
         toast.onDidDismiss(() => {});
     }
 
+    detailItem(item: any) {
+        console.log(item);
+        this
+        .navCtrl
+        .push('HrmImenikDetPage', {hrkadroviid: item.hrkadroviid});
+    }
 
 }

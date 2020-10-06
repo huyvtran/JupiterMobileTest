@@ -1,0 +1,51 @@
+<ion-header >
+    <js-header title="Inventura" [showClose]="true" [showFavorite]="true" ></js-header>
+
+
+</ion-header>
+
+<ion-content class="inventura">
+    <js-content></js-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Povuci za osvježavanje"
+            refreshingSpinner="circles"
+            refreshingText="Osvježavam podatke...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+
+
+        <ion-list > 
+            <ion-item-divider ion-item class="item-divider">
+                <ion-grid>
+                    <ion-row text-wrap>
+                        <ion-col class="bold">Skladište</ion-col>
+                    </ion-row>
+                    <ion-row text-wrap>
+                        <ion-col>Datum inventure</ion-col>
+                        <ion-col>Datum popisa</ion-col> 
+                        <ion-col col-1 ></ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item-divider>
+            <ion-item class="item-visina" *ngFor="let item of inventure" (click)="otvoriStavkuInventure(item)">
+                <ion-grid>
+                    <ion-row text-wrap>
+                        <ion-col class="item-bold">{{item.skladiste}} </ion-col>
+                        <ion-col ></ion-col>
+                        <ion-col col-1> <ion-icon *ngIf="item.indmulti == 1"  class="icon-inventura" name="contacts"></ion-icon> </ion-col>
+                    </ion-row>
+                    <ion-row text-wrap>
+                        <ion-col>{{item.datuminventure | date: 'dd.MM.yyyy'}}</ion-col> 
+                        <ion-col>{{item.datumpopisa | date: 'dd.MM.yyyy'}}</ion-col> 
+                        <ion-col col-1 ></ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>      
+    
+        
+    
+</ion-content>

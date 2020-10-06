@@ -1,0 +1,72 @@
+ 
+ <div style="background:#fafafa; padding:10px 0; border-bottom:1px solid #e2e2e2;">
+        <ion-grid>
+            <ion-row text-center>
+                <ion-col>
+                    <ion-card>
+                        <ion-card-header>
+                            Zadnja sinkronizacija
+                        </ion-card-header>
+                        <ion-card-content>
+                           {{syncDate? (syncDate | date: 'dd.MM.yyyy HH:mm') : '...' }}
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+                <ion-col>
+                        <ion-card>
+                            <ion-card-header>
+                                Nepročitane obavijesti
+                            </ion-card-header>
+                            <ion-card-content>
+                                    {{obavijestiService.obavijestiNeprocitaneCnt}} ({{obavijestiService.obavijestiCnt}})
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+            </ion-row>
+            <ion-row text-center>
+                <ion-col>
+                    <ion-card full>
+                        <ion-card-header>
+                            Neposlanih narudžbi
+                        </ion-card-header>
+                        <ion-card-content>
+                             {{neposlaneNarudzbeCnt}}
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+                <ion-col>
+                    <ion-card>
+                        <ion-card-header>
+                            Ukupno narudžbi
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{ukupnoNarudzbiCnt}}
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row> 
+            <ion-row text-center>
+                <ion-col>
+                    <ion-card full>
+                        <ion-card-header>
+                            Vrijednost neposlanih narudžbi
+                        </ion-card-header>
+                        <ion-card-content>
+                             {{vrijednostNespolanihNarudzbi | number : '1.2-2'}}
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+                <ion-col>
+                    <ion-card>
+                        <ion-card-header>
+                            Ukupna vrijednost narudžbi
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{ukupnaVrijednostNarudzbi | number : '1.2-2'}}
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+          
+        </ion-grid>
+    </div>

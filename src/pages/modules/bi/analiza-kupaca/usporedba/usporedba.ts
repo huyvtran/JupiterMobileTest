@@ -65,6 +65,9 @@ export class BiAnalizaKupacaUsporedba extends BasePage {
             "tablename":"ref"}
         }
 
+        let properties : ICore.IProperties = {
+           showLoader: false
+        }
 
         let dataDef : ICore.IData = {
             "queries": [
@@ -90,7 +93,7 @@ export class BiAnalizaKupacaUsporedba extends BasePage {
 
         return this
             .global
-            .getData(dataDef, false);
+            .getData(dataDef, properties);
 
     }
 

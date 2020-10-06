@@ -22,8 +22,27 @@ export interface IFile {
     endpoint: string;
 }
 
-export interface ILog{
+export interface ILog {
     log: string;
     refreshtoken: string;
 }
 //*****data end
+
+
+//***properties begin
+export class IProperties {
+    showLoader?: boolean 
+    errorMessageResponse?: boolean
+    errorMessageType?: string
+    errorMessageCloseButton?: boolean
+}
+
+
+export class IPropertiesCore extends IProperties{
+    tokenRequired?: boolean
+    jupiterSystem?: boolean
+    customApiEndPoint?: string
+    spinApiEndPoint?: string
+}
+
+//***properties end

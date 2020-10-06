@@ -1,0 +1,80 @@
+<ion-header>
+    <js-header title="{{inventuraNaziv}}" [showClose]="true" rootPage="UtilityInventuraTabsDetPage">
+    </js-header>
+    <!-- <ion-toolbar class="light">
+        <ion-searchbar (ionInput)="searchFn($event)" (ionCancel)="onCancel($event)" autocorrect="off"></ion-searchbar>
+    </ion-toolbar> -->
+</ion-header>
+<ion-content>
+    <js-content></js-content>
+    <ion-list>
+        <!-- <ion-item-sliding *ngFor="let item of imovinaListP | search: term:'naziv'"> -->
+        <ion-item-sliding *ngFor="let item of this.invProvider.listImovinaP">
+            <ion-item>
+                <h2 [hidden]="!(item.osimovinaid!=null&&item.osinventuradetid==null)" style="text-transform: capitalize; font-weight: bold; color: orange;">Neočekivano:</h2>
+                <h2 [hidden]="item.osimovinaid!=null" style="text-transform: capitalize; font-weight: bold; color: orangered">Dodatno:</h2>
+                <h2 style="text-transform: capitalize; font-weight: bold; color: #364b5e;">{{item.naziv}}</h2>
+                <p [hidden]="item.osimovinaid==null" class="item-description">Inv.broj: {{item.invbroj}} | Barcode:
+                    {{item.barcode}}</p>
+                <p [hidden]="item.osimovinaid!=null" class="item-description">{{item.memo}}</p>
+                <span [hidden]="item.osimovinaid==null||item.osinventuradetid==null" [style.color]="getPopisanaColor(item)">Količina:
+                    <span style="font-weight: bold;">
+                        {{item.popisanakolicina}}/{{item.smjestajnakolicina}}
+                    </span>
+                </span>
+                <span [hidden]="item.osimovinaid!=null&&item.osinventuradetid!=null">Količina:
+                    <span style="font-weight: bold;">
+                        {{item.popisanakolicina}}
+                    </span>
+                </span>
+            </ion-item>
+            <ion-item-options side="left">
+                <button color="primary" ion-button (click)="openModal(item)">
+                    <span class="button-inner" style="width: 50px; text-transform: none;">
+                        <ion-icon name="keypad"></ion-icon>
+                        Unesi
+                    </span>
+                </button>
+                <button color="medium" ion-button (click)="sideBarButtonClick('scanOne', item)">
+                    <span class="button-inner" style="width: 50px; text-transform: none;">
+                        <ion-icon name="add-circle"></ion-icon>
+                        Povećaj
+                    </span>
+                </button>
+                <button color="skin1" ion-button (click)="sideBarButtonClick('removeOne', item)">
+                    <span class="button-inner" style="width: 50px; text-transform: none;">
+                        <ion-icon name="remove-circle"></ion-icon>
+                        Smanji
+                    </span>
+                </button>
+            </ion-item-options>
+            <ion-item-options side="right">
+                <button color="secondary" ion-button (click)="sideBarButtonClick('scanAll', item)">
+                    <span class="button-inner" style="width: 50px; text-transform: none;">
+                        <ion-icon name="done-all"></ion-icon>
+                        Sve
+                    </span>
+                </button>
+                <button color="danger" ion-button (click)="sideBarButtonClick('removeAll', item)">
+                    <span class="button-inner" style="width: 50px; text-transform: none;">
+                        <ion-icon name="trash"></ion-icon>
+                        Obriši
+                    </span>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <ion-fab bottom right>
+        <button color="light" ion-fab>
+            <ion-icon name="apps"></ion-icon>
+        </button>
+        <ion-fab-list side="top">
+            <button color="danger" (click)="resetInventura()" ion-fab>
+                <ion-icon name="trash"></ion-icon>
+            </button>
+            <button color="secondary" ion-fab (click)="sendToDb()">
+                <ion-icon name="cloud-upload"></ion-icon>
+            </button>
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

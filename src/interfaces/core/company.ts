@@ -1,6 +1,6 @@
 export interface ICompany {
     name: string;
     db: string;
-    operateriId: number;
+    operateriid: number;
     icon: string;
 }

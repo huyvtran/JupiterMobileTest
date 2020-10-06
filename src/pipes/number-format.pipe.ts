@@ -16,7 +16,7 @@ export class NumberFormatPipe implements PipeTransform {
         decimalLength: number = 2): string {
         let numStr = value.toFixed(decimalLength);
         let num = numStr;
-        if (value > 999)
+        if (value > 999 || value < - 999)
             num = numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         let result =num.split('.').join('$').split(',').join('#').split('$').join(',').split('#').join('.');
         

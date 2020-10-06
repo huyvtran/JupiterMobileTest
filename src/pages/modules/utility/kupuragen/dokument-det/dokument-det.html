@@ -1,0 +1,66 @@
+<ion-header>
+    <js-header-modal title="KUP - napomena / potvrda"></js-header-modal>
+</ion-header>
+
+<ion-content no-padding>
+    <js-content></js-content>
+    <ion-item-sliding #slNp *ngIf="data.nacinplacanjavisible==1">
+        <button ion-item (click)="trazilica('nacinplacanja')"> 
+            <div class="trazilica-caption">{{data.nacinplacanjacaption}}:</div>
+            <div text-wrap>{{parametri.nacinnaplate}}</div>
+        </button>
+        <ion-item-options side="right">
+            <button ion-button icon-only (click)="clearValue(slNp, 'nacinnaplateid', 'nacinnaplate')" color="danger">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding #slOr *ngIf="data.orgshemavisible==1">
+        <button ion-item (click)="trazilica('orgshema')"> 
+            <div class="trazilica-caption">{{data.orgshemacaption}}:</div>
+            <div text-wrap>{{parametri.orgshemanaziv}}</div>
+        </button>
+        <ion-item-options side="right">
+            <button ion-button icon-only (click)="clearValue(slOr, 'orgshemaid', 'orgshemanaziv')" color="danger">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-item-options>
+    </ion-item-sliding>
+    <ng-container *ngIf="data.memo1visible==1">
+        <ion-item-divider ion-item color="light">
+            {{data.memo1caption}}
+        </ion-item-divider>
+        <ion-item>
+            <ion-textarea [(ngModel)]="parametri.memo1"  autosize></ion-textarea>
+        </ion-item>
+    </ng-container>
+    <ng-container *ngIf="data.memo2visible==1">
+        <ion-item-divider ion-item color="light">
+            {{data.memo2caption}}
+        </ion-item-divider>
+        <ion-item>
+            <ion-textarea [(ngModel)]="parametri.memo2"  autosize></ion-textarea>
+        </ion-item>
+    </ng-container>
+    <ng-container *ngIf="data.memo3visible==1">
+        <ion-item-divider ion-item color="light">
+            {{data.memo3caption}}
+        </ion-item-divider>
+        <ion-item>
+            <ion-textarea [(ngModel)]="parametri.memo3"  autosize></ion-textarea>
+        </ion-item>
+    </ng-container>
+</ion-content>
+
+<ion-footer>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-4>
+                <button (click)="odustani()" full ion-button round color="light">Odustani</button>
+            </ion-col>
+            <ion-col col-8>
+                <button full ion-button round [color]="status == 'odobri' ? 'secondary' : 'danger'" (click)="setStatus()">{{statusText}}</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

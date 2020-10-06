@@ -1,0 +1,66 @@
+<ion-header>
+    <js-header title="Odaberite vrstu inventure" [showClose]="true" [showFavorite]="true"></js-header>
+
+  <!-- <ion-navbar color="crvena">
+    <ion-title> Odaberite vrstu inventure</ion-title>
+    <ion-buttons end>
+        <button color="light" ion-button icon-only (click)="logout()">
+          <ion-icon style="font-size: 2em;" name="exit"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar> -->
+
+</ion-header>
+
+
+<ion-content >
+     <js-content></js-content> 
+
+    <!-- <ion-item-divider style="background: linear-gradient(to bottom, #364b5e, #3c5a77); color:white; font-size: 17px;" text-center>
+      {{ime}}
+    </ion-item-divider> -->
+
+  <ion-list>
+    <ion-item text-wrap (click)="online()">
+      <strong><span style="font-size: 18px; color:#54924d;">Online inventura</span></strong>
+      <br> Svaka evidencija se odmah šalje na server. Potrebna stalna internetska veza.
+    </ion-item>
+    
+    <ion-item text-wrap (click)="offline()"> 
+      <strong><span style="font-size:18px; color:#c0392b;">Offline inventura</span></strong>
+      <br> Evidencije se skupljaju na mobilnom uređaju, a na server se šalju tek na zahtjev. Internetska veza je potrebna samo
+      na početku rada kod preuzimanja liste robe i na kraju kod slanja evidencije na server.
+    </ion-item>
+  </ion-list>
+
+
+  <br>
+  <!-- <div text-center class="logo">
+    <img style="max-width:50%" src="images/icon.png" alt="jupiter" />
+  </div> -->
+   
+
+  <!-- <div class="sidemenu-footer" text-center>
+    <br> www.jupiter-software.com
+    <br> www.spin.hr
+    <br> v. 2.1
+    
+  </div> -->
+
+
+
+
+
+
+
+
+</ion-content>
+
+<!-- <ion-footer>
+    <div class="sidemenu-footer" text-center><br>
+     <button ion-button text-center (click)="ok()" color="skin"><span style="text-transform: uppercase">Ulaz</span></button>
+      www.jupiter-software.com <br>
+      www.spin.hr
+      <br><br>
+    </div>
+  </ion-footer> -->

@@ -1,0 +1,91 @@
+<ion-header>
+
+    <js-header title="{{inventuraNaziv}}" [showClose]="true" rootPage="UtilityInventuraTabsDetPage">
+        <!-- <button [hidden]="useOneClickScan == false" js-buttons-end clear style="color: yellow" (click)="warningInfo()"
+            ion-button icon-only>
+            <ion-icon name="warning"></ion-icon>
+        </button> -->
+        <button js-buttons-end clear color="light" (click)="openSettingsModal()" ion-button icon-only>
+            <ion-icon name="settings"></ion-icon>
+        </button>
+    </js-header>
+    <ion-toolbar class="light">
+        <ion-row>
+            <ion-col style="padding-right: 2px">
+                <ion-searchbar [(ngModel)]="this.invProvider.SearchString" placeholder="Upišite barcode" (ionInput)="searchFn($event)"
+                (ionFocus)="this.disablekeyboardListener(true)" (ionBlur)="this.disablekeyboardListener(false)">
+                </ion-searchbar>
+            </ion-col>
+            <ion-col class="toolbarButtonCol" >
+                <button ion-button class="toolbarButton" color="skin1"  (click)="openSearchModal()">
+                    <span class="button-inner">
+                        <ion-icon name="search"></ion-icon>
+                    </span>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+    <!-- <ion-toolbar> -->
+    <!-- (click)="editKolicina(1)" style="width: 50px; text-transform: none;" -->
+
+    <!-- </ion-toolbar> -->
+</ion-header>
+<ion-content>
+    <js-content></js-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Povuci za osvježavanje"
+            refreshingSpinner="circles"
+            refreshingText="Osvježavam podatke...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+        <ion-item-sliding *ngFor="let item of infiniteListImovinaO" (click)="tryScanItem(item)">
+            <ion-item>
+                <h2 style="text-transform: capitalize; font-weight: bold; color: #364b5e;">{{item.naziv}}</h2>
+                <p class="item-description">Inv.broj: {{item.invbroj}} | Barcode: {{item.barcode}}</p>
+                <span>Količina:
+                    <span style="font-weight: bold;">
+                        {{item.smjestajnakolicina-item.popisanakolicina}}/{{item.smjestajnakolicina}}
+                    </span>
+                </span>
+                <!-- </p> -->
+            </ion-item>
+            <ion-item-options side="left">
+                <button [hidden]="useOneClickScan==true" color="primary" ion-button (click)="openModal(item, true)">
+                    <span class="button-inner" style="width: 50px; text-transform: none;">
+                        <ion-icon name="keypad"></ion-icon>
+                        Unesi
+                    </span>
+                </button>
+            </ion-item-options>
+            <ion-item-options side="right">
+                <button [hidden]="useOneClickScan==true" color="secondary" ion-button (click)="doScan(item, 'scanAll')">
+                    <span class="button-inner" style="width: 50px; text-transform: none;">
+                        <ion-icon name="done-all"></ion-icon>
+                        Sve
+                    </span>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        [loadingText]="getDynamicLoadingText()" >
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ion-fab bottom right>
+        <button ion-fab (click)="openMemoModal()">
+            <ion-icon name="create"></ion-icon>
+        </button>
+    </ion-fab>
+    <ion-fab [hidden]="!useScanWithMobile" bottom left>
+        <button ion-fab (click)="scanBarcode()">
+            <ion-icon name="barcode"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

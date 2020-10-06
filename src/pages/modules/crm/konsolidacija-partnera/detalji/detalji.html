@@ -13,18 +13,36 @@
 <ion-content>
     <js-content></js-content>
 
-    <ion-item-divider color="light">
-        <div text-right style="padding-right: 15px; font-size: 13px;"> Saldo kupca / dobavljača</div>
+    <ion-item-divider color="medium">
+        <!-- <div text-right style="padding-right: 15px; font-size: 13px;"> Saldo kupca / dobavljača</div> -->
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6 text-wrap style="font-size: 14px;">
+                    <strong>Broj računa</strong>
+                    <br> Datum dokumenta
+                    <br>(Šifra) Partner
+                    <br> OIB
+                    <br>
+                </ion-col>
+                <ion-col text-wrap col-6 text-right style="font-size: 13px;">
+                    <strong>
+                    Saldo kupca
+                    /
+                    dobavljača
+                    </strong>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </ion-item-divider>
 
     <ion-item *ngFor="let item of items">
         <ion-grid>
             <ion-row>
                 <ion-col col-6 text-wrap style="font-size: 14px;">
-                    <strong>{{item.brojracuna}}</strong><br> {{item.c}}
-                    <br> {{item.datumdok}}
+                    <strong>{{item.brojracuna}}</strong> 
+                    <br> {{item.datumdok | date: 'dd.MM.yyyy.'}}
+                    <br> ({{item.c}}) {{item.n}}
                     <br> {{item.oib}}
-                    <br> {{item.partneriid}}
                     <br>
                 </ion-col>
                 <ion-col text-wrap col-6 text-right style="font-size: 13px;">

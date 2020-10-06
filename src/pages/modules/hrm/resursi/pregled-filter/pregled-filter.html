@@ -37,7 +37,9 @@
             <ion-label>{{resurs.naziv}}</ion-label>
             <ion-checkbox color="dark" checked="true" [(ngModel)]="resurs.checked"></ion-checkbox>
         </ion-item>
+        <br><br><br>
     </ion-list>
+    
 
     <ion-fab bottom right>
         <button ion-fab (click)="prikazi()" [disabled]="buttonState()"><ion-icon name="checkmark"></ion-icon></button>

@@ -43,9 +43,31 @@ export class BiAnalizaNabaveUsporedba extends BasePage {
 
     }
 
+
+
     setDataDef() {
+        let queryRef;
+        if (this.provider.parametriRef.include == true)
+        {
+            queryRef = {
+                "query": "spMobManAnalizaNabave",
+                "params": {
+                    "dat1": this.provider.parametriRef.datumod,
+                    "dat2": this.provider.parametriRef.datumdo,
+                    "org": this.provider.parametriRef.orgshemaid,
+                    "klm": this.provider.parametriRef.klmasterrobaid,
+                    "osobeid": this.provider.parametriRef.odgovornaosobaid,
+                    "parid": this.provider.parametriRef.partnerid
+                },
+                "tablename":"ref"
+            }
+        }
+
+        let properties : ICore.IProperties = {
+            showLoader: false
+         }
+
         let dataDef : ICore.IData = {
-        
             "queries": [
                 {
                     "query":  "spMobManAnalizaNabave",
@@ -58,26 +80,21 @@ export class BiAnalizaNabaveUsporedba extends BasePage {
                         "parid": this.provider.parametriIzv.partnerid
                     },
                     "tablename":"izv"
-                },
-                {
-                    "query": "spMobManAnalizaNabave",
-                    "params": {
-                        "dat1": this.provider.parametriRef.datumod,
-                        "dat2": this.provider.parametriRef.datumdo,
-                        "org": this.provider.parametriRef.orgshemaid,
-                        "klm": this.provider.parametriRef.klmasterrobaid,
-                        "osobeid": this.provider.parametriRef.odgovornaosobaid,
-                        "parid": this.provider.parametriIzv.partnerid
-                    },
-                    "tablename":"ref"
                 }
             ]
         }
+
+        if (queryRef != null) 
+        {
+            dataDef.queries.push(queryRef);
+        }
+
         return this
             .global
-            .getData(dataDef, false);
+            .getData(dataDef, properties);
 
     }
+
 
     setDataValues() {
         

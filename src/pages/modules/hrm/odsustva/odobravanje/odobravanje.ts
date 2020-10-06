@@ -112,7 +112,7 @@ export class HrmOdsustvaOdobravanjePage extends BasePage {
         }
         this
             .global
-            .getData(data, true)
+            .getData(data)
             .then(() => this.global.presentToast("Selektirana odsustva su odobrena."))
             .then(() => this.getData(false))
             .catch(ex => this.global.logError(ex, false));
@@ -134,5 +134,20 @@ export class HrmOdsustvaOdobravanjePage extends BasePage {
         setTimeout(() => {
             this.getData(false).then(() => refresher.complete());
          }, 1500);
+    }
+
+
+    presentOdobravanjeDetailPage(resurs) {
+
+     
+        // let params = {
+        //     "hrresursiid": resurs.hrresursiid,
+        //     "resursNaziv": resurs.naziv,
+        //     "osoba": resurs.osoba
+        // }
+
+        this
+            .navCtrl
+            .push('HrmOdsustvaOdobravanjeDetPage', {resurs : resurs});
     }
 }

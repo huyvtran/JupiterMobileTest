@@ -1,0 +1,32 @@
+<ion-header>
+    <js-header title="Imovina :: postavke">
+    </js-header>
+</ion-header>
+<ion-content>
+    <ion-content>
+        <js-content></js-content>
+        <ion-item>
+            <ion-toggle item-start (click)="checkUseOneClickScan()" [(ngModel)]="useOneClickScan"></ion-toggle>
+            <ion-label style="text-transform: none; font-weight: bold; color: #364b5e;">Prenesi jednim klikom</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-toggle item-start (click)="checkUseScanWithMobile()" [(ngModel)]="useScanWithMobile"></ion-toggle>
+            <ion-label style="text-transform: none; font-weight: bold; color: #364b5e;">Omogući skeniranje mobitelom</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-toggle item-start (click)="checkUseOpenForm()" [(ngModel)]="useOpenForm"></ion-toggle>
+            <ion-label style="text-transform: none; font-weight: bold; color: #364b5e;">Forma za količine veće od:</ion-label>
+            <ion-input text-center disabled="{{!useOpenForm}}" style="font-weight: bold; font-size: 20px; color: #364b5e "
+                type="number" [(ngModel)]="bcdFormOpenCnt"></ion-input>
+        </ion-item>
+    </ion-content>
+    <ion-footer>
+        <ion-toolbar>
+            <div style="margin:8px">
+                <button ion-button full color="light" style="border: 1px solid #ccc" (click)="confirm()">Potvrdi</button>
+            </div>
+            <div style="margin:8px">
+                <button ion-button full color="light" style="border: 1px solid #ccc" (click)="dismiss()">Odustani</button>
+            </div>
+        </ion-toolbar>
+    </ion-footer>

@@ -1,0 +1,87 @@
+<ion-header>
+  <js-header title="Donos stavki"></js-header>
+</ion-header>
+  
+<ion-content no-padding (ionScroll)="onScrollStart($event)">
+  <js-content></js-content>
+  <js-nodata *ngIf="stavkeDonosList.length==0 && listaUcitanaInd" message="Trenutno nema stavki za donos"></js-nodata>
+  <ion-list *ngIf="stavkeDonosList.length>0" >
+    <!-- <ion-item-divider ion-item color="light">
+      <span style="margin-left:15px; font-weight:bold; color:rgb(50,100,255);">Označi sve</span>
+      <button clear item-left ion-button icon-only (click)="checkAll()">
+        <ion-icon name="checkbox-outline" *ngIf="selectedOptions.length==stavkeDonosList.length"></ion-icon>
+        <ion-icon name="square-outline" *ngIf="selectedOptions.length!=stavkeDonosList.length"></ion-icon>
+      </button>
+    </ion-item-divider> -->
+    <ion-item *ngFor="let stavka of stavkeDonosList; let i = index;">
+        <ion-item-divider ion-item color="light" text-wrap style="background-color: beige;">
+            <ion-grid item-start class="grupe-grid">
+                <ion-row>
+                  <ion-col col-1>
+                    <div>
+                      <button (click)="toggleGroup(i, stavka)" class="toggleGroup">
+                        <ion-icon item-left name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </div>
+                  </ion-col>
+                  <ion-col col-1>
+                    <div>
+                      <ion-checkbox (click)="checkGroup(i, stavka)" [(ngModel)]="stavka.checked" item-start color="dark"></ion-checkbox>
+                    </div>
+                  </ion-col>
+                  <ion-col col-10>
+                    <div style="margin-top: 8px;">
+                      <b>{{stavka.datumdok | date:'dd.MM.yyyy'}}</b>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+        </ion-item-divider>
+        <ion-list>
+            <div *ngIf="stavka.open == true">
+            <ion-item *ngFor="let s of stavka.stavke; let j = index;">
+                <ion-item-divider ion-item color="light" text-wrap>
+                  <ion-checkbox item-start color="dark" (click)="checkItem(s, stavka, j)" [(ngModel)]="s.checked"></ion-checkbox>
+                  <ion-grid item-end>
+                    <ion-row>
+                      <span><b>{{s.robanaziv}}</b></span>
+                    </ion-row>
+                    <ion-row>
+                      <span>Šifra: {{s.robaid}}</span>
+                    </ion-row>
+                  </ion-grid>
+                </ion-item-divider>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>Narudžba: {{s.broj}}</ion-col><ion-col class="textAlignRight">Datum: {{s.datumdok | date:'dd.MM.yyyy.'}}</ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>Naručena količina: <b>{{s.narucenakolicina}}</b></ion-col>
+                    <ion-col class="textAlignRight">Otvorena količina: <b>{{s.otvorenakolicina}}</b></ion-col>
+                  </ion-row>
+                  <ion-row text-wrap>
+                    <ion-col>Skladište: {{s.skladiste == null ? "-" : s.skladiste}}</ion-col>
+                  </ion-row>
+                </ion-grid>
+            </ion-item>
+          </div>
+        </ion-list>
+    </ion-item>
+  </ion-list>
+  <button ion-button full color="skin1" style="opacity:0.5 !important" *ngIf="listScrolledDown && stavkeDonosList.length!=originalStavkeDonosList.length"
+    (click)="forceDoInfinite()">Učitaj još {{(stavkeDonosList.length + inifiniteScrollPomak)}} / {{originalStavkeDonosList.length}}</button>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [ngClass]="stavkeDonosList.length==originalStavkeDonosList.length ? 'hideInfScroll' : ''">
+    <ion-infinite-scroll-content  [ngClass]="stavkeDonosList.length==originalStavkeDonosList.length ? 'hideInfScroll' : ''"
+      loadingSpinner="bubbles"
+      [loadingText]="getDynamicLoadingText()">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!-- <ion-fab class="listFab" top right *ngIf="listScrolledDown">
+      <button ion-fab mini color="skin1" (click)="scrollToTopOfList(500)"><ion-icon name="ios-arrow-up"></ion-icon></button>
+  </ion-fab> -->
+  <ion-fab bottom right class="ionFabMargin">
+    <button ion-fab (click)="donesiStavke()" [disabled]="selectedOptions.length == 0"><ion-icon name="checkmark"></ion-icon></button>
+  </ion-fab>
+</ion-content>

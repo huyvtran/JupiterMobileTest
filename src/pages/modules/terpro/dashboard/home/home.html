@@ -1,0 +1,44 @@
+<ion-header>
+    <js-header title="TerPro" [showClose]="true" [showFavorite]="false"  type="apps" [showSub]="true"></js-header>
+
+</ion-header>
+
+<ion-content>
+    <terpro-component #component></terpro-component>
+    
+    <ion-item-divider>
+        TerPro
+    </ion-item-divider>
+    <ion-item-group>
+
+        <button ion-item (click)="startModule('TerproNarudzbaPregledPage')">
+            Narudžbe
+        </button>
+        <button ion-item (click)="startModule('TerproObilazakPage')">
+            Prodaja
+        </button>
+        <button ion-item (click)="startModule('TerproKomunikacijaPage')">
+            Prijenos
+        </button>
+        <button ion-item (click)="startModule('TerproIzvjestajiPage')">
+            Pregled
+        </button>
+        <button ion-item (click)="startModule('TerproPocetakRadaPage')">
+            Kilometraža
+        </button>
+    </ion-item-group>
+
+    <!-- <ion-item-divider>
+       Utility
+    </ion-item-divider>
+    <ion-item-group>
+
+        <button ion-item (click)="startModule('UtilityKupUraDokumentiPage')">
+            Odobravanje KUP/URA
+        </button>
+        <button ion-item (click)="startModule('UtilityDMSManagerPage')">
+            DMS
+        </button>
+
+    </ion-item-group> -->
+</ion-content>

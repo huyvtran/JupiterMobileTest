@@ -1,0 +1,54 @@
+<ion-header >
+    <js-header title="Odabir kontingenta" [showClose]="true"> </js-header>
+    
+
+</ion-header>
+
+<ion-content class="inventura">
+    <js-content></js-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Povuci za osvježavanje"
+            refreshingSpinner="circles"
+            refreshingText="Osvježavam podatke...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+
+
+        <ion-list > 
+            <ion-item-divider ion-item class="item-divider" >
+                <ion-grid>
+                    <ion-row text-wrap>
+                        <ion-col col-5 class="item-bold">Broj kontingenta</ion-col>
+                        <ion-col *ngIf="this.inventuraProvider.indimei == 1" >IMEI</ion-col>
+                    </ion-row>
+                    <ion-row text-wrap>
+                        <ion-col col-5>Rok Trajanja</ion-col>
+                        <ion-col  *ngIf="this.inventuraProvider.indimei == 1" col-5 >IMEI2</ion-col> 
+                        
+                    </ion-row>
+                </ion-grid>
+            </ion-item-divider>
+            <ion-item class="item-visina" *ngFor="let item of kontingenti" (click)="odaberiKontingent(item)">
+                <ion-grid>
+                    <ion-row text-wrap>
+                        <ion-col col-5 class="bold">{{item.kontingent}} </ion-col>
+                        <ion-col col-5 *ngIf="this.inventuraProvider.indimei == 1"  >{{item.imei}}</ion-col>
+                        
+                    </ion-row>
+                    <ion-row text-wrap>
+                        <ion-col col-5>{{item.datum | date: 'dd.MM.yyyy'}}</ion-col> 
+                        <ion-col col-5 *ngIf="this.inventuraProvider.indimei == 1" >{{item.imei2}}</ion-col> 
+                        
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>      
+
+        <ion-footer>
+            <button class="button-kontingent" ion-button (click)="dismiss()"> izlaz </button>
+          </ion-footer>
+    
+</ion-content>

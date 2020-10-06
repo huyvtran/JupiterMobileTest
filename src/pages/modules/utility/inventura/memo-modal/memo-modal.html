@@ -1,0 +1,30 @@
+<ion-header>
+  <js-header title="Inventura :: dodatni unos">
+  </js-header>
+</ion-header>
+<ion-content>
+  <js-content></js-content>
+  <div style="margin-left: 20px;">
+    <ion-label style="font-weight: bold; color: #364b5e;">Unesite podatke (sva polja obavezna):</ion-label>
+  </div>
+  <ion-item>
+    <ion-input style="background-color: white; font-size: 15px" [(ngModel)]="varNaziv" placeholder="Naziv"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input style="background-color: white; font-size: 15px" [(ngModel)]="varKolicina" type="number" placeholder="Količina"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-textarea style="background-color: white; font-size:15px" [(ngModel)]="varOpis" placeholder="Opis pronađene imovine"
+      maxlength="500" rows="10" type="text"></ion-textarea>
+  </ion-item>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div style="margin:8px">
+      <button ion-button full color="light" style="border: 1px solid #ccc" (click)="confirm()">Potvrdi</button>
+    </div>
+    <div style="margin:8px">
+      <button ion-button full color="light" style="border: 1px solid #ccc" (click)="closeModal()">Odustani</button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

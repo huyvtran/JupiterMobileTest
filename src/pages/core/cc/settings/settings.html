@@ -38,6 +38,24 @@
             <ion-radio value="gold" disabled="true"></ion-radio>
         </ion-item>
     </ion-list>
+   <ion-list radio-group [(ngModel)]="orientationType" *ngIf="screenOrientation.isTablet"> 
+        <ion-item-divider ion-item color="light">
+            PROMJENA ORIJENTACIJE ZASLONA
+            <ion-icon item-left name="swap"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Omogući landscape prikaz</ion-label>
+            <ion-toggle [(ngModel)]="islandscape" (ionChange)="enableLandscapeOrientation('islandscape',islandscape)"></ion-toggle>
+        </ion-item>
+        <ion-item item-end>
+            <ion-label>Primary</ion-label>
+            <ion-radio value="primary" [disabled]="isDisabled" (ionSelect)="selectionChanged('landscapeorientation')"></ion-radio>
+        </ion-item>
+        <ion-item item-end>
+            <ion-label>Secondary</ion-label>
+            <ion-radio value="secondary" [disabled]="isDisabled" (ionSelect)="selectionChanged('landscapeorientation')"></ion-radio>
+        </ion-item>
+    </ion-list>
     <ion-list>
         <ion-item-divider ion-item color="light">
             SIGURNOST
@@ -55,7 +73,7 @@
         </ion-item-divider>
         <ion-item>
             <ion-label>Omogući pushup notifikacije</ion-label>
-            <ion-toggle checked="true"></ion-toggle>
+            <ion-toggle  [(ngModel)]="variableProvider.loginData.pushEnabled" [disabled]="!variableProvider.hasInternet" (ionChange)="pushEnableChange()"></ion-toggle>
         </ion-item>
     </ion-list>
 </ion-content>

@@ -18,6 +18,7 @@ export class CRMKonsolidacijaFilterFormaPage extends BasePage {
   items: any [] = [];
   checked = false;
   moze = false;
+  nisusvioznaceni=false;
   parametriupita:any={
                       action:0,
                        skladisteid:null
@@ -66,7 +67,7 @@ export class CRMKonsolidacijaFilterFormaPage extends BasePage {
     ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
 
   }
 
@@ -104,6 +105,27 @@ export class CRMKonsolidacijaFilterFormaPage extends BasePage {
   }
 
   toggleFirme(item){
+    this.nisusvioznaceni=false;
+    if(this.checked==true){
+      this.checked=false;
+    }
+    if(this.checked==false){
+      this.items.forEach((item) => {
+         
+        if(item.odabrano==false){
+          this.nisusvioznaceni=true;
+        }
+
+    });
+    if(this.nisusvioznaceni==false)
+    {
+      this.checked=true;
+    }
+    else{
+      this.checked=false;
+    }
+    
+    }
     console.log('ulazak u metodu',item); 
     let dataDef: ICore.IData = {
       "queries": [
@@ -120,7 +142,7 @@ export class CRMKonsolidacijaFilterFormaPage extends BasePage {
     ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
   }
 
   toggleFirmeUnchecked(){
@@ -139,7 +161,7 @@ export class CRMKonsolidacijaFilterFormaPage extends BasePage {
     ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
   }
 
   toggleFirmeChecked(){
@@ -157,18 +179,18 @@ export class CRMKonsolidacijaFilterFormaPage extends BasePage {
     ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
   }
 
   izaberi(action){
     this.parametriupita.action=action;
-    let modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
+    this.global.modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
     //this.parametriupita
     {'action':action, 'skladisteid':this.parametriupita.skladisteid, 'robaid': this.parametriupita.robaid, 'klmasterrobaid':this.parametriupita.klmasterrobaid
     , 'partneriid':this.parametriupita.partneriid, 'cjenikid':this.parametriupita.cjenikid }
   );
-    modal.present();
-    modal.onDidDismiss(data => {
+  this.global.modal.present();
+  this.global.modal.onDidDismiss(data => {
       if(data==null){
         console.log('data je null');
         data={action:0};
@@ -194,7 +216,7 @@ export class CRMKonsolidacijaFilterFormaPage extends BasePage {
         
 
       }
-
+      this.global.modal=null;
       });
   }
 

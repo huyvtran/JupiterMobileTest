@@ -1,0 +1,51 @@
+<ion-header>
+    <js-header title="Filter" [showClose]="false">
+        <button js-buttons-end clear color="light" (click)="pretrazi()" ion-button icon-only>
+            Traži
+        </button>
+        <button js-buttons start clear color="light" (click)="dismiss()" ion-button icon-only>
+            Odustani
+        </button>
+    </js-header>
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+   
+       <ion-list>
+
+            <ion-item-divider ion-item color="light">
+                Odaberite period
+                <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+                <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+                    <ion-icon name="md-calendar"></ion-icon>
+                </button>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label>Datum od:</ion-label>
+                <ion-datetime [(ngModel)]="provider.parametri.datumod" displayFormat="DD.MM.YYYY" min="2000-01-01"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label>Datum do:</ion-label>
+                <ion-datetime [(ngModel)]="provider.parametri.datumdo" displayFormat="DD.MM.YYYY" min="2000-01-01" max="2040"></ion-datetime>
+                <!-- <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>       -->
+            </ion-item>
+            <ion-item-divider ion-item color="light">
+                Odaberite partnera
+                <ion-icon item-left name="cart"></ion-icon>
+            </ion-item-divider>
+            <ion-item-sliding #slPr>
+                <button ion-item (click)="trazilicaAuto('partner')">
+                    <div class="trazilica-caption">Partner:</div>
+                    <div class="filter-text" text-wrap>{{provider.parametri.partnerinaziv}}</div>
+                </button>
+                <ion-item-options side="right">
+                    <button ion-button icon-only (click)="clearValue(slPr, 'partneriid', 'partnerinaziv')" color="danger">
+                        <ion-icon name="close"></ion-icon>
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+
+        </ion-list>
+</ion-content>

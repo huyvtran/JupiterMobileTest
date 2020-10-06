@@ -1,0 +1,63 @@
+<ion-header>
+    <js-header title="Filter" [showClose]="false">
+        <button js-buttons-end clear color="light" (click)="pretrazi()" ion-button icon-only>
+            Traži
+        </button>
+        <button js-buttons start clear color="light" (click)="dismiss()" ion-button icon-only>
+            Odustani
+        </button>
+    </js-header>
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+
+    <ion-list>
+
+        <ion-item-divider ion-item color="light">
+            Dokument
+            <ion-icon item-left name="cart"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Naziv:</ion-label>
+            <ion-input [(ngModel)]="dms.parametri.naziv" clearInput></ion-input>
+            <!-- <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>       -->
+        </ion-item>
+        <ion-item>
+            <ion-label>Tekst:</ion-label>
+            <ion-input [(ngModel)]="dms.parametri.tekst" clearInput></ion-input>
+            <!-- <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>       -->
+        </ion-item>
+        <ion-item-divider ion-item color="light">
+            Dodano u dms
+            <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+            <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+                <ion-icon name="md-calendar"></ion-icon>
+            </button>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Datum od:</ion-label>
+            <ion-datetime [(ngModel)]="dms.parametri.datumdodanood" displayFormat="DD.MM.YYYY" min="2000-01-01"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Datum do:</ion-label>
+            <ion-datetime [(ngModel)]="dms.parametri.datumdodanodo" displayFormat="DD.MM.YYYY" min="2000-01-01" max="2040"></ion-datetime>
+            <!-- <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>       -->
+        </ion-item>
+        <ion-item-divider ion-item color="light">
+            Osobe
+            <ion-icon item-left name="cart"></ion-icon>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Kreator:</ion-label>
+            <ion-input [(ngModel)]="dms.parametri.kreator" clearInput></ion-input>
+            <!-- <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>       -->
+        </ion-item>
+        <ion-item>
+            <ion-label>Vlasnik:</ion-label>
+            <ion-input [(ngModel)]="dms.parametri.vlasnik" clearInput></ion-input>
+            <!-- <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>       -->
+        </ion-item>
+    </ion-list>
+</ion-content>

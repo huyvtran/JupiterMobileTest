@@ -1,0 +1,107 @@
+
+$categories: (
+ ionic: color($colors, primary),
+ 0: #cc0000,
+ 1: #3BC7C4
+);
+
+@function auxiliary-categories() {
+  @return map-remove($categories);
+}
+
+
+page-terkom-dashboard-homepage{
+
+.datelbl{
+  margin: 10px;
+}
+	
+ion-card {
+    position: relative;
+    text-align: center;
+}
+
+.button-clear{
+	color: #c0c0c0;
+}
+
+
+
+
+.simple-card{
+  $SIDEMENU_TOP: #b3b3b3;
+  $SIDEMENU_BOTTOM: white;
+    .icon {
+         color : #999;
+      }
+      .note{
+        color : #999;
+      }
+
+    background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient(to bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+
+}
+.warning-card {
+    $SIDEMENU_TOP: #C0392B;
+    $SIDEMENU_BOTTOM: #F8EBE9;
+     .icon {
+         color : #000;
+         background: transparent!important;
+         
+      }
+      .note{
+        color : #000;
+      }
+
+
+    background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient(to bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+}
+
+.icon{
+  padding-right: 5px;
+}
+.note{
+  padding-bottom: 30px;
+  font-size: 1.5rem!important;
+}
+.card-header {
+    font-size: 1.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #000;
+    padding-bottom: 0px;
+}
+
+.card-content {
+    font-size: 1.0em;
+    width: 100%;
+    color: #fff;
+  }
+
+    @each $track, $value in auxiliary-categories() {
+      ion-label[track="#{$track}"] {
+        border-left: 10px solid $value;
+        padding-left: 10px;
+      }
+    }
+
+
+  .label-md{
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+
+  .button-clear-md.hover{
+      background-color: transparent!important;
+  }
+
+
+
+
+}

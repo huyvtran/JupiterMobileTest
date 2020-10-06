@@ -1,0 +1,28 @@
+<ion-header>
+  <js-header title="Pregled obavijesti" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-list-header [hidden]="obavijestiService.obavijesti?.length == 0">
+      Obavijesti
+    </ion-list-header>
+    <ion-list-header class="header-mid" [hidden]="obavijestiService.obavijesti?.length > 0">
+      Nema obavijesti
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let obavijest of obavijestiService.obavijesti" [attr.track]=obavijest.procitano>
+      <button ion-item (click)="prikaziDetalje(obavijest)">
+        <h2 text-wrap>{{obavijest.naslov}}</h2>
+        <h3 text-wrap>{{obavijest.datumod | date:"dd.MM.yyyy"}} - {{obavijest.datumdo | date:"dd.MM.yyyy"}}</h3>
+        <h3 text-wrap *ngIf="obavijest.partner!=obavijest.lokacija">{{obavijest.partner}}</h3>
+        <h3 text-wrap>{{obavijest.lokacija}} </h3>
+        <p text-wrap> {{obavijest.featured}}</p>
+      </button>
+    </ion-item-sliding>
+
+  </ion-list>
+
+</ion-content>

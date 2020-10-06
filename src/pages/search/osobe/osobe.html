@@ -1,0 +1,24 @@
+<ion-header>
+    <js-header title="Tražilica osoba" [showClose]="true"></js-header>
+    <ion-toolbar primary>
+        <ion-searchbar (ionInput)="search($event)" focuser autocorrect="off" placeholder="Tražilica (min. 2 znaka)..."></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ng-container *ngIf="historyHidden==false">
+        <ion-item-divider color="light">Posljednje pretrage...</ion-item-divider>
+        <ion-list>
+            <button ion-item (click)="detailItem(item)" *ngFor="let item of provider.storageData">
+                {{item.naziv}}
+            </button>
+        </ion-list>
+    </ng-container>
+
+
+    <ion-list>
+        <button ion-item *ngFor="let item of data" (click)="detailItem(item)">
+            <span [innerHTML]="item.naziv | highlightify:keyword"></span>
+        </button>
+    </ion-list>
+</ion-content>

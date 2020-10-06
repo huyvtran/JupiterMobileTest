@@ -1,0 +1,56 @@
+page-mp-stanje-filterforma {
+    .item-ios {
+        font-size: 1.4rem;
+    }
+    .ikonavelika{
+        font-size: 3em !important;
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+        top:15%;
+        transform:translateY(-15%);
+    }
+    .nemapodataka{        
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+        top:25%;
+        transform:translateY(-25%);  
+    }
+    .grid, .row, .col {
+        padding: 0px;
+    }
+    .plava {
+        color: #488aff; 
+        font-weight: bold;
+    }
+    #option-icon .icon-md {
+        font-size: 1.2em!important;
+    }
+    // .label-md, .label-ios {
+    //     margin: 7px 8px 7px 0;
+    // }
+   
+    #label2 .label-md, #label2 .label-ios{
+        margin: -3px 7px -3px 0;
+    }
+    #label2 .item-md, #label2 .item-ios {
+        padding-left: 5px;
+    }
+    // .icon-md {
+    //     font-size: 1.2em;
+    //     padding-bottom: 0px!important;
+    // }
+    // .icon-ios {
+    //     font-size: 1.5em!important;
+    //     padding-bottom: 0px!important;
+    // }
+    .label-md, .label-ios {
+        margin: 9px 8px 7px 0;
+    }
+    #button-ios .button-ios {
+        height: 2.5em!important;
+    }
+}

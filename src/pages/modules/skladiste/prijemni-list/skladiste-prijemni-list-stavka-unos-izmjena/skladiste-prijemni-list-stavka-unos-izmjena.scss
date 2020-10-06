@@ -1,0 +1,51 @@
+page-skladiste-prijemni-list-stavka-unos-izmjena {
+    .trazilica-caption {
+        float: left;
+        color:black;
+    }
+    .filter-text {
+        float: right;
+    }
+
+    ion-list {
+        height:100%;
+        // margin-bottom: 150px !important;
+    }
+    .maxHeight {
+        height:50%;
+    }
+    ion-textarea {
+        height:8rem!important;
+        border:1px solid #ddd; 
+        background: #fff;
+        padding:8px !important;
+        font-size: 12px;
+
+        textarea {
+            height:100%;
+        }
+    }
+
+    .toolbar-md{
+
+        min-height: 46px;
+        padding: 0px;
+    }
+
+    .btnSpremi{
+
+    }
+
+    input {
+        text-align: right !important;
+    }
+
+    label-md {
+        width:200px !important
+    }
+
+    .ionFabMargin {
+        margin-left: 280px;
+        margin-top: 5px;
+    }
+}

@@ -1,0 +1,27 @@
+page-izvjestaji-stanje-skladista-kartica {
+
+  .list-header .item-inner{
+			text-align: center;
+	}
+
+	.item-ios {
+		font-size: 1.4rem;
+}
+
+.grid, .row, .col {
+		padding: 0px;
+}
+.label-md, .label-ios {
+		margin: 7px 8px 7px 0;
+}
+.item-md, .item-ios {
+		padding-left: 5px;
+}
+.item-md.item-block .item-inner {
+		padding-right: 0px;
+}
+.item-ios.item-block .item-inner {
+		padding-right: 0px;
+}
+
+}

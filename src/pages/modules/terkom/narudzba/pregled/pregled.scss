@@ -1,0 +1,88 @@
+
+$categories: (
+ ionic: color($colors, primary),
+ 0: #cc0000,
+ 1: green
+);
+
+@function auxiliary-categories() {
+  @return map-remove($categories);
+}
+
+
+page-pregled {
+	
+	.list-header {
+	border-top: none;
+	}
+
+	.list-header .item-inner{
+		text-align: center;
+	}
+
+	.item{
+		padding-left:5px;
+	}
+
+
+	h3{
+		color:#C0392B; 
+		font-size: 1.6rem!important; 
+
+	}
+
+	h4{
+		color:#C0392B; 
+		font-size: 1.4rem!important; 
+
+	}
+
+	.label{
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+
+	.action-sheet-wrapper{
+		width:50%;
+	}
+
+
+
+	@each $track, $value in auxiliary-categories() {
+		ion-item-sliding[track="#{$track}"] ion-label {
+			border-left: 5px solid $value;
+			padding-left: 5px;
+			h3{
+				color: $value
+			}
+		}
+
+	}
+
+
+	.item-md ion-icon[item-start]{
+		color: #C0392B;
+	}
+
+	.item-md {
+		background-color: transparent!important;
+	}
+
+	.item-block{
+		min-height: 3.5rem;
+	}
+
+	.datetime-md {
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	
+}
+
+
+
+
+
+
+
+

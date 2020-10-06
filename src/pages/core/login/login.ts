@@ -6,6 +6,7 @@ import { Platform } from 'ionic-angular';
 import {GlobalProvider} from '../../../providers/core/global-provider';
 import {VariableProvider} from '../../../providers/core/variable-provider';
 import {LoginProvider} from '../../../providers/login/login-provider';
+import { PushNotificationService } from '../../../providers/native/push/push-provider';
 
 
 
@@ -20,7 +21,11 @@ export class CoreLoginPage {
 
     private login: string;
 
+    htmlStr="&#92;";
+    htmlCaption="domain&#92;username";
+
     constructor(public navCtrl : NavController, public navParams : NavParams, private storage : Storage,
+        private pushService: PushNotificationService,
         private toastCtrl : ToastController,
         private platform: Platform,
         //private uniqueDeviceID: UniqueDeviceID,
@@ -56,13 +61,16 @@ export class CoreLoginPage {
             return this.setVariables();
         }).then((val) => {
             console.log("step 5");
-            self.msg = "startanje...";
+            self.msg = "pokretanje...";
             setTimeout(function() {
                 self.global.pushPage('CoreCcCompanyPage');
             }, 2000);
-        });
-
-
+        })
+        .then((res) => {
+            console.log("step 6");
+            console.log("init pusha")
+            this.pushService.initPush();
+        })
     }
 
     // checkAuthServerData() {

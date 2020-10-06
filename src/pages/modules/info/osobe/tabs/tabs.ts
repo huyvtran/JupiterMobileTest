@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 
-import { OsobainfoProvider } from '../../../../../providers/osobainfo-provider';
+import { OsobeinfoProvider } from '../../../../../providers/osobeinfo-provider';
 
 @IonicPage()
 @Component({
   templateUrl: 'tabs.html'
 })
-export class OsobaTabsPage {
+export class OsobeTabsPage {
   tab1Root = 'OsobaInfoPage';
   tab2Root = 'OsobaFirmaPage';
-  constructor(public osoba: OsobainfoProvider) {
+  constructor(public osoba: OsobeinfoProvider) {
     
   }
 }

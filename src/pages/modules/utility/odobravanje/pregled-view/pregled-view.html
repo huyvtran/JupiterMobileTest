@@ -1,0 +1,19 @@
+<ion-header>
+    <js-header title="Odobravanje - povezani dokumenti" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+
+<ion-content>
+    <js-content></js-content>
+    <ion-list>
+        <ion-item-divider ion-item color="light">
+            Urudžbeni broj: <b>{{ data.broj }}</b>
+        </ion-item-divider>
+      
+        <button ion-item *ngFor="let item of att" (click)="pregled(item)">
+            {{ item.naziv }}
+        </button>  
+
+    </ion-list>
+
+</ion-content>

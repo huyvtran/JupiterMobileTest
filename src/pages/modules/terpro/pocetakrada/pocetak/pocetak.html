@@ -1,0 +1,47 @@
+<ion-header>
+    <js-header title="Radno vrijeme" [showClose]="true" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content >
+    <ion-list>
+      <ion-list-header>
+       Početak rada
+      </ion-list-header>
+        <ion-item>
+            <ion-icon  name="ios-clock-outline" item-start ></ion-icon>
+            <ion-label>Vrijeme početka</ion-label>
+            <ion-datetime cancelText="Odustani" doneText="Potvrdi" displayFormat="DD.MM.YYYY HH:mm" [(ngModel)]="pocetakradaServis.datumPocetka"></ion-datetime>
+        </ion-item>
+        <ion-item detail-none>
+            <ion-icon name="ios-car-outline" item-start></ion-icon>
+            <ion-label>Početni kilometri</ion-label>
+            <ion-input type="number" [(ngModel)]="pocetakradaServis.pocetniKm" name="pocetnikm" (ionFocus)="onFocus()" #pocetnikmSelector placeholder="0"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+          Završetak rada
+        </ion-list-header>
+        <ion-item>
+            <ion-icon  name="ios-clock-outline" item-start ></ion-icon>
+            <ion-label>Vrijeme završetka</ion-label>
+            <ion-datetime cancelText="Odustani" doneText="Potvrdi" displayFormat="DD.MM.YYYY HH:mm" [(ngModel)]="pocetakradaServis.datumZavrsetka"></ion-datetime>
+        </ion-item>
+        <ion-item >
+          <ion-icon name="ios-car-outline" item-start></ion-icon>
+          <ion-label>Završni kilometri</ion-label>
+          <ion-input type="number"  [(ngModel)]="pocetakradaServis.zavrsniKm"  placeholder="0" name="zavrsnikm" (ionFocus)="onFocusZavrsni()" #zavrsnikmSelector></ion-input>
+        </ion-item>
+
+          <ion-item>
+             <ion-icon item-left name="ios-paper-outline"></ion-icon>
+              <ion-label>Napomena</ion-label>
+              <ion-textarea [(ngModel)]="pocetakradaServis.napomena" maxlength="100" autosize></ion-textarea>
+          </ion-item>
+          
+      <div style="margin:8px">
+        <button ion-button full  color="light" style="border: 1px solid #ccc" (click)="posalji()">Pošalji</button>
+      </div>
+    </ion-list>
+  
+</ion-content>

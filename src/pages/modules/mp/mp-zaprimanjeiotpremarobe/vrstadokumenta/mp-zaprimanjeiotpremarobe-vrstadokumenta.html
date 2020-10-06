@@ -1,0 +1,27 @@
+<ion-header>
+        <js-header title="Zaprimanje i otprema robe" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+
+<ion-content>
+        <js-content></js-content>
+
+        <ion-item-divider [hidden]="prazno" id="label2" color="light" text-center text-wrap sticky>
+                        <strong style="font-size: 15px!important;">{{item.trgovinanaziv}}</strong>
+        </ion-item-divider>
+        
+        <ion-item-divider [hidden]="prazno" id="label2" color="skin1" style="padding-left: 5px;">
+                <strong style="font-size: 15px!important;">Vrsta dokumenta</strong>
+        </ion-item-divider>
+
+        <ion-list id="label2">
+                <ion-item detail-push *ngFor="let item of items" (click)="dalje(item)">
+
+                        {{item.opis}}
+                        <ion-note item-right style="color: #364b5e;">{{item.sifra}} </ion-note>
+
+                </ion-item>
+
+        </ion-list>
+
+</ion-content>

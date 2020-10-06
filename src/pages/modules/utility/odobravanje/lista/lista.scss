@@ -1,0 +1,64 @@
+page-utility-odobravanje-lista { table.odobravanje-table 
+    {
+        width:100%;
+        td {
+            vertical-align: top;
+        }
+        td:nth-child(1) {
+            color: #999999;
+        }
+        td:nth-child(2) {
+            padding-left:10px; //10
+            width:100%;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+    }
+
+    .test {
+        background: #d5d5d5;
+    }
+    
+    .grid {
+       padding: 0px;
+       td {
+        vertical-align: top;
+       }
+       td:nth-child(1) {
+           color: #999999;
+       }
+       td:nth-child(2) {
+           padding-left:10px; 
+           width:100%;
+           white-space: normal;
+           word-wrap: break-word;
+       }
+       .item-md {
+        background-color: #d5d5d507;
+        }
+    }
+    
+    // .ion-label:testKlas {
+    //     margin-top: 0px;
+    //     margin-bottom: 0px;
+    // } 
+
+    .list-header-md {
+        margin-bottom: 0px;
+        .labele-md {
+        margin: 0px 0px 0px 0;
+    } }
+
+    .button-md.crvena {
+        background-color:     #b4564b;
+    }
+
+    .button-md.zelena {
+        background-color:     #419e5d; 
+    }
+
+    .button-md.view {
+        background-color:      #7f7d7d; 
+    }
+}
+

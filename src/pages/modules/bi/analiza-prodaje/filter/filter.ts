@@ -48,7 +48,7 @@ export class BiAnalizaProdajeFilter extends BasePage {
                         } else if (action == "orgshema") {
                             this.parametri.orgshemaid = data.id;
                             this.parametri.orgshemanaziv = data.naziv;
-                        } else if (action == "operater") {
+                        } else if (action == "odgovornaosoba") {
                             this.parametri.odgovornaosobaid = data.id;
                             this.parametri.odgovornaosobanaziv = data.naziv;
                         }

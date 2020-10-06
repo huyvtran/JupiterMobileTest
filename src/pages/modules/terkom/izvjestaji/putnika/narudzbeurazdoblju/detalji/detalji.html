@@ -1,0 +1,24 @@
+
+<ion-header>
+        <js-header title="Pregled stavki narudžbe u razdoblju" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+
+        <ion-item-divider ion-item color="light">
+                Stavke narudžbe     
+        </ion-item-divider>
+
+	<ion-list>
+        <ion-list-header [hidden]="stavke?.length > 0">
+                Nema stavki
+        </ion-list-header>
+	
+        <button text-wrap detail-none ion-item *ngFor="let stavka of stavke">
+
+            <h2 text-wrap>Šifra: {{stavka.sifra}} - Naziv {{stavka.roba}}</h2>
+            <h3 text-wrap>Količina: {{stavka.kolicina | number : '1.3-3'}};  Iznos: {{stavka.iznos | number : '1.2-2'}}</h3>
+        </button>
+	</ion-list>
+</ion-content>

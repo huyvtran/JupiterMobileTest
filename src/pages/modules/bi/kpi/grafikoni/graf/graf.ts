@@ -83,6 +83,9 @@ export class ManagerKpiGrafPage extends BasePage {
 
 
     setDataDef() {
+        let properties : ICore.IProperties = {
+            showLoader: false
+         }
         let dataDef : ICore.IData = {
             "queries": [
                 {
@@ -99,7 +102,7 @@ export class ManagerKpiGrafPage extends BasePage {
         }
         return this
             .global
-            .getData(dataDef, false);
+            .getData(dataDef, properties);
 
     }
 

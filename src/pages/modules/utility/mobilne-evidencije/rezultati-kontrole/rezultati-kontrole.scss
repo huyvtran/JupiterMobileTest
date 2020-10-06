@@ -1,0 +1,53 @@
+.ios, .md {
+    page-rezultati-kontrole {
+
+        ion-fab {
+            margin-right:20px;
+            margin-bottom:20px;
+        }
+
+
+        ion-card-header{
+            padding:0;
+        }
+
+        ion-item-divider {
+            border-bottom: 1px solid black;
+        }
+        ion-item {
+            padding: 4px 0 0 0;
+        }
+
+        ion-grid {
+            padding:0;
+        }
+
+        ion-col {
+            padding:0;
+        }
+
+        ion-label {
+            margin:0;
+        }
+
+        ion-list {
+            margin:0;
+        }
+
+        .col1 {
+            padding-left: 14px;
+        }
+
+        .col1Header {
+            padding:0!important;
+        }
+
+        .col2 {
+            text-align: center;
+        }
+
+        .col3 {
+            text-align: right;
+        }
+    }
+}

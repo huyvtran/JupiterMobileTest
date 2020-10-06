@@ -1,0 +1,45 @@
+<ion-header>
+	<js-header title="Obilazak" [showClose]="true" [showFavorite]="true"></js-header>
+	<!-- <ion-toolbar>
+		Lokacije ({{sifarniciService.PartneriCnt}})
+	</ion-toolbar> -->
+
+	<ion-toolbar no-border-top>
+		<ion-item no-lines>
+			<ion-label item-left>Zona</ion-label>
+			<ion-select item-left placeholder="Odaberite zonu " class="selZona" (ionChange)="getLokacije()" [(ngModel)]="sifarniciService.selZonaID">
+				<ion-option *ngFor="let item of sifarniciService.rute" value="{{item.ruteid}}">{{item.naziv}} </ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-searchbar (ionInput)="searchLokacije($event)" placeholder="Pronađi lokaciju ({{sifarniciService.PartneriCnt}})">
+		</ion-searchbar>
+
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-list>
+
+		<ion-list-header [hidden]="lokacije?.length > 0">
+			Nema podataka
+		</ion-list-header>
+
+		<button ion-item icon-right (click)="openAkcionPage(item.parstruid,item)" *ngFor="let item of lokacije">
+			<h3 text-wrap>{{item.naziv}} | {{item.sifra}}</h3>
+			<h3 text-wrap *ngIf="item.naziv_partnera!=item.naziv">{{item.naziv_partnera}} | {{item.sifra_partnera}}</h3>
+			<p text-wrap>{{item.adresa}} {{item.mjesto}}
+			</p>
+			<p text-wrap [hidden]="item?.oib == null || item?.oib == ''">OIB: {{item.oib}}</p>
+		</button>
+
+
+
+	</ion-list>
+
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+		<ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+
+</ion-content>

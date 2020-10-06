@@ -1,0 +1,30 @@
+<ion-header>
+    <js-header title="Terkom" [showClose]="true" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+  
+    <ion-item-group>
+        <button ion-item (click)="startModule('TerkomObilazakPage')">
+            Obilazak
+        </button>
+
+
+        <button ion-item (click)="startModule('TerkomNarudzbaPregledPage')">
+            Pregled narudžbi
+        </button>
+
+        <button ion-item (click)="startModule('TerkomKomunikacijaPage')">
+            Komunikacija
+        </button>
+
+        <button ion-item (click)="startModule('TerkomIzvjestajiPutnikaPage')">
+            Izvještaji
+        </button>
+
+        <button ion-item (click)="startModule('TerkomPocetakRadaPage')">
+            Početak rada
+        </button>
+    </ion-item-group>
+</ion-content>

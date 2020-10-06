@@ -1,0 +1,53 @@
+page-admin-pregled-licenci {
+
+    .sub {
+        background: #445a6d;
+        color: white;
+        padding:4px;
+        text-align: left;
+        border-top: 1px solid #49637a;
+        font-size:1.2rem;
+
+
+        &.light {
+            background-color: map-get($colors, light)!important;
+        }
+      }
+
+    ion-list h3 {
+        color: #999;
+        font-weight: 300;
+
+    }
+    ion-list h2 {
+        font-weight: 400!important;
+    }
+
+    .list .item-block .item-inner {
+        padding:4px 0px;
+    }
+    .aktivan,  {
+        color: green;
+    }
+    .testing {
+        color: green;
+    }
+    .neaktivan {
+        color: map-get($colors, danger);
+    }
+
+    .item.item-md .checkbox-md {
+        position: static;
+        display: block;
+        margin: 9px 9px 9px 9px;
+    }
+      
+
+    a[disabled],
+    button[disabled],
+    [ion-button][disabled] {
+      cursor: default; 
+      opacity: 1!important; 
+      pointer-events: none;
+    }
+}

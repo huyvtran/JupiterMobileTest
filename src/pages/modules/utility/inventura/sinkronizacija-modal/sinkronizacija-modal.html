@@ -1,0 +1,24 @@
+<ion-header>
+  <js-header title="Otvorene inventure">
+  </js-header>
+</ion-header>
+<ion-content>
+  <js-content></js-content>
+  <ion-list>
+    <ion-item *ngFor="let item of dataList">
+      <ion-icon (click)="checkPerson(item)" [hidden]="item.drzedrugi == ''" name="contacts" color="danger" item-start></ion-icon>
+      <ion-label style="text-transform: none; font-weight: bold; color: #364b5e;">{{item.naziv}}</ion-label>
+      <ion-toggle [checked]="item.checked" (ionChange)="updateSelectedList($event, item)"></ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div style="margin:8px">
+      <button ion-button full color="light" style="border: 1px solid #ccc" (click)="startConfirm()">Potvrdi</button>
+    </div>
+    <div style="margin:8px">
+      <button ion-button full color="light" style="border: 1px solid #ccc" (click)="dismiss('true')">Odustani</button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

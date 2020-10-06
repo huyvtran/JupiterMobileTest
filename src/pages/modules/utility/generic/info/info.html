@@ -1,0 +1,26 @@
+<ion-header>
+    <js-header title="{{detail.opis}} - {{detail.broj}}" [showClose]="false">
+
+    </js-header>
+
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <ion-item-divider ion-item color="light">
+        Detalji dokumenta
+        <ion-icon item-left name="ios-document-outline"></ion-icon>
+    </ion-item-divider>
+
+    <ion-list>
+        <ion-item *ngFor="let key of data" [hidden]="containsId(key)">
+
+            {{key | camelCase:value:'key'}}:
+            
+            <ion-note class="info" item-right> {{detail[key]}}</ion-note>
+        </ion-item>
+    </ion-list>
+
+
+</ion-content>

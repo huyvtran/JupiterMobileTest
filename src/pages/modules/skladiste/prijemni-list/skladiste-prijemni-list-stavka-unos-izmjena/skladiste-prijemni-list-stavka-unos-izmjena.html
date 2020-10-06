@@ -1,0 +1,61 @@
+<ion-header>
+    <js-header title="{{naslov}}"></js-header>
+    <ion-navbar primary>
+        <button class="btnSpremi" ion-button right color="primary" expand="full"  [disabled]="this.dokumentZakljucen" (click)="InsertEditStavka(true)" style="float:right; margin-right: 8px;">
+            Spremi
+        </button>
+    </ion-navbar>
+  </ion-header>
+  <ion-content padding>
+    <js-content></js-content>
+    
+    <ion-list>
+      <ion-item-sliding #slRoba>
+          <button [disabled]="this.naslov == 'Izmjena stavke' || this.dokumentZakljucen" ion-item (click)="presentSearchModal('roba', 3, false, 1000)">  
+              <div class="trazilica-caption"  [style.color]="this.dokumentZakljucen ? '#999' : 'black'">Roba:</div>
+              <div class="filter-text" text-wrap>{{Roba.naziv}}</div>
+          </button>
+          <ion-item-options side="right" *ngIf="this.naslov == 'Unos stavke'">
+              <button [disabled]="this.Roba.id==null" ion-button icon-only (click)="clearValue('roba', slRoba)" color="danger">
+                  <ion-icon name="close"></ion-icon>
+              </button>
+          </ion-item-options>
+      </ion-item-sliding>
+      <ion-item>
+          <ion-label fixed [style.color]="'Izmjena stavke' || this.dokumentZakljucen ? '#999' : 'black'">Šifra robe:</ion-label>
+          <ion-label [style.color]="'Izmjena stavke' || this.dokumentZakljucen ? '#999' : 'black'" item-right style="text-align: right;">{{SifraRobe}}</ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label fixed [style.color]="this.dokumentZakljucen ? '#999' : 'black'">Količina{{JM}}:</ion-label>
+          <ion-input #kolicinaSelector name="inputKolicina" (ionFocus)="onFocusInput('kolicina')" (ionBlur)="onLeaveDecimalCountFix('kolicina')"
+          [disabled]="this.dokumentZakljucen" type="tel"  [(ngModel)]="Kolicina" (input)='racunajJMRKolicinu($event)'></ion-input>
+          <!-- (input)="decimalCheck($event)"  -->
+      </ion-item>
+      <ion-item [hidden]="!showJMRobaInd">
+          <ion-label fixed [style.color]="this.dokumentZakljucen ? '#999' : 'black'">Količina({{JMRoba}}):</ion-label>
+          <ion-input #JMRkolicinaSelector name="inputJMRkolicina" (ionFocus)="onFocusInput('JMR')"  (ionBlur)="onLeaveDecimalCountFix('kolicinaJMRoba')"
+          [disabled]="this.dokumentZakljucen" type="tel"  [(ngModel)]="KolicinaJMRoba" (input)='racunajKolicinu($event)'></ion-input>
+          <!-- (input)="decimalCheck($event)" -->
+      </ion-item>
+      <ion-item *ngIf="provider.documentType=='Otpremnica'">
+          <ion-label fixed [style.color]="this.dokumentZakljucen ? '#999' : 'black'">Kontigent:</ion-label>
+          <ion-input [disabled]="this.dokumentZakljucen" type="number"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="cijenaVidljivaInd==1">
+          <ion-label [style.color]="this.naslov == 'Izmjena stavke' || this.dokumentZakljucen ? '#999' : 'black'">Cijena:</ion-label>
+          <ion-label [style.color]="this.naslov == 'Izmjena stavke' || this.dokumentZakljucen ? '#999' : 'black'" item-right style="text-align: right">{{Cijena}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer [hidden]="this.keyboard.isOpen() && !napomenaFocused">
+      <ion-textarea [disabled]="this.dokumentZakljucen" (ionFocus)="napomenaFocused=true" (ionBlur)="napomenaFocused=false"
+           placeholder="Napomena..." [(ngModel)]="Napomena" type="text" maxlength="500">
+      </ion-textarea>
+  </ion-footer>
+  
+  <!-- <ion-fab class="ionFabMargin" vertical="top" horizontal="end" slot="fixed">
+      <button ion-fab [disabled]="this.dokumentZakljucen" (click)="InsertEditStavka(true)">
+          <ion-icon name="checkmark"></ion-icon>
+      </button>
+  </ion-fab> -->
+  

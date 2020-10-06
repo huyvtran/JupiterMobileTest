@@ -1,0 +1,138 @@
+
+<ion-header>
+    <js-header title="Radni nalozi" [showClose]="true" [showFavorite]="true"></js-header>
+    <ion-toolbar class="light">
+        <ion-searchbar placeholder="Traži..." [(ngModel)]="utilityMobEvProvider.SearchString"  (ionInput)="searchFn($event)" (ionCancel)="onCancel($event)" autocorrect="off"></ion-searchbar>
+    </ion-toolbar>
+    <ion-item>
+        <ion-label> Skladište </ion-label>
+        <ion-select [(ngModel)]="skladisteid" (ionChange)="filterChanged(kkvalparametriid)">
+            <ion-option value="0">Sva skladišta</ion-option>
+            <ion-option value="-1">Bez skladišta</ion-option>
+            <ion-option [value]="skladiste.skladisteid" *ngFor="let skladiste of skladistaArray">
+                {{skladiste.skladiste}}
+            </ion-option>
+        </ion-select>
+        <ion-badge item-right>{{skladistaArray.length + 1}}</ion-badge>
+    </ion-item>
+    <ion-item>
+        <ion-label> Pregled </ion-label>
+        <ion-select [(ngModel)]="kkvalparametriid" (ionChange)="filterChanged(kkvalparametriid)">
+            <ion-option value="0">Svi otvoreni nalozi</ion-option>
+            <ion-option [value]="kontrola.kkvalparametriid" *ngFor="let kontrola of kkvalparametriidArray">
+                {{kontrola.naziv}}
+            </ion-option>
+        </ion-select>
+        <ion-badge item-right>{{kkvalparametriid==0 ? nalozi.length : filterKontrola.length}}</ion-badge>
+    </ion-item>
+</ion-header>
+<ion-content>
+    <js-content></js-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Povuci za osvježavanje"
+            refreshingSpinner="circles"
+            refreshingText="Osvježavam podatke...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <js-nodata *ngIf="nalozi.length === 0" message="Nema podataka"></js-nodata>
+
+    <ion-list *ngIf="kkvalparametriid==0">
+        <ion-card *ngFor="let nalog of nalozi | search: utilityMobEvProvider.SearchString:'sifra#roba#brojdok'; index as i" (click)="otvoriDetalje(nalog.kkvalglaid, nalog.robaid, nalog.roba)">  
+            <ion-card-header>
+                <ion-item-divider ion-item color="light">
+                    <ion-grid>
+                        <ion-row >
+                            <ion-col [style.color]="getSpremniZaZakljuciti(nalog) ? 'green': 'black'">
+                                <div><b>{{nalog.roba}}</b></div>
+                            </ion-col>
+                            <ion-col [style.color]="getSpremniZaZakljuciti(nalog) ? 'green': 'black'" style="text-align:right;">
+                                <div>Šifra: <b>{{nalog.sifra}}</b></div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item-divider>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-item >
+                    <ion-grid>
+                        <ion-row text-wrap>
+                            <div>Operater: {{nalog.operaternaziv}}</div>
+                        </ion-row>
+                        <ion-row text-wrap>
+                            <div>{{nalog.datumdok | date:'dd.MM.yyyy.'}}</div>
+                        </ion-row>
+                        <ion-row text-wrap>
+                            <div>Br. dok: {{nalog.broj}}</div>
+                        </ion-row>
+                        <ion-row>
+                            <div>JM: {{nalog.jmnaziv}}</div>
+                        </ion-row>
+                        <ion-row text-wrap>
+                            <div>Opis: {{getOpis(i)}}</div>
+                        </ion-row>
+                        <ion-row text-wrap>
+                            <div>Vrsta dokumenta: {{nalog.vrstadok}}</div>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-card-content>
+        </ion-card>
+    </ion-list>
+
+    <ion-list *ngIf="kkvalparametriid!=0">
+      <ion-item *ngFor="let kontrola of filterKontrola | search: utilityMobEvProvider.SearchString:'sifra#roba#brojdok'; index as i" >
+        <ion-item-sliding>
+            <ion-item class="noMargins" (click)="presentBrziUnosPage(kontrola)">
+                <ion-card class="noMargins">  
+                    <ion-card-header>
+                        <ion-item-divider ion-item color="light">
+                            <ion-grid>
+                                <ion-row style="text-align:left;">
+                                    <ion-col>
+                                        <div> <b>{{kontrola.roba}}</b> </div>
+                                    </ion-col>
+                                    <ion-col style="text-align:right;">
+                                        <div><b>Uzorak br.{{kontrola.uzorak}}</b></div>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-item-divider>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item>
+                            <ion-grid>
+                                <ion-row [style.color]="kontrola.color" text-wrap>
+                                    <div> <b>{{kontrola.parametarnaziv}}:</b> {{getFilterKontrolaValue(kontrola)}}</div>
+                                </ion-row>
+                                <br>
+                                <ion-row text-wrap>
+                                    <p><b>Šifra: </b> {{kontrola.sifra}}</p>
+                                </ion-row>
+                                <ion-row>
+                                    <p><b>Br.dok:</b> {{kontrola.brojdok}}</p>
+                                </ion-row>
+                                <ion-row>
+                                    <p><b>Barkod:</b> {{kontrola.barcode}}</p>
+                                </ion-row>
+                                <ion-row>
+                                    <p><b>Datum uzorka:</b> {{kontrola.datumuzorka | date:'dd.MM.yyyy.'}}</p>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-item>
+                        <ion-item *ngIf="kontrola.opis != ''">
+                            <ion-textarea disabled="true" [(ngModel)]="kontrola.opis" type="text" rows="3"></ion-textarea>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </ion-item>
+            <ion-item-options side="right" (ionSwipe)="otvoriDetalje(kontrola.kkvalglaid, kontrola.robaid, kontrola.roba, kontrola.uzorak, true)">
+                <button ion-button expandable (click)="otvoriDetalje(kontrola.kkvalglaid, kontrola.robaid, kontrola.roba, kontrola.uzorak, true)">
+                <ion-icon name="eye"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+      </ion-item> 
+    </ion-list>
+</ion-content>

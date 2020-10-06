@@ -1,12 +1,12 @@
 <ion-header>
-    <js-header title="Roba - {{roba.naziv}}" [showClose]="true"></js-header>
+    <js-header title="Roba - {{roba.items.naziv}}" [showClose]="true"></js-header>
 </ion-header>
 
 <ion-content>
 
     <ion-list>
-         <js-nodata *ngIf="roba.komerstanje.length == 0"></js-nodata>
-         <accordion-list *ngFor="let item of roba.komerstanje | search: term:'skladiste'; let fst = first;" title="{{item.skladiste}}" textColor="#333" hasMargin="false" headerColor="#e6e6e6" [expanded]="fst">
+         <js-nodata *ngIf="roba.items.komerstanje.length == 0"></js-nodata>
+         <accordion-list *ngFor="let item of roba.items.komerstanje | search: term:'skladiste'; let fst = first;" title="{{item.skladiste}}" textColor="#333" hasMargin="false" headerColor="#e6e6e6" [expanded]="fst">
 
              <ion-list>
                 <ion-item full>

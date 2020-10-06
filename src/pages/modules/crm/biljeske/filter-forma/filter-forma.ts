@@ -87,19 +87,19 @@ export class CRMBiljeskeFilterFormaPage extends BasePage {
     ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
 
   }
 
   izaberi(action){
     this.parametriupita.action=action;
-    let modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
+    this.global.modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
     //this.parametriupita
     {'action':action, 'skladisteid':this.parametriupita.skladisteid, 'robaid': this.parametriupita.robaid, 'klmasterrobaid':this.parametriupita.klmasterrobaid
     , 'partneriid':this.parametriupita.partneriid, 'cjenikid':this.parametriupita.cjenikid }
   );
-    modal.present();
-    modal.onDidDismiss(data => {
+  this.global.modal.present();
+  this.global.modal.onDidDismiss(data => {
       if(data==null){
         console.log('data je null');
         data={action:0};
@@ -126,7 +126,7 @@ export class CRMBiljeskeFilterFormaPage extends BasePage {
         
 
       }
-
+      this.global.modal=null;
       });
   }
 
@@ -175,9 +175,9 @@ export class CRMBiljeskeFilterFormaPage extends BasePage {
 
   novabiljeska(){
     this.parametriupita.parkontaktid=0;
-    let modal = this.modalCtrl.create('CRMInsertEditPage', {'partneriid':this.parametriupita.partneriid, 'partnerinaziv':this.parametriupita.partnerinaziv, 'parkontaktid':this.parametriupita.parkontaktid});
-    modal.present();
-    modal.onDidDismiss(data=>{
+    this.global.modal = this.modalCtrl.create('CRMInsertEditPage', {'partneriid':this.parametriupita.partneriid, 'partnerinaziv':this.parametriupita.partnerinaziv, 'parkontaktid':this.parametriupita.parkontaktid});
+    this.global.modal.present();
+    this.global.modal.onDidDismiss(data=>{
       if(data==1){
         let toast = this.toastCtrl.create({
           message: 'Bilješka dodana!',
@@ -196,13 +196,14 @@ export class CRMBiljeskeFilterFormaPage extends BasePage {
             }
           });
       }
+      this.global.modal=null;
     });
     
  }
  editbiljeske(item) {
-  let modal = this.modalCtrl.create('CRMInsertEditPage', item);
-  modal.present();
-  modal.onDidDismiss(data => {
+  this.global.modal = this.modalCtrl.create('CRMInsertEditPage', item);
+  this.global.modal.present();
+  this.global.modal.onDidDismiss(data => {
     if(data==1){
     let toast = this.toastCtrl.create({
       message: 'Bilješka izmjenjena!',
@@ -221,6 +222,7 @@ export class CRMBiljeskeFilterFormaPage extends BasePage {
         }
       });
   }
+  this.global.modal=null;
   });
 }
 brisiBiljesku(item,slidingItem: ItemSliding){
@@ -265,7 +267,7 @@ getData2() {
   ]
   }
 
-  return this.global.getData(dataDef, true);
+  return this.global.getData(dataDef);
 
 }
 

@@ -1,0 +1,20 @@
+
+<ion-header>
+        <js-header title="Upitnici" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+
+	<ion-list>
+                <ion-list-header [hidden]="upitniciProvider.upitnici?.length > 0">
+                        Trenutno nema upitnika
+                </ion-list-header>
+
+                <button text-wrap ion-item *ngFor="let upitnik of upitniciProvider.upitnici" (click)="prikaziPitanja(upitnik)">
+                        <ion-icon name="{{upitnik.answered ? 'checkmark-circle' : 'help-circle'}}"  color="{{upitnik.answered ? 'primary' : 'medium'}}"  item-start></ion-icon>	
+                        <h2 text-wrap>{{upitnik.naziv}}</h2>
+                </button>
+	
+	</ion-list>
+</ion-content>

@@ -1,0 +1,78 @@
+<ion-header>
+    <js-header title="Detalji djelatnika"></js-header>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <div class="profile-image-container">
+        <div class="profile-image-wrapper">
+            <div class="profile-image-placeholder" [ngStyle]="{'background-image': getBackgroundImage() }">
+                <!--<img class="icon" src="data:image/png;base64,{{user.image}}">-->
+            </div>
+        </div>
+        <div class="profile-name" text-center>
+            {{item?.kadar}}
+        </div>
+    </div>
+    <ion-list>
+        <accordion-list title="Pozicija" textColor="#333" hasMargin="false" headerColor="#e6e6e6" [expanded]="true">
+            <ion-item>
+                <h3>Radno mjesto</h3>
+                <h2>{{item?.radnamjesta? item.radnamjesta : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Nadređena osoba</h3>
+                <h2>{{item?.nadredenik? item.nadredenik : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Zamjenik</h3>
+                <h2>{{item?.zamjenik? item.zamjenik : '...'}}</h2>
+            </ion-item>
+        </accordion-list>
+        <accordion-list title="Organizacijski podaci" textColor="#333" hasMargin="false" headerColor="#e6e6e6">
+            <ion-item>
+                <h3>Organizacija</h3>
+                <h2>{{item?.orgorganizacija? item.orgorganizacija : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Poslovna jedinica</h3>
+                <h2>{{item?.orgposlovnajedinica? item.orgposlovnajedinica : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Sektor</h3>
+                <h2>{{item?.orgsektor? item.orgsektor : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Odjel</h3>
+                <h2>{{item?.orgodjel? item.orgodjel : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Troškovni centar</h3>
+                <h2>{{item?.orgtroskovnicentar? item.orgtroskovnicentar : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Kat / Soba</h3>
+                <h2>{{item?.kat? item.kat : '...'}} / {{item?.soba? item.soba : '...'}}</h2>
+            </ion-item>
+        </accordion-list>
+        <accordion-list title="Kontakt" textColor="#333" hasMargin="false" headerColor="#e6e6e6">
+            <ion-item>
+                <h3>Direktni telefon</h3>
+                <h2>{{item?.kontelefon? item.kontelefon : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>E-mail</h3>
+                <h2>{{(item?.konintemail ? item.konintemail : '...')}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Fax</h3>
+                <h2>{{item?.konfax? item.konfax : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Mobitel</h3>
+                <h2>{{item?.konmobitel? item.konmobitel : '...'}}</h2>
+            </ion-item>
+        </accordion-list>
+    </ion-list>
+
+</ion-content>

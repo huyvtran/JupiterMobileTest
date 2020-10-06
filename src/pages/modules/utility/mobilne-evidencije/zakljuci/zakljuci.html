@@ -1,0 +1,48 @@
+<ion-header>
+  <js-header title="Ocjena kvalitete" [showClose]="true"></js-header>
+</ion-header>
+
+<ion-content>
+  <js-content></js-content>
+
+  <ion-list radio-group [(ngModel)]="utilityMobEvProvider.Status">
+    <ion-item-divider ion-item color="light">
+      Status
+      <ion-icon item-left name="ios-swap-outline"></ion-icon>
+    </ion-item-divider>
+  
+    <ion-item *ngFor="let status of statusi">
+      <ion-label>{{status.naziv}}</ion-label>
+      <ion-radio value="{{status.kkvalstatusid}}"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-list radio-group [(ngModel)]="utilityMobEvProvider.Zakljucak">
+
+    <ion-item-divider ion-item color="light">
+      Zaključak
+      <ion-icon item-left name="ios-log-in-outline"></ion-icon>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label>Zadovoljava</ion-label>
+      <ion-radio value=2></ion-radio>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Djelomično zadovoljava</ion-label>
+      <ion-radio value=3></ion-radio>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Ne zadovoljava</ion-label>
+      <ion-radio value=4></ion-radio>
+    </ion-item>
+    
+  </ion-list>
+  <ion-fab bottom right>
+    <button ion-fab (click)="zakljuci()" [disabled]="buttonState()"><ion-icon name="checkmark"></ion-icon></button>
+  </ion-fab>  
+
+  
+</ion-content>

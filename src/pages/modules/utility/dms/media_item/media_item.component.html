@@ -1,0 +1,10 @@
+<ion-item (click)="showFile(media)">
+  <ion-avatar item-left>
+    <ion-icon name="{{media.icon}}" [ngStyle]="{'font-size': '45px', 'color': media.icon_color}" ></ion-icon>
+  </ion-avatar>
+
+  <h2 text-wrap>{{media.naziv}}</h2>
+  <p>Size: {{media.size}} KB</p>
+  <p>Datum kreiranja: {{media.datum | date: 'dd.MM.yyyy HH:mm' }}</p>
+
+</ion-item>

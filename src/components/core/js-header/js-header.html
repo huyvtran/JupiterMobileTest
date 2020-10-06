@@ -14,6 +14,9 @@
                 <ion-icon class="favorite-active" name="star" *ngIf="favoriteExists==true"></ion-icon>
                 <ion-icon class="favorite-inactive" name="star-outline" *ngIf="favoriteExists==false"></ion-icon>
             </button>
+            <button large ion-button  *ngIf="!variableProvider.hasInternet">
+                <ion-icon color="danger" style="font-size:24px" name="ios-wifi"></ion-icon>
+            </button>
             <ng-content select="[js-buttons-end]"></ng-content>
         </ion-buttons>
     </ion-navbar>

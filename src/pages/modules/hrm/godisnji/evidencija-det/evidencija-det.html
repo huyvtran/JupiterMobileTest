@@ -11,15 +11,15 @@
         </ion-item-divider>
         <ion-item class="tekuce">
             <ion-label>Odobreno:</ion-label>
-            <span item-end class="light">{{details?.odobreno}} </span>
+            <span item-end class="light">{{details?.info?.odobreno}} </span>
         </ion-item>
         <ion-item class="tekuce">
             <ion-label>Iskorišteno:</ion-label>
-            <span item-end class="light"> {{details?.iskoristeno}} </span>
+            <span item-end class="light"> {{details?.info?.iskoristeno}} </span>
         </ion-item>
         <ion-item class="tekuce preostalo">
             <ion-label>Preostalo:</ion-label>
-            <span item-end>{{details?.preostalotekuca}}</span>
+            <span item-end>{{details?.info?.preostalotekuca}}</span>
         </ion-item>
         <ion-item-divider ion-item color="light" class="kr">
             Kronološki pregled<br><span>(period / broj iskorištenih dana)</span>

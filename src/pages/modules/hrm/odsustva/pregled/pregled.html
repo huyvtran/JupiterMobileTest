@@ -10,7 +10,7 @@
     </ion-segment>
     
     <ion-item-divider class="mjesec" ion-item color="light">
-        <ion-datetime displayFormat="MMMM YYYY" [(ngModel)]="selectedMonth" (ionChange)="onMonthChange($event)"></ion-datetime>
+        <ion-datetime displayFormat="MMMM YYYY" max="{{maxDate}}" [(ngModel)]="selectedMonth" (ionChange)="onMonthChange($event)"></ion-datetime>
         <ion-note item-end> datum: {{selectedDate | date:'dd.MM.yyyy'}}</ion-note>
         <button clear item-end ion-button icon-only (click)="presentPopover($event)">
             <ion-icon name="more"></ion-icon>
@@ -38,7 +38,7 @@
 
     <div [ngSwitch]="tip">
         <ion-list *ngSwitchCase="'najava'">
-            <button ion-item *ngFor="let item of najavaSource">
+            <button ion-item *ngFor="let item of najavaSource" (click)="detailItem(item, 'najava')">
                 <h2 style="text-transform: capitalize">{{item.employee}}</h2>
                 <p class="item-description">{{item.title}}</p>
                 <!-- <ion-note item-end>
@@ -49,7 +49,7 @@
         </ion-list>
 
         <ion-list *ngSwitchCase="'evidencija'">
-                <button ion-item *ngFor="let item of evidencijaSource">
+                <button ion-item *ngFor="let item of evidencijaSource" (click)="detailItem(item, 'evidencija')">
                     <h2 style="text-transform: capitalize">{{item.employee}}</h2>
                     <p class="item-description">{{item.title}}</p>
                     <div style="position: absolute; font-size:9pt; font-weight: 500; right:4px; top:2px">{{item.timestr}}</div>

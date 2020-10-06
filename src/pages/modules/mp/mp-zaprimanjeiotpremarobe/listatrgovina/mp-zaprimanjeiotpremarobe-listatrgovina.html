@@ -1,0 +1,69 @@
+<ion-header>
+        <js-header title="Zaprimanje i otprema robe" [showClose]="true" [showFavorite]="true"></js-header>
+
+        <ion-toolbar style="padding: 0px;">
+          <ion-grid>
+                  <ion-row>
+                          
+                    <ion-col col-10 style="padding: 0px;">
+                  <form (ngSubmit)="search()">
+                      <ion-searchbar placeholder="Traži trgovinu.." [(ngModel)]="searchTerm" [formControl]="searchControl" autofocus></ion-searchbar>
+                  </form>
+                    </ion-col>
+                      
+                      <ion-col col-2>
+                        <button ion-button block icon-center color="skin1" (click)="search()">
+                          <ion-icon name="search"></ion-icon>
+                        </button>
+                        </ion-col>
+                  </ion-row>
+          </ion-grid>
+        </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content>
+        <js-content></js-content>
+
+        
+                <!-- <ion-item-divider sticky id="label2" style="padding-left: 0px!important;">
+                    <ion-grid color="bijela" id="mojgrid">
+                        <ion-row>
+                  
+                          <ion-col col-10>
+                            <form (ngSubmit)="search()">
+                              <ion-searchbar placeholder="tražilica trgovina"  [(ngModel)]="searchTerm" [formControl]="searchControl" autofocus></ion-searchbar>
+                            </form>
+                  
+                          </ion-col>
+                          <ion-col col-2 style="padding-top: 10px;">
+                  
+                            <button  ion-button block icon-center color="skin" (click)="search()">
+                              <ion-icon color="bijela" name="search"></ion-icon>
+                            </button>
+                  
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+
+                        
+
+                </ion-item-divider> -->
+                <ion-item-divider sticky id="label2" color="skin1" style="padding-left: 5px;">
+                    <strong style="font-size: 15px!important;">Izbor trgovine</strong>
+                </ion-item-divider>
+
+         <js-nodata *ngIf="nemapodataka" message="Nema trgovina"></js-nodata>      
+        
+        <ion-list id="label2">
+                <ion-item detail-push *ngFor="let item of items" (click)="dalje(item)">
+                        
+                 {{item.naziv}}                  
+                                
+                </ion-item>   
+                
+        </ion-list>
+
+</ion-content>

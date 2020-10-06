@@ -1,0 +1,19 @@
+<ion-header>
+    <js-header [title]="'Admin Manager - Tvrtke'" [showClose]="true" [showFavorite]="true"></js-header>
+    <ion-toolbar class="light">
+        <ion-searchbar (ionInput)="searchFn($event)" (ionCancel)="onCancel($event)" autocorrect="off"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <ion-list>
+        <button ion-item *ngFor="let item of tvrtke | search: term:'name'" (click)="pregledLicenci(item)">
+            <h2 style="text-transform: capitalize">{{item.name}}</h2>
+            <h3>
+                {{item.licence.length}} {{item.licence.length == 1 ? 'licence' : 'licences'}}
+            </h3>
+        </button>
+    </ion-list>
+
+</ion-content>

@@ -1,0 +1,95 @@
+
+
+	<ion-header>
+        <js-header title="Obilazak" [showClose]="true" [showFavorite]="true"></js-header>
+		<ion-toolbar no-border-top>
+			<ion-segment (ionChange)="getSegmentData()"   [(ngModel)] = "segment">
+				<ion-segment-button value="new">
+					Lokacije ({{sifarniciService.PartneriCnt}})
+				</ion-segment-button>
+				<ion-segment-button value="favorites">
+					Moje lokacije ({{ sifarniciService.FavoritLokacijeCnt}})
+				</ion-segment-button>
+			</ion-segment>
+		</ion-toolbar>
+		<ion-toolbar no-border-top *ngIf="segment==='new'">
+			<ion-item no-lines>
+				<ion-label  item-left>Zona</ion-label>
+				<ion-select item-left placeholder="Odaberite zonu" class="selZona" (ionChange)="getLokacije()" [(ngModel)]="sifarniciService.selZonaID">
+					<ion-option  *ngFor="let item of sifarniciService.rute"  value="{{item.ruteid}}">{{item.naziv}} </ion-option>
+				</ion-select>
+			</ion-item>	
+			<ion-searchbar (ionInput)="searchLokacije($event)"
+			placeholder="Pronađi lokaciju">
+			</ion-searchbar>
+
+		</ion-toolbar>
+	</ion-header>
+		
+
+<ion-content>
+	<div [ngSwitch]="segment" >
+		<div *ngSwitchCase="'new'">
+			<ion-list #lokationList >
+
+				<ion-list-header [hidden]="lokacije?.length > 0">
+						Nema podataka
+				</ion-list-header>		
+
+				<ion-item-sliding class="favorite-item" *ngFor="let item of lokacije" #slidingItem>	
+				
+			       	<button ion-item icon-right (click)="openAkcionPage(item.parstruid,item)">	
+			
+						<ion-icon  name="{{item.favorite? 'star' : 'star-outline'}}" item-start  [ngClass]="{'favorite' : item.favorite==true}"></ion-icon>					   
+		          		<h3 text-wrap>{{item.naziv}} | {{item.sifra}}</h3>
+						<h3 text-wrap *ngIf="item.nazivpartnera!=item.naziv">{{item.nazivpartnera}} | {{item.sifrapartnera}}</h3>
+		          		<p text-wrap>{{item.adresa}}
+		          		{{item.mjesto}}</p>
+		          		<p text-wrap [hidden]="item?.oib == null || item?.oib == ''">OIB: {{item.oib}}</p>
+	        		</button>
+
+			        <ion-item-options>
+			          	<button *ngIf="!item.favorite" ion-button color="favorite" (click)="addFavorite(slidingItem,item.parstruid)">
+			            	Favorite
+			          	</button>
+			          	<button *ngIf="item.favorite" ion-button color="danger" (click)="removeFavorite(slidingItem,item.parstruid)">
+		            		Ukloni
+		          		</button>
+
+			        </ion-item-options>
+
+			      </ion-item-sliding>
+
+			</ion-list>	
+
+			 <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+			   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+			 </ion-infinite-scroll>
+
+			
+		</div>
+		
+		<ion-list *ngSwitchCase="'favorites'">
+			<ion-list-header [hidden]="sifarniciService.favoritLokacije?.length > 0">
+              	Nema favorita
+      		</ion-list-header>
+		
+			<ion-item-sliding *ngFor="let item of sifarniciService.favoritLokacije" #slidingItem>
+			
+		    	<button ion-item  (click)="openAkcionPage(item.parstruid,item)">
+	          		<h3 text-wrap>{{item.naziv}}</h3>
+	          		<p text-wrap>{{item.adresa}}
+	          		{{item.mjesto}}
+	          		OIB: {{item.oib}}</p>
+	        	</button>
+
+		        <ion-item-options>
+		          <button ion-button color="danger" (click)="removeFavorite(slidingItem,item.parstruid)">
+		            Ukloni
+		          </button>
+		        </ion-item-options>
+
+		    </ion-item-sliding>
+		</ion-list>
+	</div>
+</ion-content>

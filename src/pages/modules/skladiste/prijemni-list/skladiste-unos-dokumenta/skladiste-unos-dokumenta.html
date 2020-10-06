@@ -1,0 +1,74 @@
+<ion-header>
+    <js-header title="Unos dokumenta" [showClose]="false" ></js-header>
+  </ion-header>
+  
+  <ion-content padding>
+      <ion-list>
+        <ion-item>
+            <ion-label fixed>Datum:</ion-label>
+            <ion-datetime type="date" max="2030" displayFormat="DD.MM.YYYY" [(ngModel)]="this.Datum"></ion-datetime>
+        </ion-item>
+        <ion-item-sliding #slSkl>
+            <button ion-item (click)="provider.presentSearchModal('skladiste', 2, true)">  
+                <div class="trazilica-caption">Skladište:</div><div class="filter-text" text-wrap>{{provider.PrijemniListUnosZapamtiSkladistePrava.naziv}}</div>
+            </button>
+            <ion-item-options side="right">
+                <button [disabled]="provider.PrijemniListUnosZapamtiSkladistePrava.id==null" ion-button icon-only (click)="clearValue('skladiste', slSkl)" color="danger">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item *ngIf="provider.documentType=='Otpremnica'">
+            <ion-label fixed>Skladište ulaza:</ion-label>
+            <ion-input type="text" [readonly]="true"></ion-input>
+        </ion-item>
+        <ion-item-sliding #slPar>
+            <button ion-item (click)="provider.presentSearchModal('partneri', 3)">  
+                <div class="trazilica-caption">Partner:</div><div class="filter-text" text-wrap>{{provider.Partner.naziv}}</div>
+            </button>
+            <ion-item-options side="right">
+                <button [disabled]="provider.Partner.id==null" ion-button icon-only (click)="clearValue('partneri', slPar)" color="danger">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item>
+            <ion-label fixed>Vrsta dokumenta:</ion-label>
+            <ion-select [(ngModel)]="this.provider.PrijemniListUnosZapamtiVrstadok.id">
+                <ion-option *ngFor="let vrstaDok of this.vrstaDokCombo" [value]="vrstaDok.vrstadokid">{{vrstaDok.vrstadoknaziv}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label fixed>{{OtpremnicaIliBrNarudzbe}}:</ion-label>
+            <ion-input type="text" [(ngModel)]="this.Otpremnica"></ion-input>
+        </ion-item>
+        <ion-item-sliding #slOrgS>
+            <button ion-item (click)="provider.presentSearchModal('orgshema', 1, true)">  
+                <div class="trazilica-caption">Organizacijska jedinica:</div><div class="filter-text" text-wrap>{{provider.PrijemniListUnosZapamtiOrgShema.naziv}}</div>
+            </button>
+            <ion-item-options side="right">
+                <button [disabled]="provider.PrijemniListUnosZapamtiOrgShema.id==null" ion-button icon-only (click)="clearValue('orgshema', slOrgS)" color="danger">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding #slOdgO>
+            <button ion-item (click)="provider.presentSearchModal('odgosoba', 3, true)">  
+                <div class="trazilica-caption">Odgovorna osoba:</div>
+                <div class="filter-text" text-wrap>{{provider.PrijemniListUnosZapamtiOdgOsoba.naziv}}</div>
+            </button>
+            <ion-item-options side="right">
+                <button [disabled]="provider.PrijemniListUnosZapamtiOdgOsoba.id==null" ion-button icon-only (click)="clearValue(odgosoba, slOdgO)" color="danger">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-textarea [(ngModel)]="this.Opis" placeholder="Opis..." type="text" maxlength="100"></ion-textarea>
+</ion-footer>
+  
+<ion-fab class="ionFabMargin" bottom right>
+    <button ion-fab (click)="KreirajDokument()"><ion-icon name="checkmark"></ion-icon></button>
+</ion-fab>

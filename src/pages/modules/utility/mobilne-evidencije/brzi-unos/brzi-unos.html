@@ -1,0 +1,64 @@
+<ion-header>
+  <js-header-modal title="Unos kontrole" [showClose]="true"></js-header-modal>
+</ion-header>
+
+<ion-content>
+  <js-content></js-content>
+
+  <ion-item style="padding:0!important;">
+      <ion-grid>
+          <ion-row>
+            <ion-col text-wrap>
+              <b>{{kontrola.roba}}</b>
+            </ion-col>
+            <ion-col style="text-align:right">
+              <b>Uzorak br.{{kontrola.uzorak}}</b>
+            </ion-col>
+          </ion-row>
+          <br>
+          <ion-row [style.color]="kontrola.color" text-wrap>
+              <div> <b>{{kontrola.parametarnaziv}}:</b> {{getFilterKontrolaValue()}}</div>
+          </ion-row>
+          <ion-row *ngIf="kontrola.tipnaziv == 'Brojčani'">
+              <b>Očekivano: </b> {{getFormatOcekivano()}}
+          </ion-row>
+          <br>
+          <ion-row text-wrap>
+              <div> <b>Šifra: </b> {{kontrola.sifra}}</div>
+          </ion-row>
+          <ion-row>
+              <b>Br.dok: {{kontrola.brojdok}} </b>
+          </ion-row>
+          <ion-row>
+              <b>Barkod: {{kontrola.barcode}} </b>
+          </ion-row>
+      </ion-grid>
+  </ion-item>
+
+  <ion-item *ngIf="kontrola.tipnaziv != 'Da/Ne'">
+    <ion-label stacked>Kontrola</ion-label>
+    <ion-input type="text" [(ngModel)]="kontrola.stringval" *ngIf="kontrola.tipnaziv=='Tekstualni'" type="text" value="{{kontrola.stringval}}"></ion-input>
+    <ion-input type="tel" [(ngModel)]="kontrola.decval" *ngIf="kontrola.tipnaziv=='Brojčani'" value="{{kontrola.decval}}" (ionBlur)="dec4(kontrola)">
+    </ion-input>
+  </ion-item>
+
+  <ion-list radio-group [(ngModel)]="kontrola.boolval" *ngIf="kontrola.tipnaziv == 'Da/Ne'">
+    <ion-item>
+      <ion-label>Da</ion-label>
+      <ion-radio value="1" [checked]="kontrola.boolval==1"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ne</ion-label>
+      <ion-radio value="0" [checked]="kontrola.boolval==0"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+      <ion-label stacked>Napomena</ion-label>
+      <ion-textarea [(ngModel)]="kontrola.opis" type="text" rows="3"></ion-textarea>
+  </ion-item>
+
+  <ion-fab bottom right>
+    <button ion-fab (click)="spremiKontrolu()" [disabled]="getDisabledState()"><ion-icon name="checkmark"></ion-icon></button>
+  </ion-fab> 
+</ion-content>

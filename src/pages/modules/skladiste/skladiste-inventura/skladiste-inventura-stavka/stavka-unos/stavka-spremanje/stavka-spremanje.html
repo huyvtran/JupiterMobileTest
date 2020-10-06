@@ -1,0 +1,29 @@
+<ion-header>
+        <js-header title="Unos stavke" [showClose]="true" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content class="inventura">
+    <ion-grid *ngFor="let item of detProvjera">
+        <ion-row>
+            <ion-col >
+                    <p class="text-size">Na inventuri već postoji odabrana roba/lot s količinom {{item.kolicina}}.<br> Što želite napraviti? </p>
+            </ion-col> 
+        </ion-row>
+        
+    </ion-grid>
+
+    <ion-footer>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <button ion-button (click)="pribrojiKolicinu()">PRIBROJITI</button>
+                </ion-col>
+                <ion-col style="text-align: right;"> 
+                    <button ion-button (click)="zamijeniKolicinu()">ZAMIJENITI</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        
+    </ion-footer>
+</ion-content>

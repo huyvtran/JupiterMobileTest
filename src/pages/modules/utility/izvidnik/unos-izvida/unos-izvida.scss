@@ -1,0 +1,96 @@
+page-unos-izvida {
+
+    .item-inner, ion-item {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+      }
+      
+    
+    .outer
+    {
+        width:100%;
+        text-align: center;
+        padding: 16px
+    }
+    .inner
+    {
+        padding: 2px;
+    }
+
+
+    .checkboxList{
+
+        padding: 16px 0px;
+    }
+
+    .mainButton .button-inner {
+            white-space: normal!important;
+          }
+    
+    
+
+    .thumbnail-div {
+        width: 92px;
+        height: 92px;
+        padding: 2px;
+        border: 1px solid #ccc;
+        float: left;
+        margin: 4px;
+        position: relative;
+        background: #eaeaea;
+
+        .fab {
+            right: -20px!important;
+            top: -20px!important;
+            width: 20px!important;
+            height: 20px!important;
+            line-height: 20px!important;
+            ion-icon {
+                font-size: 1.6rem;
+                line-height: 20px;
+            }
+        }
+        
+    }
+    .thumbnail{
+
+        max-height: 86px;
+        max-width: 86px;
+
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    
+    
+    }
+
+    .fabUslikaj{
+
+        margin-right: 65px;
+
+    }
+
+
+    .full-width {
+        width: 100%;
+        max-width: 100%;
+      }
+
+    .boldano {
+        font-weight: 500;
+    }
+
+    .nedefinirano {
+        margin: 0px 8px;
+        padding: 0;
+        width: calc(100% - 8px - 8px);
+        font-size:1.6rem;
+        color: #969696;
+    }
+
+
+
+
+}

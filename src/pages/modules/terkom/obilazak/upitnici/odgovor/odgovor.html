@@ -1,0 +1,42 @@
+
+<ion-header>
+        <js-header text-wrap title="{{pitanje}}" [showClose]="true" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+    	
+        <ion-list  *ngIf="tipPitanja==1">  
+                <ion-item no-lines>
+                        <ion-label stacked>Odgovor</ion-label>
+                        <ion-textarea maxlength="400" rows="4" type="text" [(ngModel)]="slobodniUnos" autosize></ion-textarea>
+                </ion-item>
+        </ion-list>
+
+        <ion-list radio-group [(ngModel)]="boolOdgovor" *ngIf="tipPitanja==2">
+                <ion-item *ngFor="let item of upitniciProvider.odgovori">
+                        <ion-label>{{item.odgovor}} </ion-label>
+                        <ion-radio value="{{item.tkodgovorid}}" (ionSelect)="selectionChanged($event)"></ion-radio>
+                </ion-item>
+        </ion-list>
+
+
+        <ion-list  *ngIf="tipPitanja==3">
+
+                <ion-item *ngFor="let item of upitniciProvider.odgovori">
+                        <ion-label>{{item.odgovor}}</ion-label>
+                        <ion-checkbox [(ngModel)]="item.checked" (ionChange)="updateChecked(item.tkodgovorid, item.checked)"></ion-checkbox>
+                </ion-item>
+
+        </ion-list>
+
+
+	
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+        <div style="margin:8px">
+                <button ion-button full  color="light" style="border: 1px solid #ccc" (click)="saveOdgovor()">Spremi</button>
+        </div>
+  </ion-toolbar>
+</ion-footer>

@@ -38,7 +38,7 @@ export class ManagerKpiPokazeteljiPage extends BasePage {
 
         return this
             .global
-            .getData(dataDef, true);
+            .getData(dataDef);
 
     }
 

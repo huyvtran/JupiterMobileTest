@@ -1,0 +1,57 @@
+<!--
+  Generated template for the NarudzbaZaglavljeEdit page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+   <js-header title="Izmjena dokumenta broj: {{narudzbeService.narudzba.broj}}" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+<ion-content class="outer-content">
+
+	<ion-list>
+      <ion-item-divider color="light">Zaglavlje dokumenta</ion-item-divider>
+      <form [formGroup]="form">
+       <ion-item>
+            <ion-label floating>Datum</ion-label>
+            <ion-datetime [disabled]="narudzbeService.narudzba.vrstadokoznaka==='MP'" cancelText="Odustani" doneText="Ok" formControlName="datum" displayFormat="DD.MM.YYYY" max="2056" [(ngModel)]="narudzbeService.narudzba.datumdok"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Napomena</ion-label>
+            <ion-input  formControlName="opis" placeholder="Napomena"  type="text"  [class.invalid]="!form.controls.opis.valid && (form.controls.opis.dirty || submitAttempt)" clearInput></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!form.controls.opis.valid  && (form.controls.opis.dirty || submitAttempt)">
+          <p>Opis maksimalno 100 znakova!</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Način plaćanja</ion-label>
+            <ion-select  formControlName="nacinPlacanja" [class.invalid]="!form.controls.nacinPlacanja.valid && (form.controls.nacinPlacanja.dirty || submitAttempt)"  cancelText="Odustani">
+                  <ion-option *ngFor="let item of sifarniciService.nacinplacanja"  value="{{item.id}}">{{item.naziv}} </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="!form.controls.nacinPlacanja.valid  && (form.controls.nacinPlacanja.dirty || submitAttempt)">
+          <p>Obavezan unos!</p>
+        </ion-item>
+      
+      </form>
+
+  </ion-list>
+
+  
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button (click)="dismiss()">Odustani</button>
+    </ion-buttons>
+
+    <ion-buttons end *ngIf="narudzbeService.narudzba.prijenosind == 0 || sifarniciService.ponovnoSlanjeZabrana === 0">
+      <button ion-button (click)="save()" strong>Spremi</button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-footer>

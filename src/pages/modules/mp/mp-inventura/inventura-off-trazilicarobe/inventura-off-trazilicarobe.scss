@@ -1,0 +1,75 @@
+page-inventura-off-trazilicarobe {
+.toolbar-md, .toolbar-ios {
+    padding: 0px;
+}
+.button-ios {
+    margin: 0px;
+    padding: 0px;
+}
+.grid, .row, .col {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.item-ios {
+    font-size: 1.4rem;
+}
+ion-card.card {
+    box-shadow: none;
+    background: rgba(54, 75, 94, 0.1);
+    border-radius: 10px;
+}
+
+.ikonavelika{
+    font-size: 3em !important;
+    text-align: center;
+}
+.nemapodataka{        
+    text-align: center;
+}
+
+ion-icon {
+    font-size: 1.5em;
+}
+.label-md, .label-ios {
+    margin: 13px 0px 13px 0;
+}
+.button-round-md, .button-round-ios {
+    padding: 0 90px;
+}
+// #mojgrid .grid {
+//     padding: 0px;
+// }
+// #mojgrid .col {
+//     padding-top: 0px;
+//     padding-bottom: 0px;
+// }
+.searchbar-md .searchbar-input, .searchbar-ios .searchbar-input {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.toolbar .searchbar-md {
+    background-color: rgb(248, 248, 248);
+}
+.toolbar .searchbar-ios {
+    background-color: none;
+}
+.searchbar-ios .searchbar-input::-webkit-input-placeholder, .searchbar-md .searchbar-input::-webkit-input-placeholder {
+    color: rgba(0,0,0,0.7)!important;
+}
+#divider-top .label-md, #divider-top .label-ios {
+    margin: 0px;
+}
+#divider-top .label-ios {
+    background: #f1f1f1;
+}
+.searchbar-md, .searchbar-ios {
+    padding: 0px;
+}
+.searchbar-ios {
+    background: #f1f1f1;
+    border-bottom: none;
+}
+#rss-ikona .button-ios {
+    padding: 12px;
+}
+}

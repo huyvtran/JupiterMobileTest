@@ -1,0 +1,234 @@
+<ion-header>
+    <js-header title="Offline inventura" [showClose]="true" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+
+<div style="background-color: #f1f1f1; font-weight: bold;" text-wrap text-center>
+    <ion-grid style="padding: 0px;">
+      <ion-row>
+        <ion-col col-9 style="padding-top: 10px;">
+          {{trgovina}}
+        </ion-col>
+        <ion-col id="rss-ikona" col-3 style="padding: 3px;">
+            <button style="background: linear-gradient(to right, #c0392b, #da4939);" small ion-button (click)="sinkroniziraj()">
+                <ion-icon name="logo-rss">&nbsp;&nbsp;</ion-icon>{{neposlanih}}/{{gotovo.length}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</div>
+      <!-- <ion-buttons end>
+
+           
+            <button style="background: linear-gradient(to right, #c0392b, #da4939);" small ion-button (click)="sinkroniziraj()">
+              <ion-icon name="logo-rss">&nbsp;&nbsp;</ion-icon>{{neposlanih}}/{{gotovo.length}}</button>
+          
+        </ion-buttons> -->
+
+
+
+      <ion-item-divider id="divider-top" style="padding-left: 0px;">
+        <ion-grid id="mojgrid" style="padding: 0px; border-bottom: 1px solid #f1f1f1;">
+            <ion-row>
+              <ion-col col-10>
+                <form (ngSubmit)="search()">
+                  <ion-searchbar placeholder="Traži robu.." class="some-class" [(ngModel)]="searchTerm" [formControl]="searchControl" autofocus></ion-searchbar>
+                </form>
+              </ion-col>
+              <ion-col col-2>
+      
+                <button ion-button block icon-center color="skin1" (click)="search()">
+                  <ion-icon color="bijela" name="search"></ion-icon>
+                </button>
+      
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+  </ion-item-divider>
+
+  <!-- {{prikazimiovo}} -->
+
+  <div [hidden]="!searching" class="spinner-container mycenter" text-center>
+    <br>
+    <ion-spinner></ion-spinner>
+  </div>
+  <div [hidden]="searching==true">
+    <div [hidden]="nemapodataka==false" class="nemapodataka">
+      <br>
+      <ion-icon class="ikonavelika" text-center name="eye-off"></ion-icon>
+      <br>
+      <ion-label text-center> Nema robe za prikaz! </ion-label>
+
+    </div>
+
+
+    <div text-center [hidden]="duljinaitems!=0">
+      <!-- <br><br>
+    <span ><strong style="font-size: large">Očitanih: {{duljinagotovo || 0}}</strong></span><br><br>
+    <span ><strong style="font-size: large">Neposlanih: {{neposlanih || 0}}</strong></span><br><br>
+    <span ><strong style="font-size: large">Preostalo za očitati: {{duljinaitemsoriginal-duljinagotovo}}</strong></span> -->
+
+      <!-- <ion-card>
+
+        <ion-card-header>
+          <h1>
+            <strong>Stanje</strong>
+          </h1>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6 style="border-right: 1px solid black;">
+                Očitanih:
+                <strong>{{duljinagotovo || 0}}</strong>
+              </ion-col>
+              <ion-col col-6>
+                Preostalo za očitati:
+                <strong>{{duljinaitemsoriginal-duljinagotovo}}</strong>
+              </ion-col>
+
+            </ion-row>
+            <ion-row>
+
+              <ion-col col-6 style="border-right: 1px solid black; color:#c0392b;">
+                Neposlanih:
+                <strong>{{neposlanih || 0}}</strong>
+              </ion-col>
+              <ion-col col-6>
+                Ukupno robe:
+                <strong>{{duljinaitemsoriginal || 0}}</strong>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+          <br>
+          <div [hidden]="neposlanih==0" text-center>
+            <button style="background-color: #c0392b" ion-button (click)="sinkroniziraj()">
+              <ion-icon name="logo-rss">&nbsp;&nbsp;</ion-icon> {{neposlanih}}/{{gotovo.length}}</button>
+          </div>
+          <ion-grid [hidden]="neposlanih!=0">
+            <ion-row>
+              <ion-col col-6>
+                  <button style="background-color: #c0392b" ion-button (click)="sinkroniziraj()">
+                      <ion-icon name="logo-rss">&nbsp;&nbsp;</ion-icon> {{neposlanih}}/{{gotovo.length}}</button>
+
+              </ion-col>
+              <ion-col col-6>
+                  <button style="background-color: #364b5e" ion-button (click)="zavrsi()">
+                      <ion-icon name="exit">&nbsp;&nbsp;</ion-icon> Gotovo </button>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+
+
+      </ion-card> -->
+
+
+      <ion-item-divider style="background: linear-gradient(to bottom, #364b5e, #3c5a77);" text-center>
+        <span style="color: white; font-size: 18px; letter-spacing: 1px;">
+          <strong>Stanje</strong>
+        </span>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6 text-center style="border-right: 1px solid lightgrey;">
+              Očitanih:
+              <br>
+              <strong>{{duljinagotovo || 0}}</strong>
+            </ion-col>
+            <ion-col col-6 text-center>
+              Preostalo za očitati:
+              <br>
+              <strong>{{duljinaitemsoriginal-duljinagotovo}}</strong>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6 text-center style="border-right: 1px solid lightgrey;">
+              <span style="color: #c0392b;">Neposlanih:
+                <br>
+                <strong>{{neposlanih || 0}}</strong>
+              </span>
+            </ion-col>
+            <ion-col col-6 text-center>
+              Ukupno robe:
+              <br>
+              <strong>{{duljinaitemsoriginal || 0}}</strong>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <div [hidden]="neposlanih==0" text-center>
+        <button round style="background: linear-gradient(to right, #c0392b, #da4939);" ion-button (click)="sinkroniziraj()">
+          <ion-icon name="logo-rss">&nbsp;&nbsp;</ion-icon> Pošalji {{neposlanih}}/{{gotovo.length}}</button>
+      </div>
+      <ion-grid [hidden]="neposlanih!=0">
+        <ion-row>
+          <ion-col col-6>
+            <button block style="background: linear-gradient(to right, #c0392b, #da4939);" ion-button (click)="sinkroniziraj()">
+              <ion-icon name="logo-rss">&nbsp;&nbsp;</ion-icon> Pošalji {{neposlanih}}/{{gotovo.length}}</button>
+
+          </ion-col>
+          <ion-col col-6>
+            <button block style="background: linear-gradient(to right, #364b5e, #446787);" ion-button (click)="zavrsi()">
+              <ion-icon name="exit">&nbsp;&nbsp;</ion-icon> Gotovo </button>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid [hidden]="neposlanih==0">
+        <ion-row>
+          <ion-col style="padding: 0;">
+            <button round ion-button style="background: linear-gradient(to right, #364b5e, #446787);" (click)="popis()">
+              <ion-icon name="md-list"></ion-icon>&nbsp;&nbsp; Popis neposlanih
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-fab bottom right>
+        <button (click)="skener()" color="skin1" ion-fab>
+          <ion-icon name="md-camera"></ion-icon>
+        </button>
+      </ion-fab>
+
+
+
+    </div>
+
+    <ion-list id="moj-label">
+
+      <ion-item-sliding *ngFor="let item of items">
+
+        <button ion-item text-wrap (click)="prikaziDetaljeRobe(item)">
+          {{item.sifra}}
+          <br>
+          <strong> {{item.naziv}}</strong>
+          <br>
+
+        </button>
+
+        <!-- <ion-item-options>
+          <button color="danger" ion-button   (click)="deleteitem(item)">
+           delete
+          </button>
+        </ion-item-options> -->
+
+      </ion-item-sliding>
+
+    </ion-list>
+  </div>
+
+
+</ion-content>

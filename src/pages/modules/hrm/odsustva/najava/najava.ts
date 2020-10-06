@@ -16,10 +16,13 @@ import * as Moment from 'moment';
 @Component({selector: 'page-hrm-odsustva-najava', templateUrl: 'najava.html'})
 export class HrmOdsustvaNajavaPage extends BasePage {
     data : any;
+    maxDate: string;
 
     constructor(public navCtrl : NavController, private provider : HrmOdsustvaNajavaProvider, private popoverCtrl : PopoverController, private modalCtrl: ModalController) {
         super();
 
+        this.maxDate= String(Moment().year() + 1)
+        console.log(this.maxDate);
         this
             .getData()
             .then(x => {
@@ -56,7 +59,7 @@ export class HrmOdsustvaNajavaPage extends BasePage {
         }
         return this
             .global
-            .getData(dataDef, true);
+            .getData(dataDef);
 
     }
 
@@ -140,7 +143,7 @@ export class HrmOdsustvaNajavaPage extends BasePage {
         }
         this
             .global
-            .getData(data, true)
+            .getData(data)
             .then(() => this.provider.resetValues())
             .then(() => this.global.presentToast("Najava odsustva je kreirana i poslana na odobravanje."))
             .catch(ex => this.global.logError(ex, false));

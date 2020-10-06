@@ -1,0 +1,133 @@
+
+$categories: (
+ ionic: color($colors, primary),
+ 0: #cc0000,
+ 1: black,
+ 2: green,
+ 3: silver
+);
+
+@function auxiliary-categories() {
+  @return map-remove($categories);
+}
+
+
+page-terpro-narudzbe-pregled {
+
+	.list {
+		margin-bottom: 70px;
+	}
+
+	.select{
+		max-width: 100% !important;
+	}
+	
+	.list-header-md {
+	border-top: none;
+	}
+
+	.list-header-md .item-inner{
+		text-align: center;
+	}
+
+	.item-md{
+		padding-left:5px;
+	}
+
+
+	.item-md [item-left]{
+		margin:0!important;
+	}
+
+
+	h3{
+		color:#C0392B; 
+		font-size: 1.6rem!important; 
+
+	}
+
+	h4{
+		color:#C0392B; 
+		font-size: 1.4rem!important; 
+
+	}
+
+	.label-md{
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+
+	.action-sheet-wrapper{
+		width:50%;
+	}
+
+
+
+	@each $track, $value in auxiliary-categories() {
+		ion-item-sliding[track="#{$track}"] ion-label {
+			border-left: 5px solid $value;
+			padding-left: 5px;
+			h3{
+				color: $value
+			}
+		}
+
+	}
+
+	.bar-button-outline-md { 
+        background-color: #C0392B;
+		color:#FFF;
+    }
+
+   .bar-button-outline-md.activated{
+        background-color: #C0392B;
+		color:#FFF;
+   }
+
+   .segment-md .segment-button.segment-activated{
+		border-color: #C0392B;
+	}
+
+	.toolbar .segment-md .segment-button.segment-activated {
+		color: #C0392B;
+	}
+
+	.item-md ion-icon[item-start]{
+		color: #C0392B;
+	}
+
+	.item-md {
+		background-color: transparent!important;
+	}
+
+	.item-block{
+		min-height: 3.5rem;
+	}
+
+	.datetime-md {
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+
+	.poslana,  {
+        color: green;
+    }
+
+    .neposlana {
+        color: map-get($colors, danger);
+	}
+	
+	ion-icon {
+		display: inline-block;
+		font-size: 1.8em;
+	}
+	
+}
+
+
+
+
+
+
+
+

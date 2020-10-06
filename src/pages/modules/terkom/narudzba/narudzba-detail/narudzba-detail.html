@@ -1,0 +1,117 @@
+<!--
+  Generated template for the NarudzbaDetail page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<ion-header>
+	 <js-header title="{{vrstaDok}} broj {{ narudzbeService.narudzba?.id? narudzbeService.narudzba.id : narudzbeService.newBrojNarudzbe }}" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+
+<ion-content >
+	  <ion-toolbar>
+
+		<table>
+			<tr (click)="editZagNarudzba(narudzbeService.NarudzbaID)">
+				<td class="td1" style="vertical-align: top">Kupac:</td>
+				<td style="font-weight: bold;color:#C0392B"> {{narudzbeService.narudzba?.partner}}</td>
+			</tr>
+			<tr (click)="editZagNarudzba(narudzbeService.NarudzbaID)">
+				<td class="td1" style="vertical-align: top">Adresa:</td>
+				<td>{{narudzbeService.narudzba?.adresa}}  {{narudzbeService.narudzba?.mjesto}}</td>
+			</tr>
+			<tr (click)="editZagNarudzba(narudzbeService.NarudzbaID)">
+				<td class="td1">Datum:</td>
+				<td style="font-weight: bold; color: #C0392B">{{narudzbeService.narudzba?.datumdok | date: 'dd.MM.yyyy'}}</td>
+			</tr>
+			<tr (click)="editZagNarudzba(narudzbeService.NarudzbaID)">
+				<td class="td1" style="vertical-align: top">Isporuka:</td>
+				<td>{{narudzbeService.narudzba?.nacinisporuke}}</td>
+			</tr>
+			<tr (click)="editZagNarudzba(narudzbeService.NarudzbaID)">
+				<td class="td1" style="vertical-align: top">Plaćanje:</td>
+				<td>{{narudzbeService.narudzba?.nacinplacanja}} </td>
+			</tr>
+			<tr (click)="editZagNarudzba(narudzbeService.NarudzbaID)">
+				<td class="td1" style="vertical-align: top">Skladište:</td>
+				<td>{{narudzbeService.narudzba?.skladiste}} </td>
+			</tr>
+			<tr (click)="editZagNarudzba(narudzbeService.NarudzbaID)" [hidden]="narudzbeService.narudzba?.opis == null || narudzbeService.narudzba?.opis == ''">
+				<td class="td1" style="vertical-align: top">Napomena:</td>
+				<td> {{narudzbeService.narudzba?.opis}}</td>
+			</tr>
+			<tr (click)="editZagNarudzba(narudzbeService.NarudzbaID)" [hidden]="narudzbeService.narudzba?.razlogpovrata == null || narudzbeService.narudzba?.razlogpovrata == ''">
+				<td class="td1" style="vertical-align: top">Razlog povrata:</td>
+				<td> {{narudzbeService.narudzba?.razlogpovrata}}</td>
+			</tr>
+			
+		</table>
+	
+		<div class="suma">
+			<div style='float: left;'>
+				<p>Stavaka: {{artiklService.stavke? artiklService.stavke.length : 0}}</p>
+				</div>
+			<div style='float: right;'>
+				<p>Ukupno: {{(narudzbeService?.narudzba?.iznos? narudzbeService.narudzba.iznos : 0)  | number : '1.2-2'}}</p>
+			</div>
+		</div>
+  	
+  	
+  </ion-toolbar>
+	<ion-list>
+			<ion-list-header [hidden]="artiklService.stavke?.length > 0">
+              Nema stavki
+      		</ion-list-header>
+	    	<ion-item-sliding *ngFor="let stavka of artiklService?.stavke" #slidingItem>
+	    	
+		        <button text-wrap ion-item (click)="editStavka(stavka)">
+
+				        <h3 text-wrap>{{stavka.sifra}} - {{stavka.naziv}}</h3>
+				
+				        <p text-wrap>Količina: {{stavka.kolicina}} ;
+				        Cijena: {{stavka.cijena | number : '1.2-2'}} ; 
+								Rabat: {{stavka.rabatPosto | number : '1.2-2'}} % ;
+								<!--Iznos: {{(stavka.cijena * stavka.kolicina) | number : '1.2-2'}}-->
+								Iznos  {{stavka.iznos | number : '1.2-2'}}
+								</p>
+								<p text-wrap *ngIf="sifarniciService.prikazirazlogpovrata===1">{{stavka.razlogpovratadetstavka}}</p>
+
+
+		        </button>
+
+		        <ion-item-options *ngIf="narudzbeService.narudzba.prijenosind == 0&&stavka.pov_nak_sysind!=1">
+		          <button ion-button color="danger" (click)="deleteStavka(slidingItem,stavka.id)">
+		          <ion-icon name="trash"></ion-icon>
+		            Ukloni
+		          </button>
+
+		        </ion-item-options>
+	      	</ion-item-sliding>
+		    
+	            	
+    </ion-list>
+
+    <ion-fab bottom right *ngIf="narudzbeService.narudzba.prijenosind == 0 || sifarniciService.ponovnoSlanjeZabrana === 0">
+	    <button ion-button round (click)="addStavka()">
+	    	Nova stavka
+	    </button>
+
+  	</ion-fab>
+
+</ion-content>
+<ion-footer>
+	<ion-toolbar>
+	    <ion-buttons left *ngIf="narudzbeService.narudzba.prijenosind == 0 || sifarniciService.ponovnoSlanjeZabrana === 0">
+	      <button ion-button (click)="editZagNarudzba(narudzbeService.NarudzbaID)">Uredi</button>
+	    </ion-buttons>
+
+	    <ion-buttons end *ngIf="narudzbeService.narudzba.prijenosind == 0 && artiklService.stavke?.length > 0 || artiklService.stavke?.length > 0 && sifarniciService.ponovnoSlanjeZabrana === 0">
+	      <button ion-button [hidden]="spremiButtonClicked==true" (click)="sendNarudzba(narudzbeService.narudzba.prijenosind)" strong>Pošalji</button>
+				
+				<button ion-button [hidden]="spremiButtonClicked==false" strong><ion-spinner name="circles"></ion-spinner> Slanje...</button>
+	    </ion-buttons>
+  	</ion-toolbar>
+</ion-footer>

@@ -1,0 +1,21 @@
+page-utility-dokumenti-kupuraireks {
+    table.kup-table 
+    {
+        width:100%;
+        td {
+            vertical-align: top;
+        }
+        td:nth-child(1) {
+            color: #999999;
+        }
+        td:nth-child(2) {
+            padding-left:10px;
+            width:100%;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+    }
+    .test {
+        background: #d5d5d5;
+    }
+}

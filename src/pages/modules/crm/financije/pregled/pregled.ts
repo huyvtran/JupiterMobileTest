@@ -173,7 +173,7 @@ export class CrmFinancijePregledPage extends BasePage {
         }
         return this
             .global
-            .getData(dataDef, true);
+            .getData(dataDef);
 
     }
 
@@ -237,15 +237,22 @@ export class CrmFinancijePregledPage extends BasePage {
     }
 
     trazilicaAuto(action) {
+        //this.navCtrl.push('SearchPartnerPage', {}); 
+        //'SharedTrazilicaAutocompletePage'
+
         this.global.modal = this
             .modalCtrl
-            .create('SharedTrazilicaAutocompletePage', {action: action});
+            .create('SearchPartnerPage', {action: action});
         this.global.modal.onDidDismiss(data => {
+            console.log(data);
             if (data != null) {
-                if (action == "partner") {
-                    this.provider.partnerid = data.id;
-                    this.provider.partner = data.naziv;
-                }
+                let id: number;
+                if (data.id != null)
+                    id= data.id;
+                else
+                    id= data.partneriid;
+                this.provider.partnerid = id;
+                this.provider.partner = data.naziv;
             }
             this.global.modal = null;
             this.setData();
@@ -358,9 +365,10 @@ export class CrmFinancijePregledPage extends BasePage {
     }
 
     partnerInfo() {
+        let id: number = this.provider.partnerid;
         this
             .partnerInfoProvider
-            .InitStorage(this.provider.partnerid);
+            .setData(this.partnerInfoProvider.getDataDefinition(id), id, null);
         this.global.pushPage("PartnerTabsPage");
     }
 }

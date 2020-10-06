@@ -1,0 +1,59 @@
+page-inventura-trazilicarobe {
+.toolbar-md, .toolbar-ios {
+    padding: 0px;
+}
+.grid, .row, .col {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.button-ios {
+    margin: 0px;
+    padding: 0px;
+}
+.item-ios {
+    font-size: 1.4rem;
+}
+
+.ikonavelika{
+    font-size: 3em !important;
+    position:absolute;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    top:25%;
+    transform:translateY(-15%);
+}
+.nemapodataka{        
+    position:absolute;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    top:32%;
+    transform:translateY(-25%);  
+}
+ion-grid {
+    padding: 0px;
+}
+ion-col[width-10] {
+    max-width: 20%;
+}
+ion-icon {
+    font-size: 1.5em;
+}
+#divider-top .label-md, #divider-top .label-ios {
+    margin: 0px;
+}
+#divider-top .label-ios {
+    background: #f1f1f1;
+}
+.searchbar-md, .searchbar-ios {
+    padding: 0px;
+}
+.searchbar-md .searchbar-input {
+    box-shadow: none;
+}
+.searchbar-ios {
+    background: #f1f1f1;
+    border-bottom: none;
+}
+}

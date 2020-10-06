@@ -2,13 +2,8 @@ import {NavController, ViewController} from 'ionic-angular';
 import {Component, Input} from '@angular/core';
 import {GlobalProvider} from '../../../providers/core/global-provider';
 import {FavoritesProvider} from '../../../providers/core/favorites-provider';
+import {VariableProvider} from '../../../providers/core/variable-provider';
 
-/**
- * Generated class for the FavoriteComponent component.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
- */
 
 @Component({selector: 'js-header', templateUrl: 'js-header.html'})
 export class JsHeaderComponent {
@@ -41,7 +36,7 @@ export class JsHeaderComponent {
     favoriteExists : boolean = false;
     canGoBack : boolean = false;
 
-    constructor(private navCtrl : NavController, private viewCtrl : ViewController, private globalProvider : GlobalProvider, private favoritesProvider : FavoritesProvider) {
+    constructor(private navCtrl : NavController, private viewCtrl : ViewController, private variableProvider: VariableProvider, private globalProvider : GlobalProvider, private favoritesProvider : FavoritesProvider) {
 
     }
 

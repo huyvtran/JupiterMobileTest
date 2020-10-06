@@ -1,0 +1,27 @@
+
+<ion-header>
+        <js-header title="Dnevna realizacija" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+
+	<ion-list>
+		<ion-list-header [hidden]="izvjestajiService.dnevno?.length > 0">
+			Nema podataka
+		</ion-list-header>
+		
+		<div *ngFor="let item of izvjestajiService.dnevno">
+			<button detail-none ion-item *ngFor="let it of item.data">
+
+				<h2 text-wrap>{{it.vrstadok}} - {{it.naziv}}</h2>
+				<h3 text-wrap>Količina: {{it.kolicina}};  Vrijednost: {{it.vrijednost  | number : '1.2-2'}}</h3>
+				
+			</button>
+
+		</div>
+		
+		
+	
+	</ion-list>
+</ion-content>

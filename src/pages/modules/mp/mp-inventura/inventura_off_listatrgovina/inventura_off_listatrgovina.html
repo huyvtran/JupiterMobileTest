@@ -1,0 +1,58 @@
+<ion-header>
+
+    <js-header title="Odaberite trgovinu - OFFLINE" [showClose]="true" [showFavorite]="false"></js-header>
+  
+
+  <!-- <ion-navbar color="crvena">
+    <ion-title>
+      Odaberite trgovinu - OFFLINE
+    </ion-title>
+  </ion-navbar> -->
+
+</ion-header>
+
+
+<ion-content>
+
+    <js-content></js-content>
+  
+
+  <div text-center [hidden]="!izbor">
+
+    <ion-item-divider id="moj-label" text-wrap style="background: linear-gradient(to bottom, #364b5e, #3c5a77); color: white;">{{pitanje}}</ion-item-divider>
+
+    <ion-item detail-push text-center (click)="nova()">{{opcija1}}</ion-item>
+    <ion-item detail-push text-center (click)="nastavi()">{{opcija2}}&nbsp;
+      <strong>{{nazivtrgovine}}</strong> &nbsp; <br>
+      <span style="color:#c0392b!important; font-weight: bold;">{{datumdok | date:'dd/MM/yyyy'}}</span>
+    </ion-item>
+
+  </div>
+
+  <div text-center [hidden]="!nemainventure">
+
+    <ion-item-divider text-wrap color="skin">
+      <span style="font-size: 17px!important;">Nema trgovina za inventuru!</span>
+    </ion-item-divider>
+
+  </div>
+
+  <ion-list>
+
+    <ion-item-sliding *ngFor="let item of items">
+
+      <button ion-item text-wrap (click)="prikaziRobu(item)">
+        <strong>Naziv: {{item.trgovina}}</strong>
+        {{item.datumdok | date:'dd/MM/yyyy'}}&nbsp; <strong>Broj inventure: </strong>{{item.brojinventure||''}}
+        <br>
+      </button>
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+  <div [hidden]="nemainventure" text-center>
+    <button ion-button style="background: linear-gradient(to right, #c0392b, #da4939);" (click)="odustani()"> Odustani </button>
+  </div>
+
+</ion-content>

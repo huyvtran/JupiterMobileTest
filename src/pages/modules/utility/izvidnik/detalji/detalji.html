@@ -1,0 +1,167 @@
+<!--
+  Generated template for the DetaljiPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <js-header-modal title="Detalji"></js-header-modal>
+</ion-header>
+
+
+<ion-content style="background:#eaeaea;">
+  <js-content></js-content>
+  <ion-card>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/images/user-unknown.jpg">
+      </ion-avatar>
+      <h2>{{dogadjaj.operater}}</h2>
+      <p>{{dogadjaj.vrijeme | date:'dd.MM.yyyy. HH:mm'}}</p>
+    </ion-item>
+
+    <ion-grid style="border-top:1px solid #eaeaea">
+      <ion-row>
+        <ion-col col-6>Arkod
+          <br>
+          <b>{{dogadjaj.arkod}}
+            <ng-container *ngIf="dogadjaj.arkod == null">
+              <span class="nedefinirano">(nedefinirano)</span>
+            </ng-container>
+          </b>
+        </ion-col>
+        <ion-col col-6>Kultura
+          <br>
+          <b>{{dogadjaj.kultura}}
+            <ng-container *ngIf="dogadjaj.kultura == null">
+              <span class="nedefinirano">(nedefinirano)</span>
+            </ng-container>
+          </b>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Napomena
+          <br>
+          <b>{{dogadjaj.napomena}}
+            <ng-container *ngIf="dogadjaj.napomena == null">
+              <span class="nedefinirano">(nedefinirano)</span>
+            </ng-container>
+          </b>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Kategorija
+          <div *ngIf="dogadjaj.bolestind == 1" class="kategorija">Bolest
+            <br>
+            <div *ngIf="dogadjaj.bolest == null" class="nedefinirano">(bez opisa)</div>
+            <div *ngIf="dogadjaj.bolest != null" class="opis">{{dogadjaj.bolest}}</div>
+          </div>
+          <div *ngIf="dogadjaj.stetniciind == 1" class="kategorija">Štetnici
+            <br>
+            <div *ngIf="dogadjaj.stetnici == null" class="nedefinirano">(bez opisa)</div>
+            <div *ngIf="dogadjaj.stetnici !=  null" class="opis">{{dogadjaj.stetnici}}</div>
+          </div>
+          <div *ngIf="dogadjaj.vodaind == 1" class="kategorija">Voda
+            <br>
+            <div *ngIf="dogadjaj.voda == null" class="nedefinirano">(bez opisa)</div>
+            <div *ngIf="dogadjaj.voda !=  null" class="opis">{{dogadjaj.voda}}</div>
+          </div>
+          <div *ngIf="dogadjaj.korovind == 1" class="kategorija">Korov
+            <br>
+            <div *ngIf="dogadjaj.korov == null" class="nedefinirano">(bez opisa)</div>
+            <div *ngIf="dogadjaj.korov !=  null" class="opis">{{dogadjaj.korov}}</div>
+          </div>
+          <div *ngIf="dogadjaj.phind == 1" class="kategorija">Ph
+            <br>
+            <div *ngIf="dogadjaj.ph == null" class="nedefinirano">(bez opisa)</div>
+            <div *ngIf="dogadjaj.ph !=  null" class="opis">{{dogadjaj.ph}}</div>
+          </div>
+          <ng-container *ngIf="dogadjaj.kategorijaexists == 0">
+            <div class="nedefinirano">
+              <b>(nedefinirano)</b>
+            </div>
+          </ng-container>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col>Sklop
+            <br>
+            <b>{{dogadjaj.sklop}}
+              <ng-container *ngIf="dogadjaj.sklop == null">
+                <span class="nedefinirano">(nedefinirano)</span>
+              </ng-container>
+            </b>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Zapažanja
+              <br>
+              <b>{{dogadjaj.napomena}}
+                <ng-container *ngIf="dogadjaj.napomena == null">
+                  <span class="nedefinirano">(nedefinirano)</span>
+                </ng-container>
+              </b>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="izvidnikProvider.menuPermissions[0].sljedecimonitoring != 0">
+            <ion-col>Sljedeći monitoring za
+              <br>
+              <b>{{dogadjaj.sljedecimonitoring}} <span *ngIf="dogadjaj.sljedecimonitoring">dana</span>  
+                <ng-container *ngIf="dogadjaj.sljedecimonitoring == null">
+                  <span class="nedefinirano">(nedefinirano)</span>
+                </ng-container>
+              </b>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="izvidnikProvider.menuPermissions[0].preporuka != 0">
+            <ion-col>Preporuka
+              <br>
+              <b>{{dogadjaj.preporuka}}
+                <ng-container *ngIf="dogadjaj.preporuka == null">
+                  <span class="nedefinirano">(nedefinirano)</span>
+                </ng-container>
+              </b>
+            </ion-col>
+          </ion-row>
+    </ion-grid>
+    
+    <div class="slika" *ngIf="dogadjaj.slike != null && dogadjaj.slike.length > 0">
+      <!-- <ion-slides pager>
+        <ion-slide *ngFor="let img of dogadjaj.slike">
+          <img style="max-width:100%; max-height:100%;" src="data:image/png;base64,{{img.base64image}}" />
+        </ion-slide>
+      </ion-slides> -->
+      <div *ngFor="let img of allimages[0]" class="image-border">
+        <img src="data:image/png;base64,{{img.base64image}}" />
+      </div>
+    </div>
+    <br><br><br><br>
+  </ion-card>
+
+
+  <!-- 
+  <div class="container">
+    <h2>{{detaljiObject[0].vrijeme | date:'dd.MM.yyyy. HH:mm'}}, {{detaljiObject[0].operater}}</h2>
+    <h1 *ngIf="detaljiObject[0].arkod">{{detaljiObject[0].arkod}}</h1>
+    <h3 *ngIf="detaljiObject[0].kultura">{{detaljiObject[0].kultura}}</h3>
+    <h2 *ngIf="detaljiObject[0].napomena">
+      <font color="black">Napomena: </font>{{detaljiObject[0].napomena}}</h2>
+    <h2 *ngIf="detaljiObject[0].bolest">
+      <font color="black">Bolest: </font>{{detaljiObject[0].bolest}}</h2>
+    <h2 *ngIf="detaljiObject[0].stetnici">
+      <font color="black">Štetnici: </font>{{detaljiObject[0].stetnici}}</h2>
+    <h2 *ngIf="detaljiObject[0].voda">
+      <font color="black">Voda: </font>{{detaljiObject[0].voda}}</h2>
+    <h2 *ngIf="detaljiObject[0].korov">
+      <font color="black">Korov: </font>{{detaljiObject[0].korov}}</h2>
+    <h2 *ngIf="detaljiObject[0].sklop">
+      <font color="black">Sklop: </font>{{detaljiObject[0].sklop}}</h2>
+    <h2 *ngIf="detaljiObject[0].ph">
+      <font color="black">pH: </font>{{detaljiObject[0].ph}}</h2>
+  </div> -->
+  <ion-fab right bottom padding>
+    <button ion-fab (click)="deleteDogadjajConfirm(dogadjaj.ratizvidid)" color="danger">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

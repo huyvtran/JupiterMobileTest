@@ -1,0 +1,41 @@
+<!--
+  Generated template for the Lokacija page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<ion-header>
+        <js-header title="Izvještaji" [showClose]="true" [showFavorite]="true">
+
+		</js-header>
+</ion-header>
+
+
+<ion-content>
+	<ion-list>
+		<ion-list-header action>
+			Odabir izvještaja
+		</ion-list-header>
+		
+    <!-- <ion-item class="empty" text-center  detail-none [hidden]="sifarniciService.izvjestajiputnika?.length > 0">Trenutno nema dodijeljenih izvještaja</ion-item> -->
+  
+		<!-- <button ion-item *ngFor="let izv of sifarniciService.izvjestajiputnika" (click)="openIzvjestaj(izv)">
+			  <ion-icon item-left name="search"></ion-icon>
+        <ion-label text-wrap>{{izv.naziv}}</ion-label>
+		</button> -->
+		<button ion-item (click)="openIzvjestaj('TerproIzvjestajiStanjeSkladistaPage')">
+			<ion-icon item-left name="search"></ion-icon>
+			<ion-label text-wrap>Stanje skladišta</ion-label>
+		</button>
+		<button ion-item  (click)="openIzvjestaj('TerproIzvjestajiRealizacijaPage')">
+			<ion-icon item-left name="search"></ion-icon>
+			<ion-label text-wrap>Realizacija</ion-label>
+		</button>
+		<button ion-item  (click)="openIzvjestaj('TerproNarudzbaPregledPage')">
+				<ion-icon item-left name="search"></ion-icon>
+				<ion-label text-wrap>Pregled dokumenata</ion-label>
+			</button>
+	</ion-list>
+</ion-content>

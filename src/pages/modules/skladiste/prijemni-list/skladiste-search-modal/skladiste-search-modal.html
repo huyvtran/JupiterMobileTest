@@ -1,0 +1,25 @@
+<ion-header>
+  <js-header-modal [title]="this.title" [showClose]="true"></js-header-modal>
+  <ion-toolbar class="light">
+    <ion-row>
+      <ion-searchbar [style.background]="getIsSearchStringValidBorder()" #searchInput [placeholder]="getPlaceholder()" [(ngModel)]="SearchString" (ionInput)="searchFn($event)" 
+        autocorrect="off" >
+      </ion-searchbar>
+      <ion-badge *ngIf="searchDataDataSet.length > 0" text-center>{{searchDataDataSet.length}}</ion-badge>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <js-content></js-content>
+  <ion-list>
+    <ion-item *ngFor="let searchItem of searchDataDataSet | search: provider.SearchString:'naziv#param1#param2';" (click)="setResult(searchItem)">
+      <ion-grid>
+        <ion-row><b><span [innerHTML]="searchItem.naziv | highlightify:SearchString"></span></b></ion-row>
+        <ion-row><span [innerHTML]="searchItem.param1 | highlightify:SearchString"></span></ion-row>
+        <ion-row><span [innerHTML]="searchItem.param2 | highlightify:SearchString"></span></ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

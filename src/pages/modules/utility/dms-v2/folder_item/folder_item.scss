@@ -1,0 +1,82 @@
+
+page-utility-dmsv2-folder-item {
+    ion-icon {
+        &[class*="custom-"] {
+            background-size: contain;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+          width: 0.8em;
+          height: 0.8em;
+        }
+
+        &[class*="custom-folder"] {
+            background-image: url(../assets/images/dms/folder.svg);
+        }
+
+        &[class*="custom-folder-personal"] {
+            background-image: url(../assets/images/dms/folder-personal.svg);
+        }
+      }
+    
+    .note{
+        color: #999;
+    }
+    .nums {
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        margin: 0!important;
+    }
+
+    .label-md {
+        margin: 2px 36px 2px 0;
+    }
+
+      .one, .two {
+        height:50%;
+        text-align: right;
+        font-size: 1.2rem;
+        color:#111;
+        position: relative;
+        width:36px;
+      }
+
+      .vertical-center {
+        font-size: 1.0rem;
+        padding: 0 3px 0 0;
+        position: absolute;
+        width:36px;
+        top: 50%;
+        left: 50%;
+        text-align: right;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .item-md ion-avatar[item-left], .item-md ion-thumbnail[item-left], .item-md ion-avatar[item-start], .item-md ion-thumbnail[item-start] {
+            margin: 2px 4px 2px 0;
+        }
+
+
+      .one {
+        background-color: #fcd462;
+        
+        // margin-bottom: 10px;
+      }
+      .two {
+        background-color: #efefef;
+        // margin-top: 10px;
+      }
+
+      .item-md h2 {
+        font-size: 1.5rem;
+        white-space: normal;
+    }
+
+
+    .item-md ion-avatar {
+        min-width: 36px;
+        min-height: 36px;
+    }
+}

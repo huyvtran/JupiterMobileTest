@@ -3,12 +3,27 @@
 </ion-header>
 
 <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Povuci za osvježavanje"
+            refreshingSpinner="circles"
+            refreshingText="Osvježavam podatke...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+
     <ion-list>
-        <button ion-item *ngFor="let item of company" (click)="openPage(item)">
+        <js-nodata *ngIf="jupitersystemProvider.jupiterSystemData.company == null || jupitersystemProvider.jupiterSystemData.company?.length == 0" message="Nemate prava niti na jednu tvrtku"></js-nodata>
+        <button ion-item *ngFor="let item of jupitersystemProvider.jupiterSystemData?.company" (click)="openPage(item)">
             <div class="company-icon" [ngStyle]="{'background-image': getCompanyIcon(item)}"></div>
             <!--<div class="company-icon" style="display:inline-block" [ngStyle]="{'background-image': getBackgroundImage()}"></div>-->
             <!--<img src="assets/images/spin.png" style="width:24px" item-left />-->
             <div class="company-name">{{item.name}}</div>
         </button>
     </ion-list>
+
+    <ion-fab bottom right *ngIf="jupitersystemProvider.jupiterSystemData.company == null || jupitersystemProvider.jupiterSystemData.company?.length == 0">
+        <button ion-fab mini color="danger" (click)="resetShowConfirm('all')"><ion-icon name="power"></ion-icon></button>
+    </ion-fab>
 </ion-content>

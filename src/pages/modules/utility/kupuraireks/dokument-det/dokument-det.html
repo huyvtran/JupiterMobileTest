@@ -1,0 +1,25 @@
+<ion-header>
+    <js-header-modal title="KUP - napomena / potvrda"></js-header-modal>
+</ion-header>
+
+<ion-content no-padding>
+    <js-content></js-content>
+     
+    <ion-item>
+        <ion-label color="primary" stacked>Napomena</ion-label>
+        <ion-textarea [(ngModel)]="napomena"  placeholder="Tekst napomene..." autosize></ion-textarea>
+    </ion-item>
+</ion-content>
+
+<ion-footer>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-4>
+                <button (click)="odustani()" full ion-button round color="light">Odustani</button>
+            </ion-col>
+            <ion-col col-8>
+                <button full ion-button round [color]="status == 'odobri' ? 'success' : 'danger'" (click)="setStatus()">{{statusText}}</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

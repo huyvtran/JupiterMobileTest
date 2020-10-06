@@ -1,0 +1,66 @@
+<ion-header>
+	<js-header title="{{narudzbeService.lokacija}}" [showClose]="false" [showFavorite]="false"></js-header>
+
+	<!-- <div style="margin:8px">
+		<button ion-button full color="light" style="border: 1px solid #ccc" (click)="detailLokacija()">Podaci o lokaciji</button>
+	</div>
+
+	<div style="margin:8px">
+		<button ion-button full color="light" style="border: 1px solid #ccc" (click)="openEvidencijaPosjetaPage()">Evidencija posjeta ({{evidenvijaPosjetaProvider?.posjetCnt}})</button>
+	</div>
+
+	<div style="margin:8px">
+		<button ion-button full color="light" style="border: 1px solid #ccc" (click)="openObavijestiPage()">Obavijesti ({{obavijestiService?.obavijestiLokacijaCnt}})</button>
+	</div> -->
+</ion-header>
+
+<ion-content>
+
+
+
+
+	<ion-list >
+		<ion-list-header >
+			Info lokacije
+		</ion-list-header>
+		<button ion-item (click)="detailLokacija()">
+			<ion-label>Podaci o lokaciji</ion-label>
+		</button>
+		<button ion-item (click)="openEvidencijaPosjetaPage()">
+			<ion-label>Evidencija posjeta</ion-label>
+			<ion-note item-right>{{evidenvijaPosjetaProvider?.posjetCnt}}</ion-note>
+		</button>
+		<button ion-item (click)="openObavijestiPage()">
+			<ion-label>Obavijesti</ion-label>
+			<ion-note item-right>{{obavijestiService?.obavijestiLokacijaNeprocitaneCnt}} ({{obavijestiService?.obavijestiLokacijaCnt}})</ion-note>
+		</button>
+		<ion-list-header>
+			Odabir aktivnosti
+		</ion-list-header>
+
+		<div *ngIf="permissionPorovider.isVisible('AktivnostMniDokumenti')">
+			<button  ion-item *ngFor="let dok of sifarniciService.vrstadok; let i = index" (click)="novaNarudzba(dok)" [disabled]="!permissionPorovider.isEnabled('AktivnostMniDokumenti')">
+				<ion-icon item-left name="{{iconNames[i]}}"></ion-icon>
+				<ion-label text-wrap>{{dok.naziv}}</ion-label>
+				<ion-note class="noteAction" item-right>{{dok.broj==0? '' : dok.broj}}</ion-note>
+			</button>
+		</div>
+
+		<button  ion-item (click)="openIzvjestajiActionPage()" *ngIf="permissionPorovider.isVisible('AktivnostMniIzvjestaji')" [disabled]="!permissionPorovider.isEnabled('AktivnostMniIzvjestaji')">
+			<ion-icon item-left name="ios-clipboard-outline"></ion-icon>
+			<ion-label>Izvještaji</ion-label>
+    </button>
+
+		<button ion-item (click)="openUpitniciPage()" *ngIf="permissionPorovider.isVisible('AktivnostMniUpitnik')" [disabled]="!permissionPorovider.isEnabled('AktivnostMniUpitnik')">
+			<ion-icon item-left name="ios-help-outline"></ion-icon>
+			<ion-label>Upitnik</ion-label>
+			<ion-note class="noteAction" item-right>{{ispunjeniUpitniciCount==0? '' : ispunjeniUpitniciCount}}</ion-note>
+		</button>
+		<button ion-item *ngIf="permissionPorovider.isVisible('AktivnostMniDistribucija')" [disabled]="!permissionPorovider.isEnabled('AktivnostMniDistribucija')">
+			<ion-icon item-left name="ios-basket-outline"></ion-icon>
+			<ion-label>Asortiman</ion-label>
+			<ion-note  item-right></ion-note>
+		</button>
+	</ion-list>
+
+</ion-content>

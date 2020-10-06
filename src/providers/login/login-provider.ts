@@ -25,12 +25,24 @@ export class LoginProvider {
             .then(res => {
                 value = res;
                 this.variableProvider.loginData = value;   
-            });
+                //this.variableProvider.loginData.pushEnabled = true;
+            })
     }
 
     getTokenData(pin : string, deviceId : string) {
+
+
+
+        
         var self = this;
         //var value : any;
+
+        let properties: ICore.IPropertiesCore = {
+            spinApiEndPoint: 'auth',
+            tokenRequired: false
+        }
+
+
         let dataDef : ICore.IData = {
             "queries": [
                 {
@@ -54,7 +66,7 @@ export class LoginProvider {
         }
         return this
             .global
-            .getDataToken(dataDef, true,"auth",null,false);
+            .getDataToken(dataDef, properties);
 
     }
 
@@ -67,6 +79,8 @@ export class LoginProvider {
             .getJupiterSystem(pin, login)
             .then(res => {
                 value = res;
+                console.log("login-provider - getJupiterSystem");
+                console.log(value);
                 if (value.user == null || (value.company == null || value.company.length == 0))
                     throw new Error("Neispravni Jupiter Software login podaci. Molim kontaktirajte vašeg Jupiter Software administratora.");
                 else {
@@ -86,6 +100,10 @@ export class LoginProvider {
 
 
      getJupiterSystem(pin: string, login: string) {
+
+        let properties: ICore.IPropertiesCore = {
+            jupiterSystem: true
+        }
 
         let dataDef : ICore.IData = {
             "queries": [
@@ -111,7 +129,7 @@ export class LoginProvider {
         }
         return this
             .global
-            .getDataToken(dataDef, true,null,true,true);
+            .getDataToken(dataDef, properties);
 
     }
 
@@ -126,6 +144,11 @@ export class LoginProvider {
 
 
     updateUserData(pin: string, login: string, name: string){
+
+        let properties: ICore.IPropertiesCore = {
+            spinApiEndPoint: 'updateUser'
+        }
+
         let dataDef : ICore.IData = {
             "queries": [
                 {
@@ -165,12 +188,17 @@ export class LoginProvider {
         // }
         return this
             .global
-            .getDataToken(dataDef,true,"updateUser",false,true);
+            .getDataToken(dataDef, properties);
     }
 
     getUnlockedApps() {
         var refreshToken = this.variableProvider.loginData.refreshToken; 
-        
+
+        let properties: ICore.IPropertiesCore = {
+            showLoader: false,
+            spinApiEndPoint: 'generic'
+        }
+
         let dataDef: ICore.IData = {
             "queries": [
                 {
@@ -184,7 +212,7 @@ export class LoginProvider {
             ]
         }
 
-        return this.global.getDataToken(dataDef,false,"generic",false,true).then(val => {
+        return this.global.getDataToken(dataDef, properties).then(val => {
             if (val != null && val.apps != null) {
                 this.appUnlockStorageProvider.addToStorage(val.apps).then(() => {
                     this.appUnlockStorageProvider.getDataFromStorage();

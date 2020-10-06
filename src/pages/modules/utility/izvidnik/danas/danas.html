@@ -1,0 +1,69 @@
+<!--
+  Generated template for the DanasPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <js-header title="Izvidnik" [showClose]="true" [showFavorite]="true" rootPage="IzvidnikPage"></js-header>
+    <div class="sub-title">
+        {{subTitle}}
+    </div>
+</ion-header>
+
+
+<!-- <js-nodata *ngIf="dogadjaji.length == 0" message="Nema podataka"></js-nodata>         -->
+<ion-content style="background:#eaeaea;">
+    <js-content></js-content>
+    <js-nodata *ngIf="dogadjaji == null || dogadjaji.length == 0" message="Nema podataka"></js-nodata>
+    <div *ngIf="dogadjaji != null && dogadjaji.length > 0">
+        <ion-card *ngFor="let dogadjaj of dogadjaji" (click)="otvoriDetalje(dogadjaj)">
+            <ion-item>
+                <ion-avatar item-start>
+                    <img src="assets/images/user-unknown.jpg">
+                </ion-avatar>
+                <h2>{{dogadjaj.operater}}</h2>
+                <p>{{dogadjaj.vrijeme | date:'dd.MM.yyyy. HH:mm'}}</p>
+            </ion-item>
+
+            <div *ngIf="dogadjaj.slike != null && dogadjaj.slike.length > 0" class="bgImage" [ngStyle]="{ 'position': 'relative'}">
+                <ion-badge right top style="opacity:0.8; position:absolute; right:0;" color="dark"><span style="opacity:0.7; font-style: italic">broj slika:</span> <strong>&nbsp;{{dogadjaj.slike.length}}</strong></ion-badge>
+            </div>
+            <ion-grid style="border-top:1px solid #eaeaea">
+                <ion-row>
+                    <ion-col col-6>Arkod
+                        <br>
+                        <b>{{dogadjaj.arkod}}
+                            <ng-container *ngIf="dogadjaj.arkod == null">
+                                <span class="nedefinirano">(nedefinirano)</span>
+                            </ng-container>
+                        </b>
+                    </ion-col>
+                    <ion-col col-6>Kultura
+                        <br>
+                        <b>{{dogadjaj.kultura}}
+                            <ng-container *ngIf="dogadjaj.kultura == null">
+                                <span class="nedefinirano">(nedefinirano)</span>
+                            </ng-container>
+                        </b>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>Napomena
+                        <br>
+                        <b>{{dogadjaj.napomena}}
+                            <ng-container *ngIf="dogadjaj.napomena == null">
+                                <span class="nedefinirano">(nedefinirano)</span>
+                            </ng-container>
+                        </b>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+    </div>
+    <ion-fab right bottom padding>
+        <button class="fab" ion-fab (click)="Unos()">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

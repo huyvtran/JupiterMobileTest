@@ -1,0 +1,179 @@
+<ion-header>
+        <js-header title="Analiza prenesenih utržaka" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+
+<ion-content>
+        <js-content></js-content>
+
+        <ion-item-divider color="light">
+                <strong>Odaberi</strong>
+        </ion-item-divider>
+
+        <ion-list>
+                <ion-item-sliding #slidingItem1>
+                        <button ion-item (click)="izaberi(15)" id="icon-search">
+                                <ion-icon name="md-search" style="color: grey;" item-start></ion-icon>
+                                <div style="color: grey;">Trgovina</div>
+                                <div text-wrap style="color:black;">{{item.trgovina}}</div>
+                        </button>
+                        <ion-item-options id="option-icon">
+                                <button style="width: 50px; padding-top: 10px;" color="danger" ion-button large (click)="brisiTrgovinu(slidingItem1)">
+                                        <ion-icon icon-only ios="ios-trash" md="md-trash" color="light"></ion-icon>
+                                </button>
+                        </ion-item-options>
+                </ion-item-sliding>
+                <div id="label2">
+                        <ion-item-divider color="light">
+                                <ion-grid>
+                                        <ion-row>
+                                                <ion-col col-6 style="padding-top:15px; padding-left: 10px;">
+                                                        <strong>Razdoblje</strong>
+                                                </ion-col>
+                                                <ion-col col-6 text-right  id="ios-dugme">
+                                                        <button ion-button color="skin1" (click)="popoverRazdoblje($event)">
+                                                                <ion-icon name="md-calendar"></ion-icon>
+                                                        </button>
+                                                </ion-col>
+                                        </ion-row>
+                                </ion-grid>
+                        </ion-item-divider>
+                </div>
+                <ion-item>
+                        <ion-icon name="md-calendar" style="color: grey;" item-start></ion-icon>
+                        <ion-label style="color: grey!important;">Datum od</ion-label>
+                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="item.datumod"></ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                        <ion-icon name="md-calendar" style="color: grey;" item-start></ion-icon>
+                        <ion-label style="color: grey!important;">Datum do</ion-label>
+                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="item.datumdo"></ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Samo razlika</ion-label>
+                        <ion-checkbox [(ngModel)]="item.samorazlike"></ion-checkbox>
+                      </ion-item>
+
+        </ion-list>
+
+        <ion-buttons end style="padding-right: 10px;">
+                <button ion-button color="skin1" (click)="otvori()">
+                        Prikaži
+                </button>
+        </ion-buttons>
+        <br>
+        <ion-item-divider [hidden]="prazno" color="skin1">
+                <strong>Prikaz</strong>
+
+        </ion-item-divider>
+
+        <div [hidden]="nemapodataka==false" class="nemapodataka">
+                <br>
+                <ion-icon class="ikonavelika" text-center name="eye-off"></ion-icon>
+                <br>
+                <ion-label text-center> Nema podataka za prikaz! </ion-label>
+          
+              </div>
+
+        
+                <ion-item-divider [hidden]="prazno" id="label2" color="light" style="padding-left: 5px;" sticky>
+
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-6 style="font-size: 16px; font-weight: bold; color: black;">
+                                                Trgovina
+                                        </ion-col>
+                                        <ion-col col-6 text-right class="plava">
+                                                Iznos računa
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-6 style="font-size: 16px; font-weight: bold; color: black;">
+                                                Datum
+                                        </ion-col>
+                                        <ion-col col-6 text-right class="plava">
+                                                Iznos zaključka
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+                </ion-item-divider>
+        
+        <ion-list id="label2">
+                <ion-item [hidden]="item['iznos računa']==item['iznos zaključka']" *ngFor="let item of items" class="boja">
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-9>
+                                                <strong>{{item.trgovina}}</strong>
+                                        </ion-col>
+                                        <ion-col col-3 text-right>
+                                                {{transform(item['iznos računa']|number:'1.2-2')}}
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-6>
+                                                {{item.datum | date: 'dd/MM/yyyy' }}
+                                        </ion-col>
+                                        <ion-col col-6 text-right>
+                                                {{transform(item['iznos zaključka']|number:'1.2-2')}}
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+                </ion-item>
+                        <!-- -------------------------------------------------------------------- -->
+                <ion-item [hidden]="item['iznos računa']!=item['iznos zaključka']" *ngFor="let item of items">
+                                <ion-grid>
+                                        <ion-row>
+                                                <ion-col col-9 text-wrap>
+                                                        <strong>{{item.trgovina}}</strong>
+                                                </ion-col>
+                                                <ion-col col-3 text-right>
+                                                        {{transform(item['iznos računa']|number:'1.2-2')}}
+                                                </ion-col>
+                                        </ion-row>
+                                </ion-grid>
+                                <ion-grid>
+                                        <ion-row>
+                                                <ion-col col-6 style="color: grey;">
+                                                        {{item.datum | date: 'dd/MM/yyyy' }}
+                                                </ion-col>
+                                                <ion-col col-6 text-right>
+                                                        {{transform(item['iznos zaključka']|number:'1.2-2')}}
+                                                </ion-col>
+                                        </ion-row>
+                                </ion-grid>
+                        </ion-item>
+                <!-- <ion-item>
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-6 style="color: grey;">
+                                                Iznos računa
+                                        </ion-col>
+                                        <ion-col col-6 text-right class="plava">
+                                                {{item['iznos računa']}}
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+                </ion-item>
+                <ion-item>
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-6 style="color: grey;">
+                                                Iznos zaključka
+                                        </ion-col>
+                                        <ion-col col-6 text-right class="plava">
+                                               
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+                </ion-item> -->
+        </ion-list>
+
+
+
+</ion-content>

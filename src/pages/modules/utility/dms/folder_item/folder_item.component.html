@@ -1,0 +1,14 @@
+<ion-item (click)="goToPage({dokid:folder.dokid, path:folder.path})">
+
+  <ion-avatar item-left>
+    <ion-icon name="{{folder.icon}}"  [ngStyle]="{'font-size': '45px', 'color': folder.icon_color}" ></ion-icon>
+  </ion-avatar>
+
+  <h2>{{folder.name}}</h2>
+
+
+  <ion-note item-right><ion-icon name="ios-folder-outline"></ion-icon> {{folder.brojFoldera}}</ion-note>
+  <ion-note item-right><ion-icon name="ios-document-outline"></ion-icon> {{folder.brojFileova}}</ion-note>
+</ion-item>
+
+

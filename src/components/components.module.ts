@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { DoubletapDirective } from './gesture-directive/doubletap-directive';
 import { JsHeaderComponent } from './core/js-header/js-header';
 import { JsHeaderModalComponent } from './core/js-header-modal/js-header-modal';
+import { TerkomComponent } from './application/terkom/terkom-component';
+import { TerproComponent } from './application/terpro/terpro-component';
 import { JsContentComponent } from './core/js-content/js-content';
 import { JsNoDataComponent } from './core/js-nodata/js-nodata';
 
@@ -19,7 +21,9 @@ import { Autosize } from './autosize/autosize';
 		JsNoDataComponent,
         AccordionListComponent,
         DatePicker,
-		Autosize
+		Autosize,
+        TerkomComponent,
+        TerproComponent
     ],
     imports: [
          IonicModule
@@ -32,7 +36,9 @@ import { Autosize } from './autosize/autosize';
 		JsNoDataComponent,
         AccordionListComponent,
         DatePicker,
-		Autosize
+		Autosize,
+        TerkomComponent,
+        TerproComponent
     ]
 })
 export class ComponentsModule {}

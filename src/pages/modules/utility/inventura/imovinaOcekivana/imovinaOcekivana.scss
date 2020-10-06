@@ -1,0 +1,19 @@
+page-utility-inventura-imovinaOcekivana {
+    .toolbarButtonCol{
+        padding: 8px 51px 0px 0px;
+        max-width: 45px;
+    }
+    .toolbarButton {
+        margin: 0px;
+        width: 42px;
+        height: 42px;
+    }
+    .searchbar .searchbar-input-container .searchbar-search-icon {
+        @extend ion-icon;
+        @extend .ion-md-barcode;
+        background-image: none;
+        color: #dddddd;
+        font-size: 2.0rem;
+    }
+   
+}

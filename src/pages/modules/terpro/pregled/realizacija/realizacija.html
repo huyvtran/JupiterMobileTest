@@ -1,0 +1,54 @@
+<ion-header>
+        <js-header title="Realizacija" [showClose]="false" [showFavorite]="false">
+                <button js-buttons-end clear color="light" (click)="printDocument()" ion-button icon-only>
+                        <ion-icon name="print"></ion-icon>
+                </button>
+        </js-header>
+</ion-header>
+
+
+<ion-content>
+        <ion-item-divider sticky>
+                <ion-grid style="font-weight: bold;">
+                        <ion-row>
+                                <ion-col col-2>
+                                        Oznaka
+                                </ion-col>
+                                <ion-col col-2 text-left>
+                                        Broj
+                                </ion-col>
+                                <ion-col col-6 text-left>
+                                        Naziv
+                                </ion-col>
+                                <ion-col col-2 text-right>
+                                        Iznos
+                                </ion-col>
+                        </ion-row>
+                </ion-grid>
+        </ion-item-divider>
+        <ion-list>
+                <ion-list-header [hidden]="realizacija.length > 0">
+                        Nema podataka
+                </ion-list-header>
+
+                <ion-item *ngFor="let item of realizacija">
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-2 text-wrap>
+                                                {{item.vrstadokoznaka}}
+                                        </ion-col>
+                                        <ion-col col-2 text-left>
+                                                {{item.brojdok}}
+                                        </ion-col>
+                                        <ion-col text-wrap col-6 text-left>
+                                                {{item.partner}}
+                                        </ion-col>
+                                        <ion-col col-2 text-right>
+                                                {{item.iznos_ukupno | number : '1.2-2'}}
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+                </ion-item>
+
+        </ion-list>
+</ion-content>

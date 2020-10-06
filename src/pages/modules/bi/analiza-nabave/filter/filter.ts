@@ -48,7 +48,7 @@ export class BiAnalizaNabaveFilter extends BasePage {
                         } else if (action == "orgshema") {
                             this.parametri.orgshemaid = data.id;
                             this.parametri.orgshemanaziv = data.naziv;
-                        } else if (action == "operater") {
+                        } else if (action == "odgovornaosoba") {
                             this.parametri.odgovornaosobaid = data.id;
                             this.parametri.odgovornaosobanaziv = data.naziv;
                         }
@@ -95,7 +95,6 @@ presentPopover(myEvent) {
 }
 
     ok() {
-        this.setSP();
         this.navCtrl.push('BiAnalizaNabaveUsporedba');
         // if (this.filterType=="b") {
         //     this.navCtrl.push('BiAnalizaNabaveUsporedba');
@@ -109,41 +108,6 @@ presentPopover(myEvent) {
         this.provider.parametriRef = this.parametri;
     }
 
-
-    private setSP() {
-        let stora: string;
-        let objekttekst: string;
-        switch(this.parametri.objekt) { 
-            case "p": { 
-               stora = "spMobManAnaProPon1";
-               objekttekst = "ponude";
-               break; 
-            } 
-            case "o": { 
-                stora = "spMobManAnaProNOT"
-                objekttekst = "otpremnice";
-                break; 
-            } 
-            case "f": { 
-                stora = "spMobManAnaProFak"
-                objekttekst = "fakture";
-                break; 
-            } 
-            case "m": { 
-                stora = "spMobManAnaProMP"
-                objekttekst = "Maloprodaja";
-               break; 
-            } 
-            case "v": { 
-                stora = "spMobManAnaProMPVP"
-                objekttekst = "MP + VP";
-                break; 
-            } 
-        } 
-
-        this.parametri.stora = stora;
-        this.parametri.objekttekst = objekttekst;
-    }
 
     clearValue(slide, value, name) {
         slide.close();

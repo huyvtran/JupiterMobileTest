@@ -130,6 +130,12 @@ ion-menu {
     }
 }
 
+.alert-error {
+  > div {
+      color: #c0392b!important;
+  }
+}
+
 .toast-info {
   > div {
       background: #999!important;
@@ -184,3 +190,7 @@ ion-label div.content {
   margin: -1px 0 0;
 }
 /* end - specifično za IOS */
+
+.highlight {
+  background-color: yellow;
+}

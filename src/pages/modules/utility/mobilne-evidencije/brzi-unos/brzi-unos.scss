@@ -1,0 +1,30 @@
+page-brzi-unos {
+
+    ion-col {
+        padding:0!important;
+    }
+
+    ion-fab {
+        margin-right: 20px;
+        margin-bottom: 20px
+    }
+
+    ion-list {
+        border-bottom: 1px solid gray;
+        border-top: 1px solid gray;
+    }
+
+    ion-item {
+        padding-left:0!important;
+
+        ion-label {
+            padding-left:1.5rem;
+        }
+        ion-input {
+            padding-left:1.5rem;
+        }
+        ion-textarea {
+            padding-left:1.5rem;
+        }
+    }
+}

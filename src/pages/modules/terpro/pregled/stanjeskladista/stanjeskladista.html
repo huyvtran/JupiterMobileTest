@@ -1,0 +1,23 @@
+<ion-header>
+        <js-header title="Stanje skladišta" [showClose]="false" [showFavorite]="false">
+                <button js-buttons-end clear color="light" (click)="printStanjeSkladista()" ion-button icon-only>
+                        <ion-icon name="print"></ion-icon>
+                </button>
+        </js-header>
+
+</ion-header>
+
+
+<ion-content>
+        <ion-list>
+                <ion-list-header [hidden]="stanjeSkladista.length > 0">
+                        Nema podataka
+                </ion-list-header>
+                <button ion-item *ngFor="let item of stanjeSkladista" (click)="openKartica(item.robaid)">
+                        <h2 text-wrap>{{item.sifra}} - {{item.naziv}}</h2>
+                        <h3 text-wrap>Raspoloživo: {{item.raspolozivo | number : '1.2-2'}}; Ulaz: {{item.ulaz | number : '1.2-2'}}</h3>
+                        <h3 text-wrap>Svi dokumenti: {{item.svi | number : '1.2-2'}}; Zaključeni: {{item.zakljuceni | number : '1.2-2'}}; </h3>
+                        <h3 text-wrap>Slobodna količina: {{item.ulaz - item.svi  | number : '1.2-2'}}</h3>
+                </button>
+        </ion-list>
+</ion-content>

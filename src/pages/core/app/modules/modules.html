@@ -5,6 +5,11 @@
 <ion-content>
     <js-nodata *ngIf="globalProvider.modulesProvider.granule == null || globalProvider.modulesProvider.granule.length == 0" message="Nemate prava niti na jednu granulu.<br>Molim obratite se vašem Jupier Software administratoru."></js-nodata>
 
+
+    <terkom-component *ngIf="this.variableProvider.lastAppCode=='terkom-mobile' && (globalProvider.modulesProvider.granule != null && globalProvider.modulesProvider.granule.length != 0)"></terkom-component>
+    <terpro-component *ngIf="this.variableProvider.lastAppCode=='terpro-mobile' && (globalProvider.modulesProvider.granule != null && globalProvider.modulesProvider.granule.length != 0)"></terpro-component>
+
+
     <ion-item-group *ngFor="let item of globalProvider.modulesProvider.granule">
         <ion-item-divider color="light">{{item.name}}</ion-item-divider>
         <button ion-item (click)="startModule(menu)" *ngFor="let menu of item.menu" style="padding-left:60px;">

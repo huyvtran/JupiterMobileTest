@@ -46,7 +46,7 @@ export class HrmProfilDetaljiDjelatnikaPage extends BasePage {
         }
         return this
             .global
-            .getData(dataDef, true);
+            .getData(dataDef);
 
     }
 
@@ -65,7 +65,7 @@ export class HrmProfilDetaljiDjelatnikaPage extends BasePage {
         }
         return this
             .global
-            .getData(dataDef, true);
+            .getData(dataDef);
 
     }
 

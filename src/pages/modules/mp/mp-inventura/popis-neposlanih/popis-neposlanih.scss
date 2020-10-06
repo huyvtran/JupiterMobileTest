@@ -1,0 +1,17 @@
+page-popis-neposlanih {
+    .label-md, .label-ios {
+        margin: 0px;
+    }
+    .item-md, .item-ios {
+        padding-left: 0px;
+    }
+    // .button-round-md, .button-round-ios {
+    //     padding: 0 110px;
+    // }
+    #obrisisve .button-md, #obrisisve .button-ios {
+        padding: 0 125px; 
+    }
+    .list-ios ion-item-options .button {
+        width: 50px!important;
+    }
+}

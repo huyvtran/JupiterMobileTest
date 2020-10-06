@@ -64,13 +64,13 @@
         </ion-item>
         <ion-item>
             <ion-label>Vrijeme od</ion-label>
-            <ion-datetime *ngIf="provider.parametri.ukljucisate==true" displayFormat="DD.MM.YYYY HH:mm" minuteValues="0,30" [(ngModel)]="provider.parametri.vrijemeod" (ngModelChange)="validateVrijeme('od')">-</ion-datetime>
-            <ion-datetime *ngIf="provider.parametri.ukljucisate==false" displayFormat="DD.MM.YYYY" [(ngModel)]="provider.parametri.vrijemeod" (ngModelChange)="validateVrijeme('od')">-</ion-datetime>
+            <ion-datetime *ngIf="provider.parametri.ukljucisate==true" displayFormat="DD.MM.YYYY HH:mm" minuteValues="0,30"  max="{{maxDate}}" [(ngModel)]="provider.parametri.vrijemeod" (ngModelChange)="validateVrijeme('od')">-</ion-datetime>
+            <ion-datetime *ngIf="provider.parametri.ukljucisate==false" displayFormat="DD.MM.YYYY" max="{{maxDate}}" [(ngModel)]="provider.parametri.vrijemeod" (ngModelChange)="validateVrijeme('od')">-</ion-datetime>
         </ion-item>
         <ion-item>
             <ion-label>Vrijeme do</ion-label>
-            <ion-datetime *ngIf="provider.parametri.ukljucisate==true" displayFormat="DD.MM.YYYY HH:mm" minuteValues="0,30" [(ngModel)]="provider.parametri.vrijemedo"  (ngModelChange)="validateVrijeme('do')"></ion-datetime>
-            <ion-datetime *ngIf="provider.parametri.ukljucisate==false" displayFormat="DD.MM.YYYY" [(ngModel)]="provider.parametri.vrijemedo" (ngModelChange)="validateVrijeme('do')"></ion-datetime>
+            <ion-datetime *ngIf="provider.parametri.ukljucisate==true" displayFormat="DD.MM.YYYY HH:mm" minuteValues="0,30" max="{{maxDate}}" [(ngModel)]="provider.parametri.vrijemedo"  (ngModelChange)="validateVrijeme('do')"></ion-datetime>
+            <ion-datetime *ngIf="provider.parametri.ukljucisate==false" displayFormat="DD.MM.YYYY" max="{{maxDate}}" [(ngModel)]="provider.parametri.vrijemedo" (ngModelChange)="validateVrijeme('do')"></ion-datetime>
         </ion-item>
         <ion-item-divider ion-item color="light">
             <ion-label>Zamjenska osoba</ion-label>
@@ -78,7 +78,7 @@
             <ion-checkbox item-right [(ngModel)]="provider.parametri.ukljucizamjenika"></ion-checkbox>
         </ion-item-divider>
         <ion-item-sliding #slZamjenik>
-            <button ion-item *ngIf="provider.parametri.ukljucizamjenika==true" [ngClass]="{'highlight': provider.parametri.zamjenikid==null}" (click)="trazilica('hrkadrovi')">{{provider.parametri.zamjenik}}</button>
+            <button ion-item *ngIf="provider.parametri.ukljucizamjenika==true" [ngClass]="{'zamjenik-highlight': provider.parametri.zamjenikid==null}" (click)="trazilica('hrkadrovi')">{{provider.parametri.zamjenik}}</button>
             <ion-item-options side="right">
                 <button ion-button icon-only (click)="clearValue(slZamjenik, 'zamjenikid', 'zamjenik', '(nedefinirano)')" color="danger">
                     <ion-icon name="close"></ion-icon>

@@ -1,0 +1,89 @@
+<ion-header>
+        <js-header title={{item.trgovina}} [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+
+
+<ion-content>
+
+        <js-content></js-content>
+
+        <ion-item-divider sticky color="light">
+                <ion-grid>
+                        <ion-row>
+                                <ion-col col-2>
+
+                                        <ion-item no-lines color="light">
+                                                <ion-checkbox (click)="oznacisve()" [(ngModel)]="oznacenosve"></ion-checkbox>
+                                        </ion-item>
+                                </ion-col>
+                                <ion-col col-6 text-wrap>
+                                        <ion-item no-lines color="light">
+                                                <span class="plava" style="font-size:16px;">Broj računa</span>
+                                        </ion-item>
+                                </ion-col>
+                                <ion-col col-4 text-right text-wrap style="padding-right: 10px;">
+                                        <ion-item text-right no-lines color="light">
+                                                <strong>Datum</strong>
+                                        </ion-item>
+                                </ion-col>
+                        </ion-row>
+                </ion-grid>
+        </ion-item-divider>
+
+        <ion-list>
+                <ion-item *ngFor="let item of items" [hidden]="item.poslano==1">
+                        <!-- <button ion-item  (click)="editbiljeske(item)"> -->
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-2>
+                                                <ion-item no-lines color="bijela">
+                                                        <ion-checkbox (ionChange)="oznacen()" [(ngModel)]="item.checked"></ion-checkbox>
+                                                </ion-item>
+                                        </ion-col>
+                                        <ion-col col-6 text-wrap>
+                                                <ion-item no-lines color="bijela">{{item.broj}}</ion-item>
+                                        </ion-col>
+                                        <ion-col col-4 text-right>
+                                                <ion-item text-right no-lines color="bijela">
+                                                        <span class="plava">{{item.datumdokumenta |date: 'dd.MM.yyyy.' }}</span>
+                                                </ion-item>
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+
+                        <!-- </button> -->
+
+                </ion-item>
+        </ion-list>
+        <br>
+        <br>
+
+
+
+
+
+        <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon>
+        <br>
+        <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema podataka za prikaz! </ion-label>
+
+
+</ion-content>
+
+<ion-footer class="wow fadeInUp">
+        <ion-grid>
+                <ion-row>
+                        <ion-col col-6>
+                                <button outline block ion-button>
+                                                {{ukupno}} označenih
+                                </button>
+                        </ion-col>
+                        <ion-col col-6>
+                                <button block ion-button (click)="fiskalizirajsve()">
+                                         Fiskaliziraj
+                                </button>
+                        </ion-col>
+                </ion-row>
+        </ion-grid>
+
+</ion-footer>

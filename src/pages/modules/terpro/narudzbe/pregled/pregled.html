@@ -1,0 +1,78 @@
+<ion-header>
+  <js-header title="Pregled narudžbi" [showClose]="true" [showFavorite]="true"></js-header>
+  <div class="sub-title light">
+    <i>broj narudžbi: {{narudzbeService.narudzbe? narudzbeService.narudzbe.length : 0}}</i>
+  </div>
+  <ion-toolbar>
+    <ion-item no-lines>
+      <ion-select item-left class="select" placeholder="Odaberite vrstu dokumenta" (ionChange)="getDokumenti()" [(ngModel)]="selVrstaDokId">
+        <ion-option value="-1">Svi dokumenti</ion-option>
+        <ion-option value="0">Narudžbe</ion-option>
+        <ion-option text-wrap *ngFor="let item of sifarniciService.vrstadok" value="{{item.vrstadokid}}">{{item.opis}} </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-list-header [hidden]="narudzbeService.narudzbe?.length > 0">
+      Nema dokumenata
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let nar of narudzbeService.narudzbe" #slidingItem [attr.track]=nar.status>
+      <button ion-item (click)="pageDetail(nar)">
+        <h3>{{nar.status == 0 ? 'Narudžba' :nar.vrstadok}} : {{nar.broj}} {{nar.storno === 1 ? (nar.brojstorno ? ' -S' : '')
+          : ''}}</h3>
+        <p text-wrap>{{nar.partner}}</p>
+        <p text-wrap *ngIf="nar.partner!=nar.lokacija">{{nar.lokacija}}</p>
+        <p text-vrap>{{nar.mjesto}} {{nar.adresa}}</p>
+        <p text-wrap *ngIf="nar.jir!=null">JIR: {{nar.jir}}</p>
+
+        <ion-note item-end *ngIf="nar.prijenosind == 1 && (nar.status==2 || nar.status==1)">
+          <ion-icon name="checkmark-circle" [ngClass]="{'1':'poslana', '0':'neposlana'}[nar.prijenosind]"></ion-icon>
+        </ion-note>
+        <ion-note item-end *ngIf="nar.prijenosind == 0 && (nar.status==2 || nar.status==1)">
+          <ion-icon name="close-circle" [ngClass]="{'1':'poslana', '0':'neposlana'}[nar.prijenosind]"></ion-icon>
+        </ion-note>
+      </button>
+
+      <ion-item-options>
+        <button ion-button color="medium" *ngIf="nar.status!=2 && nar.donos!=1" (click)="deleteDokument(slidingItem,nar)">
+          <ion-icon name="trash"></ion-icon>
+          Obriši
+        </button>
+        <button ion-button color="skin1" *ngIf="nar.status===2" (click)="stornoDokument(slidingItem,nar)">
+          <ion-icon name="copy"></ion-icon>
+          Storno
+        </button>
+        <button ion-button color="skin1" *ngIf="nar.prijenosind===0" (click)="azurirajDokument(slidingItem,nar)">
+          <ion-icon name="card"></ion-icon>
+          Ažuriraj
+        </button>
+        <button ion-button color="skin1" *ngIf="nar.status!=2 && nar.donos===1 && nar.status != 3" (click)="otkaziDok(slidingItem,nar)">
+          <ion-icon name="alert"></ion-icon>
+          Otkaži
+        </button>
+
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+
+  </ion-list>
+
+
+  <!-- <ion-fab bottom right *ngIf="segment==='narudzbe' && narudzbeService.narudzbe?.length > 0">
+    <button ion-fab (click)="sendAll()">
+      <ion-icon name="cloud-upload"></ion-icon>
+    </button>
+
+  </ion-fab> -->
+
+</ion-content>

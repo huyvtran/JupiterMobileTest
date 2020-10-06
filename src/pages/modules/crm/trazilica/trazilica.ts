@@ -1,3 +1,5 @@
+// 12032018 - dsenkovic - fokus na ulasku u aplikaciju i par dana ranije izmjena hijerarhijske tražilice i prikazivanja svih stavki kad se obriše searchTerm
+
 import { Component, ViewChild } from '@angular/core';
 import { Content, NavController, IonicPage, NavParams, ViewController, PopoverController } from 'ionic-angular';
 
@@ -20,8 +22,9 @@ export class CRMKonsolidacijaTrazilicaPage extends BasePage {
 
   @ViewChild(Content) content: Content;
 
-  items: any = {};
+  items: any [] = [];
   item: any = {};
+  zadnjiitem: any = {};
   val = '';
   searchControl: FormControl;
   action;
@@ -37,6 +40,8 @@ export class CRMKonsolidacijaTrazilicaPage extends BasePage {
   trazimizhistorija=false;
   usaougetdata=false;
   counterizabranih=0;
+  komada=0;
+  skrivenhint=false;
 
   trazilicatype='flat-single';
   //trazilicatype='flat-multiselect';
@@ -59,6 +64,7 @@ export class CRMKonsolidacijaTrazilicaPage extends BasePage {
     this.parametriupita = this.navParams.data;
     //console.log('this.parametriupita ',this.parametriupita);
     this.trazilicatype = this.parametriupita.trazilicatype || 'flat-single';
+    this.skrivenhint=false;
     
     console.log('parametri došli u tražilicu: ',this.parametriupita);
     this.action = this.parametriupita.action;
@@ -120,13 +126,27 @@ export class CRMKonsolidacijaTrazilicaPage extends BasePage {
       this.naslov = "Vrste kontakta";
       this.scrollid = this.parametriupita.parkontaktvrstaid;
     }
+    else if (this.action == 15) {
+      this.naslov = "Tražilica trgovine";
+      this.scrollid = this.parametriupita.trgovinaid;
+    }
+    else if (this.action == 16) {
+      this.naslov = "Tražilica robe";
+      this.scrollid = this.parametriupita.robaid;
+    }
 
 
     console.log('Action iz filter-forme: ', this.action);
 
   }
+// ------------------ ne stavlja mi fokus na input pri ulasku u aplikaciju --------------------------------
+  // ionViewDidEnter(){
+    
+  // }
 
   ionViewDidLoad() {
+
+    this.storage.remove('jm_crm_11');   // tu sam obrisao storage za klasu robe, neki još imaju staru verziju pa neće moći raditi s tražilicom klase robe
     if(this.prviput==true){
       this.prviput=false;
     
@@ -139,7 +159,7 @@ export class CRMKonsolidacijaTrazilicaPage extends BasePage {
         this.trazi(0);
       }
       else{
-        if(this.action!=555){
+        if(this.action!=555 || this.action!=16){
       
       this.storage.get('jm_crm_' + this.action).then(val => {
         if (val) {
@@ -192,7 +212,7 @@ else{
     this.searchControl.valueChanges.debounceTime(1000).subscribe(search => {
       if (! this.trazimizhistorija) {
        
-      if (this.val.length > 2) { this.trazilica(0,1); }
+      if (this.val.length > 2 || this.val=='') { this.trazilica(0,1); }
       }
     });
   
@@ -251,7 +271,9 @@ else{
           "query": "spMOB_trazilice",
           "params": {
             "action": this.action,
+            "trgovinaid": this.parametriupita.trgovinaid,
             "naziv": this.val,
+            "operateriid": this.parametriupita.operateriid,
             "klmasterrobaid": this.parametriupita.klmasterrobaid,
             "id":this.parametriupita.partneriid
             
@@ -263,7 +285,7 @@ else{
       ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
     
   }
 
@@ -303,6 +325,8 @@ trazi(sOdabranomKlasomIdemoPoRobu){
 
       this.items = x;
       console.log('this.items ', this.items);
+      let elem = <HTMLInputElement>document.querySelector('#ccc div .searchbar-input');
+      if (elem) { setTimeout(() => { console.log('tusam1'); elem.focus(); }, 550); }
       
       if(sOdabranomKlasomIdemoPoRobu>0){
         setTimeout(() => {
@@ -327,7 +351,7 @@ trazi(sOdabranomKlasomIdemoPoRobu){
       
 
     if(myEvent!=0){
-      if(this.val.trim().length>2){
+      if(this.val.trim().length>2 || this.val==''){
         this.rc=0;
         this.currentsortkeylevel=2;
         this.currentsortkey='';
@@ -351,6 +375,8 @@ trazi(sOdabranomKlasomIdemoPoRobu){
 
         this.items = x;
         console.log('this.items ', this.items);
+        let elem = <HTMLInputElement>document.querySelector('.searchbar-input');
+        if (elem) { setTimeout(() => { console.log('tusam2'); elem.focus(); }, 550); }
         
         if(sOdabranomKlasomIdemoPoRobu>0){
           setTimeout(() => {
@@ -393,6 +419,7 @@ trazi(sOdabranomKlasomIdemoPoRobu){
       }
 
       this.items = x;
+
       console.log('this.items ', this.items);
      
       
@@ -412,8 +439,12 @@ trazi(sOdabranomKlasomIdemoPoRobu){
     }
   }
 
+  sakrijporuku(){
+    this.skrivenhint=true;
+  }
+
   spremiRezultateTrazenja() {
-    if(this.action==10||this.action==555){
+    if(this.action==10||this.action==555||this.action==16||this.action==11){
       console.log('lokacije ne spremamo u storage!');
     }
     else{
@@ -448,7 +479,7 @@ trazi(sOdabranomKlasomIdemoPoRobu){
   }
 
   }
-
+ 
   prikazipovijest(myEvent){
     console.log('prikazi povijest klik');
     this.akcija['action']=this.action;
@@ -474,6 +505,8 @@ trazi(sOdabranomKlasomIdemoPoRobu){
       }
     });
   }
+
+  
   
   odaberi(item) {
     console.log('odaberi',item);
@@ -502,6 +535,8 @@ trazi(sOdabranomKlasomIdemoPoRobu){
   }
 
   swipeEvent(item,e) {
+    this.zadnjiitem=item;
+    this.komada=0;
 
     console.log('swipeEvent',item);
     
@@ -520,10 +555,47 @@ trazi(sOdabranomKlasomIdemoPoRobu){
         console.log('currentsortkeylevel',this.currentsortkeylevel);
       }
   }
+  
 
   this.currentsortkey = item.sortkey.substr(0,this.currentsortkeylevel-2)
   console.log('currentsortkey',this.currentsortkey);
 
+  // ovdje treba izdvojiti samo iteme koji odgovaraju uvjetu: if(item.sortkey.length==currentsortkeylevel && item.sortkey.substr(0,currentsortkeylevel-2)==currentsortkey)
+  console.log('this.items prije foreach',this.items["items"]);
+  let ajtems: any[] = [];
+  // ajtems = this.items.
+  this.items["items"].forEach(element => {
+    if((element.sortkey.length==this.currentsortkeylevel) && (element.sortkey.substr(0,this.currentsortkeylevel-2)==this.currentsortkey))
+    {
+      ajtems.push(element);
+    }
+    
+  });
+  
+    // ajtems= this.items.filter(element => (element.sortkey.length==this.currentsortkeylevel) && (element.sortkey.substr(0,this.currentsortkeylevel-2)==this.currentsortkey))
+    
+  console.log('ajtems',ajtems);
+  this.komada=ajtems.length;
+  if(this.komada==0){
+    if(this.currentsortkeylevel>2){
+      this.currentsortkeylevel= this.currentsortkeylevel-2;
+     // this.currentsortkey = this.zadnjiitem.sortkey.substr(0,this.currentsortkeylevel-2);
+      this.currentsortkey = item.sortkey.substr(0,this.currentsortkeylevel-2);
+
+      
+      
+    }
+  }
+  console.log('ajtems length', this.komada);
+  console.log('this.currentsortkey',this.currentsortkey);
+
+}
+
+nazad(){
+  if(this.currentsortkeylevel>2){
+    this.currentsortkeylevel= this.currentsortkeylevel-2;
+    this.currentsortkey = this.zadnjiitem.sortkey.substr(0,this.currentsortkeylevel-2);
+  }
 }
 
 }

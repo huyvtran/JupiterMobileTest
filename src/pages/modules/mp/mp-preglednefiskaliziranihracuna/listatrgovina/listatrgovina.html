@@ -1,0 +1,52 @@
+<ion-header>
+        <js-header title="Nefiskalizirani računi" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+
+<ion-content>
+
+        <js-content></js-content>
+        <ion-item-divider sticky color="light">
+                <ion-grid>
+                        <ion-row>
+                                <ion-col col-8 text-wrap>
+                                        <span class="plava" style="font-size:16px;">Naziv trgovine</span>
+                                </ion-col>
+                                <ion-col col-4 text-right text-wrap style="padding-right: 6px;">
+                                        <strong>Nefiskaliziranih računa</strong>
+                                </ion-col>
+                        </ion-row>
+                </ion-grid>
+        </ion-item-divider>
+
+        <ion-list>
+                <ion-item *ngFor="let item of items" (click)="openDetalji(item)">
+                        <!-- <button ion-item  (click)="editbiljeske(item)"> -->
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-8 text-wrap>
+                                                {{item.trgovina}}
+                                        </ion-col>
+                                        <ion-col col-4 text-right>
+                                                <span class="plava">{{item.br}}</span>
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+
+                        <!-- </button> -->
+                </ion-item>
+
+        </ion-list>
+        <br>
+        <br>
+
+
+
+
+
+        <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon>
+        <br>
+        <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema podataka za prikaz! </ion-label>
+
+
+</ion-content>

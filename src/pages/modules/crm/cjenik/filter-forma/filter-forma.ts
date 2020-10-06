@@ -54,13 +54,13 @@ export class CRMCjenikFilterFormaPage extends BasePage {
 
   izaberi(action){
     this.parametriupita.action=action;
-    let modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
+    this.global.modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
     {'action':action, 'skladisteid':this.parametriupita.skladisteid, 'robaid': this.parametriupita.robaid, 'klmasterrobaid':this.parametriupita.klmasterrobaid
     , 'partneriid':this.parametriupita.partneriid, 'cjenikid':this.parametriupita.cjenikid }
     //this.parametriupita
   );
-    modal.present();
-    modal.onDidDismiss(data => {
+  this.global.modal.present();
+  this.global.modal.onDidDismiss(data => {
       if(data==null){
         console.log('data je null');
         data={action:0};
@@ -82,7 +82,7 @@ export class CRMCjenikFilterFormaPage extends BasePage {
         
  
       }
-
+      this.global.modal=null;
       });
   }
 

@@ -1,0 +1,54 @@
+<ion-header>
+    <js-header title="Printer list" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!gettingDevices">
+        <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Povuci za osvježavanje"
+        refreshingSpinner="circles"
+        refreshingText="Traženje uređaja">
+    </ion-refresher-content>
+    </ion-refresher>
+    
+    <ion-row justify-content-center *ngIf="gettingDevices">
+        <ion-spinner name="circles"></ion-spinner>
+    </ion-row>
+    <ion-row justify-content-center *ngIf="gettingDevices">
+        Traženje uređaja...
+    </ion-row>
+    <ion-list>
+       
+        <!--
+        <ion-item-sliding *ngFor="let device of pairedDevices" #slidingItem (click)="select(device)">
+            <button ion-item>
+                <h3 text-wrap>{{ device.name }} {{ device.id }}</h3>
+            </button> -->
+
+        <!-- <ion-item-options>
+                <button ion-button color="danger" (click)="disconnect(slidingItem, device)">
+                    <ion-icon name="trash"></ion-icon>
+                    Ukloni uređaj
+                </button>
+            </ion-item-options> -->
+        <!-- </ion-item-sliding> -->
+        <ion-item-divider ion-item color="light">
+            Pronađeni uređaji (klik za povezivanje)
+            <ion-icon item-left name="ios-cube-outline"></ion-icon>
+        </ion-item-divider>
+
+        <ion-item *ngFor="let device of unpairedDevices" (tap)="connect(device)">
+            {{ device.name }} {{ device.id }}
+        </ion-item>
+
+    </ion-list>
+</ion-content>
+<ion-footer>
+
+    <div style="margin:8px">
+        <button ion-button full color="light" style="border: 1px solid #ccc" (click)="settings()">Bluetooth settings</button>
+    </div>
+
+</ion-footer>

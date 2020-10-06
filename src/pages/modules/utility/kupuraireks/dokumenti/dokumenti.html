@@ -1,0 +1,78 @@
+<ion-header>
+    <js-header title="KUP - dostavna klnjiga" [showClose]="true" [showFavorite]="true"></js-header>
+</ion-header>
+
+<ion-content no-padding>
+    <js-content></js-content>
+    <js-nodata *ngIf="dataExists() == false"></js-nodata>
+     <ion-list>
+        <ng-container *ngFor="let item of data">
+            <button ion-item  detail-none (click)="setCard(item)" [ngClass]="{'test': item.kupprometid==kupprometid}">         
+                <h2>{{item.naziv}}</h2>
+                <table class="kup-table">
+                    <tr>
+                        <td>Urudžbeni broj:</td>
+                        <td><strong>{{item.broj}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Vrsta pošte:</td>
+                        <td>{{item.vrstaposte}}</td>
+                    </tr>
+                    <tr>
+                        <td>Datum prijema:</td>
+                        <td>{{item.datum | date:'dd.MM.yyyy'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Iznos: </td>
+                        <td>{{item.iznos | number : '1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Napomena:</td>
+                        <td>{{item.opis}}</td>
+                    </tr>
+                </table>
+                <div style="position:absolute; top:16px; right:10px; font-size:1.8rem; width:24px; text-align:center; font-weight: 500">{{item.attachments.length}}</div>
+                <div style="position:absolute; top:10px; right:10px; font-size:3rem; opacity:0.3"><ion-icon name="ios-paper-outline"></ion-icon></div>
+            </button>
+            <ion-grid *ngIf="item.kupprometid==kupprometid" style="background-color:#d5d5d5">
+                <ion-row>
+                    <ion-col col-4>
+                        <button ion-button color="dark" full (click)="pregled(item)"><ion-icon name="eye"></ion-icon></button>
+                    </ion-col>
+                    <ion-col  col-4>
+                        <button ion-button color="primary" full (click)="odobri(item)">Odobri</button>
+                    </ion-col>
+                    <ion-col  col-4>
+                        <button ion-button color="danger" full (click)="odbaci(item)">Odbaci</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ng-container>
+
+        <!--<ion-item-sliding *ngFor="let item of data">
+            <button ion-item  detail-none>         
+       
+                <ion-avatar item-left>
+                    <ion-icon name="ios-document-outline" [ngStyle]="{'font-size': '52px', 'color': red}" ></ion-icon>
+                </ion-avatar>
+                
+                <h2>{{item.naziv}}</h2>
+                <p class="item-description">Size: {{item.size}}</p>
+                <p class="item-description">Id: {{item.dokid}}</p>
+            </button>
+            <ion-item-options side="right">
+                <button ion-button icon-only color="secondary" (click)="odobri(item)">
+                    <ion-icon name="checkmark"></ion-icon>
+                </button>
+                 <button ion-button icon-only color="danger" (click)="odbaci(item)">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+                 <button ion-button icon-only color="primary" (click)="pregled(item)">
+                    <ion-icon name="eye"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>-->
+
+    </ion-list>
+
+</ion-content>

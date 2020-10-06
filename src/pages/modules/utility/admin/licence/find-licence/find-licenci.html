@@ -1,0 +1,82 @@
+<ion-header>
+    <js-header title="Pronađi licence" [showClose]="false" [showFavorite]="false">
+    </js-header>
+</ion-header>
+
+<ion-content>
+
+    <form [formGroup]="form">
+
+        <ion-item>
+            <ion-label floating>Login</ion-label>
+            <ion-select formControlName="login" [(ngModel)]="loginid" (ionCancel)="onCancel('login')" cancelText="Ukloni" okText="Prihvati">
+                <ion-option *ngFor="let item of sifarnici.logins" value="{{item.login}}">{{item.login}} </ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Šifra</ion-label>
+            <ion-input formControlName="sifra" type="text" [class.invalid]="!form.controls.sifra.valid && (form.controls.sifra.dirty || submitAttempt)"
+                clearInput></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!form.controls.sifra.valid  && (form.controls.sifra.dirty || submitAttempt)">
+            <p>Šifra maksimalno 8 znakova!</p>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Marka uređaja</ion-label>
+            <ion-select formControlName="manufacturer" [(ngModel)]="manufacturerid" (ionCancel)="onCancel('manufacturer')" cancelText="Ukloni"
+                okText="Prihvati">
+                <ion-option *ngFor="let item of sifarnici.devicemanufacturers" value="{{item.devicemanufacturer}}">{{item.devicemanufacturer}} </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Model uređaja</ion-label>
+            <ion-select formControlName="model" [(ngModel)]="modelid" (ionCancel)="onCancel('model')" cancelText="Ukloni" okText="Prihvati">
+                <ion-option *ngFor="let item of sifarnici.devicemodels" value="{{item.devicemodel}}">{{item.devicemodel}} </ion-option>
+            </ion-select>
+        </ion-item>
+
+
+    </form>
+
+    <ion-footer>
+        <div style="margin:8px">
+
+            <button ion-button full color="light" style="border: 1px solid #ccc"  (click)="find()">Pronađi</button>
+        </div>
+    </ion-footer>
+
+    <!-- <ion-list>
+
+        <js-content *ngIf="submitAttempt"></js-content>
+        
+        <ion-list-header [hidden]="licence.length > 0">
+            Nema pronađenih licenci
+        </ion-list-header>
+
+        <ion-item-sliding #slidingItem *ngFor="let item of licence | search: term:'name#login'">
+                <button ion-item detail-none [disabled]="buttonState(item)" (press)="pressed(slidingItem, item)">
+                    <h2 style="text-transform: capitalize">{{item.name}}</h2>
+                    <h3>{{item.login}}</h3>
+                    <h4>{{item.devicemanufacturer}} {{item.devicemodel}} {{item.deviceversion ? 'v.' : ''}}{{item.deviceversion}}</h4>
+                    <ion-note item-right>
+                        <p>Aktivan
+                            <ion-icon name="checkmark-circle" [ngClass]="{'1':'aktivan','0':'neaktivan'}[item.active]"></ion-icon>
+                        </p>
+                        <p>Testing
+                            <ion-icon name="checkmark-circle" [ngClass]="{'1':'testing','0':'neaktivan'}[item.testing]"></ion-icon>
+                        </p>
+                    </ion-note>
+                </button>
+                <ion-item-options>
+                    <button ion-button color="danger" (click)="presentAlertPrompt(slidingItem,item)" *ngIf="item.active">
+                        <ion-icon name="ios-refresh"></ion-icon>
+                        Reset
+                    </button>
+    
+                </ion-item-options>
+    
+            </ion-item-sliding>
+    </ion-list> -->
+
+</ion-content>

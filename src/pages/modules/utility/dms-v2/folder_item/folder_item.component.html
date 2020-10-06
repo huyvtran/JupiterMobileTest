@@ -1,0 +1,29 @@
+<ion-item (click)="goToPage(folder)">
+
+  <ion-avatar item-left>
+    <!-- <ion-icon src="/assets/images/dms/folder.svg" [ngStyle]="{'font-size': '32px'}"></ion-icon> -->
+    <ion-icon [name]="folder.type == 'omroot' ? 'custom-folder-personal' : 'custom-folder'" [ngStyle]="{'font-size': '32px'}"></ion-icon> 
+    <!-- <ion-icon name="{{folder.icon}}" [ngStyle]="{'font-size': '32px', 'color': folder.icon_color}"></ion-icon> -->
+  </ion-avatar>
+
+  <h2>{{folder.name}}</h2>
+
+  <ion-note item-right class="nums">
+      <div class="one">
+          <div class="vertical-center">
+              {{folder.brojFoldera > 1000 ? '1000+' : folder.brojFoldera}}
+          </div>
+      </div>
+      <div class="two">
+          <div class="vertical-center">
+              {{folder.brojFileova > 1000 ? '1000+' : folder.brojFileova}}
+          </div>
+      </div>
+  </ion-note>
+  
+
+  <!-- <ion-note item-right><ion-icon name="ios-folder-outline"></ion-icon> {{folder.brojFoldera}}</ion-note>
+  <ion-note item-right></ion-note><ion-icon name="ios-document-outline"></ion-icon> {{folder.brojFileova}}</ion-note> -->
+</ion-item>
+
+

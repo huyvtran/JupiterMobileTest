@@ -11,7 +11,7 @@
 
         <div class="login-caption">Jupiter Software login</div>
         <ion-item class="login-border-bottom">
-            <ion-label color="primary" stacked>windows login (domain\\username)</ion-label>
+            <ion-label color="primary" stacked><span [innerHTML]="htmlCaption"></span></ion-label>
             <ion-input [(ngModel)]="login"></ion-input>
         </ion-item>
     </ion-list>

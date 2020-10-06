@@ -1,0 +1,25 @@
+
+
+page-terpro-dashboard-homepage{
+
+    .card {
+        margin: 0px!important;
+        width: 100%!important;
+        .card-header {
+            padding:3px 2px!important;
+            background: #e6e6e6;
+            border-bottom: 1px solid #e2e2e2;
+            font-size:1.2rem;
+            min-height: 35px;
+            white-space: normal;
+            display:flex;
+            align-items: center; /* Vertical center alignment */
+            justify-content: center; /* Horizontal center alignment */
+        }
+        .card-content {
+            padding:6px 2px;
+            font-weight: 600;
+        }
+    }
+
+}

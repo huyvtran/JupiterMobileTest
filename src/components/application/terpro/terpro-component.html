@@ -1,0 +1,60 @@
+<div style="background:#fafafa; padding:10px 0; border-bottom:1px solid #e2e2e2;">
+    <ion-grid>
+        <ion-row text-center>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header>
+                        Zadnja sinkronizacija
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{syncDate? (syncDate | date: 'dd.MM.yyyy HH:mm') : '...' }}
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row text-center>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header>
+                        Ukupno dokumenata
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ukupnoNarudzbiCnt}}
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header>
+                        Neposlanih dokumenata
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{neposlanihNarudzbiCnt}}
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row text-center>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header>
+                        Ukupno zaključenih
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ukupnoZakljucenihDokCnt}}
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header>
+                        Nefiskaliziranih računa
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{nefiskaliziranihDokCnt}}
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</div>

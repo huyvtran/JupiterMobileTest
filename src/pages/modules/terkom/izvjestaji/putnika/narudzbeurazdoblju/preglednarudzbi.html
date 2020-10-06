@@ -1,0 +1,46 @@
+
+<ion-header>
+        <js-header title="Pregled narudžbi u razdoblju" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+
+	<ion-item-divider ion-item color="light">
+            Period
+            <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+            <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+                <ion-icon name="md-calendar"></ion-icon>
+            </button>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Datum od</ion-label>
+            <ion-datetime cancelText="Odustani" doneText="Potvrdi" displayFormat="DD.MM.YYYY" [(ngModel)]="datumOd">-</ion-datetime>
+        </ion-item>
+        <ion-item no-lines>
+            <ion-label>Datum do</ion-label>
+            <ion-datetime cancelText="Odustani" doneText="Potvrdi" displayFormat="DD.MM.YYYY" [(ngModel)]="datumDo"></ion-datetime>
+        </ion-item>
+        <div style="margin:8px">
+            <button ion-button full  color="light" style="border: 1px solid #ccc" (click)="prikazi()">Prikaži</button>
+        </div>
+        
+	
+	<ion-list>
+        <ion-list-header [hidden]="zaglavlja?.length > 0">
+                Nema narudzbi
+        </ion-list-header>
+
+
+	    	
+		        <button text-wrap ion-item *ngFor="let nar of zaglavlja" (click)="prikaziStavke(nar.terkomglaid)">
+
+                    <h2 text-wrap>Lokacija: {{nar.lokacija}}</h2>
+                    <h3 text-wrap>Datum {{nar.datum | date: 'dd.MM.yyyy'}}</h3>
+                    <h3 text-wrap> Iznos: {{nar.iznos | number : '1.2-2'}};  Vrsta: {{nar.vrsta}}; Vozač : {{ nar.vozac}}; Vozač kontakt : {{ nar.vozackontakt}}</h3>
+	
+		        </button>
+	
+
+	</ion-list>
+</ion-content>

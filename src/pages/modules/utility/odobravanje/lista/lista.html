@@ -1,0 +1,94 @@
+<ion-header>
+    <js-header title="Odobravanje dokumenata" [showClose]="true" [showFavorite]="true"></js-header>
+    <ion-list-header>  
+         <button ion-button class="view" (click)="prikazdokumenataizbor(item)"><ion-icon name="options"></ion-icon></button> 
+    </ion-list-header>  
+</ion-header>
+<ion-content no-padding>
+    <js-content></js-content>
+    <js-nodata *ngIf="dataExists() == false"></js-nodata>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            refreshingSpinner="crescent"
+            refreshingText="Osvježavanje podataka...">
+        </ion-refresher-content>
+    </ion-refresher> 
+    <ion-list class="lista"> 
+        <ng-container *ngFor="let item of data">
+            <ion-item-sliding #slidingItem>  
+                <button ion-item detail-none (click)="setCard(item)" [ngClass]="{'test': item.dokumentid==dokumentid}">             
+                    <h2>{{item.naziv}}</h2>
+                    <table class="odobravanje-table"> 
+                        <tr *ngIf="item.indvrstadok==1">
+                            <td>Vrsta dok.:</td>
+                            <td>{{item.vrstadok}}</td>
+                        </tr>
+                        <tr *ngIf="item.indpartner==1">
+                            <td>Partner:</td>
+                            <td>{{item.partner}}</td>
+                        </tr>
+                        <tr *ngIf="item.indbrojdok==1">  
+                            <td>Broj dok.:</td>
+                            <td><strong>{{item.brojdok}}</strong></td>
+                        </tr>
+                        <tr *ngIf="item.inddatumdok==1">
+                            <td>Datum dok.:</td>
+                            <td>{{item.datumdok | date:'dd.MM.yyyy'}}</td>
+                        </tr>
+                    </table>
+                </button>
+                <ion-item-options>
+                    <button ion-button (click)="odobribrzi(item)" class="zelena" ><ion-icon name="done-all"></ion-icon>Odobri</button>
+                    <button ion-button (click)="odbacibrzi(item)" class="crvena"><ion-icon name="trash"></ion-icon>Odbaci</button>
+                </ion-item-options>
+            </ion-item-sliding>
+            <ion-grid *ngIf="item.dokumentid==dokumentid" style="background-color:#d5d5d5">
+                <ion-item detail-none> 
+                    <tr *ngIf="item.indstatus==1">
+                        <td>Status:</td>
+                        <td>{{item.status}}</td>
+                    </tr>
+                    <tr *ngIf="item.indiznos==1">
+                        <td>Iznos (valuta):</td>
+                        <td>{{item.iznos | number : '1.2-2'}} {{item.valuta}}</td>
+                    </tr>
+                    <tr *ngIf="item.indnapomena==1">
+                        <td>Napomena:</td>
+                        <td>{{item.napomena}}</td>
+                    </tr>
+                    <tr *ngIf="item.indoperater==1">
+                        <td>Operater:</td>
+                        <td>{{item.operater}}</td>
+                    </tr>
+                    <tr *ngIf="item.inddatumisporuke==1">
+                        <td>Dat. isporuke:</td>
+                        <td>{{item.datumisporuke | date:'dd.MM.yyyy'}}</td>
+                    </tr>
+                    <tr *ngIf="item.indlokacija==1">
+                        <td>Lokacija:</td>
+                        <td>{{item.lokacija}}</td>
+                    </tr>
+                    <tr *ngIf="item.indskladiste==1">
+                        <td>Skladište:</td>
+                        <td>{{item.skladiste}}</td>
+                    </tr>
+                    <tr *ngIf="item.indorgshema==1">
+                        <td>Org. shema:</td>
+                        <td>{{item.orgshema}}</td>    
+                    </tr>
+                </ion-item>
+                <ion-row>
+                    <ion-col col-4>
+                        <button ion-button class="view" full (click)="buttonState(item)" (click)="pregledrpx(item)"><ion-icon name="eye"></ion-icon></button>
+                    </ion-col> 
+                    <ion-col  col-4>
+                        <button ion-button class="zelena" full (click)="odobri(item)">Odobri</button> 
+                    </ion-col>
+                    <ion-col  col-4>
+                        <button ion-button class="crvena" full (click)="odbaci(item)">Odbaci</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ng-container>
+    </ion-list> 
+</ion-content>

@@ -1,0 +1,29 @@
+
+<ion-header>
+        <js-header text-wrap title="Upitnik: {{nazivUpitnika}}" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+
+	<ion-list>
+        <ion-list-header [hidden]="upitniciProvider.pitanja?.length > 0">
+                Trenutno nema pitanja
+        </ion-list-header>
+
+	    	
+        <button detail-none text-wrap ion-item *ngFor="let pitanje of upitniciProvider.pitanja" (click)="prikaziOdgovore(pitanje)">
+                <ion-icon name="{{pitanje.answered ? 'checkmark-circle' : 'help-circle'}}"  color="{{pitanje.answered ? 'primary' : 'medium'}}"  item-start></ion-icon>					   
+                <h2 text-wrap>{{pitanje.pitanje}}</h2>
+                <p text-wrap *ngIf="pitanje.answered">Odgovor: {{pitanje.odgovor}}</p>
+        </button>	
+
+	</ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+        <div style="margin:8px">
+                <button ion-button full [disabled]="upitniciProvider.odgovorenaPitanja.length == 0"  color="light" style="border: 1px solid #ccc" (click)="sendOdgovoriNaPitanja()">Pošalji upitnik</button>
+        </div>
+  </ion-toolbar>
+</ion-footer>

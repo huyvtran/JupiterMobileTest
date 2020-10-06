@@ -106,19 +106,19 @@ export class CRMInsertEditPage extends BasePage {
     ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
 
   }
 
   izaberi(action){
     this.parametriupita.action=action;
-    let modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
+    this.global.modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
     {'action':action, 'osobeid':this.kontrolenaformi.osobeid, 'osobeparid': this.kontrolenaformi.osobeparid, 'parkontaktvrstaid':this.kontrolenaformi.parkontaktvrstaid
     , 'partneriid':this.kontrolenaformi.partneriid }
     //this.parametriupita
   );
-    modal.present();
-    modal.onDidDismiss(data => {
+  this.global.modal.present();
+  this.global.modal.onDidDismiss(data => {
       if(typeof data != 'undefined'){
         if(data.action==55){
           this.kontrolenaformi.osobeid=data.id;
@@ -133,7 +133,7 @@ export class CRMInsertEditPage extends BasePage {
           this.kontrolenaformi.parkontaktvrsta=data.naziv;
         }
       }
-
+      this.global.modal=null;
       });
   }
 

@@ -1,0 +1,104 @@
+.ios, .md {
+    page-utility-mobilne-evidencije-radni-nalozi{
+        ion-card-header{
+            padding-top:0 !important;
+            padding-bottom:0 !important;
+            padding-left:0 !important;
+            padding-right:0 !important;
+        }
+        .label {
+            margin-top:0!important;
+            margin-bottom:0!important
+        }
+
+        ion-list ion-item {
+            padding: 0 0 0 0;
+
+            .item-inner {
+                padding-right:0!important;
+
+                ion-label {
+                    margin-right:0
+                }
+            }
+        }
+        
+        ion-item-sliding {
+            ion-item {
+                .item-inner {
+                    padding-right:0!important;
+                }
+            }
+            .noMargins > .item-inner > .input-wrapper > .label-md{
+                margin:0;
+            }
+        }
+
+
+        .noMargins{
+            padding:0!important;
+            margin:0!important;
+        }
+
+        ion-select {
+            padding: 0px 8px 0px 0px;
+            max-width: 100%;
+        }
+
+        ion-label {
+            width:5px!important;
+        }
+        
+        ion-card{
+            margin:0!important;
+            width:100%;
+        }
+
+        ion-card-content{
+            padding-top:0;
+            padding-bottom:0;
+            padding-left:6px;
+            padding-right:6px;
+
+            ion-grid {
+                padding-left:20px;
+            }
+        }
+
+        ion-textarea {
+            padding:0.5rem 2rem;
+            font-size: 1.2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+            textarea {
+                margin:0;
+            }
+        }
+
+        .icon-margin-right {
+            margin-right: 10px;
+        }
+
+        .toggle-ios.toggle-checked.rainy-toggle .toggle-inner {
+            background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zd…IgZGF0YS1vbGRfY29sb3I9IiMwMDg5RkYiPjwvcGF0aD4KCTwvZz4KPC9nPjwvZz4gPC9zdmc+);
+            background-repeat: no-repeat;
+            background-size: 80%;
+            background-color: white;
+            background-position: center;
+        }
+        
+        .toggle-ios.toggle-checked.rainy-toggle .toggle-icon {
+            background-color: #0082FF;
+        }
+    }
+
+    .buttonHeight {
+        height:3.5rem;
+    }
+
+    ion-badge {
+        margin-right:0.5rem;
+        background-color:gray;
+    }
+    
+}

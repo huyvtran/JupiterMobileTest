@@ -1,0 +1,49 @@
+page-detalji {
+
+
+    h1{
+        font-size: larger;
+        font-size: 20px;
+    }
+
+    h2{
+        color: grey;
+        font-size: 12px;
+    }
+
+    h3 {
+        color: grey;
+        font-size: 20px;
+    }
+    
+    .container{
+
+        margin-top: 16px;
+    }
+
+    .thumbnail{
+
+        height: 60px;
+        width: 60px;;
+        margin-bottom: 16px;
+        margin-left: 16px;
+    }
+
+    .kategorija {
+        font-weight: 500;
+        .nedefinirano {
+            margin-left: 10px;
+            color: #969696;
+            font-style: italic;
+        }
+        .opis {
+            margin-left: 10px;
+        }
+    }
+
+    div.image-border:not(:last-child) {
+        border-bottom: 4px solid white;
+
+    }
+
+}

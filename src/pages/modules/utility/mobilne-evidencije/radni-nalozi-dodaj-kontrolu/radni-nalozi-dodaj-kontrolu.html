@@ -1,0 +1,37 @@
+<ion-header>
+    <js-header title="Dodaj novu kontrolu" [showClose]="true"></js-header>
+  </ion-header>
+  
+  <ion-content>
+    <js-content></js-content>
+
+    
+    <ion-item-divider ion-item color="light">Uzorak</ion-item-divider>
+    <ion-list radio-group [(ngModel)]="odabraniUzorak">
+        <ion-item *ngFor="let uzorak of uzorci">
+            <ion-label>Uzorak br.{{uzorak}}</ion-label>
+            <ion-radio [value]="uzorak"></ion-radio>
+        </ion-item>
+    </ion-list>
+
+    <ion-item-divider ion-item color="light">Kontrola</ion-item-divider>
+    <ion-item-divider class="colorLighter" ion-item color="light">
+        <span style="margin-left:15px; font-weight:bold; color:rgb(50,100,255);">Označi sve</span>
+        <button clear item-left ion-button icon-only (click)="checkAll()">
+        <ion-icon name="checkbox-outline" *ngIf="selectedOptions.length==kontroleList.length"></ion-icon>
+        <ion-icon name="square-outline" *ngIf="selectedOptions.length!=kontroleList.length"></ion-icon>
+        </button>
+    </ion-item-divider>
+    <ion-list *ngIf="kontroleList.length>0">
+        <ion-item *ngFor="let kontrola of kontroleList">
+            <ion-checkbox item-start color="dark" [(ngModel)]="kontrola.checked"></ion-checkbox>
+            <ion-label>{{kontrola.kontrola}}</ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-fab bottom right>
+        <button ion-fab color="skin1" [disabled]="buttonState()" (click)="dodajNovuKontroluUzorka()">
+            <ion-icon name="ios-add-outline"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

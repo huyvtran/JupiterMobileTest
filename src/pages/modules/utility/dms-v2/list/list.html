@@ -1,0 +1,32 @@
+<ion-header>
+    <js-header title="Filtrirani dokumenti" [showClose]="false">
+        <button js-buttons-end clear color="light" (click)="searchOptions()" ion-button icon-only>
+            <ion-icon name="options"></ion-icon>
+        </button>
+    </js-header>
+    <div class="sub">
+        Filtrirano po: {{dmsProvider.searchString}}
+    </div>
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <js-nodata *ngIf="dokumenti?.length == 0" message="Trenutno nemate dokumenata"></js-nodata>
+    <ion-list>
+        <ng-container *ngFor="let dok of dokumenti">
+
+            <ion-item (click)="showFile(dok)">
+                <ion-avatar item-left>
+                  <ion-icon name="ios-document-outline" style="font-size: 45px; color: #000" ></ion-icon>
+                </ion-avatar>
+              
+                <h2 text-wrap>{{dok.naziv}}</h2>
+                <p>Size: {{dok.size |number : '1.2-2'}} KB</p>
+              
+              </ion-item>
+           
+        </ng-container>
+    </ion-list>
+
+</ion-content>

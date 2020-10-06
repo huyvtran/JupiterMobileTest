@@ -5,6 +5,7 @@ export interface ILogin {
     accessToken: string;
     serverPath: number;
     pushRegistrationId: string;
+    pushEnabled: boolean;
 }
 
 export interface LoginPin {

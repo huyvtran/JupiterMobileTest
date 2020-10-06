@@ -1,0 +1,23 @@
+<ion-header>
+	<js-header title="{{narudzbeService.lokacija}}" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+	<ion-list>
+
+		<ion-list-header>
+			Odabir aktivnosti
+		</ion-list-header>
+
+		<button ion-item *ngFor="let dok of sifarniciService.vrstadok; let i = index" (click)="novaNarudzba(dok)">
+			<ion-icon item-left name="{{iconNames[i]}}"></ion-icon>
+			<ion-label text-wrap>{{dok.opis}}</ion-label>
+			<ion-note item-right>{{dok.broj==0? '' : dok.broj}}</ion-note>
+		</button>
+
+
+
+	</ion-list>
+
+</ion-content>

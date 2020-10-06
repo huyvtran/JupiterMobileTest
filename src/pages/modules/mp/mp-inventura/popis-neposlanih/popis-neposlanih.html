@@ -1,0 +1,51 @@
+<ion-header >
+
+    <js-header title="Popis neposlanih" [showClose]="true" [showFavorite]="false"></js-header>
+  
+  <!-- <ion-navbar color="crvena">
+    <ion-title>
+      Popis neposlanih 
+    </ion-title>
+  </ion-navbar> -->
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+  
+
+    <ion-list>
+
+        <ion-item-sliding #slidingItem *ngFor="let item of gotovooriginal">
+  
+          <button style="background-color: rgb(248, 248, 248);" [hidden]="item.poslano==1" detail-none ion-item text-wrap>
+            <ion-grid>
+              <ion-row>
+                  <ion-col col-3 text-left>
+                    <span style="color: grey;">{{item.sifra}}</span>
+                  </ion-col>
+                  <ion-col col-6 text-left>
+                    <strong>{{item.naziv}}</strong>
+                  </ion-col>
+                  <ion-col col-3 text-right>
+                      <span style="color: grey;">{{item.kolicina}} {{item.jm}}</span>
+                  </ion-col>
+              </ion-row>
+            </ion-grid>
+          </button>
+  
+          <ion-item-options>
+            <button style="background: linear-gradient(to right, #c0392b, #da4939); width: 40px;" ion-button (click)="deleteitem(item, slidingItem)">
+                <ion-icon icon-only style="font-size: 22px; padding-top: 5px;" ios="ios-trash" md="md-trash" color="light"></ion-icon>
+            </button>
+          </ion-item-options>
+  
+        </ion-item-sliding>
+  
+      </ion-list>
+      <ion-buttons id="obrisisve" text-center>
+      <button style="background: linear-gradient(to right, #c0392b, #da4939);" ion-button (click)="obrisisve()">
+          <ion-icon name="trash"></ion-icon>&nbsp;&nbsp;Obriši sve
+      </button>
+      </ion-buttons>
+</ion-content>

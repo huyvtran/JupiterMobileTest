@@ -1,0 +1,52 @@
+<!--
+  Generated template for the Bugshooter page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <js-header title="DMS pregled" [showClose]="false"></js-header>
+</ion-header>
+
+
+<ion-content>
+    <js-content></js-content>
+    <js-nodata *ngIf="!files&&!images" message="Trenutno nemate attachmenta"></js-nodata>
+
+    <accordion-list title="Slike" textColor="#333" hasMargin="false" headerColor="#e6e6e6" [hideNoteOnExpand]="true">
+        <ion-card *ngFor="let file of images; let i = index">
+            <ion-item>
+                <h2>{{file.naziv}}</h2>
+            </ion-item>
+
+            <div class="bgImage" (click)="previewPicture(file)" [ngStyle]="{ 'position': 'relative', 'background-image': 'url(data:image/png;base64,' + file.base64 + ')'}">
+
+            </div>
+            <!-- <ion-card-content (click)="previewPicture(str)">
+                            <img src="data:image/jpeg;base64,{{str.base64}}" *ngIf="files" />
+                        </ion-card-content> -->
+        </ion-card>
+        <ion-note accordion-header-end class="accordion-note" item-end>{{images.length}}</ion-note>
+    </accordion-list>
+    <accordion-list #accord title="Dokumenti" textColor="#333" hasMargin="false" headerColor="#e6e6e6" [hideNoteOnExpand]="true">
+
+        <ion-list>
+
+            <ion-item *ngFor="let file of files; let i = index" (click)="openFile(file)">
+                <ion-icon name="ios-paper-outline" item-start></ion-icon>
+                {{file.naziv}}
+            </ion-item>
+
+
+        </ion-list>
+        <ion-note accordion-header-end class="accordion-note" item-end>{{files.length}}</ion-note>
+
+    </accordion-list>
+
+
+    <ion-fab right bottom padding>
+        <button class="fab" ion-fab (click)="unos()">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

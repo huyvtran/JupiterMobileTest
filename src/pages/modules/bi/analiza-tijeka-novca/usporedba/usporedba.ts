@@ -6,6 +6,8 @@ import * as ICore from '../../../../../interfaces/iCore';
 
 import { NumberFormatPipe } from '../../../../../pipes/number-format.pipe';
 
+import * as Moment from 'moment';
+
 @IonicPage()
 @Component({providers:[NumberFormatPipe],  selector: 'page-bi-analiza-tijeka-novca-usporedba', templateUrl: 'usporedba.html' })
 export class BiAnalizaTijekaNovcaUsporedba extends BasePage {
@@ -16,12 +18,15 @@ export class BiAnalizaTijekaNovcaUsporedba extends BasePage {
     ponudeExistsIzv:boolean = false;
     ponudeExistsRef:boolean = false;
 
-    accordionColor: string = "#e6e6e6";
+    accordionColor: string = "#edefef";
+    //accordionColor: string = "#e6e6e6"
 
     constructor(public navParams: NavParams, public modalCtrl: ModalController, private provider: BiAnalizaTijekaNovcaProvider,
         private pipe: NumberFormatPipe) {
         super();
+        //console.log("uso1");
         this.getData();
+        //console.log("uso");
     }
 
     getData() {
@@ -37,6 +42,7 @@ export class BiAnalizaTijekaNovcaUsporedba extends BasePage {
     }
 
     setDataDef() {
+        
         let queryRef;
         if (this.provider.parametriRef.include == true)
         {
@@ -50,14 +56,13 @@ export class BiAnalizaTijekaNovcaUsporedba extends BasePage {
             },
             "tablename":"ref"}
         }
-
-
+        
         let dataDef : ICore.IData = {
             "queries": [
                 {
                     "query":  "spMobManTijekNovca",
                     "params": {
-                        "dat1": this.provider.parametriIzv.datumod,
+                        "dat1": Moment(this.provider.parametriIzv.datumod).local().format("YYYYMMDD"),
                         "dat2": this.provider.parametriIzv.datumdo,
                         "org": this.provider.parametriIzv.orgshemaid,
                         "klm": this.provider.parametriIzv.klmasterrobaid,
@@ -67,6 +72,8 @@ export class BiAnalizaTijekaNovcaUsporedba extends BasePage {
                 }
             ]
         }
+        console.log("setDataDef");
+        console.log(Moment(this.provider.parametriIzv.datumod).local());
 
         if (queryRef != null) 
         {

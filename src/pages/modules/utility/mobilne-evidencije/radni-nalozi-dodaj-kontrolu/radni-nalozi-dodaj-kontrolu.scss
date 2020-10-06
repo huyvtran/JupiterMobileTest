@@ -1,0 +1,17 @@
+.ios, .md {
+    page-radni-nalozi-dodaj-kontrolu {
+        .colorLighter {
+            background-color: rgb(250,250,250);
+        }
+
+        ion-item-divider > button {
+            margin-left:1px !important;
+        }
+
+        ion-fab {
+            margin-right:20px;
+            margin-bottom:20px;
+        }
+    }
+}
+

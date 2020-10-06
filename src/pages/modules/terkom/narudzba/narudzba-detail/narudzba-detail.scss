@@ -1,0 +1,78 @@
+page-narudzba-detail {
+    .fabItem{
+      position: absolute;
+      padding-left: 30px;
+      padding-bottom: 20px;
+    }
+
+ 
+
+
+  .list-header .item-inner{
+    text-align: center;
+  }
+
+  	table{
+			margin:10px;
+			font-family:verdana;
+			font-size: 1.5rem;	
+		}
+
+    tr > td{
+      padding-bottom: 4px;
+    }
+
+		.td1{
+			color: #999;
+			padding-right:10px;
+			text-align: right
+		}
+		
+		.suma p{
+			font-weight: bold;
+			padding-left:15px;
+      padding-right:15px;
+      padding-bottom:5px;
+			margin:0;			
+			font-family:verdana;
+			font-size: 1.5rem;
+		}
+
+    h3{
+		color:#C0392B; 
+
+	}
+  .label{
+		margin-top: 10px;
+		margin-bottom: 5px;
+	}
+
+  ion-spinner {
+    margin-right: 5px;
+    * {
+      stroke: #fff !important;
+     
+      }
+
+      &.spinner-circles circle,
+      &.spinner-bubbles circle,
+      &.spinner-dots circle {
+      fill: #fff !important;
+      }
+    }
+  
+  
+  .list {
+      margin-bottom: 70px;
+  }
+
+  .toolbar-background {
+    background: #f4f4f4;
+  }
+
+
+}
+
+
+
+

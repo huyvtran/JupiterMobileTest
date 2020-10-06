@@ -1,0 +1,176 @@
+<!--
+  Generated template for the UnosIzvidaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <js-header title="Unos izvida" [showClose]="false" [showFavorite]="false"></js-header>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button class="mainButton" ion-button full color="light" (click)="otvoriTrazilicu()" [color]="izvidnikProvider.parametriIzv.Naziv == null ? 'medium' : 'medium'">{{getCaption()}}</button>
+            </ion-col>
+            <ion-col col-auto>
+                <button  class="mainButton" ion-button icon-only (click)="dohvatiLokaciju()" [color]="izvidnikProvider.parametriIzv.Naziv == null ? 'medium' : 'medium'">
+                    <ion-icon item-left name="pin"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-item-divider ion-item color="light">
+        Kultura
+        <ion-icon item-left name="ios-arrow-down"></ion-icon>
+    </ion-item-divider>
+    <ion-item>
+        <ion-select [(ngModel)]="kultureid" (ionChange)="onSelectChange($event)" class="full-width" placeholder="(nedefinirano)">
+            <ion-option *ngFor="let kultura of kulture" [value]="kultura.id">{{kultura.naziv}}</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item-divider ion-item color="light">
+        Sorta
+        <ion-icon item-left name="ios-arrow-down"></ion-icon>
+    </ion-item-divider>
+    <ion-item *ngIf="kultureid != null">
+        <ion-select [(ngModel)]="sorteid" class="full-width" placeholder="(nedefinirano)">
+            <ion-option *ngFor="let sorta of sorte" [value]="sorta.sorteid">{{sorta.naziv}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item *ngIf="kultureid == null">
+        <ion-label text-center style="font-size:1.3rem!important; font-weight:500">(za unos sorte, obavezan odabir kulture)</ion-label>
+    </ion-item>
+
+    <ion-item-divider ion-item color="light">
+        Kategorija
+        <ion-icon item-left name="ios-arrow-down"></ion-icon>
+    </ion-item-divider>
+
+    <ion-list>
+        <ion-item>
+            <ion-label [ngClass]="{'boldano': bolestind==1}">Bolesti</ion-label>
+            <ion-checkbox color="dark" [(ngModel)]="bolestind"></ion-checkbox>
+        </ion-item>
+
+        <ion-item *ngIf="bolestind == 1">
+            <ion-label>Opis</ion-label>
+            <ion-input type="text" [(ngModel)]="bolestopis"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label [ngClass]="{'boldano': stetniciind==1}">Štetnici</ion-label>
+            <ion-checkbox color="dark" [(ngModel)]="stetniciind"></ion-checkbox>
+        </ion-item>
+
+        <ion-item *ngIf="stetniciind == 1">
+            <ion-label>Opis</ion-label>
+            <ion-input type="text" [(ngModel)]="stetniciopis"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label [ngClass]="{'boldano': vodaind==1}">Voda</ion-label>
+            <ion-checkbox color="dark" [(ngModel)]="vodaind"></ion-checkbox>
+        </ion-item>
+
+        <ion-item *ngIf="vodaind == 1">
+            <ion-label>Opis</ion-label>
+            <ion-input type="text" [(ngModel)]="vodaopis"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label [ngClass]="{'boldano': korovind==1}">Korov</ion-label>
+            <ion-checkbox color="dark" [(ngModel)]="korovind"></ion-checkbox>
+        </ion-item>
+
+        <ion-item *ngIf="korovind == 1">
+            <ion-label>Opis</ion-label>
+            <ion-input type="text" [(ngModel)]="korovopis"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label [ngClass]="{'boldano': phInd==1}">Ph</ion-label>
+            <ion-checkbox color="dark" [(ngModel)]="phInd"></ion-checkbox>
+        </ion-item>
+
+        <ion-item *ngIf="phInd == 1">
+            <ion-label>Opis</ion-label>
+            <ion-input type="number" [(ngModel)]="ph"></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-item-divider ion-item color="light">
+        Fotografije
+        <ion-icon item-left name="ios-arrow-down"></ion-icon>
+    </ion-item-divider>
+    <ion-item>
+        <div *ngIf="izvidnikProvider.base64Image == null || izvidnikProvider.base64Image.length==0" text-center style="font-size:1.3rem!important; font-weight:500">(nema niti jedne fotografije)</div>
+        <ng-container *ngFor="let str of izvidnikProvider.base64Image; let i = index">
+            <div class="thumbnail-div" (click)="removeImage(i)">
+                <ion-fab right top>
+                    <button ion-fab mini color="danger">
+                        <ion-icon name="trash"></ion-icon>
+                    </button>
+                </ion-fab>
+                <img class="thumbnail" src="data:image/png;base64,{{str}}" />
+            </div>
+        </ng-container>
+    </ion-item>
+    <!-- <img class="thumbnail" (click)="removeImage(0)" src="data:image/png;base64,{{izvidnikProvider.base64Image[0]}}" *ngIf="izvidnikProvider.base64Image[0] != null">
+    <img class="thumbnail" (click)="removeImage(1)" src="data:image/png;base64,{{izvidnikProvider.base64Image[1]}}" *ngIf="izvidnikProvider.base64Image[1] != null">
+    <img class="thumbnail" (click)="removeImage(2)" src="data:image/png;base64,{{izvidnikProvider.base64Image[2]}}" *ngIf="izvidnikProvider.base64Image[2] != null">
+    <img class="thumbnail" (click)="removeImage(3)" src="data:image/png;base64,{{izvidnikProvider.base64Image[3]}}" *ngIf="izvidnikProvider.base64Image[3] != null">
+    <img class="thumbnail" (click)="removeImage(4)" src="data:image/png;base64,{{izvidnikProvider.base64Image[4]}}" *ngIf="izvidnikProvider.base64Image[4] != null">
+    <img class="thumbnail" (click)="removeImage(5)" src="data:image/png;base64,{{izvidnikProvider.base64Image[5]}}" *ngIf="izvidnikProvider.base64Image[5] != null"> -->
+
+    <ion-item-divider ion-item color="light">
+        Sklop
+        <ion-icon item-left name="ios-arrow-down"></ion-icon>
+    </ion-item-divider>
+    <ion-item>
+        <ion-textarea [(ngModel)]="sklop" autosize placeholder="(nedefinirano)"></ion-textarea>
+    </ion-item>
+    <ion-item-divider ion-item color="light">
+        Zapažanja
+        <ion-icon item-left name="ios-arrow-down"></ion-icon>
+    </ion-item-divider>
+    <ion-item class="zapazanja">
+        <ion-textarea [(ngModel)]="zapazanja" autosize placeholder="(nedefinirano)"></ion-textarea>
+    </ion-item>
+    
+    <ion-item-divider ion-item color="light" *ngIf="izvidnikProvider.menuPermissions[0].sljedecimonitoring != 0">
+        Sljedeći monitoring za
+        <ion-icon item-left name="ios-arrow-down"></ion-icon>
+    </ion-item-divider>
+
+    <ion-item *ngIf="izvidnikProvider.menuPermissions[0].sljedecimonitoring != 0">
+        <ion-input type="number" [(ngModel)]="sljedeciMonitoring" (ngModelChange)="change($event)" placeholder="(broj dana)"></ion-input>
+    </ion-item>
+
+    <ion-item-divider ion-item color="light" *ngIf="izvidnikProvider.menuPermissions[0].preporuka != 0">
+        Preporuka
+        <ion-icon item-left name="ios-arrow-down"></ion-icon>
+    </ion-item-divider>
+
+    <ion-item *ngIf="izvidnikProvider.menuPermissions[0].preporuka != 0"> 
+        <ion-textarea [(ngModel)]="preporuka" autosize placeholder="(nedefinirano)"></ion-textarea>
+    </ion-item>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <ion-fab right bottom padding class="fabUslikaj">
+        <button ion-fab (click)="snapPicture()" color="medium">
+            <ion-icon name="camera"></ion-icon>
+        </button>
+    </ion-fab>
+    <ion-fab right bottom padding>
+        <button [disabled]="isInsertButtonDisabled()" ion-fab (click)="insert()">
+            <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

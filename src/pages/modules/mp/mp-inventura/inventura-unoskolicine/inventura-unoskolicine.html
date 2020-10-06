@@ -1,0 +1,77 @@
+<ion-header>
+
+    <js-header title="Unos količine - ONLINE" [showClose]="true" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+
+<ion-content>
+    <js-content></js-content>
+  
+  <!-- <ion-item-divider>
+      <ion-buttons end>
+          <button (click)="nazad()" ion-button icon-only>
+            <ion-icon name="md-close"></ion-icon>
+          </button>
+        </ion-buttons>
+  </ion-item-divider> -->
+
+
+  <ion-list>
+    <ion-item-divider text-wrap style="background: linear-gradient(to bottom, #364b5e, #3c5a77); color: white;">
+      {{item.sifra}} /
+      <strong>{{item.naziv}}</strong>
+      <br>
+      <small>JM: {{item.jm}} </small>
+    </ion-item-divider>
+
+    <form (ngSubmit)="potvrdi()">
+
+      <ion-item no-lines>
+        <ion-label color="skin1">{{item.jm}} </ion-label>
+        <ion-input type="number" step="any" name="kolicina" class="some-class" autofocus placeholder="Količina" [(ngModel)]="item.kolicina"></ion-input>
+        <!-- item.kolicina ? -->
+      </ion-item>
+      <ion-item no-lines text-right>
+        <button ion-button type="submit" style="background: linear-gradient(to right, #c0392b, #da4939);">Spremi</button>
+      </ion-item>
+    </form>
+
+  </ion-list>
+
+
+  <ion-list>
+
+    <ion-item-divider style="background: linear-gradient(to bottom, #364b5e, #3c5a77); color: white;">
+      Prethodno unesene količine:
+      <ion-badge color="light" item-right> {{ runninggrouptotals() | number }} </ion-badge>
+    </ion-item-divider>
+
+    <ion-item-sliding *ngFor="let item of items">
+
+      <ion-item detail-none ion-item text-wrap>
+        <!-- izmjena objekta -->
+
+        {{item.naziv}}
+
+        <ion-badge color="light" item-right> {{ item.kolicina | number }} {{item.jm}} </ion-badge>
+
+      </ion-item>
+
+      <ion-item-options>
+        <button style="background: linear-gradient(to right, #c0392b, #da4939); width: 40px;" ion-button (click)="delete(item)">
+            <ion-icon icon-only style="font-size: 22px; padding-top: 5px;" ios="ios-trash" md="md-trash" color="light"></ion-icon>
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+  <ion-footer>
+      <ion-item no-lines text-right>
+          <button ion-button (click)="nazad()" style="background: linear-gradient(to right, #c0392b, #da4939);">Odustani</button>
+        </ion-item>
+  </ion-footer>
+
+</ion-content>

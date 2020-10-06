@@ -1,6 +1,7 @@
 
 import { Component } from '@angular/core';
 import {IonicPage, NavParams, ViewController, Toast} from 'ionic-angular';
+import * as ICore from '../../../../interfaces/iCore';
 
 @IonicPage()
 @Component({
@@ -10,6 +11,7 @@ import {IonicPage, NavParams, ViewController, Toast} from 'ionic-angular';
 export class ModalNavPage {
   modalPage: any;
   action: string;
+  query: ICore.IData;
   modalParams: any = { };
   toast: Toast = null;
 
@@ -21,6 +23,9 @@ export class ModalNavPage {
   ionViewDidLoad() {
     this.modalPage = this.navParams.get('page');
     this.action = this.navParams.get('action');
+    this.query = this.navParams.get('query'); //custom query
+    console.log("query");
+    console.log(this.query);
   }
 
   ionViewDidLeave(){

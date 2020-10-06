@@ -1,0 +1,58 @@
+
+$categories: (
+ ionic: color($colors, primary),
+ 0: #cc0000,
+ 1: green
+);
+
+@function auxiliary-categories() {
+  @return map-remove($categories);
+}
+
+
+page-obavijesti {
+	
+	.list-header {
+        background-color: #e6e6e6;
+	}
+	
+    .header-mid{
+		text-align: center;
+	}
+	
+
+
+	.item{
+		padding-left:5px;
+	}
+
+
+	.label{
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+
+
+	@each $track, $value in auxiliary-categories() {
+		ion-item-sliding[track="#{$track}"] ion-label {
+			border-left: 5px solid $value;
+			padding-left: 5px;
+			h2{
+				color: $value
+			}
+		}
+
+	}
+
+
+
+	
+}
+
+
+
+
+
+
+
+

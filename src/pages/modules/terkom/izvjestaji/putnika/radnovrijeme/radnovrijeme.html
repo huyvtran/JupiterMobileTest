@@ -1,0 +1,40 @@
+
+<ion-header>
+        <js-header title="Pregled radnog vremena" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+
+<ion-content>
+         <ion-item-divider ion-item color="light">
+            Period
+            <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+            <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+                <ion-icon name="md-calendar"></ion-icon>
+            </button>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Datum od</ion-label>
+            <ion-datetime cancelText="Odustani" doneText="Potvrdi" displayFormat="DD.MM.YYYY" [(ngModel)]="datumOd">-</ion-datetime>
+        </ion-item>
+        <ion-item no-lines>
+            <ion-label>Datum do</ion-label>
+            <ion-datetime cancelText="Odustani" doneText="Potvrdi" displayFormat="DD.MM.YYYY" [(ngModel)]="datumDo"></ion-datetime>
+        </ion-item>
+        <div style="margin:8px">
+            <button ion-button full  color="light" style="border: 1px solid #ccc" (click)="prikazi()">Prikaži</button>
+        </div>   
+
+	<ion-list>
+        <ion-list-header [hidden]="radnovrijeme.length > 0">
+          Nema podataka
+        </ion-list-header>
+        <button ion-item detail-none *ngFor="let item of radnovrijeme">
+            <h3 text-wrap>Početak rada: {{item.pocetakrada  | date: 'dd.MM.yyyy HH:mm'}}; Početni kilometri: {{item.pocetnikilometri}}</h3>
+            <h3 text-wrap>Završetak rada: {{item.zavrsetakrada  | date: 'dd.MM.yyyy HH:mm'}}; Završni kilometri: {{item.zavrsnikilometri}}</h3>
+            <h3 text-wrap>Prijeđeni kilometri: {{item.prijedjenikilometri}}</h3>
+            <h3 text-wrap [hidden]="item?.napomena == null || item?.napomena == ''">Napomena: {{item.napomena}}</h3>
+        </button>
+		</ion-list>
+</ion-content>
+

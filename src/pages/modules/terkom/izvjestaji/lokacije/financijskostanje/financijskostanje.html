@@ -1,0 +1,138 @@
+<ion-header>
+	<js-header title="Financijsko stanje" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<ion-list-header [hidden]="financijskostanje?.length > 0">
+			Nema podataka
+		</ion-list-header>
+
+		<div *ngFor="let item of financijskostanje">
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Komercijalist:
+					</ion-col>
+					<ion-col col-8 text-left>
+						{{item.komercijalista}}
+					</ion-col>
+				</ion-row>
+
+			</ion-item>
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Kupac:
+					</ion-col>
+					<ion-col col-8 text-left>
+						{{item.kupac}}
+					</ion-col>
+				</ion-row>
+			</ion-item>
+
+
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Duguje:
+					</ion-col>
+					<ion-col col-8 text-left style="font-weight:bold; font-size:16px!important">
+						{{numberFormat(item.duguje,2)}}
+					</ion-col>
+				</ion-row>
+
+			</ion-item>
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Potražuje:
+					</ion-col>
+					<ion-col col-8 text-left style="font-weight:bold; font-size:16px!important">
+						{{numberFormat(item.potrazuje,2)}}
+					</ion-col>
+				</ion-row>
+
+			</ion-item>
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Ukupno:
+					</ion-col>
+					<ion-col col-8 text-left style="font-weight:bold; font-size:16px!important">
+						{{numberFormat(item.ukupno,2)}}
+					</ion-col>
+				</ion-row>
+
+			</ion-item>
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Dospjelo:
+					</ion-col>
+					<ion-col col-8 text-left style="font-weight:bold; font-size:16px!important">
+						{{numberFormat(item.dospjelo,2)}}
+					</ion-col>
+				</ion-row>
+
+			</ion-item>
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Do 30 dana:
+					</ion-col>
+					<ion-col col-8 text-left style="font-weight:bold; font-size:16px!important">
+						{{numberFormat(item.do30dana,2)}}
+					</ion-col>
+				</ion-row>
+
+			</ion-item>
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Do 60 dana:
+					</ion-col>
+					<ion-col col-8 text-left style="font-weight:bold; font-size:16px!important">
+						{{numberFormat(item.do60dana,2)}}
+					</ion-col>
+				</ion-row>
+
+			</ion-item>
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Preko 60 dana:
+					</ion-col>
+					<ion-col col-8 text-left style="font-weight:bold; font-size:16px!important">
+						{{numberFormat(item.preko60dana,2)}}
+					</ion-col>
+				</ion-row>
+
+			</ion-item>
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Do 90 dana:
+					</ion-col>
+					<ion-col col-8 text-left style="font-weight:bold; font-size:16px!important">
+						{{numberFormat(item.do90dana,2)}}
+					</ion-col>
+				</ion-row>
+			</ion-item>
+			<ion-item detail-none>
+				<ion-row>
+					<ion-col col-4 text-wrap>
+						Preko 90 dana:
+					</ion-col>
+					<ion-col col-8 text-left style="font-weight:bold; font-size:16px!important">
+						{{numberFormat(item.preko90dana,2)}}
+					</ion-col>
+				</ion-row>
+
+			</ion-item>
+		</div>
+
+
+	</ion-list>
+</ion-content>

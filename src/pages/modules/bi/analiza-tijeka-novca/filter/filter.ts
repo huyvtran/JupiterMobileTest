@@ -15,8 +15,7 @@ export class BiAnalizaTijekaNovcaFilter extends BasePage {
 
     parametri: any;
 
-    constructor(private navCtrl : NavController, navParams : NavParams, private modalCtrl : ModalController, private popoverCtrl : PopoverController, private provider : BiAnalizaTijekaNovcaProvider,
-        private nativePageTransitions: NativePageTransitions) {
+    constructor(private navCtrl : NavController, navParams : NavParams, private modalCtrl : ModalController, private popoverCtrl : PopoverController, private provider : BiAnalizaTijekaNovcaProvider, private nativePageTransitions: NativePageTransitions) {
         super();
 
         this.filterType=navParams.data;
@@ -48,7 +47,7 @@ export class BiAnalizaTijekaNovcaFilter extends BasePage {
                         } else if (action == "orgshema") {
                             this.parametri.orgshemaid = data.id;
                             this.parametri.orgshemanaziv = data.naziv;
-                        } else if (action == "operater") {
+                        } else if (action == "odgovornaosoba") {
                             this.parametri.odgovornaosobaid = data.id;
                             this.parametri.odgovornaosobanaziv = data.naziv;
                         }

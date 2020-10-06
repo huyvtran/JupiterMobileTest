@@ -1,0 +1,4 @@
+<ion-tabs selectedIndex="getSelectedTabsDetIndex()">
+  <ion-tab [root]="tab1Root" tabTitle="Očekivana imovina" tabIcon="clipboard" [tabBadge]="invProvider.tabBadgeOcekivana > 0 ? invProvider.tabBadgeOcekivana : null "></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Pronađena imovina" tabIcon="checkbox-outline" [tabBadge]="invProvider.tabBadgePopisana > 0 ? invProvider.tabBadgePopisana : null"></ion-tab>
+</ion-tabs>

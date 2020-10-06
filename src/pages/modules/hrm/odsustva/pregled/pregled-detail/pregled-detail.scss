@@ -1,0 +1,29 @@
+page-hrm-odsustva-pregled-detail {
+     
+        ion-list h3 {
+                color: #999;
+            }
+            ion-list h2 {
+                font-weight: 500!important;
+            }
+        
+            .accordion-content {
+                padding: 0!important;
+        
+            }
+            .list .item-block .item-inner {
+                padding:4px 0px;
+            }
+          
+            .odobreno,  {
+                color: green;
+            }
+            .cekanje {
+                color: #fed753;
+            }
+            .odbijeno {
+                color: map-get($colors, danger);
+            }
+            
+
+}

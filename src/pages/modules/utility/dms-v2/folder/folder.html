@@ -1,0 +1,32 @@
+<ion-header>
+  <js-header title="DMS - preglednik" [showClose]="showClose" [showFavorite]="true">
+    <button js-buttons-end clear color="light" (click)="searchOptions()" ion-button icon-only>
+      <ion-icon name="options"></ion-icon>
+    </button>
+  </js-header>
+</ion-header>
+<ion-content>
+  <js-content></js-content>
+  <ion-list>
+
+    <ion-item-divider class="breadcrumb" ion-item color="light" text-wrap>
+      {{currentPath}}
+    </ion-item-divider>
+    <!-- <p class="breadcrumb" text-wrap>
+      {{currentPath}}
+    </p> -->
+
+    <page-utility-dmsv2-folder-item *ngFor="let item of getFolders()" [folder]="item"></page-utility-dmsv2-folder-item>
+
+    <page-utility-dmsv2-media-item *ngFor="let item of getFiles()" [media]="item"></page-utility-dmsv2-media-item>
+
+  </ion-list>
+
+
+  <ion-fab right bottom padding>
+    <button class="fab" ion-fab [disabled]="getButtonState()" (click)="unos()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

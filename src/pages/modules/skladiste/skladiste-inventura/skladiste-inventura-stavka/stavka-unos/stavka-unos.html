@@ -1,0 +1,91 @@
+<ion-header >
+    <js-header title="{{this.inventuraStavkaUnosIzmjenaProvider.naslov}} stavke" [showClose]="false" ></js-header>
+
+</ion-header>
+
+<ion-content class="inventura">
+     <js-content></js-content>
+
+     <!-- <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Povuci za osvježavanje"
+            refreshingSpinner="circles"
+            refreshingText="Osvježavam podatke..." >
+        </ion-refresher-content>
+    </ion-refresher> -->
+
+        <ion-item-divider class="item-divider" *ngFor="let item of odabranaRoba">
+            <div>
+                <ion-col class="item-bold" >{{item.sifra}} {{item.robanaziv}}</ion-col>
+            </div>
+        </ion-item-divider>
+    
+        <div class="wrapper" padding *ngFor="let item of odabranaRoba" style="text-align: left;">
+
+            <div class="unit-control" (click)="otvoriKontingent()" > 
+                    <div style="display: flex;"  *ngIf="item.kkvalobavezan == 1" >
+                        <p class="text-width">Kontingent: </p>
+                        <p >{{ item.kontingent}} </p>
+                    </div>      
+            </div>
+
+            <div class="unit-control" *ngIf="item.defaultind == 1">
+                <p class="text-width">Količina pak ({{item.jm}}): </p>
+                <div class="item-left">     
+                    <button ion-button icon-only (click)="kolicinaRemoveFaktor()"  class="control-button left">
+                        <ion-icon name="remove-circle"></ion-icon>
+                    </button>
+                </div>
+                <div class="item-center">
+                    <div class="center-container">  
+                        <div class="text-container">
+                            <ion-input class="input-background" value={{kolicinaPakText}} (ionChange)="formatBrojaPak($event)"  #kolicinaPakInput
+                            placeholder="Unesi kolicinu paket"></ion-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <button  value={{item.kolicina}} (click)="kolicinaAddFaktor()" ion-button icon-only class="control-button right">
+                        <ion-icon name="add-circle"></ion-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="unit-control">
+                <p class="text-width">Količina ({{item.jm}}):  </p>
+                <div class="item-left">        
+                  <button ion-button icon-only (click)="kolicinaRemove()"  class="control-button left">
+                    <ion-icon name="remove-circle"></ion-icon>
+                  </button>
+                </div>
+                <div class="item-center">
+                    <div class="center-container"> 
+                        <div class="text-container">
+                          <ion-input class="input-background" type="number" value={{kolicinaText}} (ionChange)="formataNumero($event)" #kolicinaInput ></ion-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-right">
+                  <button (click)="kolicinaAdd(inventuraStavkaProvider.kolicina)" ion-button icon-only class="control-button right">
+                    <ion-icon name="add-circle"></ion-icon>
+                </button>
+                </div>
+            </div>
+
+            <div class="unit-control"> 
+                    <div style="display: flex;" *ngIf="inventuraProvider.indpolica == true" >
+                        <p class="text-width">Polica: </p>
+                        <ion-input  style="width: 190px; background: #f5f5f0;"  type="text" maxlength="10" class="input-border"></ion-input>
+                    </div>      
+            </div>
+          </div>
+       
+         <div>
+            <button ion-button class="button-spremi" (click)="spremiStavku()" >Spremi</button>
+
+         </div>
+
+                         
+</ion-content>
+

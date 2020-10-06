@@ -80,13 +80,13 @@ export class CRMUgovoriSDobavljacimaFilterForma2Page extends BasePage {
     console.log(' this.parametriupita prije trazilice',   this.parametriupita);
     
     
-    let modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
+    this.global.modal = this.modalCtrl.create('CRMKonsolidacijaTrazilicaPage', 
     //this.parametriupita
     {'action':action, 'skladisteid':this.parametriupita.skladisteid, 'robaid': this.parametriupita.robaid, 'klmasterrobaid':this.parametriupita.klmasterrobaid
     , 'partneriid':this.parametriupita.partneriid, 'cjenikid':this.parametriupita.cjenikid, 'KupUgovoriVrsteId':this.parametriupita.KupUgovoriVrsteId, 'naziv':this.parametriupita.naziv }
   );
-    modal.present();
-    modal.onDidDismiss(data => {
+  this.global.modal.present();
+  this.global.modal.onDidDismiss(data => {
       if(data==null){
         console.log('data je null');
         data={action:0};
@@ -115,7 +115,7 @@ export class CRMUgovoriSDobavljacimaFilterForma2Page extends BasePage {
         }
     }
       console.log(' this.parametriupita nakon traziice',  this.parametriupita);
-
+      this.global.modal = null;
       });
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams, ModalController } from 'ionic-angular';
+import { NavController, IonicPage, NavParams } from 'ionic-angular';
 
 import {BasePage} from '../../../../../providers/base/base-page';
 import * as ICore from '../../../../../interfaces/iCore';
@@ -24,7 +24,7 @@ export class CRMPregledUgovoraDetaljiPage extends BasePage {
  
   parametriupita:any={};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     super();
     
     //this.parametriupita = this.navParams.data;
@@ -52,7 +52,7 @@ export class CRMPregledUgovoraDetaljiPage extends BasePage {
     ]
     }
 
-    return this.global.getData(dataDef, true);
+    return this.global.getData(dataDef);
 
   }
 

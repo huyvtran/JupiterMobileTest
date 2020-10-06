@@ -103,7 +103,7 @@ export class HrmResursiPregledPage extends BasePage {
         console.log(data);
         return this
             .global
-            .getData(data, true);
+            .getData(data);
     }
 
     formatRazdoblje(item): string {

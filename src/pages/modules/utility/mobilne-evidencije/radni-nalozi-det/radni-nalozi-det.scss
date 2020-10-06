@@ -1,0 +1,110 @@
+.ios, .md{
+    page-radni-nalozi-det{
+
+        .value-within-bounds{
+            color:green;
+        }
+        .value-not-within-bounds{
+            color:red;
+        }
+        ion-card-header{
+            padding-top:0 !important;
+            padding-bottom:0 !important;
+            padding-left:0 !important;
+            padding-right:0 !important;
+            font-weight:bold;
+        }
+       
+        ion-item{
+            padding:0!important;
+        }
+        .item-inner{
+            padding-right:0!important
+        }
+        ion-label{
+            margin:0!important
+        }
+
+        ion-card-content{
+            padding-bottom:0!important;
+
+            ion-item {
+                margin-bottom:1rem;
+                // min-height:1.5rem;
+            }
+            ion-note{
+                margin-left:10px;
+            }
+        }
+
+        .red-circle{
+            display:inline-block;
+            margin:auto;
+            background: red; width: 10px; height: 10px; border-radius: 5px;
+        }
+
+        .yellow-circle{
+            display:inline-block;
+            margin:auto;
+            background: yellow; width: 10px; height: 10px; border-radius: 5px;
+        }
+
+        .paddingBottom {
+            padding-bottom:50px;
+        }
+
+        ion-content {
+            background-color: rgb(249, 249, 249);
+        }
+       
+        .buttonHeight {
+            height:50px;
+        }
+
+        ion-fab {
+            margin-right:20px;
+            margin-bottom:20px;
+        }
+        
+        .popoverButtonPadding {
+            margin-top:0;
+            margin-bottom:0 !important;
+            padding-left:30% !important;
+        }
+    }
+    
+    .no-border {
+        border:none!important;
+
+        ion-label {
+            color: rgba(0, 0, 255, 0.5)
+        }
+    }
+
+    .radio-list {
+        ion-item {
+            width:30%;
+            margin-right:20%;
+            float:left;
+            text-align: left!important;
+
+            // ion-label {
+            //     // text-align:right;
+            //     // margin-right: 1rem!important;
+            // }
+        }
+        
+    }
+
+    ion-label {
+        white-space:nowrap;
+    }
+
+    .fullWidth {
+        padding:0 1rem 0 0!important;
+
+        width: 100% !important;
+        max-width: 100%;
+        text-align: right;
+    }
+}

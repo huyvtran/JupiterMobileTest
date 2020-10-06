@@ -1,0 +1,39 @@
+<ion-header>
+
+  <js-header title="Odaberite trgovinu - ONLINE" [showClose]="true" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+
+
+<ion-content>
+
+  <js-content></js-content>
+  
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+<ion-list>
+
+   <ion-item-sliding *ngFor="let item of items">
+
+        <button ion-item text-wrap  (click)="prikaziRobu(item)">
+          
+          <strong>Naziv: {{item.trgovina}}</strong>
+          {{item.datumdok | date:'dd/MM/yyyy'}} <strong>Broj inventure: </strong>{{item.brojinventure||''}}
+          <br>
+            
+        </button>
+      </ion-item-sliding>
+  
+  </ion-list>
+
+
+  <div [hidden]="nemainventure" text-center>
+    <button ion-button style="background: linear-gradient(to right, #c0392b, #da4939);" (click)="odustani()"> Odustani </button>
+  </div>
+
+</ion-content>

@@ -1,97 +1,123 @@
 <ion-header>
         <!-- <ion-title text-center><small>{{naslov}}</small></ion-title> -->
         <js-header title="{{naslov}}" [showClose]="false" [showFavorite]="false"></js-header>
-    <ion-toolbar>
-        <ion-grid>
-                <ion-row>
-                        <ion-col col-1 text-center>
-                                <ion-icon style="font-size: 30px; padding-top: 7px; color: #a8a8a8;" (click)="cancel()" name="arrow-dropleft-circle"></ion-icon>
-                            </ion-col>
-                    <ion-col col-9>
-        <form (ngSubmit)="trazi(0)">
-            <ion-searchbar name="search" placeholder="Traži" [(ngModel)]="val" [formControl]="searchControl" autofocus></ion-searchbar>
-        </form>
-                    </ion-col>
-                    <ion-col col-1 text-center>
-                            <ion-icon style="font-size: 30px; padding-top: 7px; color: #a8a8a8;" (click)="prikazipovijest($event)" name="arrow-dropdown-circle"></ion-icon>
-                    </ion-col>
-                    <ion-col col-1 text-center>
-                        <ion-icon style="font-size: 30px; padding-top: 7px;" color="primary" (click)="clearsearch()" name="refresh-circle"></ion-icon>
-                    </ion-col>
-                </ion-row>
-        </ion-grid>
-    </ion-toolbar>
+        <ion-toolbar>
+                <ion-grid>
+                        <ion-row>
+                                <ion-col col-1 text-center>
+                                        <ion-icon style="font-size: 30px; padding-top: 7px; color: #a8a8a8;" (click)="cancel()" name="arrow-dropleft-circle"></ion-icon>
+                                </ion-col>
+                                <ion-col [hidden]="action==11" col-9>
+                                        <form (ngSubmit)="trazi(0)">
+                                                <ion-searchbar name="search" id="ccc" placeholder="Traži" [(ngModel)]="val" [formControl]="searchControl" autofocus></ion-searchbar>
+                                        </form>
+                                </ion-col>
+                                <ion-col [hidden]="action==11" col-1 text-center>
+                                        <ion-icon style="font-size: 30px; padding-top: 7px; color: #a8a8a8;" (click)="prikazipovijest($event)" name="arrow-dropdown-circle"></ion-icon>
+                                </ion-col>
+                                <ion-col [hidden]="action==11" col-1 text-center>
+                                        <ion-icon style="font-size: 30px; padding-top: 7px;" color="primary" (click)="clearsearch()" name="refresh-circle"></ion-icon>
+                                </ion-col>
+                        </ion-row>
+                </ion-grid>
+        </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
 
-        
-    <js-content></js-content>
-    <ion-list>
-        <ion-item-divider sticky color="light">
-                <ion-label text-wrap><strong>Prikazano {{lenght}} od {{rc}}</strong></ion-label>
-                         
-                                  
-                    
-        </ion-item-divider>
 
-        <span *ngIf="trazilicatype=='flat-single'" >
-                <ion-item (click)="odaberi(item)" text-wrap [style.background-color]="getStyle(item)"  [style.color]="getStyle2(item)" id="item{{item.id}}"  *ngFor="let item of items?.items" >
-                <ion-label  >{{item.naziv}}</ion-label> 
-                </ion-item>                             
-        </span>
+        <js-content></js-content>
+        <ion-list>
+                <ion-item-divider [hidden]="action==11" (click)="nazad()" sticky color="light">
+                        <ion-label text-wrap>
+                                <ion-icon [hidden]="currentsortkeylevel==2" name="arrow-back"></ion-icon> &nbsp;
+                                <strong [hidden]="action==11">Prikazano {{lenght}} od {{rc}}</strong>
+                        </ion-label>
 
-        <span *ngIf="trazilicatype=='flat-multiselect'" >
-                <div *ngFor="let item of items?.items" >
-               
-                <ion-item  text-wrap [style.background-color]="getStyle(item)"  [style.color]="getStyle2(item)" id="item{{item.id}}"  >
-                <ion-label >{{item.naziv}}</ion-label> 
-                <ion-checkbox (click)="oznaci(item)"   color="dark" ></ion-checkbox>
-                </ion-item>       
-                   
-                </div>                      
-        </span>
 
-        <span *ngIf="trazilicatype=='hierachy-single'" >
-                <div *ngFor="let item of items?.items" >
-                <div *ngIf="item.sortkey.length==currentsortkeylevel && item.sortkey.substr(0,currentsortkeylevel-2)==currentsortkey" >
-                <ion-item  (swipe)="swipeEvent(item,$event)"  text-wrap [style.background-color]="getStyle(item)"  [style.color]="getStyle2(item)" id="item{{item.id}}"   >
-                <ion-label (click)="odaberi(item)"  >{{item.naziv}}</ion-label> 
-                <span [hidden]="true" ion-button color="danger" outline item-end (click)="drilldown(item)">{{item.counter}} ></span>
-                </ion-item>     
-                </div>      
-                </div>                           
-        </span>
 
-        <span *ngIf="trazilicatype=='hierachy-multiselect'" >
-                <div *ngFor="let item of items?.items" >
-                <div *ngIf="item.sortkey.length==currentsortkeylevel && item.sortkey.substr(0,currentsortkeylevel-2)==currentsortkey" >
-                <ion-item text-wrap [style.background-color]="getStyle(item)"  [style.color]="getStyle2(item)" id="item{{item.id}}"  >
-                <ion-label  >{{item.naziv}}</ion-label> 
-                <ion-checkbox  (click)="oznaci(item)" color="dark" ></ion-checkbox>
-                <span ion-button color="danger" outline item-end (click)="drilldown(item)">{{item.counter}} ></span>
-                </ion-item>       
-                </div>      
-                </div>                      
-        </span>
+                </ion-item-divider>
 
-        
-      
-        
-    </ion-list>
+                <span *ngIf="trazilicatype=='flat-single'">
+                        <ion-item (click)="odaberi(item)" text-wrap [style.background-color]="getStyle(item)" [style.color]="getStyle2(item)" id="item{{item.id}}"
+                                *ngFor="let item of items?.items">
+                                <ion-label>{{item.naziv}}</ion-label>
+                        </ion-item>
+                </span>
 
-    <ion-item-divider color="light">
-            <div text-center>
-                Prikazano {{lenght}} od {{rc}}
-            </div>
+                <span *ngIf="trazilicatype=='flat-multiselect'">
+                        <div *ngFor="let item of items?.items">
+
+                                <ion-item text-wrap [style.background-color]="getStyle(item)" [style.color]="getStyle2(item)" id="item{{item.id}}">
+                                        <ion-label>{{item.naziv}}</ion-label>
+                                        <ion-checkbox (click)="oznaci(item)" color="dark"></ion-checkbox>
+                                </ion-item>
+
+                        </div>
+                </span>
+
+                <span *ngIf="trazilicatype=='hierachy-single'">
+                        <div *ngFor="let item of items?.items">
+                                <div *ngIf="item.sortkey.length==currentsortkeylevel && item.sortkey.substr(0,currentsortkeylevel-2)==currentsortkey">
+                                        <ion-item (swipe)="swipeEvent(item,$event)" text-wrap [style.background-color]="getStyle(item)" [style.color]="getStyle2(item)"
+                                                id="item{{item.id}}">
+
+                                                <ion-label (click)="odaberi(item)">{{item.naziv}} </ion-label>
+                                                <ion-note style="font-size:10px;" item-right>
+                                                        <ion-icon name="swap"></ion-icon>
+                                                </ion-note>
+                                                <!-- <ion-icon name="ios-arrow-back"></ion-icon> SWIPE <ion-icon name="ios-arrow-forward"></ion-icon></ion-note> -->
+
+                                                <span [hidden]="true" ion-button color="danger" outline item-end (click)="drilldown(item)">{{item.counter}} ></span>
+                                        </ion-item>
+                                </div>
+                        </div>
+                </span>
+
+                <span *ngIf="trazilicatype=='hierachy-multiselect'">
+                        <div *ngFor="let item of items?.items">
+                                <div *ngIf="item.sortkey.length==currentsortkeylevel && item.sortkey.substr(0,currentsortkeylevel-2)==currentsortkey">
+                                        <ion-item text-wrap [style.background-color]="getStyle(item)" [style.color]="getStyle2(item)" id="item{{item.id}}">
+                                                <ion-label>{{item.naziv}}</ion-label>
+                                                <ion-checkbox (click)="oznaci(item)" color="dark"></ion-checkbox>
+                                                <span ion-button color="danger" outline item-end (click)="drilldown(item)">{{item.counter}} ></span>
+                                        </ion-item>
+                                </div>
+                        </div>
+                </span>
+
+
+
+
+        </ion-list>
+
+        <ion-item-divider [hidden]="action==11" color="light">
+                <div text-center>
+                        Prikazano {{lenght}} od {{rc}}
+                </div>
         </ion-item-divider>
 
 
         <ion-fab [hidden]="counterizabranih==0" bottom right style="padding-right: 10px;">
-                <button class="wow fadeInRight" data-wow-delay="0.1s" ion-fab style="background-color: #c0392b;"(click)="novabiljeska()"><ion-icon name="checkmark"></ion-icon>
+                <button class="wow fadeInRight" data-wow-delay="0.1s" ion-fab style="background-color: #c0392b;" (click)="novabiljeska()">
+                        <ion-icon name="checkmark"></ion-icon>
                 </button>
-            </ion-fab>
+        </ion-fab>
 
 </ion-content>
+<ion-footer [hidden]="skrivenhint" *ngIf="trazilicatype=='hierachy-single' || trazilicatype=='hierachy-multiselect'">
+        <ion-toolbar>
+                <ion-grid>
+                        <ion-row>
+                                <ion-col col-11>
+                                <ion-title style="font-size:6px;">Klik za odabir, povlačenje ulijevo ili udesno za dubinu.</ion-title>
+                                </ion-col>
+                                <ion-col col-1>
+                                <ion-label style="padding-top:5px;" color="dark" (click)="sakrijporuku()">OK</ion-label>
 
+                                </ion-col>
+                        </ion-row>
+                </ion-grid>
+        </ion-toolbar>
+</ion-footer>

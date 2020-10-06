@@ -1,0 +1,108 @@
+<ion-header>
+    <js-header title="{{test}}" [showClose]="false"></js-header>
+    <ion-item>
+      <ion-grid>
+        <ion-row  text-wrap>
+          <ion-col><b>Br. dokumenta:</b> <br>{{this.primkaGlava.broj}}</ion-col>
+          <ion-col><b>Datum dokumenta:</b> <br>{{this.primkaGlava.datumdok | date:'dd.MM.yyyy.'}}</ion-col>
+        </ion-row>
+        <ion-row  text-wrap>
+          <ion-col><b>Skladište:</b> {{this.primkaGlava.skladiste}}</ion-col>
+        </ion-row>
+        <ion-row  text-wrap>
+          <ion-col><b>Partner:</b> {{this.primkaGlava.partner}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <button [disabled]="primkaGlava.statusid!=0 || this.documentLocked" ion-button full color="skin1" (click)="presentPrimkaEditPage()">Ažuriraj dokument</button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button [style.color]="this.showNapomenaMemoInd ? 'black' : 'red'" ion-button full color="light" (click)="changeContent('stavke')" class="btnStavke">Stavke</button>
+        </ion-col>
+        <ion-col>
+          <button [style.color]="this.showNapomenaMemoInd ? 'red' : 'black'" ion-button full color="light"(click)="changeContent('napomena')">Napomena</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-header>
+
+  <ion-content no-padding (ionScroll)="onScrollStart($event)">
+    <js-content></js-content>
+    <js-nodata *ngIf="stavkeList.length==0 && !showNapomenaMemoInd" message="Nema stavki za prikaz"></js-nodata>
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          pullingText="Povuci za osvježavanje"
+          refreshingSpinner="circles"
+          refreshingText="Osvježavam podatke...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list *ngIf="showNapomenaMemoInd==false">
+      <ion-item-sliding *ngFor="let stavka of stavkeList">  
+        <button ion-item (click)="presentStavkaUnosIzmjenaPage(stavka.nabpridetid)">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-2 style="margin-top: 30px">
+                  <ion-icon name="checkmark" *ngIf="stavka.obradjeno != null && stavka.obradjeno==1" style="color: green !important; zoom:2.0;"></ion-icon>
+              </ion-col>
+              <ion-col>
+                  <div>
+                    <ion-grid>
+                      <ion-row text-wrap>
+                        <ion-col><b>Naziv robe:</b> {{stavka.nazivrobe}}</ion-col>
+                      </ion-row>
+                      <ion-row text-wrap>
+                        <ion-col><b>Šifra robe:</b> {{stavka.sifrarobe}}</ion-col>
+                        <ion-col class="text-align-right"><b>Količina:</b> {{stavka.kolicina}}</ion-col>
+                      </ion-row>
+                      <ion-row *ngIf="stavka.nabpridetid==undefined" text-wrap>Kontigent: {{stavka.kontigent}}</ion-row>
+                    </ion-grid>
+                  </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </button>
+        <ion-item-options side="right">
+          <button [disabled]="primkaGlava.statusid!=0 || this.documentLocked" ion-button (click)="prijemniListStavkaDelete(stavka.nabpridetid)" color="danger">
+            <ion-icon name="trash"><br>Obriši</ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <button ion-button full color="skin1" style="opacity:0.5 !important" *ngIf="listScrolledDown && stavkeList.length!=originalStavkeList.length"
+       (click)="forceDoInfinite()">Učitaj još {{(stavkeList.length + inifiniteScrollPomak)}} / {{originalStavkeList.length}}</button>
+    </ion-list>
+    <textarea [disabled]="primkaGlava.statusid!=0 || this.documentLocked" *ngIf="showNapomenaMemoInd==true" placeholder="Unesi napomenu..." 
+    on-focus="hideFooter()" on-blur="showFooterOnLeave()"
+    [(ngModel)]="this.primkaGlava.napomena" [ngClass]="showNapomenaMemoInd ? 'textareaShown' : 'textareaHidden'">{{this.primkaGlava.napomena}}
+    </textarea>
+     
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [ngClass]="stavkeList.length==originalStavkeList.length ? 'hideInfScroll' : ''">
+      <ion-infinite-scroll-content  [ngClass]="stavkeList.length==originalStavkeList.length ? 'hideInfScroll' : ''"
+        loadingSpinner="bubbles"
+        [loadingText]="getDynamicLoadingText()">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <ion-fab class="listFab" top right *ngIf="listScrolledDown && !showNapomenaMemoInd">
+        <button ion-fab mini color="skin1" (click)="scrollToTopOfList(500)"><ion-icon name="ios-arrow-up"></ion-icon></button>
+    </ion-fab>
+  </ion-content>
+
+  <ion-footer>
+    <ion-grid>
+      <ion-row *ngIf="showFooter">
+        <ion-col>
+          <button [disabled]="primkaGlava.statusid!=0 || this.documentLocked" ion-button full color="skin1" (click)="presentStavkaUnosIzmjenaPage()">Dodaj</button>
+        </ion-col>
+        <ion-col>
+          <button [disabled]="primkaGlava.statusid!=0 || this.documentLocked" ion-button full color="skin1" (click)="presentStavkaDonosPage()">Donesi</button>
+        </ion-col>
+        <ion-col>
+          <button [disabled]="primkaGlava.statusid!=0 || this.documentLocked" ion-button full color="danger" (click)="presentZakljuciAlert()">Zaključi</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+  

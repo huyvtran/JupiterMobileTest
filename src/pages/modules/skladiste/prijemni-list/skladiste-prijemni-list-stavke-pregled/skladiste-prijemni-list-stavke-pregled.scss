@@ -1,0 +1,67 @@
+page-skladiste-prijemni-list-stavke-pregled {
+    ion-header {
+        ion-label > ion-grid {
+            padding-top:10px!important;
+            padding-bottom:10px!important;
+        }
+    
+        ion-grid {
+            padding:0;
+            ion-col {
+                padding:0;
+            }
+        }
+    }
+    textarea {
+        bottom:0;
+        height:90%;
+        width:100%;
+        border:none;
+        padding: 30px 10px 30px 10px;
+    }
+
+    textarea:disabled, input:disabled {
+        background-color:white
+    }
+    
+    ion-label {
+        margin:0 !important
+    }
+    ion-scroll {
+        white-space: nowrap; 
+    }
+    
+    .ionFabMargin{
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+    ion-content {
+        ion-list {
+            // margin-top: 25px !important;
+            padding-top:20px;
+        }
+        ion-item {
+            padding-left:0 !important;
+            padding-right:0 !important;
+        }
+    }
+
+    .text-align-right {
+        text-align: right;
+    }
+
+    .button-md {
+        margin:0px !important;
+    }
+
+    .listFab {
+        margin-top: 10px;
+        right:0;
+        opacity: 0.5 !important;
+    }
+
+    .hideInfScroll {
+        height:0 !important;
+        min-height:0 !important;
+    }
+}

@@ -1,0 +1,62 @@
+<ion-header>
+        <js-header title="Lista" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+
+
+<ion-content>
+
+        <js-content></js-content>
+        <ion-item-divider sticky color="light">
+                <ion-grid>
+                        <ion-row text-center>
+
+                                <ion-col col-2>
+                                        <ion-icon name="md-bookmark" color="danger"> < 0</ion-icon>
+                                </ion-col>
+                                <ion-col col-2>
+                                        <ion-icon name="md-bookmark" color="primary"> = 0</ion-icon>
+                                </ion-col>
+                                <ion-col col-2>
+                                        <ion-icon name="md-bookmark" color="secondary"> > 0</ion-icon>
+                                </ion-col>
+                        
+                                <ion-col col-5 text-right>
+                                        <strong>Stanje</strong>
+                                </ion-col>
+                        </ion-row>
+                </ion-grid>
+        </ion-item-divider>
+        <ion-list>
+                <ion-item *ngFor="let item of items" (click)="detalji(item)">
+                        <ion-grid>
+                                <ion-row >
+                        <ion-col col-1 text-center>
+                                <ion-icon name="md-bookmark" color="danger" *ngIf="item.stanje<0"></ion-icon>
+                                <ion-icon name="md-bookmark" color="primary" *ngIf="item.stanje==0"></ion-icon>
+                                <ion-icon name="md-bookmark" color="secondary" *ngIf="item.stanje>0"></ion-icon>
+
+                        </ion-col>
+
+                        <ion-col text-wrap col-8 >
+                                {{item.roba}}
+                        </ion-col>
+                        <ion-col col-2 text-right>
+                                <label class="danger" *ngIf="item.stanje<0"><strong>{{item.stanje}}</strong></label>
+                                <label *ngIf="item.stanje==0" class="primary"><strong >{{item.stanje}}</strong></label>
+                                <label *ngIf="item.stanje>0" class="secondary"><strong >{{item.stanje}}</strong></label>
+                        </ion-col>
+                        <ion-col text-right col-1>
+                        <ion-icon name="ios-arrow-forward"></ion-icon>
+                        </ion-col>
+                </ion-row>
+                </ion-grid>
+                </ion-item>
+        </ion-list>
+
+        <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon>
+        <br>
+        <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema podataka za prikaz! </ion-label>
+
+
+</ion-content>

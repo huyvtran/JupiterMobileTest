@@ -1,0 +1,73 @@
+<ion-header>
+    <js-header title="Uređivanje naloga - {{this.roba}}"></js-header>
+</ion-header>
+
+<ion-content no-padding>
+    <js-content></js-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Povuci za osvježavanje"
+            refreshingSpinner="circles"
+            refreshingText="Osvježavam podatke...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <js-nodata *ngIf="detalji.length === 0 " message="Nema podataka"></js-nodata>
+    
+    <ng-container *ngIf="detalji.length > 0 " >
+        <accordion-list *ngFor="let uzorak of kontrolniUzorciArray; let a=index" [title]="getBrojUzorka(a)" textColor="#333" hasMargin="false" headerColor="#f5f5f5"
+        [expanded]="expandKontrolniUzorak(uzorak, a)">
+        <div accordion-header-custom style="position:absolute; top:0; right:0; bottom:0; width:8px" [style.background]="getUnutarGranicaStatusColor(a)"></div>
+        <div accordion-header-custom style="position:absolute; top:0; left:0; bottom:0; width:8px" [style.background]="getPopunjenaKontrolaStatusColor(a)"></div>
+            <ion-list class="paddingBottom">
+                <ion-card *ngFor="let item of kontrolniUzorciArray[a]; let i=index">  
+                    <ion-card-header>
+                            <ion-item-divider ion-item color="light">
+                                <div *ngIf="nijeUnutarGranica(a,i)" class="yellow-circle"></div>
+                                <div *ngIf="nijePopunjenaKontrola(a,i)" class="red-circle"></div>
+                                <b>{{getItemLabel(a,i)}}</b>
+                                <ion-note><br>{{getGraniceNorme(a,i)}}</ion-note>
+                                <button [style.color]="getDeleteButtonColor(a,i)" [disabled]="item.dodanakontrola!=1 && item.obavezan==1" 
+                                    icon-only item-end (click)="obrisiKontrolu(a, i)">
+                                        <ion-icon name="close"></ion-icon>
+                                </button>
+                            </ion-item-divider>
+                    </ion-card-header>    
+                    <ion-card-content>
+                        <ion-item style="border-bottom:1px solid #ababab;" *ngIf="item.tipnaziv != 'Da/Ne'">
+                            <ion-input placeholder="kontrola..." [(ngModel)]="item.stringval" *ngIf="item.tipnaziv=='Tekstualni'" type="text" value="{{item.stringval}}"></ion-input>
+                            <ion-input [(ngModel)]="item.decimalvalue"  *ngIf="item.tipnaziv=='Brojčani'" value="{{item.decimalvalue}}" 
+                                type="number" (ionBlur)="dec4(item)">
+                            </ion-input>
+                        </ion-item>
+                        <ion-list class="radio-list" radio-group [(ngModel)]="item.boolval" *ngIf="item.tipnaziv == 'Da/Ne'">
+                            <ion-item>
+                              <ion-label>Da</ion-label>
+                              <ion-radio value="1" [checked]="item.boolval==1"></ion-radio>
+                            </ion-item>
+                            <ion-item>
+                              <ion-label>Ne</ion-label>
+                              <ion-radio value="0" [checked]="item.boolval==0"></ion-radio>
+                            </ion-item>
+                        </ion-list>
+                        <ion-item class="no-border">
+                            <ion-label (click)="izmijeniNapomenu(item)" [style.color]="getNapomenaColor(item.opis)">{{getNapomena(item.opis)}}</ion-label>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>      
+                <button class="buttonHeight" ion-button full  color="skin1"(click)="spremi(a)">Spremi rezultate kontrole - uzorak #{{a+1}}</button>         
+            </ion-list>
+        </accordion-list>  
+    </ng-container>
+
+    <ion-fab bottom right>
+        <button ion-fab mini [hidden]="hideContinueButton()" color="skin1" (click)="dodajNovuKontrolu()" block style="margin-right:65px;">
+            <ion-icon name="ios-add-outline"></ion-icon>
+        </button>
+    </ion-fab>
+    <ion-fab bottom right>
+        <button ion-fab  [hidden]="hideContinueButton()" [disabled]="btnContinueDisabledInd" (click)="presentRezultatiKontrolePage()">
+            <ion-icon name="ios-list-outline"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

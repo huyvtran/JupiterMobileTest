@@ -1,0 +1,28 @@
+
+page-terkom-pocetakrada{
+
+    .list-header {
+        background-color: #e6e6e6;
+    }
+
+    .item-inner, ion-item {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+
+    .item-input .label-md{
+        font-size: 14px;
+
+    }
+
+    .text-input {
+        text-align: right;
+    }
+
+    .item-datetime .label {
+        font-size: 14px;
+    }
+
+
+}

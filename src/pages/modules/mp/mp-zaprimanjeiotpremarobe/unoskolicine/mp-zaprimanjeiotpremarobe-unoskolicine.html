@@ -1,0 +1,79 @@
+<ion-header>
+        <js-header title="Zaprimanje i otprema robe" [showClose]="false" [showFavorite]="false"></js-header>
+</ion-header>
+
+
+<ion-content>
+        <js-content></js-content>
+
+        <ion-item-divider color="light" text-wrap text-center>
+                        <strong style="font-size: 15px!important;">{{item.brojdokumenta}}</strong>
+        </ion-item-divider>
+        <ion-item-divider color="skin1" style="padding-left: 10px;" >
+                        <strong style="font-size: 15px!important;">Unos količine</strong>
+        </ion-item-divider>
+ 
+        <ion-list style="margin-bottom: 5px;">
+        <ion-item-sliding #slidingItem1>
+                        <button ion-item (click)="izaberi(16)" id="icon-search">
+                                <ion-icon name="md-search" style="color: grey;" item-start></ion-icon>
+                                <div style="color: grey;">Roba</div>
+                                <div text-wrap style="color:black; font-size: 12px;">{{item.roba}}</div>
+                        </button>
+                        <ion-item-options id="option-icon">
+                                <button style="width: 50px; padding-top: 10px;" color="danger" ion-button large (click)="brisiRobu(slidingItem1)">
+                                        <ion-icon icon-only ios="ios-trash" md="md-trash" color="light"></ion-icon>
+                                </button>
+                        </ion-item-options>
+                </ion-item-sliding>
+
+                <ion-item>
+                                <ion-icon name="md-list" style="color: grey;" item-start></ion-icon>
+                        <ion-input placeholder="Unesite količinu" type="number" [(ngModel)]="item.kolicinaulaz"></ion-input>
+                </ion-item>
+
+        </ion-list>
+        <ion-grid style="padding-bottom: 6px;">
+                <ion-row>
+                        <ion-col col-9>
+                                
+                        </ion-col>
+                        <ion-col col-3>
+                                <button block item-end ion-button (click)="spremi(3)">Spremi</button>
+                        </ion-col>
+                </ion-row>
+        </ion-grid>
+
+        <ion-item-divider [hidden]="prazno" color="skin1" style="padding-left: 10px;" sticky>
+                        <strong>Unesene količine</strong>
+                </ion-item-divider>
+
+        <ion-list >
+                <ion-item-sliding id="label3" #slidingItem2 *ngFor="let item of items">
+                        <ion-item style="padding-left: 0px;"  detail-none ion-item>
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-9 text-left text-wrap style="padding-top: 10px; padding-bottom: 10px; font-size: 14px;">
+                        {{item.naziv}}
+                                        </ion-col>
+                                        <ion-col col-3 text-right text-wrap style="padding-top: 10px; padding-bottom: 10px; font-size: 15px;">
+                        <span style="color: #364b5e;">{{item.kolicina}} {{item.jm}}<br> {{item.sifra}}</span>
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+                </ion-item>
+                        <ion-item-options id="option-icon">
+                                <button style="width: 40px; padding-top: 10px;" color="skin1" ion-button large (click)="izmjenaunosa(item, slidingItem2)">
+                                        <ion-icon icon-only name="create" color="light"></ion-icon>
+                                </button>
+                                <button style="width: 40px; padding-top: 10px;" color="danger" ion-button large (click)="brisiunos(item, slidingItem2)">
+                                        <ion-icon icon-only name="trash" color="light"></ion-icon>
+                                </button>
+                        </ion-item-options>
+
+
+                </ion-item-sliding>
+
+        </ion-list>
+
+</ion-content>

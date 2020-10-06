@@ -1,0 +1,47 @@
+
+<ion-header>
+        <js-header title="Realizacija partnera" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+
+<ion-content>
+         <ion-item-divider ion-item color="light">
+            Period
+            <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+            <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+                <ion-icon name="md-calendar"></ion-icon>
+            </button>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>Datum od</ion-label>
+            <ion-datetime cancelText="Odustani" doneText="Potvrdi" displayFormat="DD.MM.YYYY" [(ngModel)]="datumOd">-</ion-datetime>
+        </ion-item>
+        <ion-item no-lines>
+            <ion-label>Datum do</ion-label>
+            <ion-datetime cancelText="Odustani" doneText="Potvrdi" displayFormat="DD.MM.YYYY" [(ngModel)]="datumDo"></ion-datetime>
+        </ion-item>
+        <div style="margin:8px">
+            <button ion-button full  color="light" style="border: 1px solid #ccc" (click)="prikazi()">Prikaži</button>
+        </div>
+        
+
+	<ion-list>
+    
+        <ion-list-header [hidden]="realizacija.length > 0">
+          Nema podataka
+        </ion-list-header>
+        <button ion-item detail-none *ngFor="let item of realizacija">
+              <h2 text-wrap>{{item.roba}}</h2>
+              <h3>Šifra {{item.sifra}}</h3>
+              <h3 text-wrap>Količina: {{item.kolicina  | number : '1.2-2'}};  HL: {{item.hl  | number : '1.2-2'}};   Iznos: {{item.iznos  | number : '1.2-2'}}</h3>
+        </button>
+
+        <ion-item no-lines style="border-top: 2px solid black" [hidden]="realizacija.length == 0">
+            <ion-label text-wrap><b>UKUPNO</b>   Količina:{{totalkolicina | number : '1.2-2'}};   HL:{{totalhL | number : '1.2-2'}};   Iznos:{{totaliznos | number : '1.2-2'}}</ion-label>
+        </ion-item>
+	</ion-list>
+       
+</ion-content>
+
+

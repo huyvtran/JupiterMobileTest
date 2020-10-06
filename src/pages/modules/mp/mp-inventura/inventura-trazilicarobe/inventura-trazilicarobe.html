@@ -1,0 +1,83 @@
+<!--
+  Generated template for the InventuraTrazilicarobePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <js-header title="Online inventura" [showClose]="true" [showFavorite]="false"></js-header>
+  <!-- <ion-navbar color="zelena">
+    <ion-title text-wrap> {{trgovina}}  - ONLINE </ion-title>
+  </ion-navbar> -->
+  <!-- <ion-toolbar color="light">
+
+    
+
+
+  </ion-toolbar> -->
+
+</ion-header>
+
+
+<ion-content>
+
+    <js-content></js-content>
+
+  <ion-item-divider text-wrap text-center style="background-color: #f1f1f1; color: black; font-weight: bold;">
+    {{trgovina}}
+  </ion-item-divider>
+
+  <ion-item-divider id="divider-top" style="padding-left: 0px;">
+
+      <ion-grid style="padding: 5px 0px; border-bottom: 1px solid #f1f1f1; box-shadow: none;">
+          <ion-row>
+    
+            <ion-col col-10>
+              <form (ngSubmit)="search()">
+    
+                <ion-searchbar placeholder="Traži robu.." class="some-class" [(ngModel)]="searchTerm" [formControl]="searchControl" autofocus></ion-searchbar>
+              </form>
+    
+            </ion-col>
+            <ion-col col-2>
+    
+              <button ion-button block icon-center color="skin1" (click)="search()">
+                <ion-icon name="search"></ion-icon>
+              </button>
+    
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+  </ion-item-divider>
+
+  <ion-fab bottom right>
+    <button (click)="skener()" color="skin1" ion-fab><ion-icon name="md-camera"></ion-icon></button>
+  </ion-fab>
+
+  <ion-list>
+
+    <ion-item-sliding [hidden]="nemapodataka==true" *ngFor="let item of items">
+
+      <button ion-item text-wrap (click)="prikaziDetaljeRobe(item)">
+        {{item.sifra}}
+        <br>
+        <strong> {{item.naziv}}</strong>
+        <br>
+
+      </button>
+
+      <!-- <ion-item-options>
+          <button color="danger" ion-button   (click)="deleteitem(item)">
+           delete
+          </button>
+        </ion-item-options> -->
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+  <ion-icon [hidden]="!nemapodataka" class="nemapodataka" class="ikonavelika" text-center name="eye-off"></ion-icon>
+  
+  <ion-label [hidden]="!nemapodataka" class="nemapodataka" text-center> Nema robe za prikaz! </ion-label>
+
+</ion-content>

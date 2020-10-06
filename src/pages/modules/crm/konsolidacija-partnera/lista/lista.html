@@ -8,8 +8,25 @@
 
     <js-content></js-content>
 
-    <ion-item-divider [hidden]='nemapodataka' color="light">
-        <div text-right style="padding-right: 5px; font-size: 13px;"> Saldo kupca / dobavljača</div>
+    <ion-item-divider [hidden]='nemapodataka' color="medium">
+        <!-- <div text-right style="padding-right: 5px; font-size: 13px;"> Saldo kupca / dobavljača</div> -->
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6 text-wrap style="font-size: 14px;">
+                    <strong>Firma</strong>
+                    <br> <span style="color: grey;">(Šifra)</span> <span style="font-size: 13px; color:grey;">Partner</span>
+                    <br>
+                    <span style="font-size: 14px; color: grey;">OIB</span>
+                </ion-col>
+                <ion-col col-6 text-wrap text-right style="font-size: 13px;">
+                    <strong>
+                    Saldo kupca
+                    / 
+                    dobavljača
+                  </strong>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </ion-item-divider>
     <ion-item detail-push *ngFor="let item of items" (click)="openDetalji(item)"> 
         <ion-grid>

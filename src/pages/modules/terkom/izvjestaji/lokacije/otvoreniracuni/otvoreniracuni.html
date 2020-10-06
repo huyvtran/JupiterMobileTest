@@ -1,0 +1,79 @@
+<ion-header>
+    <js-header title="Otvoreni računi" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+
+<ion-content>
+
+    <ion-item-divider sticky>
+        <ion-grid style="font-weight: bold;">
+            <ion-row>
+                <ion-col col-3>
+                    Broj
+                </ion-col>
+                <ion-col col-3 text-left>
+                    Datum
+                </ion-col>
+                <ion-col col-3 text-left>
+                    Dana
+                </ion-col>
+                <ion-col col-3 text-right>
+                    Iznos
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12 text-left>
+                    Napomena
+                </ion-col>
+
+            </ion-row>
+
+        </ion-grid>
+    </ion-item-divider>
+
+    <ion-list>
+        <ion-list-header [hidden]="otvoreniracuni.length > 0">
+            Nema podataka
+        </ion-list-header>
+
+        <ion-item *ngFor="let item of otvoreniracuni">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-3 text-wrap>
+                        {{item.broj}}
+                    </ion-col>
+                    <ion-col col-3 text-left>
+                        {{item.datum}}
+                    </ion-col>
+                    <ion-col text-wrap col-3 text-left>
+                        {{item.dana}}
+                    </ion-col>
+                    <ion-col col-3 text-right>
+                        {{item.iznos | number : '1.2-2'}}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-12 text-wrap>
+                        {{item.napomena}}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-6></ion-col>
+                    <ion-col col-3 text-left>
+                        <b>UKUPNO:</b>
+                    </ion-col>
+                    <ion-col col-3 text-right>
+                        <b>{{ukupno | number : '1.2-2'}}</b>
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+
+    </ion-list>
+</ion-content>

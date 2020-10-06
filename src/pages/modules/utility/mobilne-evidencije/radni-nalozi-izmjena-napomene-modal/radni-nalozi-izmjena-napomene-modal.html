@@ -1,0 +1,15 @@
+<ion-header>
+  <js-header-modal title="Unos napomene" [showClose]="true"></js-header-modal>
+</ion-header>
+
+<ion-content>
+  <js-content></js-content>
+
+  <ion-item>
+    <ion-label stacked><b>Napomena:</b></ion-label>
+      <ion-textarea text-wrap autosize rows="5" [(ngModel)]="kontrola.opis" type="text"></ion-textarea>
+  </ion-item>
+
+  <button ion-button type="submit" block (click)="spremiNapomenuIzatvori()" [disabled]="this.napomenaInit == this.kontrola.opis">Spremi</button>
+  
+</ion-content>

@@ -24,6 +24,7 @@ export class ModulesProvider {
 
     public modules : Array < any > = new Array < any > ();
     public granule : Array < any > = new Array < any > ();
+    public coremodules : Array < any > = new Array < any > (); //popis root granula na koje korisnik ima pravo (partner, roba, osobe);
 
     public sveGranule : Array < any > = new Array < any > ();
 
@@ -58,6 +59,8 @@ export class ModulesProvider {
     InitStorage() {
 
         var self = this;
+
+        //console.log(self.initialized)
         return new Promise(function (resolve, reject) {
 
             Promise
@@ -96,12 +99,14 @@ export class ModulesProvider {
     }
 
     populateFromDb() {
-
+        //console.log("modules from db")
         let self = this;
         return new Promise(function (resolve, reject) {
             self
                 .getServerData()
                 .then(data => {
+                    //console.log("populateNodeData");
+                    //console.log(data);
                     if (data != null) {
                         self.setData(data);
                         self.addToStorage(data);
@@ -122,6 +127,7 @@ export class ModulesProvider {
 
     setData(data) {
         this.modules = data.application; //.slice(0, 2);
+        this.coremodules = data.coremodules;
         this.getSveGranule();
     }
 
@@ -145,7 +151,8 @@ export class ModulesProvider {
     }
 
     getDataFromStorage() {
-        this
+        //console.log("modules from storage")
+        return this
             .storage
             .ready()
             .then(() => {
@@ -154,8 +161,14 @@ export class ModulesProvider {
                     .get(this.constProvider.coreStorageKeys.modules)
                     .then(val => {
                         let data = JSON.parse(val);
-                        console.log(data);
-                        this.setStorageRoot(data);
+
+                        if (data != null) {
+                            this.setData(data);
+                            this.setStorageRoot(data);
+                        }
+                        
+                        this.sync = false;
+
                         return data;
                     })
                     .then(val => {
@@ -188,17 +201,17 @@ export class ModulesProvider {
         this.infoModules = [
             {
                 title: 'Roba',
-                component: '',
+                component: this.constProvider.staticStartPages.infoRoba,
                 color: "#4a5f71",
                 icon: "cube"
             }, {
                 title: 'Partneri',
-                component: 'PartnerSearchPage',
+                component: this.constProvider.staticStartPages.infoPartner,
                 color: "#4a5f71",
                 icon: "briefcase"
             }, {
                 title: 'Osobe',
-                component: '',
+                component: this.constProvider.staticStartPages.infoOsobe,
                 color: "#4a5f71",
                 icon: "person"
             }
@@ -207,7 +220,11 @@ export class ModulesProvider {
 
     getServerData() {
 
-        let login = GlobalProvider.getJupiterSystemData.user.login;
+        let login = GlobalProvider.getJupiterSystemData? GlobalProvider.getJupiterSystemData.user.login : null;
+        
+        let properties: ICore.IPropertiesCore = {
+            showLoader: false
+        }
 
         let dataDef : ICore.IData = {
             "queries": [
@@ -243,12 +260,28 @@ export class ModulesProvider {
                     "tablename": "menu",
                     "reftable": "group",
                     "refkey": "GroupId"
+                },  {
+                    "query": "spMobCore",
+                    "params": {
+                        "action": "getMenuPermissions",
+                        "Login": login
+                    },
+                    "tablename": "permissions",
+                    "refkey" : "menuId",
+                    "reftable" : "menu"
+                },{
+                    "query": "spMobCore",
+                    "params": {
+                        "action": "getCoreModules",
+                        "Login": login
+                    },
+                    "tablename": "coremodules"
                 }
             ]
         }
         return this
             .data
-            .getData(dataDef, false)
+            .getData(dataDef, properties)
             .toPromise()
             .then(result => {
                 return result.json()

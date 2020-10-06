@@ -1,0 +1,84 @@
+<ion-header>
+    <js-header [title]="'HRM - Detalji odsustva'" ></js-header>
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+
+
+    <ion-list>
+        <accordion-list title="Info" textColor="#333" hasMargin="false" headerColor="#e6e6e6" [expanded]="true">
+            <ion-item>
+                <h3>Kadar</h3>
+                <h2>{{item.kadar ? item.kadar : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Od - do</h3>
+                <h2>{{item.datumod | date:'dd.MM.yyyy'}} - {{item.datumdo | date:'dd.MM.yyyy'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Nadređeni</h3>
+                <h2>{{item.nadredenik ? item.nadredenik : '...'}}</h2>
+                <ion-note item-end>
+                    <ion-icon name="checkmark-circle" [ngClass]="{'1':'odobreno','2':'odbijeno','0':'cekanje'}[item.odobrenonad]"></ion-icon>
+                </ion-note>
+            </ion-item>
+            <ion-item>
+                <h3>Zamjenik</h3>
+                <h2>{{item.zamjenik ? item.zamjenik : '...'}}</h2>
+                <ion-note item-end>
+                    <ion-icon name="checkmark-circle" [ngClass]="{'1':'odobreno','2':'odbijeno','0':'cekanje'}[item.odobrenozam]"></ion-icon>
+                </ion-note>
+            </ion-item>
+            <ion-item>
+                <h3>Napomena</h3>
+                <h2>{{item.napomena ? item.napomena : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Razlog odsustva</h3>
+                <h2>{{item.razlogodsustva ? item.razlogodsustva : '...'}}</h2>
+            </ion-item>
+        </accordion-list>
+        <accordion-list title="Službeni put" textColor="#333" hasMargin="false" headerColor="#e6e6e6">
+            <ion-item>
+                <h3>Mjesto putovanja</h3>
+                <h2>{{item.sputmjesto ? item.sputmjesto : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Naziv firme</h3>
+                <h2>{{item.sputfirma ? item.sputfirma : '...' }}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Zadatak</h3>
+                <h2>{{item.sputzadatak ? item.sputzadatak : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Može trajati..</h3>
+                <h2>{{item.sputmozetrajati ? item.sputmozetrajati : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Potrebna akontacija</h3>
+                <h2>{{item.sputakontacija ? item.sputakontacija : '0.00'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Prijevozno sredstvo</h3>
+                <h2>{{item.sputprijevoz ? item.sputprijevoz : '...'}}</h2>
+            </ion-item>
+            
+        </accordion-list>
+        <accordion-list title="Kontakt" textColor="#333" hasMargin="false" headerColor="#e6e6e6">
+            <ion-item>
+                <h3>Adresa</h3>
+                <h2>{{item.kontaktadresa ? item.kontaktadresa : '...'}}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Mjesto</h3>
+                <h2>{{item.kontaktmjesto ? item.kontaktmjesto : '...' }}</h2>
+            </ion-item>
+            <ion-item>
+                <h3>Telefon</h3>
+                <h2>{{item.kontakttelefon ? item.kontakttelefon : '...'}}</h2>
+            </ion-item>
+        </accordion-list>
+    </ion-list>
+</ion-content>

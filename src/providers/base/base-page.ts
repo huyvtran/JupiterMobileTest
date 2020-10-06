@@ -8,6 +8,7 @@ import {VariableProvider} from '../core/variable-provider';
 export class BasePage {
     global: GlobalProvider;
     variable: VariableProvider;
+    
     //private viewCtrl: ViewController
     constructor() {
         this.global = AppInjector.get(GlobalProvider);

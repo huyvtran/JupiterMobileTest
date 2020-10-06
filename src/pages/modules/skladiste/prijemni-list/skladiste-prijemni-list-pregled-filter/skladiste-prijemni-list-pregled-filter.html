@@ -1,0 +1,51 @@
+<ion-header>
+  <js-header-modal title="Filter"></js-header-modal>
+</ion-header>
+
+
+<ion-content no-padding>
+  <js-content></js-content>
+
+  <ion-list>
+      <ion-item-divider ion-item color="light">
+          Period
+          <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+          <button clear item-end ion-button icon-only (click)="presentPopover($event)">
+              <ion-icon name="more"></ion-icon>
+          </button>
+      </ion-item-divider>
+      <ion-item>
+          <ion-label>Datum od:</ion-label>
+          <ion-datetime [(ngModel)]="provider.primkeFilterDatumOd" displayFormat="DD.MM.YYYY" min="2000-01-01"></ion-datetime>
+      </ion-item>
+      <ion-item>
+          <ion-label>Datum do:</ion-label>
+          <ion-datetime [(ngModel)]="provider.primkeFilterDatumDo" displayFormat="DD.MM.YYYY" min="2000-01-01" max="2040"></ion-datetime>
+      </ion-item>
+  </ion-list>
+
+  <ion-list>
+      <ion-item-divider ion-item color="light">
+          Skladište
+          <ion-icon item-left name="ios-cube-outline"></ion-icon>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label fixed>Skladište:</ion-label>
+        <ion-select name="skladiste" [(ngModel)]="provider.primkeFilterSkladisteId">
+            <ion-option *ngFor="let skladiste of skladista" [value]="skladiste.id">{{skladiste.naziv}}</ion-option>
+        </ion-select>
+    </ion-item>
+      <!-- <ion-list radio-group [(ngModel)]="provider.primkeFilterSkladisteId">
+        <ion-item *ngFor="let skladiste of skladista">
+            <ion-label>{{skladiste.skladiste}}</ion-label>
+            <ion-radio value="{{skladiste.skladisteid}}"></ion-radio>
+        </ion-item>
+      </ion-list> -->
+  </ion-list>
+  
+
+  <ion-fab  class="ionFabMargin" bottom right>
+      <button ion-fab (click)="applyFilter()"><ion-icon name="checkmark"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>

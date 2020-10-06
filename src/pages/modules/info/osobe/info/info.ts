@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, ToastController } from 'ionic-angular';
 
-import { OsobainfoProvider } from '../../../../../providers/osobainfo-provider';
+import { OsobeinfoProvider } from '../../../../../providers/osobeinfo-provider';
 
 import {BasePage} from '../../../../../providers/base/base-page';
 
@@ -14,7 +14,7 @@ declare var window;
 })
 export class OsobaInfoPage extends BasePage {
 
-  constructor(public osoba: OsobainfoProvider, private toastCtrl: ToastController) {
+  constructor(public osoba: OsobeinfoProvider, private toastCtrl: ToastController) {
       super();
   }
 

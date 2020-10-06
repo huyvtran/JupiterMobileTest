@@ -7,11 +7,19 @@ import {ICompany} from '../../interfaces/core/company';
 
 @Injectable()
 export class VariableProvider {
+    public customWebApi: string; //webApi iz ssAplikacije ili ssMeni polja - bilježim prilikom klika na granulu
+
+    /***!!!ToDo: promijeniti***/
+    // serviceCustomUrl: string = "http://ts1.zito.hr/jupitermobileterkom/api/"; 
+    hasInternet = 0;
+
     public static pagesHistory : Array < string > = new Array < string > ();
     public static serverPath : string = "";
     public static refreshToken : string = "";
     public static accessToken : string = "";
     public static pushRegistrationId: string = "";
+
+    //public moduleId: string = ""; //modul uz page; JupiterStyle; npr; mob:PartnerInfo:moduleId
 
     public loaderActive: boolean = false; //load spinner ("učitavanje...")
     public defShowError: boolean = false; //default - prikaz greške u toast kontroli
@@ -33,7 +41,8 @@ export class VariableProvider {
 
     public appUnlocked : Array<IAppUnlocked> = [];
     
-
+    //code zadnje pokrenute aplikacije; npr. terkom-mobile
+    public lastAppCode: string = "";
 
     constructor() {
     }

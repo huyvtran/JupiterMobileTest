@@ -1,0 +1,56 @@
+<ion-header>
+        <js-header title="Stanje skladišta - kartica" [showClose]="false" [showFavorite]="false"></js-header>
+
+</ion-header>
+
+
+<ion-content>
+       
+        <ion-item >
+                <ion-label>Prikaži nezaključene</ion-label>
+                <ion-toggle color="blue" [(ngModel)]="nezakljuceni" (ionChange)="filtriraj(nezakljuceni)"></ion-toggle>
+        </ion-item>
+        <ion-item-divider sticky>
+                <ion-grid style="font-weight: bold;">
+                        <ion-row>
+                                <ion-col col-2>
+                                        Tip
+                                </ion-col>
+                                <ion-col col-2 text-left>
+                                        Status
+                                </ion-col>
+                                <ion-col col-4 text-left>
+                                        Broj
+                                </ion-col>
+                                <ion-col col-4 text-right>
+                                        Kolicina
+                                </ion-col>
+                        </ion-row>
+                </ion-grid>
+        </ion-item-divider>
+        <ion-list>
+                <ion-list-header [hidden]="kartica.length > 0">
+                        Nema podataka
+                </ion-list-header>
+
+                <ion-item *ngFor="let item of kartica">
+                        <ion-grid>
+                                <ion-row>
+                                        <ion-col col-2 text-wrap>
+                                                {{item.tip}}
+                                        </ion-col>
+                                        <ion-col col-2 text-left>
+                                                {{item.status == 0 ? 'O' : 'Z'}}
+                                        </ion-col>
+                                        <ion-col col-4 text-left>
+                                                {{item.broj}}
+                                        </ion-col>
+                                        <ion-col col-4 text-right>
+                                                {{item.kolicina}}
+                                        </ion-col>
+                                </ion-row>
+                        </ion-grid>
+                </ion-item>
+
+        </ion-list>
+</ion-content>

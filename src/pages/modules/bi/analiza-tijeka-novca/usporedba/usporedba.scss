@@ -1,7 +1,25 @@
 page-bi-analiza-tijeka-novca-usporedba {
 
+ion-icon.accordion-icon {
+    // padding-top: 9px; 
+    font-size: 20px;
+    transition: all .25s ease-in; 
+    transform: rotate(0);
+}
+accordion-list .active ion-icon.accordion-icon {
+     transform: rotate(90deg);
+     margin-bottom: 5px!important;
+}
     accordion-list .accordion-content.active {
-        padding:0;
+        padding: 0!important; 
+    }
+
+    .item-md ion-icon[item-left], .item-md ion-icon[item-right], .item-md ion-icon[item-start], .item-md ion-icon[item-end] {
+        margin-bottom: -2px!important;
+    }
+
+    .item-ios ion-icon[item-left], .item-ios ion-icon[item-right], .item-ios ion-icon[item-start], .item-ios ion-icon[item-end] {
+        margin-bottom: -8px!important;
     }
 
     .container {
@@ -13,11 +31,28 @@ page-bi-analiza-tijeka-novca-usporedba {
         }
     }
 
+accordion-list ion-list, accordion-list ion-list-header {
+  margin-bottom: 0px !important;
+  //border-bottom: 0.2px solid #ccc !important;
+}
+.list-md {
+    margin: -7px 0 16px;
+}
+.list-ios {
+    margin: -11px 0 16px;
+}
 
+.label-md {
+    padding-top: 1px;
+}
+.list-md .item-block .item-inner, .item-md.item-block .item-inner {
+    border-bottom: 0px!important;
+    //height:30px;
+}
 	
-	.container .a, .container .b  {
+	.container .a, .container .b, .container .b1, .container .a1  {
         flex: 50%;
-        font-weight:600;
+        font-weight:500;
         text-align: right;
         color: #222;
         &.includeB{
@@ -39,7 +74,7 @@ page-bi-analiza-tijeka-novca-usporedba {
     }
 
 
-    ion-header .container .a, ion-header .container .b  {
+    ion-header .container .a, ion-header .container .b1, .container .a1  {
         padding: 4px;
         font-size:1.2rem;
         font-weight:400;
@@ -59,23 +94,40 @@ page-bi-analiza-tijeka-novca-usporedba {
         }
         
 	}
-	.container .b {
+
+    .container .b1 {
         //background: #E6E6FA;
+        //background: #ffe9e7;
         background: #ffe9e7;
+        //background: #fff4f3;
+    }
+
+ .container .a1 {
+        //background: #E6E6FA;
+        //background: #ffe9e7;
+        background: #edefef;
+        //background: #fff4f3;
+    }
+	.container .b {
+        
+        background: lighten(#ffe9e7,2%);
     }
     
     .container.highlight .a {
         background: #edefef;
+        
     }
 
     .container.highlight {
         &.excludeB{
             background: #edefef;
+            font-weight: 500;
+            padding: 10px 6px;
         }
     }
 
     .container.highlight .b {
-        background: #f2e1de;
+        background: #ffe9e7;
     }
 
     span.a, .container .a {
@@ -87,8 +139,15 @@ page-bi-analiza-tijeka-novca-usporedba {
         font-size:1.4rem;
     }
 
+    .container.highlight .info{
+        font-weight: 500;
+        padding-top: 2px;
+    }
+
+
+
 	.info 
-	{
+    {
         &.includeB
         {
             color:#444;
@@ -98,14 +157,97 @@ page-bi-analiza-tijeka-novca-usporedba {
             letter-spacing: 1px;
             left: 0; 
             right: 0; 
-            text-align:center;  
+            text-align:center;
+              
         }
+
         &.excludeB
         {
+            padding-left:44px;
+            padding-top:2px;
             font-size:1.2rem;
             display: table-cell;
             vertical-align:middle!important;
             color:#222;
+            
+            
         }
+       
 	}
+
+.custheader
+    {
+        display: flex;
+        height: 43px;
+        //border-bottom: 0.2px solid #ccc;
+         
+    }
+
+  .custheader .includeb1
+    {
+        padding: 25px 6px 4px 6px;
+        flex:50%;
+        text-align: right;
+        // color: steelblue;
+        color:#364b5e;
+        font-size:1.4rem;
+        font-weight: 500;
+        //border-bottom: 0.2px solid #ccc;
+         
+    }
+
+  .custheader .includeb2
+    {
+            padding: 25px 6px 4px 6px;
+        flex:50%;
+        text-align: right;
+        background: #ffe9e7;
+        //background: #FFD2CE;
+        color: #8B0000;
+        font-size:1.4rem;
+        font-weight: 500;
+         
+    }
+
+ .custheader .includeb3
+    {
+        padding: 19px 6px 4px 50px;
+        flex:50%;
+        text-align: left;
+        // color: steelblue;
+        color:#222;
+        font-size:1.2rem;
+        font-weight: 500;
+         
+    }
+
+  .custheader .includeb4
+    {
+        padding: 18px 6px 4px 6px;
+        flex:50%;
+        text-align: right;
+        //background: #ffe9e7;
+        //background: #FFD2CE;
+        color: #364b5e;
+        font-size:1.4rem;
+        font-weight: 500;
+         
+    }
+
+    .info1
+    {
+        color:#444;
+        position: absolute;
+        letter-spacing: 1px;
+            left: 0;
+            right: 0;
+            text-align:  center;
+        top: 7px;
+         font-size:7pt;
+         font-weight: 500;
+         //font-weight: bold;
+         
+    }
+
+
 }

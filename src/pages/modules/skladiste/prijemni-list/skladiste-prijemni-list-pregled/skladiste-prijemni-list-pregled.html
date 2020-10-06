@@ -1,0 +1,119 @@
+<ion-header>
+  <js-header title="Pregled dokumenata" [showClose]="true" [showFavorite]="true"></js-header>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="dokumentiSegment" color="skin1" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="0">
+        Moji dokumenti <ion-badge>{{originalMojiDokumentiList.length}}</ion-badge>
+      </ion-segment-button>
+      <ion-segment-button value="1" (click)="segmentChanged($event)">
+          Filtrirani dokumenti <ion-badge item-end>{{originalFiltriraniDokumentiList.length}}</ion-badge>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-note *ngIf="dokumentiSegment=='1' && provider.primkeFilterSkladisteNaziv != undefined">
+        <span class="filterText">Filter: {{provider.primkeFilterSkladisteNaziv}}, {{provider.primkeFilterDatumOd | date:'dd.MM.yyyy.'}} - {{provider.primkeFilterDatumDo | date:'dd.MM.yyyy.'}}</span>
+    </ion-note>
+    <ion-list>
+        <ion-item class="headerCaptionOrder">
+            <ion-grid>
+                <ion-row text-wrap>
+                    <ion-col>Broj</ion-col><ion-col class="textAlignRight">Datum</ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col style="color:rgb(150,150,150)">Partner</ion-col>
+                </ion-row>
+                <ion-row text-wrap>
+                    <ion-col>Skladište</ion-col><ion-col  class="textAlignRight">Status</ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-padding>
+  <js-content></js-content>
+  <js-nodata *ngIf="dokumentiSegment=='0' && originalMojiDokumentiList.length==0" message="Nema dokumenata"></js-nodata>
+  <js-nodata *ngIf="dokumentiSegment=='1' && originalFiltriraniDokumentiList.length==0" message="Nema dokumenata za odabrani prikaz"></js-nodata>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Povuci za osvježavanje"
+        refreshingSpinner="circles"
+        refreshingText="Osvježavam podatke...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-list *ngIf="dokumentiSegment=='0'">
+    <ion-item-sliding *ngFor="let mojDok of mojiDokumentiList">   
+        <button ion-item (click)="presentPrimkaDetaljPage(mojDok.nabpriglaid, mojDok.skladisteid, mojDok.partneriid)"> 
+            <ion-grid [ngClass]="{'red' : mojDok.inducitano == 0, 'green': mojDok.inducitano == 1}" >
+                <!-- provjeriti inducitano.. koji je broj, ako je jedan onda zeleno, u suprotnom crveno -->
+                <ion-row text-wrap>
+                        <ion-col col-8>{{mojDok.broj}}</ion-col>
+                        <ion-col col-4 class="textAlignRight">{{mojDok.datumdok | date:'dd.MM.yyyy.'}}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="color:rgb(150,150,150)">{{mojDok.partner}}</ion-col>
+                    </ion-row>
+                    <ion-row text-wrap>
+                        <ion-col col-8>{{mojDok.skladiste}}</ion-col>
+                        <ion-col col-4 class="textAlignRight"><span [style.color]="mojDok.statuscolor">{{mojDok.status}}</span></ion-col>
+                </ion-row>
+            </ion-grid>
+        </button>
+    <ion-item-options side="right">
+        <button [disabled]="mojDok.statusid!=0" ion-button (click)="primkaDelete(mojDok.nabpriglaid)" color="danger">
+            <ion-icon name="trash"><br>Obriši</ion-icon>
+        </button>
+    </ion-item-options>
+    <ion-item-options side="left">
+        <button [disabled]="mojDok.statusid!=1" ion-button (click)="primkaPonistiZakljucak(mojDok.nabpriglaid)" color="primary">
+            <ion-icon name="undo"><br>Poništi<br> zaključak</ion-icon>
+        </button>
+    </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-list *ngIf="dokumentiSegment=='1'" class="margin-top">
+      <ion-item-sliding *ngFor="let filterDok of filtriraniDokumentiList">
+        <button ion-item (click)="presentPrimkaDetaljPage(filterDok.nabpriglaid, filterDok.skladisteid, filterDok.partneriid)">  
+            <ion-grid [ngClass]="{'red' : filterDok.inducitano == 0, 'green': filterDok.inducitano == 1}">
+                <ion-row text-wrap>
+                    <ion-col>{{filterDok.broj}}</ion-col><ion-col class="textAlignRight">{{filterDok.datumdok | date:'dd.MM.yyyy.'}}</ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col style="color:rgb(150,150,150)">{{filterDok.partner}}</ion-col>
+                </ion-row>
+                <ion-row text-wrap>
+                    <ion-col>{{filterDok.skladiste}}</ion-col><ion-col class="textAlignRight"><span [style.color]="filterDok.statuscolor">{{filterDok.status}}</span></ion-col>
+                </ion-row>
+            </ion-grid>
+        </button>
+        <ion-item-options side="right">
+            <button [disabled]="filterDok.statusid!=0" ion-button (click)="primkaDelete(filterDok.nabpriglaid)" color="danger">
+                <ion-icon name="trash"><br>Obriši</ion-icon>
+            </button>
+        </ion-item-options>
+        <ion-item-options side="left">
+            <button [disabled]="filterDok.statusid!=1" ion-button (click)="primkaPonistiZakljucak(filterDok.nabpriglaid)" color="primary">
+                <ion-icon name="undo"><br>Poništi<br> zaključak</ion-icon>
+            </button>
+        </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      [loadingText]="getDynamicLoadingText()" >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<ion-fab  class="ionFabMargin" bottom right>
+    <button ion-fab  (click)="presentPrimkaUnosPage()"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
+
+<ion-fab [hidden]="this.dokumentiSegment!=1" style="margin-right:80px"  class="ionFabMargin" bottom right>
+    <button ion-fab mini color="skin1" (click)="presentFilterModal()"><ion-icon name="funnel"></ion-icon></button>
+</ion-fab>

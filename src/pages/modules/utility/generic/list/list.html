@@ -1,0 +1,71 @@
+<ion-header>
+    <js-header title="Pregled dokumenata" [showClose]="true">
+        <button js-buttons-end clear color="light" (click)="searchOptions()" ion-button icon-only>
+            <ion-icon name="options"></ion-icon>
+        </button>
+    </js-header>
+    <div class="sub">
+        Filtrirano po: {{genericProvider.searchString}}
+    </div>
+
+</ion-header>
+
+<ion-content>
+    <js-content></js-content>
+    <js-nodata *ngIf="dokumenti?.length == 0" message="Trenutno nemate dokumenata"></js-nodata>
+    <ion-list>
+        <ng-container *ngFor="let dok of dokumenti">
+
+            <ion-item-sliding #slPr (swipe)="slideItem(dok)">
+                <button ion-item detail-none (click)="setCard(dok)" [ngClass]="{'test': dok.id==id}">
+                    <strong text-wrap>{{dok.dokument}}</strong>
+                    <table class="kup-table">
+                        <tr>
+                            <td>Datum : </td>
+                            <td>{{dok.datum | date : 'dd.MM.yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Iznos:</td>
+                            <td>{{dok.iznos | number: '1.2-2'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Partner: </td>
+                            <td text-wrap>{{dok.partner}}</td>
+                        </tr>
+                    </table>
+
+
+                    <div style="position:absolute; top:16px; right:10px;">
+                        <!-- <ion-icon name="ios-paper-outline"></ion-icon> -->
+                        <span style="opacity:0.7; font-style: italic">stavaka: <strong>&nbsp;{{dok.brojstavaka}}</strong></span>
+                    </div>
+                </button>
+                <ion-item-options side="right">
+                    <button ion-button icon-only (click)="info(slPr, dok)" color="primary">
+                        <ion-icon name="information-circle"></ion-icon>
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+            <ion-grid *ngIf="dok.id==id" style="background-color:#d5d5d5" [hidden]="!settings.functionbuttons?.showdms && !settings.functionbuttons?.showrepx && !settings.functionbuttons?.showsignature">
+                <ion-row>
+                    <ion-col col-4 [hidden]="!settings.functionbuttons?.showrepx">
+                        <button ion-button color="dark" full (click)="pregled(dok)">
+                            <ion-icon name="eye"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col col-4 [hidden]="!settings.functionbuttons?.showsignature">
+                        <button ion-button color="primary" full (click)="openSignaturePage(dok)">Potpiši</button>
+                    </ion-col>
+                    <ion-col col-4 [hidden]="!settings.functionbuttons?.showdms">
+                        <button ion-button color="skin1" full (click)="openDMSPage(dok)">DMS ({{dok.brojdokumenata}})</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+
+
+
+        </ng-container>
+    </ion-list>
+
+</ion-content>

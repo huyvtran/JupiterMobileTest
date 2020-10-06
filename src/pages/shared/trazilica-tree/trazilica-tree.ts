@@ -40,20 +40,30 @@ export class SharedTrazilicaTreePage extends BasePage {
     }
 
     getData() {
-        let data : ICore.IData = {
-            "queries": [
-                {
-                    "query": "spMobTrazilica",
-                    "params": {
-                        "action": this.modalNavPage.action,
-                        "id": this.item.id
+        console.log("getData");
+        console.log("1");
+        let data : ICore.IData 
+        if (this.modalNavPage.query != null) {
+            data = this.modalNavPage.query;
+        } else {
+            data = {
+                "queries": [
+                    {
+                        "query": "spMobTrazilica",
+                        "params": {
+                            "action": this.modalNavPage.action,
+                            "id": this.item.id
+                        }
                     }
-                }
-            ]
+                ]
+            }
         }
+        console.log("2");
+        console.log(data);
+        console.log("3");
         return this
             .global
-            .getData(data, true);
+            .getData(data);
     }
 
     next(item) {
