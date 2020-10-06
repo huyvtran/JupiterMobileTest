@@ -18,6 +18,7 @@ export class ManagerKpiPokazeteljiPage extends BasePage {
         dat.setDate(dat.getDate() - 1);
         managerKpiProvider.datum = dat.toISOString();
 
+        
         this.getData(0);
     }
 
